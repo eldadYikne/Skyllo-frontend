@@ -1,6 +1,8 @@
 import { TaskPreview } from "./task-preview";
 
 export function TaskList() {
+
+    return (
     <section className="task-list">
             <li key="1">
                 <TaskPreview />
@@ -15,4 +17,6 @@ export function TaskList() {
                 <TaskPreview />
             </li>
         </section>
+
+    )
 }

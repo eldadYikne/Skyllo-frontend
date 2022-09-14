@@ -1,0 +1,21 @@
+
+.board-preview {
+
+    background-position:center center; 
+    background-size:cover;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 96px;
+    padding: 10px 0 0 10px;
+    width: 182px;
+    margin-bottom: 15px;
+
+   &.create-board{
+    position: relative;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #091e420a ;
+   }
+}
