@@ -8,6 +8,10 @@ import routes from './routes'
 import { AppHeader } from './cmps/app-header'
 import { AppFooter } from './cmps/app-footer'
 import { UserDetails } from './pages/user-details'
+import { HomePage } from './pages/home-page'
+import { WorkSpace } from './pages/workspace'
+import { LoginSignup } from './cmps/login-signup'
+import { TaskDetails } from './cmps/task-details'
 
 export class RootCmp extends React.Component {
 
@@ -17,8 +21,12 @@ export class RootCmp extends React.Component {
                 <AppHeader />
                 <main>
                     <Routes>
-                        {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)}
-                        <Route path="user/:id" element={<UserDetails />} />
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='login' element={<LoginSignup />} />
+                        <Route path='workspace' element={<WorkSpace />} />
+                        <Route path="board/:id" element={<BoardApp />} >
+                            <Route path="board/:id/task/:id" element={<TaskDetails />} />
+                        </Route>
                     </Routes>
                 </main>
                 <AppFooter />
