@@ -74,32 +74,32 @@ function getEmptyBoard() {
 
 
 
-const activity = {
-    id: utilService.makeId(),
-    txt: "Changed Color",
-    createdAt: Date.now(),
-    byMember: userService.getLoggedinUser(),
-    task: task
-}
+// const activity = {
+//     id: utilService.makeId(),
+//     txt: "Changed Color",
+//     createdAt: Date.now(),
+//     byMember: userService.getLoggedinUser(),
+//     task: 'task'
+// }
 
-// Store - saveTask
-function storeSaveTask(task, activity) {
+// // Store - saveTask
+// function storeSaveTask(task, activity) {
     
-    board = boardService.saveTask(boardId, groupId, task, activity)
-    commit(board)
-}
+//     board = boardService.saveTask(boardId, groupId, task, activity)
+//     commit(board)
+// }
 
-// boardService
-function saveTask(boardId, groupId, task, activity) {
-    const board = getById(boardId)
-    // PUT /api/board/b123/task/t678
+// // boardService
+// function saveTask(boardId, groupId, task, activity) {
+//     const board = getById(boardId)
+//     // PUT /api/board/b123/task/t678
 
-    // TODO: find the task, and update
-    board.activities.unshift(activity)
-    saveBoard(board)
-    // return board
-    // return task
-}
+//     // TODO: find the task, and update
+//     board.activities.unshift(activity)
+//     saveBoard(board)
+//     // return board
+//     // return task
+// }
 
 
 const board = {

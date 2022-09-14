@@ -3,15 +3,13 @@ import React from 'react'
 // const { Switch, Route } = ReactRouterDOM
 import { Routes, Route } from 'react-router'
 
-import routes from './routes'
 
 import { AppHeader } from './cmps/app-header'
-import { AppFooter } from './cmps/app-footer'
-import { UserDetails } from './pages/user-details'
 import { HomePage } from './pages/home-page'
 import { WorkSpace } from './pages/workspace'
 import { LoginSignup } from './cmps/login-signup'
 import { TaskDetails } from './cmps/task-details'
+import { BoardApp } from './pages/board-app'
 
 export class RootCmp extends React.Component {
 
@@ -29,7 +27,6 @@ export class RootCmp extends React.Component {
                         </Route>
                     </Routes>
                 </main>
-                <AppFooter />
             </div>
         )
     }
