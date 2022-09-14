@@ -9,10 +9,13 @@ $clrText: #172B4D;
 //list
 $clr-bar: #091e420a;
 
-$hover: rgb(250, 252, 255);
+$hover: #091e4214;
 $focos:  darken($hover, 5%);
 
 // Breakpoints
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
+
+//group
+$clrGrPreview: #ebecf0;

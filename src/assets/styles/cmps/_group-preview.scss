@@ -1,0 +1,32 @@
+.group-preview {
+    background-color: #ebecf0;
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    vertical-align: top;
+    border-radius: 3px;
+    max-height: 100%;
+    margin-inline-end: 7px;
+
+    h1 {
+        padding: 5px;
+    }
+
+    .add-task {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding-inline-start: 10px;
+        gap: 5px;
+
+        &:hover {
+            background-color: $hover;
+        }
+
+        >*{
+            color: inherit;
+        }
+    }
+
+    
+}
