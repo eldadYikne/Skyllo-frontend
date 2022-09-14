@@ -35,4 +35,15 @@ export class RootCmp extends React.Component {
     }
 }
 
+// Sign-up
+// Login
 
+// HomePage
+
+// WorkSpace --> BoardList--->BoardPreview 
+
+// BoardApp--(BoardHeader)--->GroupList--->GroupPreview--->TaskList--->TaskPreview
+
+// TaskDetails-->DynamicCmp
+
+// DynamicCmp ( TaskMember,TaskLabel,TaskCover,TaskCopy,TasdDate,TaskAttachment,TaskCheckList)

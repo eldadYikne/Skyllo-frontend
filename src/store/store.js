@@ -1,17 +1,17 @@
 // const { createStore, applyMiddleware, combineReducers, compose } = Redux
 // const thunk = ReduxThunk.default
 
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
+import { legacy_createStore as createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 
-import { carReducer } from './car.reducer.js'
+import { boardReducer } from './board.reducer.js'
 import { userReducer } from './user.reducer.js'
 import { reviewReducer } from './review.reducer'
 import { systemReducer } from './system.reducer'
 
 const rootReducer = combineReducers({
-    carModule: carReducer,
+    boardModule: boardReducer,
     userModule: userReducer,
     systemModule: systemReducer,
     reviewModule: reviewReducer,
