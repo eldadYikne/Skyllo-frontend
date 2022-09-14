@@ -13,13 +13,13 @@
 }
 
 @mixin for-normal-layout {
-    @media (min-width: calc($narrow-breakpoint + 40)) {
+    @media (min-width: $narrow-breakpoint) {
         @content;
     }
 }
 
 @mixin for-wide-layout {
-    @media (min-width: calc($normal-breakpoint + 40)) {
+    @media (min-width: $normal-breakpoint) {
         @content;
     }
 }
