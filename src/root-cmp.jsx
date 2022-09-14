@@ -22,7 +22,7 @@ export class RootCmp extends React.Component {
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
                         <Route path='workspace' element={<WorkSpace />} />
-                        <Route path="board/:id" element={<BoardApp />} >
+                        <Route path="workspace/board/:id" element={<BoardApp />} >
                             <Route path="board/:id/task/:id" element={<TaskDetails />} />
                         </Route>
                     </Routes>

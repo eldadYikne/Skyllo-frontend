@@ -1,6 +1,7 @@
 // Colors
+$clr0: #ffffff;
 $clr1: #026AA7; //main-header(blue)
-$clr2: #ebecf0;  // bg-group-preview
+$clr2: #ebecf0; // bg-group-preview
 
 //main colors
 $clrBg: #FAFBFC;
@@ -10,7 +11,7 @@ $clrText: #172B4D;
 $clr-bar: #091e420a;
 
 $hover: rgb(250, 252, 255);
-$focos:  darken($hover, 5%);
+$focos: darken($hover, 5%);
 
 // Breakpoints
 $mobile-breakpoint: 460px;
