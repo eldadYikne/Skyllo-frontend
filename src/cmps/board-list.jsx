@@ -1,21 +1,47 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { AddBoard } from './add-board';
 
-export function BoardList() {
-    return (
- <section className="board-list">
- <li key="1">
-     <Link key='1' to="board/1">Board 1</Link>
- </li>
- <li key="2">
-     <Link key='2' to="board/2">Board 2</Link>
- </li>
- <li key="3">
-     <Link key='3' to="board/3">Board 3</Link>
- </li>
- <li key="4">
-     <Link key='4' to="board/4">Board 4</Link>
- </li>
-</section>
-        
-    )
+export function BoardList({ boards }) {
+
+    const [bgColorCreate, setColorCreate] = useState('red')
+    const [createIsShown, setIsShown] = useState(false)
+
+
+    const onChangeColor = (ev) => {
+        ev.preventDefault()
+        console.log(ev.target.name);
+        setColorCreate(ev.target.name)
+    }
+
+
+
+    return <div className='workspace'>
+        <span>Popular templates</span>
+
+        <section className="board-list">
+            <div style={{ backgroundColor: bgColorCreate }} onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
+                Creat New Board
+            </div>
+            {createIsShown && <AddBoard onChangeColor={onChangeColor} />}
+
+
+            {boards.map(board => {
+                let bgImg = board.style.bgImg
+                return <Link key={board._id} to={`board/${board._id}`} >
+                    <div style={{ backgroundImage: `url(${bgImg}) ` }} className='board-preview'>
+                        {board.title}
+                    </div>
+                </Link>
+
+            })}
+
+
+        </section>
+    </div >
+
+
 }
+
+
+

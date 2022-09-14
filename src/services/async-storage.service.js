@@ -1,3 +1,4 @@
+import { boardService } from "./board.service"
 
 export const storageService = {
     query,
@@ -9,7 +10,7 @@ export const storageService = {
 }
 
 function query(entityType, delay = 600) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || []
+    var entities = JSON.parse(localStorage.getItem(entityType)) || boardService.getBoard()
 
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{

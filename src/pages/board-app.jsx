@@ -1,30 +1,39 @@
 // import React, { useEffect } from 'react'
 // import { connect } from 'react-redux'
 // import { loadBoards, addBoard, updateBoard, removeBoard } from '../store/board.actions.js'
+
 import { Outlet } from "react-router-dom";
-import { BoardHeader } from "../cmps/board-header";
-import { GroupList } from "../cmps/group-list";
+
 // import { boardService } from '../services/board.service.js'
+
 export function BoardApp() {
+
     // useEffect(() => {
     //     loadBoards()
     // }, [])
-    // const onRemoveBoard = (boardId) => {
-    //     removeBoard(boardId)
+
+    // const onRemoveGroup = (groupId) => {
+    //     removeGroup(groupId)
     // }
-    // const onAddBoard = () => {
-    //     const board = boardService.getEmptyBoard()
-    //     board.vendor = prompt('Vendor?')
-    //     addBoard(board)
+    // const onAddGroup = () => {
+    //     const group = GroupService.getEmptyGroup()
+    //     addGroup(Group)
     // }
-    // const onUpdateBoard = (board) => {
+    // const onUpdateGroup = (group) => {
     //     const price = +prompt('New price?')
-    //     const boardToSave = { ...board, price }
-    //     updateBoard(boardToSave)
+    //     const groupToSave = { ...group, price }
+    //     updateGroup(groupToSave)
     // }
+    
+   
+
     return <div>
             <h1 style={{color: 'black'}}>Boards App</h1>
-            <BoardHeader />
-            <GroupList />
+            <Outlet/>
+            
+    
         </div>
+    
 }
+
+

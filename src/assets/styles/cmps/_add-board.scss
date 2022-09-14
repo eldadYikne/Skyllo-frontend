@@ -1,0 +1,32 @@
+.creat-board-model {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 15px;
+    background-color: $clr2;
+    left: 185px;
+    top:76;
+
+    & .colors-container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 3px;
+        width: 80%;
+        
+        
+        & div{
+            display: flex;
+            flex-direction: row;
+            gap:5px;
+
+        }
+        & img {
+            height: 32px;
+            width: 46px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    }
+}
