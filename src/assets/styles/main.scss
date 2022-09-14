@@ -9,21 +9,29 @@
 @import "basics/layout";
 @import "basics/base";
 @import "basics/links";
-@import "basics/forms";
 
 
 // Views
 @import "views/about-us";
 @import "views/home-page";
-@import "views/car-app";
-@import "views/review-app";
+@import "views/board-app";
+@import "views/workspace";
+
 
 // Components
 @import "cmps/app-header";
-@import "cmps/app-footer";
 @import "cmps/user-msg";
+@import "cmps/login";
+@import "cmps/signup";
 
+@import "cmps/board-header";
+@import "cmps/board-list";
+@import "cmps/board-preview";
 
+@import "cmps/task-list";
+@import "cmps/task-preview";
+@import "cmps/task-details";
+@import "cmps/dynamic-cmps";
 
 
 

@@ -8,7 +8,7 @@ function FancyBox(props) {
             <button style={{ float: 'right' }} onClick={props.onClose}>x</button>
             {props.children}
         </div>
-    }
+    
     
 FancyBox.propTypes = {
     onClose: PropTypes.func.isRequired
