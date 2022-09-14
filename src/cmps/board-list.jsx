@@ -4,7 +4,7 @@ import { AddBoard } from './add-board';
 
 export function BoardList({ boards }) {
 
-    const [bgColorCreate, setColorCreate] = useState('red')
+    const [bgColorCreate, setColorCreate] = useState('')
     const [createIsShown, setIsShown] = useState(false)
 
 

@@ -3,6 +3,8 @@
 // import { loadBoards, addBoard, updateBoard, removeBoard } from '../store/board.actions.js'
 
 import { Outlet } from "react-router-dom";
+import { BoardHeader } from "../cmps/board-header";
+import { GroupList } from "../cmps/group-list";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -27,11 +29,9 @@ export function BoardApp() {
     
    
 
-    return <div>
-            <h1 style={{color: 'black'}}>Boards App</h1>
-            <Outlet/>
-            
-    
+    return <div className="board-app">
+            <BoardHeader />
+            <GroupList />
         </div>
     
 }
