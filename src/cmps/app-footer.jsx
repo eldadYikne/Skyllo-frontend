@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { removeFromCart, checkout } from '../store/car.actions'
+import { removeFromCart, checkout } from '../store/board.actions'
 import { UserMsg } from './user-msg.jsx'
 
 function _AppFooter({ count, cart, removeFromCart, checkout }) {

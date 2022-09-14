@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { CSSTransitionGroup } from 'react-transition-group'
 
 
-function FancyBox(props) {
+function FancyBox(props) {
         return <div className="fancy-box">
-            <button style={{ float: 'right' }} onClick={props.onClose}>x</button>
-            {props.children}
+    <button style={{ float: 'right' }} onClick={props.onClose}>x</button>
+  {props.children}
         </div>
     
     
