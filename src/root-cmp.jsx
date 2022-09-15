@@ -22,8 +22,8 @@ export class RootCmp extends React.Component {
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
                         <Route path='workspace' element={<WorkSpace />} />
-                        <Route path="workspace/board/:id" element={<BoardApp />} >
-                            <Route path="board/:id/task/:id" element={<TaskDetails />} />
+                        <Route path="workspace/board/:boardId" element={<BoardApp />} >
+                            <Route path=":groupId/:taskId" element={<TaskDetails />} />
                         </Route>
                     </Routes>
                 </main>

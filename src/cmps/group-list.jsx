@@ -1,26 +1,25 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { boardService } from '../services/board.service'
 import { storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
+import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
 
 export function GroupList () {
   const board = useSelector(state => state.boardModule.board)
   const dispatch = useDispatch()
-  const params = useParams()
 
   const [isAddGroup, setIsAddGroup] = useState(false)
 
-  const addGroup = (ev) => {
+  const onAddGroup = (ev) => {
     ev.preventDefault()
     console.log('maaaaa', ev.target[0].value)
 
     const listTitle = ev.target[0].value
 
-    dispatch(storeAddGroup(board._id, listTitle, ''))
+    dispatch(addGroup(board._id, listTitle, 'user added a List'))
   }
 
   return (
@@ -28,7 +27,7 @@ export function GroupList () {
       {board.groups.map(group => {
         return (
           <li key={group.id}>
-            <GroupPreview group={group} />
+            <GroupPreview group={group} boardId={board._id}/>
           </li>
         )
       })}
@@ -63,7 +62,7 @@ export function GroupList () {
 
       {isAddGroup && (
         <div className='add-group-form'>
-          <form className='add-group' onSubmit={addGroup}>
+          <form className='add-group' onSubmit={onAddGroup}>
             <input type='text' placeholder='Enter list title' />
             <div className='add-group-actions'>
               <button className='add-group-btn'>Add list</button>

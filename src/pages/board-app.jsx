@@ -19,7 +19,7 @@ export function BoardApp() {
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getCurrBoard(params.id))
+        dispatch(getCurrBoard(params.boardId))
     }, [])
     
     const board = useSelector(state => state.boardModule.board)
@@ -40,7 +40,8 @@ export function BoardApp() {
 
     return <div className="board-app">
         <BoardHeader />
-        {board && <GroupList  board={board}/>}
+        {board && <GroupList board={board}/>}
+        <Outlet />
     </div>
 }
 
