@@ -10,18 +10,6 @@ export function GroupPreview({ group }) {
             <div className="group-header">
                 <h1>{group.title}</h1>
             </div>
-            {/* <div className="list-container">
-                {group.tasks.map((task)=> {
-                    return (
-                        <Link to={`task/${task.id}`} key={task.id}>
-                        <div>
-                            <TaskList task={task}/>  
-                        </div>
-                        </Link>
-                    )
-
-                })}
-            </div> */}
             <div className="list-container">
                 <TaskList group={group}/>        
             </div>
