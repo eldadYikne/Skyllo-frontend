@@ -3,6 +3,7 @@
   background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
   height: 40vh;
   text-align: center;
+
   & h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
@@ -57,6 +58,11 @@
       max-width: 33.33%;
       margin: auto;
     }
+
+    & .get-started-btn {
+      margin-left: 0;
+    }
+
     & .home-page-img {
       max-width: 465px;
     }

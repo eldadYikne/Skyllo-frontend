@@ -2,7 +2,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
+import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard, getCurrBoard } from '../store/board.actions.js'
 import { store } from '../store/store'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
@@ -101,6 +101,19 @@ function getEmptyBoard() {
 //     // return board
 //     // return task
 // }
+
+function saveTask(boardId, groupId, task, activity) {
+    const board = getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    board.tasks.unshift(task)
+
+    // saveBoard(board)
+    // return board
+    // return task
+}
+
 
 function getBoard() {
 
