@@ -26,6 +26,7 @@ export const boardService = {
     getBoard,
     addGroup,
     saveTask,
+    removeGroup,
 }
 window.cs = boardService
 
@@ -86,11 +87,20 @@ async function addGroup(boardId, groupTitle, activity) {
     return save(board)   
 }
 
+async function removeGroup(boardId, groupId, activity ) {
+    const board = await getById(boardId)
+    const groupToRemoveIdx = board.groups.findIndex((group)=> group.id === groupId)
+    board.groups.splice(groupToRemoveIdx, 1)
+    board.activities.unshift(activity)
+    return save(board)
+
+}
+
 async function saveTask(boardId, groupId, task, activity) {
     const board = await getById(boardId)
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if(task.id) {
-        const taskIdx = group.tasks.find((currTask) => currTask.id === task.id)
+        const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()

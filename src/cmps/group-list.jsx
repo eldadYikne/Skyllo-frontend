@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { boardService } from '../services/board.service'
-import { storeAddGroup } from '../store/board.actions'
+import { removeGroup, storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
@@ -15,11 +15,15 @@ export function GroupList () {
 
   const onAddGroup = (ev) => {
     ev.preventDefault()
-    console.log('maaaaa', ev.target[0].value)
-
     const listTitle = ev.target[0].value
-
     dispatch(addGroup(board._id, listTitle, 'user added a List'))
+  }
+
+  const onRemoveGroup = (ev, groupId) => {
+    ev.preventDefault()
+    dispatch(removeGroup(board._id, groupId, 'user deleted a List'))
+
+
   }
 
   return (
@@ -27,7 +31,11 @@ export function GroupList () {
       {board.groups.map(group => {
         return (
           <li key={group.id}>
-            <GroupPreview group={group} boardId={board._id}/>
+            <GroupPreview 
+                group={group}
+                boardId={board._id}
+                onRemoveGroup={onRemoveGroup}
+            />
           </li>
         )
       })}

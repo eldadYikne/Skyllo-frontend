@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addTask } from '../store/board.actions';
 
 
-export function GroupPreview({ group, boardId }) {
+export function GroupPreview({ group, boardId, onRemoveGroup }) {
 
     const [isAddingTask, setIsAddingTask] = useState(false)
     const [isShowOptions, setIsShowOptions] = useState(false)
@@ -57,7 +57,7 @@ export function GroupPreview({ group, boardId }) {
               />
             </section>
 
-            <button className='delete-group-btn'>Delete</button>
+            <button className='delete-group-btn' onClick={(ev) => onRemoveGroup(ev, group.id)}>Delete</button>
           </div>
         )}
       </div>
@@ -95,7 +95,7 @@ export function GroupPreview({ group, boardId }) {
             {isAddingTask &&
                 <div className="adding-task-container">
                     <form onSubmit={onAddTask}>
-                        <input type="textarea" placeholder="Enter task title.." name="adding-task" id="textarea" />
+                        <textarea placeholder="Enter task title.." name="adding-task" id="textarea" />
 
                         <div className='adding-task-actions'>
                             <button className='add-task-btn'>Add Task</button>

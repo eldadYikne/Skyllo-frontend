@@ -110,6 +110,19 @@ export function addGroup(boardId, title, activity) {
     }
 }
 
+export function removeGroup( boardId, groupId, activity ) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.removeGroup(boardId, groupId, activity)
+            dispatch(getActionUpdateBoard(board))
+            showSuccessMsg('Group Added')
+        } catch(err) {
+            showErrorMsg('Cannot add group')
+            console.log('error:', err)
+        }
+    }
+}
+
 export function addTask( boardId, groupId, task, activity ) {
     return async (dispatch) => {
         try {
