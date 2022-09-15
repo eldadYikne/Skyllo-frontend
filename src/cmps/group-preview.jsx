@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg';
 
 
-export function GroupPreview () {
+export function GroupPreview ({group}) {
 
     const [isAddingTask, setIsAddingTask] = useState(false)
 
@@ -19,7 +19,7 @@ export function GroupPreview () {
       </div>
 
       <div className='list-container'>
-        <TaskList />
+        <TaskList group={group}/>
       </div>
 
       {!isAddingTask&& <div onClick={()=> setIsAddingTask(!isAddingTask)} className='add-task'>

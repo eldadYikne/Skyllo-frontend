@@ -81,6 +81,7 @@ export function addBoard(board) {
     }
 }
 
+
 export function updateBoard(board) {
     return (dispatch) => {
         boardService.save(board)
@@ -96,7 +97,19 @@ export function updateBoard(board) {
     }
 }
 
+export function storeAddGroup(boardId, title, activity) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.addGroup(boardId, title, activity)
+            dispatch(getActionUpdateBoard(board))
+            showSuccessMsg('Group Added')
+        } catch(err) {
+            showErrorMsg('Cannot add group')
+            console.log('error:', err)
+        }
+    }
 
+}
 
 // Demo for Optimistic Mutation
 // (IOW - Assuming the server call will work, so updating the UI first)

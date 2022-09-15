@@ -24,6 +24,7 @@ export const boardService = {
     remove,
     getEmptyBoard,
     getBoard,
+    addGroup,
 }
 window.cs = boardService
 
@@ -43,6 +44,7 @@ async function save(board) {
     var savedBoard
     if (board._id) {
         savedBoard = await storageService.put(STORAGE_KEY, board)
+        console.log(savedBoard)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
@@ -66,6 +68,21 @@ function getEmptyBoard() {
             imgUrl: "http://some-img"
         },
     }
+}
+
+async function addGroup(boardId, groupTitle, activity) {
+    const board = await getById(boardId)
+    console.log(board)
+    const group = {
+        id: utilService.makeId(),
+        title: groupTitle,
+        createdAt: Date.now(),
+        tasks: [],
+        style: {},
+       }
+    board.groups.unshift(group)
+    return save(board)
+    
 }
 
 
