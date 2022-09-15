@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { ReactComponent as SvgImgDisplay } from '../assets/img/createImg.svg';
 import { workspaceImgConsts, workspaceColorsConsts } from '../const/board-list-consts';
+
+
 export const AddBoard = ({ onChangeColor, bgColorCreate, createNewBoard,setIsShown }) => {
      const[ text,setText] =useState('')
 
