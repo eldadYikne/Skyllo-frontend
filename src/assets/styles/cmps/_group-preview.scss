@@ -58,7 +58,7 @@
 
     & .adding-task-actions {
       display: flex;
-      margin-bottom: 8px;
+      margin:8px 0 8px 0;
 
       & .close-adding-task {
         font-size: 20px;
@@ -171,6 +171,9 @@
       min-height: 40px;
       padding-top: 6px;
     }
+
+    
+
 
     & input {
       background: #0000;
