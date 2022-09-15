@@ -104,6 +104,8 @@ export function addGroup(boardId, title, activity) {
             showSuccessMsg('Group Added')
         } catch(err) {
             showErrorMsg('Cannot add group')
+            console.log('tassk');
+
             console.log('error:', err)
         }
     }

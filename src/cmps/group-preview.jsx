@@ -35,7 +35,7 @@ export function GroupPreview({ group, boardId }) {
           <svg
             stroke='currentColor'
             fill='currentColor'
-            stroke-width='0'
+            strokeWidth='0'
             viewBox='0 0 512 512'
             height='1em'
             width='1em'
@@ -95,7 +95,7 @@ export function GroupPreview({ group, boardId }) {
             {isAddingTask &&
                 <div className="adding-task-container">
                     <form onSubmit={onAddTask}>
-                        <input type="textarea" placeholder="Enter task title.." name="adding-task" id="textarea" />
+                        <input type="textarea"  placeholder="Enter task title.." name="adding-task" id="textarea" />
 
                         <div className='adding-task-actions'>
                             <button className='add-task-btn'>Add Task</button>

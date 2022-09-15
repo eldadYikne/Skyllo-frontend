@@ -7,7 +7,7 @@ import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
 
-export function GroupList () {
+export function GroupList() {
   const board = useSelector(state => state.boardModule.board)
   const dispatch = useDispatch()
 
@@ -15,6 +15,7 @@ export function GroupList () {
 
   const onAddGroup = (ev) => {
     ev.preventDefault()
+
     console.log('maaaaa', ev.target[0].value)
 
     const listTitle = ev.target[0].value
@@ -24,10 +25,10 @@ export function GroupList () {
 
   return (
     <section className='group-list'>
-      {board.groups.map(group => {
+      {board?.groups && board.groups.map(group => {
         return (
           <li key={group.id}>
-            <GroupPreview group={group} boardId={board._id}/>
+            <GroupPreview group={group} boardId={board._id} />
           </li>
         )
       })}
@@ -63,7 +64,7 @@ export function GroupList () {
       {isAddGroup && (
         <div className='add-group-form'>
           <form className='add-group' onSubmit={onAddGroup}>
-            <input type='text' placeholder='Enter list title' />
+            <input type='text'  placeholder='Enter list title' />
             <div className='add-group-actions'>
               <button className='add-group-btn'>Add list</button>
               <CloseAddGroup
