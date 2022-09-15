@@ -2,8 +2,10 @@ import { TaskList } from './task-list'
 import { useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 
+
 export function GroupPreview ({ group }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
+  const [isShowOptions, setIsShowOptions] = useState(false)
 
   return (
     <section className='group-preview '>
@@ -11,7 +13,11 @@ export function GroupPreview ({ group }) {
         <form>
           <input type='text' value={group.title} id='' />
         </form>
-        <div className='group-more-options'>
+
+        <div
+          onClick={() => setIsShowOptions(!isShowOptions)}
+          className='group-more-options'
+        >
           <svg
             stroke='currentColor'
             fill='currentColor'
@@ -26,6 +32,20 @@ export function GroupPreview ({ group }) {
             <circle cx='96' cy='256' r='48'></circle>
           </svg>
         </div>
+
+        {isShowOptions && (
+          <div className='options-modal-open'>
+            <section className='modal-actions'>
+              <p>Actions</p>
+              <CloseTask
+                className='close-modal-icon'
+                onClick={() => setIsShowOptions(!isShowOptions)}
+              />
+            </section>
+
+            <button className='delete-group-btn'>Delete</button>
+          </div>
+        )}
       </div>
 
       <div className='list-container'>
