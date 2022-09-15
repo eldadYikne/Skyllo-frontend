@@ -2,7 +2,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
+import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard, getCurrBoard } from '../store/board.actions.js'
 import { store } from '../store/store'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
@@ -24,6 +24,8 @@ export const boardService = {
     remove,
     createBoard,
     getBoard,
+    addGroup,
+    saveTask,
 }
 window.cs = boardService
 
@@ -73,6 +75,35 @@ function createBoard(title, bgImg) {
     }
 }
 
+async function addGroup(boardId, groupTitle, activity) {
+    const board = await getById(boardId)
+    console.log(board)
+    const group = {
+        id: utilService.makeId(),
+        title: groupTitle,
+        createdAt: Date.now(),
+        tasks: [],
+        style: {},
+       }
+    board.groups.push(group)
+    board.activities.unshift(activity)
+    return save(board)   
+}
+
+async function saveTask(boardId, groupId, task, activity) {
+    const board = await getById(boardId)
+    const group = board.groups.find(currGroup => currGroup.id === groupId)
+    if(task.id) {
+        const taskIdx = group.tasks.find((currTask) => currTask.id === task.id)
+        group.tasks.splice(taskIdx, 1, task)
+    } else {
+        task.id = utilService.makeId()
+        group.tasks.push(task)
+    }
+    board.activities.unshift(activity)
+    return save(board)
+}
+
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
@@ -106,6 +137,19 @@ function createBoard(title, bgImg) {
 //     // return board
 //     // return task
 // }
+
+// function saveTask(boardId, groupId, task, activity) {
+//     const board = getById(boardId)
+    // PUT /api/board/b123/task/t678
+
+    // TODO: find the task, and update
+    // board.tasks.unshift(task)
+
+    // saveBoard(board)
+    // return board
+    // return task
+// }
+
 
 function getBoard() {
 

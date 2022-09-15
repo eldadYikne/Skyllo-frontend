@@ -1,22 +1,23 @@
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { TaskDetails } from "./task-details";
 import { TaskPreview } from "./task-preview";
 
-export function TaskList() {
-
+export function TaskList({group}) {
+    const board = useSelector(state => state.boardModule.board)
+    console.log(group)
+    console.log(board)
     return (
-    <section className="task-list">
-            <li key="1">
-                <TaskPreview />
-            </li>
-            <li key="2">
-                <TaskPreview />
-            </li>
-            <li key="3">
-                <TaskPreview />
-            </li>
-            <li key="4">
-                <TaskPreview />
-            </li>
-        </section>
-
+               <div className="list-container">
+                {group.tasks.map((task)=> {
+                    return (
+                        <Link to={`${group.id}/${task.id}`} key={task.id}>
+                        <div>
+                            <TaskPreview task={task}/>  
+                        </div>
+                        </Link>
+                    )
+                })}
+            </div> 
     )
 }
