@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
-// import Logo from '../assets/img/logo.gif'
+import LogoHover from '../assets/img/hover-logo.gif'
 
 export function AppHeader () {
 
@@ -17,7 +17,7 @@ const [imgSrc, setImgSrc] = useState(Logo)
            src= {Logo}
             alt=''
 
-            // onMouseOver={ setImgSrc('../assets/img/hover-logo.gif')}
+            // onMouseOver={ img.src= LogoHover}
           />
 
           <span className='h1-logo'>Skyllo</span>

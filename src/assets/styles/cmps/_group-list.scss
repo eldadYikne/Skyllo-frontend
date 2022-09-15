@@ -1,7 +1,100 @@
 .group-list {
-   display: flex;
-   color: #292929;
-    list-style: none;
-    max-height: 100%;
-    padding-left: 20px;
+  display: flex;
+  color: #292929;
+  list-style: none;
+  max-height: 100%;
+  padding-left: 20px;
+
+  & .add-group-view {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    margin: 0 4px;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 272px;
+    background-color: #00000014;
+    border-radius: 3px;
+    min-height: 32px;
+    padding: 8px;
+    transition: 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: #00000029;
+    }
+
+    & .add-group-icon {
+      font-size: 16px;
+      height: 20px;
+      line-height: 20px;
+      width: 20px;
+      display: inline-block;
+      font-style: normal;
+      font-weight: 400;
+    }
+    &:last-child {
+      margin-right: 8px;
+    }
+  }
+
+  & .add-group-form {
+    background-color: var(--ds-background-accent-gray-subtlest, #ebecf0);
+    border-radius: 3px;
+    height: 80px;
+    padding: 4px;
+    background-color: #ebecf0;
+    display: flex;
+    max-width: 272px;
+    padding: 0 7px;
+    margin-inline-end: 7px;
+    // padding-top: 6px;
+
+    & input {
+      border: none;
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: inset 0 0 0 2px #0079bf;
+      height: 32px;
+      margin-top: 4px;
+      padding-left: 5px;
+
+      &:focus {
+   border: unset;
+   
+      }
+    }
+
+    & .add-group-actions {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+    }
+
+    & .add-group-btn {
+      border-radius: 3px;
+      float: left;
+      margin-top: 0;
+      min-height: 32px;
+      background-color: var(--ds-background-brand-bold, #0079bf);
+      border: none;
+      box-shadow: none;
+      color: #fff;
+      padding: 0.375rem 0.75rem;
+      width: 5.125rem;
+      line-height: 20px;
+      &:hover{
+        background-color: #026aa7;
+      }
+    }
+    & .close-add-group-icon {
+      font-size: 20px;
+      opacity: 0.7;
+      margin-top: 1.5px;
+      margin-left: 2px;
+      cursor: pointer;
+
+    }
+  }
 }

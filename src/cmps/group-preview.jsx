@@ -1,6 +1,6 @@
 import { TaskList } from './task-list'
-import { useState } from "react";
-import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg';
+import { useState } from 'react'
+import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux';
 import { addTask } from '../store/board.actions';
 
@@ -20,42 +20,58 @@ export function GroupPreview({ group, boardId }) {
         ev.target[0].value =''
     }
 
-    return (
-        <section className='group-preview '>
-            <div className='group-preview-header'>
-                <form>
-                    <input type="text" value={'Group title'} id="" />
-                </form>
-                <div className='group-more-options'>
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="256" cy="256" r="48"></circle><circle cx="416" cy="256" r="48"></circle><circle cx="96" cy="256" r="48"></circle></svg>
-                </div>
-            </div>
+  return (
+    <section className='group-preview '>
+      <div className='group-preview-header'>
+        <form>
+          <input type='text' value={group.title} id='' />
+        </form>
+        <div className='group-more-options'>
+          <svg
+            stroke='currentColor'
+            fill='currentColor'
+            stroke-width='0'
+            viewBox='0 0 512 512'
+            height='1em'
+            width='1em'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <circle cx='256' cy='256' r='48'></circle>
+            <circle cx='416' cy='256' r='48'></circle>
+            <circle cx='96' cy='256' r='48'></circle>
+          </svg>
+        </div>
+      </div>
 
-            <div className='list-container'>
-                <TaskList group={group} />
-            </div>
+      <div className='list-container'>
+        <TaskList group={group} />
+      </div>
 
-            {!isAddingTask && <div onClick={() => setIsAddingTask(!isAddingTask)} className='add-task'>
-
-                <svg
-                    stroke='currentColor'
-                    fill='currentColor'
-                    strokeWidth='0'
-                    viewBox='0 0 24 24'
-                    className='icon'
-                    height='1em'
-                    width='1em'
-                    xmlns='http://www.w3.org/2000/svg'
-                >
-                    <path
-                        fill='none'
-                        stroke='#000'
-                        strokeWidth='2'
-                        d='M12,22 L12,2 M2,12 L22,12'
-                    ></path>
-                </svg>
-                <p>Add a task</p>
-            </div>}
+      {!isAddingTask && (
+        <div
+          onClick={() => setIsAddingTask(!isAddingTask)}
+          className='add-task'
+        >
+          <svg
+            stroke='currentColor'
+            fill='currentColor'
+            strokeWidth='0'
+            viewBox='0 0 24 24'
+            className='icon'
+            height='1em'
+            width='1em'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              fill='none'
+              stroke='#000'
+              strokeWidth='2'
+              d='M12,22 L12,2 M2,12 L22,12'
+            ></path>
+          </svg>
+          <p>Add a task</p>
+        </div>
+      )}
 
             {isAddingTask &&
                 <div className="adding-task-container">
