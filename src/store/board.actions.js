@@ -81,10 +81,9 @@ export function addBoard(board) {
     }
 }
 
-
-export function updateBoard(board) {
+export function updateBoard(board,isStared) {
     return (dispatch) => {
-        boardService.save(board)
+        boardService.save(board,isStared)
             .then(savedBoard => {
                 console.log('Updated Board:', savedBoard);
                 dispatch(getActionUpdateBoard(savedBoard))
@@ -105,6 +104,8 @@ export function addGroup(boardId, title, activity) {
             showSuccessMsg('Group Added')
         } catch(err) {
             showErrorMsg('Cannot add group')
+            console.log('tassk');
+
             console.log('error:', err)
         }
     }

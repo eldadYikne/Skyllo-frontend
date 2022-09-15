@@ -17,11 +17,10 @@ export function BoardApp() {
 
     const params = useParams()
     const dispatch = useDispatch()
-    
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
     }, [])
-    
+
     const board = useSelector(state => state.boardModule.board)
     // const onRemoveGroup = (groupId) => {
     //     removeGroup(groupId)
@@ -37,10 +36,11 @@ export function BoardApp() {
     // }
 
     console.log('board', board)
-
-    return <div className="board-app">
+    if (!board) return <h1>Loading</h1>
+    let backgroundStyle = board.style.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
+    return <div style={{ [backgroundStyle]: board.style.bgImg, objectFit: 'cover', backgroundSize: 'cover'}} className="board-app" >
         <BoardHeader />
-        {board && <GroupList board={board}/>}
+        {board && <GroupList board={board} />}
         <Outlet />
     </div>
 }
