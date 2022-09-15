@@ -108,7 +108,6 @@ export function storeAddGroup(boardId, title, activity) {
             console.log('error:', err)
         }
     }
-
 }
 
 // Demo for Optimistic Mutation

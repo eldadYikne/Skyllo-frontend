@@ -29,7 +29,7 @@ export function boardReducer(state = initialState, action) {
                 newState = { ...state, boards: [...state.boards, state.lastRemovedBoard], lastRemovedBoard: null}
             }
             break
-        default:
+        default: return newState
     }
     // For debug:
     window.boardState = newState
@@ -37,5 +37,4 @@ export function boardReducer(state = initialState, action) {
     // console.log('Action:', action)
     // console.log('New State:', newState)
     return newState
-
 }
