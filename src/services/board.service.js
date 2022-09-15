@@ -25,6 +25,7 @@ export const boardService = {
     getEmptyBoard,
     getBoard,
     addGroup,
+    saveTask,
 }
 window.cs = boardService
 
@@ -80,9 +81,23 @@ async function addGroup(boardId, groupTitle, activity) {
         tasks: [],
         style: {},
        }
-    board.groups.unshift(group)
+    board.groups.push(group)
+    board.activities.unshift(activity)
+    return save(board)   
+}
+
+async function saveTask(boardId, groupId, task, activity) {
+    const board = await getById(boardId)
+    const group = board.groups.find(currGroup => currGroup.id === groupId)
+    if(task.id) {
+        const taskIdx = group.tasks.find((currTask) => currTask.id === task.id)
+        group.tasks.splice(taskIdx, 1, task)
+    } else {
+        task.id = utilService.makeId()
+        group.tasks.push(task)
+    }
+    board.activities.unshift(activity)
     return save(board)
-    
 }
 
 
@@ -119,17 +134,17 @@ async function addGroup(boardId, groupTitle, activity) {
 //     // return task
 // }
 
-function saveTask(boardId, groupId, task, activity) {
-    const board = getById(boardId)
+// function saveTask(boardId, groupId, task, activity) {
+//     const board = getById(boardId)
     // PUT /api/board/b123/task/t678
 
     // TODO: find the task, and update
-    board.tasks.unshift(task)
+    // board.tasks.unshift(task)
 
     // saveBoard(board)
     // return board
     // return task
-}
+// }
 
 
 function getBoard() {

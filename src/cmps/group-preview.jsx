@@ -1,11 +1,25 @@
 import { TaskList } from './task-list'
 import { useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
+import { useDispatch } from 'react-redux';
+import { addTask } from '../store/board.actions';
 
 
-export function GroupPreview ({ group }) {
-  const [isAddingTask, setIsAddingTask] = useState(false)
-  const [isShowOptions, setIsShowOptions] = useState(false)
+export function GroupPreview({ group, boardId }) {
+
+    const [isAddingTask, setIsAddingTask] = useState(false)
+    const [isShowOptions, setIsShowOptions] = useState(false)
+    const dispatch = useDispatch()
+    
+
+    const onAddTask = (ev) => {
+        ev.preventDefault()
+        const task = {
+            title: ev.target[0].value
+        }
+        dispatch(addTask(boardId, group.id, task, 'user addad task'))
+        ev.target[0].value =''
+    }
 
   return (
     <section className='group-preview '>
@@ -78,22 +92,21 @@ export function GroupPreview ({ group }) {
         </div>
       )}
 
-      {isAddingTask && (
-        <div className='adding-task-container'>
-          <textarea
-            placeholder='Enter task title..'
-            name='adding-task'
-            id='textarea'
-          ></textarea>
+            {isAddingTask &&
+                <div className="adding-task-container">
+                    <form onSubmit={onAddTask}>
+                        <input type="textarea" placeholder="Enter task title.." name="adding-task" id="textarea" />
 
-          <div className='adding-task-actions'>
-            <button className='add-task-btn'>Add Task</button>
-            <span className='close-adding-task'>
-              <CloseTask onClick={() => setIsAddingTask(!isAddingTask)} />
-            </span>
-          </div>
-        </div>
-      )}
-    </section>
-  )
+                        <div className='adding-task-actions'>
+                            <button className='add-task-btn'>Add Task</button>
+                            <span className='close-adding-task'>
+                                <CloseTask onClick={() => setIsAddingTask(!isAddingTask)} />
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            }
+
+        </section>
+    )
 }

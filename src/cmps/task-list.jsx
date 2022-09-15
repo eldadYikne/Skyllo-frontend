@@ -11,7 +11,7 @@ export function TaskList({group}) {
                <div className="list-container">
                 {group.tasks.map((task)=> {
                     return (
-                        <Link to={`task/${task.id}`} key={task.id}>
+                        <Link to={`${group.id}/${task.id}`} key={task.id}>
                         <div>
                             <TaskPreview task={task}/>  
                         </div>
@@ -19,8 +19,5 @@ export function TaskList({group}) {
                     )
                 })}
             </div> 
-           
-
-
     )
 }

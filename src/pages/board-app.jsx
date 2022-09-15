@@ -9,7 +9,7 @@ import { Outlet, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/board-header";
 import { GroupList } from "../cmps/group-list";
 import { boardService } from "../services/board.service";
-import { getCurrBoard, storeAddGroup } from "../store/board.actions";
+import { getCurrBoard, addGroup } from "../store/board.actions";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -19,7 +19,7 @@ export function BoardApp() {
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(getCurrBoard(params.id))
+        dispatch(getCurrBoard(params.boardId))
     }, [])
     
     const board = useSelector(state => state.boardModule.board)
@@ -40,7 +40,8 @@ export function BoardApp() {
 
     return <div className="board-app">
         <BoardHeader />
-        {board && <GroupList  board={board}/>}
+        {board && <GroupList board={board}/>}
+        <Outlet />
     </div>
 }
 
