@@ -9,7 +9,7 @@ import { Outlet, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/board-header";
 import { GroupList } from "../cmps/group-list";
 import { boardService } from "../services/board.service";
-import { getCurrBoard, storeAddGroup } from "../store/board.actions";
+import { getCurrBoard, addGroup } from "../store/board.actions";
 
 // import { boardService } from '../services/board.service.js'
 

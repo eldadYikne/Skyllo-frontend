@@ -97,7 +97,7 @@ export function updateBoard(board) {
     }
 }
 
-export function storeAddGroup(boardId, title, activity) {
+export function addGroup(boardId, title, activity) {
     return async (dispatch) => {
         try {
             const board = await boardService.addGroup(boardId, title, activity)
@@ -108,7 +108,19 @@ export function storeAddGroup(boardId, title, activity) {
             console.log('error:', err)
         }
     }
+}
 
+export function addTask( boardId, groupId, task, activity ) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.saveTask(boardId, groupId, task, activity)
+            dispatch(getActionUpdateBoard(board))
+            showSuccessMsg('Group Added')
+        } catch(err) {
+            showErrorMsg('Cannot add group')
+            console.log('error:', err)
+        }
+    }
 }
 
 // Demo for Optimistic Mutation

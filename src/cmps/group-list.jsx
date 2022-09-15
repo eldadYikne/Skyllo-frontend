@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { boardService } from "../services/board.service";
-import { storeAddGroup } from "../store/board.actions";
+import { addGroup } from "../store/board.actions";
 import { GroupPreview } from "./group-preview";
 
 export function GroupList() {
@@ -15,23 +15,22 @@ export function GroupList() {
 
     },[board])
 
-    const addGroup = (title) =>{
+    const onAddGroup = (title) =>{
         console.log(title)
-        dispatch(storeAddGroup(board._id, title, ''))            
+        dispatch(addGroup(board._id, title, 'user addad gruop'))            
     }
 
-   
     return (
         <section className="group-list">
             {board.groups.map((group) => {
                 return (
                 <li key={group.id}>
-                    <GroupPreview group={group} />
+                    <GroupPreview group={group} boardId={board._id} />
                 </li>
                 )
                 
             })}
-            <button onClick={() => addGroup('hello')}>Add a new group</button>
+            <button onClick={() => onAddGroup('hello')}>Add a new group</button>
             
         </section>
     )
