@@ -22,7 +22,7 @@ export const boardService = {
     getById,
     save,
     remove,
-    getEmptyBoard,
+    createBoard,
     getBoard,
 }
 window.cs = boardService
@@ -39,32 +39,37 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
-async function save(board) {
+async function save(board, isStared) {
     var savedBoard
     if (board._id) {
+        console.log(board, 'isStared',isStared);
+        board.style.isStared = isStared
         savedBoard = await storageService.put(STORAGE_KEY, board)
-        boardChannel.postMessage(getActionUpdateBoard(savedBoard))
+        // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
+        console.log('sad');
         // Later, owner is set by the backend
-        board.owner = userService.getLoggedinUser()
+        // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
-        boardChannel.postMessage(getActionAddBoard(savedBoard))
+        // boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
     return savedBoard
 }
 
-function getEmptyBoard() {
+function createBoard(title, bgImg) {
     return {
-        _id: utilService.makeId(),
-        title: "Robot dev proj",
+        title: title,
         archivedAt: 1589983468418,
-        createdAt: 1589983468418,
+        createdAt: Date.now(),
         createdBy: {
             _id: "u101",
             fullname: "Abi Abambi",
             imgUrl: "http://some-img"
         },
+        style: {
+            bgImg,
+        }
     }
 }
 
@@ -117,7 +122,8 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: "https://media.npr.org/assets/img/2022/06/15/gettyimages-1329369484_custom-885a687ec4ed7acfd56a918dbc51f9204cebcf8b-s1100-c50.jpg"
+                bgImg: 'url("https://media.npr.org/assets/img/2022/06/15/gettyimages-1329369484_custom-885a687ec4ed7acfd56a918dbc51f9204cebcf8b-s1100-c50.jpg")',
+                isStared: false
             },
             labels: [
                 {
@@ -243,7 +249,8 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/6820193445dcff991b2b12f41916deea/photo-1537486336219-a3dd8e2dc6b5.jpg"
+                bgImg: 'url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2048x1152/6820193445dcff991b2b12f41916deea/photo-1537486336219-a3dd8e2dc6b5.jpg")',
+                isStared: false
             }
         },
         {
@@ -257,7 +264,8 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: "http://cdn.cnn.com/cnnnext/dam/assets/220503164709-02-body-incredible-train-journeys.jpg"
+                bgImg: 'url("http://cdn.cnn.com/cnnnext/dam/assets/220503164709-02-body-incredible-train-journeys.jpg")',
+                isStared: false
             }
         },
         {
@@ -271,7 +279,8 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: "https://i2-prod.dublinlive.ie/incoming/article23902887.ece/ALTERNATES/s615/0_GettyImages-1271537082.jpg"
+                bgImg: 'url("https://i2-prod.dublinlive.ie/incoming/article23902887.ece/ALTERNATES/s615/0_GettyImages-1271537082.jpg")',
+                isStared: false
             }
         },
         {
@@ -285,7 +294,158 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: "https://cdn.pixabay.com/photo/2014/09/03/20/15/shoes-434918__480.jpg"
+                bgImg: 'url("https://cdn.pixabay.com/photo/2014/09/03/20/15/shoes-434918__480.jpg")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b106",
+            title: "Robot dev proj",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://st2.depositphotos.com/1177973/9006/i/950/depositphotos_90068008-stock-photo-beautiful-golden-saxophone-with-musical.jpg")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b107",
+            title: "Robot dev proj",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRCuxUDUDTye7Smic5D3SJz0KNwgVWc27m1A&usqp=CAU")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b108",
+            title: "Holiday",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXforlq8r5qU0cl2R1s08_vOmmNQa5tQ6wg&usqp=CAU")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b109",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://images.pexels.com/photos/414102/pexels-photo-414102.jpeg?cs=srgb&dl=pexels-pixabay-414102.jpg&fm=jpg")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b110",
+            title: "Life sky",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://img.freepik.com/premium-photo/beautiful-sky-with-clouds-golden-light-sun_51530-1593.jpg?w=2000")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b111",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://nextbigwhat.com/wp-content/webpc-passthru.php?src=https://nextbigwhat.com/wp-content/uploads/2021/12/DA-Feb-4.png&nocache=1")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b112",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://st4.depositphotos.com/18630962/20629/i/600/depositphotos_206298280-stock-photo-hot-black-coffee-clear-glass.jpg")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b113",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://coursework.vschool.io/content/images/2017/08/react.png")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b114",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRx9RfOVMAAMRnMzcE4Q60JD4q7Cljs-TSsux6tiwWKeCU_mcwCjNmHipClWLcfpYb04&usqp=CAU")',
+                isStared: true
+            }
+        },
+        {
+            _id: "b115",
+            title: "Life Style",
+            archivedAt: 1589983468418,
+            createdAt: 1589983468418,
+            createdBy: {
+                _id: "u101",
+                fullname: "Abi Abambi",
+                imgUrl: "http://some-img"
+            },
+            style: {
+                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBzZ0WGrS4PjHzoypyuCrqdhnL7VfU54IPymSQigDJtigK86ix7iULbELjsL_r7fUGDSU&usqp=CAU")',
+                isStared: true
             }
         },
         ]

@@ -5,6 +5,7 @@ export function GroupPreview() {
         <section className="group-preview">
             <h1>This is the group name</h1>
             <div className="list-container">
+                
             <TaskList />
             </div>
             <div className="add-task">

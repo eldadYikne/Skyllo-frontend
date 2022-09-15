@@ -81,9 +81,9 @@ export function addBoard(board) {
     }
 }
 
-export function updateBoard(board) {
+export function updateBoard(board,isStared) {
     return (dispatch) => {
-        boardService.save(board)
+        boardService.save(board,isStared)
             .then(savedBoard => {
                 console.log('Updated Board:', savedBoard);
                 dispatch(getActionUpdateBoard(savedBoard))
