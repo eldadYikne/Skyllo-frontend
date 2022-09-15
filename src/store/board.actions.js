@@ -38,6 +38,19 @@ export function loadBoards() {
         }
     }
 }
+export function getCurrBoard(boardId) {
+    console.log('boardId',boardId)
+    return async (dispatch) => {
+        try {
+            const board = await boardService.getById(boardId)
+            console.log(board)
+            dispatch({type: 'SET_BOARD', board})
+        } catch (err) {
+            showErrorMsg('Cannot load board')
+            console.log('Cannot load board', err)
+        }
+    }
+}
 
 export function removeBoard(boardId) {
     return async (dispatch) => {
@@ -55,7 +68,6 @@ export function removeBoard(boardId) {
 
 export function addBoard(board) {
     return (dispatch) => {
-
         boardService.save(board)
             .then(savedBoard => {
                 console.log('Added Board', savedBoard);
@@ -86,5 +98,5 @@ export function updateBoard(board) {
 
 
 
-// Demo for Optimistic Mutation 
+// Demo for Optimistic Mutation
 // (IOW - Assuming the server call will work, so updating the UI first)

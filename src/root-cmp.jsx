@@ -3,6 +3,7 @@ import React from 'react'
 // const { Switch, Route } = ReactRouterDOM
 import { Routes, Route } from 'react-router'
 
+
 import { AppHeader } from './cmps/app-header'
 import { HomePage } from './pages/home-page'
 import { WorkSpace } from './pages/workspace'
@@ -21,8 +22,8 @@ export class RootCmp extends React.Component {
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
                         <Route path='workspace' element={<WorkSpace />} />
-                        <Route path='workspace/board/:id' element={<BoardApp />} >
-                            <Route path='board/:id/task/:id' element={<TaskDetails />} />
+                        <Route path="workspace/board/:id" element={<BoardApp />} >
+                            <Route path="board/:id/task/:id" element={<TaskDetails />} />
                         </Route>
                     </Routes>
                 </main>
