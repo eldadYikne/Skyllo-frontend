@@ -1,40 +1,236 @@
-// .task-details-view {
-
+// .board-app{
+//   position: relative;
 // }
 
+.task-details-view {
+  // padding: 0 8px 8px 16px;
+  // opacity: 1;
+  
+  margin: auto;
+  width: 48rem;
+  min-height: 600px;
+  
+  // position: relative;
+  // position: absolute;
+  // top: 7%;
+  // left: 25%;
+}
+
 .task-details-modal {
-  background-color: #fafafa;
+  // opacity: 100;
+
+  background-color: #f8f7f7;
   display: flex;
   flex-direction: column;
   margin: auto;
   max-width: 48rem;
   min-height: 600px;
   position: relative;
+
+  @include for-wide-layout {
+    flex-direction: column;
+  }
+
   // z-index: 10;
-  
+
   & .details-content {
+    @include for-normal-layout {
+      flex-direction: row;
+    }
+    flex-direction: column-reverse;
+
     display: flex;
-    flex-direction: row;
-    height: 500px;    
-    background-color: blueviolet;
-    
+    height: 600px;
+    // background-color: blueviolet;
+
     & .details-main-content {
       flex: 1 1;
       margin: 0;
       max-width: 100%;
-      width: 71.8%;
+      min-width: 72%;
       padding: 0 8px 8px 16px;
       position: relative;
-      background-color: #0079bf;
+      // background-color: #bdbebf;
+
+      & .first-content {
+        display: flex;
+        flex: 1 1;
+        flex-wrap: wrap;
+        margin: 0 0 12px 40px;
+
+        & .actions-type {
+          margin: 0 8px 8px 0;
+          & h4 {
+            color: #5e6c84;
+            font-size: 12px;
+            font-weight: 600;
+          }
+        }
+      }
+
+      & .activity-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        position: relative;
+
+        & #activity-textarea {
+          margin: 0 0 12px 40px;
+          background-color: #fff;
+          border: none;
+          border-radius: 3px;
+          box-shadow: inset 0 0 0 1px #091e4221;
+          box-sizing: content-box;
+          box-sizing: initial;
+          flex: 1 1;
+          min-height: 20px;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          padding: 8px 12px;
+          resize: none;
+          transition: all 0.4s;
+          &:focus {
+            outline: none;
+            padding-bottom: 56px;
+          }
+        }
+      }
+
+      & .description-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        position: relative;
+        & #description-textarea-basic {
+          margin: 0 0 12px 40px;
+          min-height: 2.5rem;
+          transition: all 0.4s;
+          resize: none;
+          background-color: #091e420a;
+          border: none;
+          border-radius: 3px;
+          box-shadow: none;
+          color: #172b4d;
+          cursor: pointer;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          padding: 8px 12px;
+          &:focus {
+            border: 0 #fff;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            min-height: 108px;
+            outline: none;
+          }
+        }
+
+        & .description-edit {
+          margin: 0 0 12px 40px;
+
+          & button {
+            align-items: center;
+            background-color: #0079bf;
+            border-radius: 3px;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+            line-height: 20px;
+            padding: 0.375rem 0.75rem;
+            border: none;
+            margin-right: 16px;
+            cursor: pointer;
+            &:hover {
+              background-color: #026aa7;
+            }
+          }
+          & .close-description-edit {
+            cursor: pointer;
+          }
+        }
+      }
+
+      & .container-title {
+        display: flex;
+        margin: 0 0 4px 40px;
+        min-height: 2rem;
+        padding: 8px 0;
+        position: relative;
+        & .title-icon {
+          height: 24px;
+          left: -40px;
+          position: absolute;
+          top: 6px;
+          width: 24px;
+        }
+        & h5 {
+          // display: inline-block;
+          margin: 0;
+          color: #5e6c84;
+          font-weight: 600;
+          font-size: 1em;
+        }
+      }
     }
 
     & .details-side-actions {
+      @include for-normal-layout {
+        display: block;
+        flex-wrap: nowrap;
+        max-width: 240px;
+        min-width: 200px;
+        & h5 {
+          display: block;
+        }
+      }
+
+      // & h5{
+      //   display: none;
+      // }
       display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      margin-left: 0;
-      max-width: 240px;
-      min-width: 200px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      height: 100%;
+      min-width: 50%;
+
+      & .details-actions {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        line-height: 20px;
+        &:last-child {
+          margin-bottom: 24px;
+        }
+
+        & button {
+          align-items: center;
+          background-color: #091e420a;
+          border: none;
+          border-radius: 3px;
+          color: #172b4d;
+          display: flex;
+          height: 32px;
+          margin-bottom: 8px;
+          min-width: 140px;
+          padding: 6px 12px;
+          position: relative;
+          margin-right: 10px;
+
+          & > * {
+            margin-right: 10px;
+            // color: #172b4d;
+          }
+          &:hover {
+            background-color: #091e4214;
+          }
+        }
+      }
+
+      & h5 {
+        color: #5e6c84;
+        font-size: 12px;
+        font-weight: 600;
+      }
     }
   }
 
@@ -93,15 +289,9 @@
     resize: none;
 
     &:focus {
-      background-color: #fff;
+      border: 0 #fff;
       box-shadow: inset 0 0 0 2px #0079bf;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-      border: none;
-      resize: none;
-      //   -webkit-box-shadow: none;
-      // -moz-box-shadow: none;
-      // box-shadow: none;
+      outline: none;
     }
   }
 }
