@@ -28,7 +28,7 @@ export function AppHeader() {
 
       </section>
 
-      <div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img'></div>
+      <div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'></div>
 
       {userModalOpen &&
         <div className='user-modal'>
@@ -39,7 +39,8 @@ export function AppHeader() {
           <div className='user-modal-content'>
             <div className='user-modal-details'>
               <div className='user-details'>
-                <div className='avatar-img'></div>
+           
+                <div className='avatar-img-guest'></div>
                 <span>Guest</span>
               </div>
               <div className='user-modal-signup'>

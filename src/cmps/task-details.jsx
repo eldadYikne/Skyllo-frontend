@@ -106,7 +106,7 @@ export function TaskDetails () {
               ></textarea>
               {isFieldOpen &&
               <div className='description-edit'>
-                <button className='save-description' onClick={onSaveTask}>Save</button>
+                <button className='save-description' onMouseDown={onSaveTask}>Save</button>
                 <CloseDetailsModal
                   className='close-description-edit'
                   onClick={() => setIsFieldOpen(false)}
@@ -114,7 +114,6 @@ export function TaskDetails () {
               </div>
               }
             </div>
-            
 
             <div className='activity-container'>
               <div className='container-title'>
@@ -163,10 +162,10 @@ export function TaskDetails () {
                 <ArchiveIcon /> Archive
               </button>
             </div>
+            <DynamicCmp />
           </section>
         </section>
       </div>
-      <DynamicCmp />
     </section>
   )
 }
