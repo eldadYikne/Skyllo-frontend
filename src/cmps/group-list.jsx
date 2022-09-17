@@ -10,6 +10,7 @@ import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.s
 export function GroupList() {
   const board = useSelector(state => state.boardModule.board)
   const dispatch = useDispatch()
+
   const inputRef = useRef()
 
   const [isAddGroup, setIsAddGroup] = useState(false)
@@ -26,16 +27,13 @@ export function GroupList() {
   }
 
   const isAddGroupShown = () =>{
+    if (isAddGroup) {
+      inputRef.current.focus()
+    }
     setIsAddGroup(!isAddGroup)
     console.log('inppp');
     console.log('isAddGroup:', isAddGroup)
-    
-    if (!isAddGroup) {
-      inputRef.current.focus();
-    }
   }
-
-
 
   return (
     <section className='group-list'>
@@ -43,6 +41,7 @@ export function GroupList() {
         return (
           <li key={group.id}>
             <GroupPreview 
+                board= {board}
                 group={group}
                 boardId={board._id}
                 onRemoveGroup={onRemoveGroup}

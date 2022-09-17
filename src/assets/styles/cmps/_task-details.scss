@@ -1,29 +1,35 @@
-// .board-app{
+.group-list{
+  position: absolute;
+}
+// .app-header{
 //   position: relative;
 // }
 
 .task-details-view {
   // padding: 0 8px 8px 16px;
-  // opacity: 1;
+  // opacity: 80%;
   
   margin: auto;
-  width: 48rem;
-  min-height: 600px;
-  
-  // position: relative;
-  // position: absolute;
-  // top: 7%;
+  width: 100%;
+  height: 100vh;
+  // min-height: 600px;
+  position: fixed;
+  position: absolute;
+  top: 9.5%;
+  z-index: 8;
   // left: 25%;
+  bottom: 0;
+  background-color: #000000a3;
 }
 
 .task-details-modal {
-  // opacity: 100;
+  // opacity: 1000%;
 
   background-color: #f8f7f7;
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 48rem;
+  width: 48rem;
   min-height: 600px;
   position: relative;
 
@@ -286,6 +292,7 @@
     cursor: pointer;
     height: 2.05rem;
     display: block;
+    overflow: hidden;
     resize: none;
 
     &:focus {
