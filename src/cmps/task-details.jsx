@@ -103,8 +103,8 @@ export function TaskDetails() {
                 onClick={() => setIsFieldOpen(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description : ''}
-              // value={task.description ? task.description :''}
+                value={task.description ? task.description :'' }
+                // value={task.description ? task.description :''}
               ></textarea>
               {isFieldOpen &&
                 <div className='description-edit'>
