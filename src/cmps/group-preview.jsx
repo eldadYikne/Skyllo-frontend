@@ -1,13 +1,20 @@
 import { TaskList } from './task-list'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
-import { addTask } from '../store/board.actions'
+import { addTask,updateBoard } from '../store/board.actions'
 
-export function GroupPreview ({ group, boardId, onRemoveGroup }) {
+export function GroupPreview({board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
+
+  const [title, setTitle] = useState('')
+
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    setTitle(group.title)
+  }, [group.title])
 
 
   const onAddTask = ev => {
@@ -18,18 +25,31 @@ export function GroupPreview ({ group, boardId, onRemoveGroup }) {
     dispatch(addTask(boardId, group.id, task, 'user addad task'))
     ev.target[0].value = ''
   }
+  
+  const handleChangeTitle = (ev) => {
+    // ev.preventDefault()
+    const title = ev.target.value
+    setTitle(title)
+  }
+
+  const onSaveTitle = (ev) => {
+    ev.preventDefault()
+    const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
+    if (!title) return
+    board.groups[groupIdx].title = title
+    dispatch(updateBoard(board,board.isStared,title))
+  }
 
   const addingTaskShown = () => {
-
-
     setIsAddingTask(!isAddingTask)
   }
+
 
   return (
     <section className='group-preview '>
       <div className='group-preview-header'>
-        <form>
-          <input type='text' value={group.title} id='' />
+        <form onSubmit={onSaveTitle}>
+          <input onChange={handleChangeTitle} type='text' value={title} id='' />
         </form>
 
         <div
@@ -102,7 +122,7 @@ export function GroupPreview ({ group, boardId, onRemoveGroup }) {
         <div className='adding-task-container'>
           <form onSubmit={onAddTask}>
             <textarea
-              
+
               placeholder='Enter task title..'
               name='adding-task'
               id='textarea'

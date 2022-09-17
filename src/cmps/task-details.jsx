@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { DynamicCmp } from './dynamic-cmp'
+import { useState } from 'react'
 
+//icons//
 import { ReactComponent as CalenderIcon } from '../assets/img/calender-details.svg'
 import { ReactComponent as CloseDetailsModal } from '../assets/img/close-task-form.svg'
 import { ReactComponent as MembersIcon } from '../assets/img/members-icon.svg'
@@ -13,7 +15,6 @@ import { ReactComponent as CoverIcon } from '../assets/img/cover-icon.svg'
 import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
-import { useState } from 'react'
 
 export function TaskDetails () {
   const params = useParams()
@@ -24,8 +25,9 @@ export function TaskDetails () {
   const group = board.groups.find(group => group.id === groupId)
   const task = group.tasks.find(task => task.id === taskId)
 
-  const [descriptionEdit, setDescriptionEdit] = useState(true)
+  
 
+  const [descriptionEdit, setDescriptionEdit] = useState(false)
   const descriptionShow = () => {
     setDescriptionEdit(!descriptionEdit)
   }
@@ -74,13 +76,15 @@ export function TaskDetails () {
                 placeholder='task description'
               ></textarea>
 
+             
               <div className='description-edit'>
                 <button className='save-description'>Save</button>
                 <CloseDetailsModal
                   className='close-description-edit'
                   onClick={descriptionShow}
-                />
+                  />
               </div>
+                
             </div>
 
             <div className='activity-container'>

@@ -46,7 +46,6 @@ async function save(board, isStared) {
     var savedBoard
     console.log('enter');
     if (board._id) {
-
         board.style.isStared = isStared
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
