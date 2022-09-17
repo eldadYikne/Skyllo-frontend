@@ -2,7 +2,7 @@ import { TaskList } from './task-list'
 import { useEffect, useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
-import { saveTask } from '../store/board.actions'
+import { saveTask, updateBoard } from '../store/board.actions'
 
 export function GroupPreview({board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
