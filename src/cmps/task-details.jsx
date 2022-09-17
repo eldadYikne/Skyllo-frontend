@@ -20,7 +20,7 @@ import { useFormRegister } from '../hooks/useFormRegister'
 import { useForm } from '../hooks/useForm'
 
 
-export function TaskDetails () {
+export function TaskDetails() {
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -28,7 +28,9 @@ export function TaskDetails () {
 
   const groupId = params.groupId
   const taskId = params.taskId
-  
+
+  const [dynamicType, setDynamicType] = useState('')
+
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
   const [task, handleChange, setTask] = useForm({
@@ -39,11 +41,11 @@ export function TaskDetails () {
 
   useEffect(() => {
     setTask(initTask)
-}, [])
+  }, [])
 
   const onSaveTask = () => {
     console.log('saving')
-    dispatch(saveTask(board._id, group.id, task, 'user updated task' ))
+    dispatch(saveTask(board._id, group.id, task, 'user updated task'))
     if (isFieldOpen) setIsFieldOpen(false)
   }
 
@@ -56,13 +58,13 @@ export function TaskDetails () {
 
 
   return (
-    
+
     <section className='task-details-view'>
       <div className='task-details-modal'>
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
-          <CloseDetailsModal 
-              className='close-details-modal-icon'
-              onClick={onSaveTask}  />
+          <CloseDetailsModal
+            className='close-details-modal-icon'
+            onClick={onSaveTask} />
         </Link>
 
         <section className='details-header'>
@@ -74,7 +76,7 @@ export function TaskDetails () {
             value={task.title}
           >
             {task.title}
-          </textarea> 
+          </textarea>
         </section>
 
         <section className='details-content'>
@@ -98,20 +100,17 @@ export function TaskDetails () {
               </div>
               <textarea
                 onChange={handleChange}
-                onClick={()=> setIsFieldOpen(true)}
+                onClick={() => setIsFieldOpen(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description :'description'}
-                // value={task.description ? task.description :''}
+                value={task.description ? task.description : ''}
+              // value={task.description ? task.description :''}
               ></textarea>
               {isFieldOpen &&
-              <div className='description-edit'>
-                <button className='save-description' onMouseDown={onSaveTask}>Save</button>
-                <CloseDetailsModal
-                  className='close-description-edit'
-                  onClick={() => setIsFieldOpen(false)}
-                />
-              </div>
+                <div className='description-edit'>
+                  <button className='save-description' onMouseDown={onSaveTask}>Save</button>
+                  <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
+                </div>
               }
             </div>
 
@@ -133,7 +132,7 @@ export function TaskDetails () {
             <div className='details-actions'>
               <h5>Add to task</h5>
               <div className='details-actions'>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('members')} >
                   <MembersIcon /> Members
                 </button>
                 <button className='side-bar-action-btn'>
@@ -147,7 +146,7 @@ export function TaskDetails () {
                 <button className='side-bar-action-btn'>
                   <DatesIcon /> Dates
                 </button>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('attachment')}>
                   <AttachmentIcon /> Attachment
                 </button>
                 <button className='side-bar-action-btn'>
@@ -162,7 +161,9 @@ export function TaskDetails () {
                 <ArchiveIcon /> Archive
               </button>
             </div>
-            <DynamicCmp />
+            {dynamicType &&
+              <DynamicCmp type={dynamicType} setDynamicType={setDynamicType} />
+            }
           </section>
         </section>
       </div>

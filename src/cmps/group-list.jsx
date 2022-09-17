@@ -30,6 +30,7 @@ export function GroupList() {
     if (isAddGroup) {
       inputRef.current.focus()
     }
+    
     setIsAddGroup(!isAddGroup)
     console.log('inppp');
     console.log('isAddGroup:', isAddGroup)

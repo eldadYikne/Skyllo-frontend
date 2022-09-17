@@ -18,6 +18,14 @@ export const MembersCmp = () => {
                 <span>member.name</span>
             </div>
             
+            <div className="member-preview">
+                <div className="avatar-img">
+                    
+                </div>
+
+                <span>member.name</span>
+            </div>
+
         </section>
     </section>
 
