@@ -25,7 +25,9 @@ export const boardService = {
     createBoard,
     getBoard,
     addGroup,
+    removeGroup,
     saveTask,
+    removeTask,
 }
 window.cs = boardService
 
@@ -33,10 +35,12 @@ window.cs = boardService
 function query(filterBy) {
     return storageService.query(STORAGE_KEY)
 }
+
 function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/board/${boardId}`)
 }
+
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
@@ -96,12 +100,20 @@ async function addGroup(boardId, groupTitle, activity) {
     return save(board)
 }
 
+async function removeGroup(boardId, groupId, activity ) {
+    const board = await getById(boardId)
+    const groupIdx = board.groups.findIndex((group)=> group.id === groupId)
+    board.groups.splice(groupIdx, 1)
+    board.activities.unshift(activity)
+    return save(board)
+
+}
+
 async function saveTask(boardId, groupId, task, activity) {
-    console.log('taskkkk');
     const board = await getById(boardId)
     const group = board.groups.find(currGroup => currGroup.id === groupId)
-    if (task.id) {
-        const taskIdx = group.tasks.find((currTask) => currTask.id === task.id)
+    if(task.id) {
+        const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()
@@ -110,6 +122,16 @@ async function saveTask(boardId, groupId, task, activity) {
     board.activities.unshift(activity)
     return save(board)
 }
+
+async function removeTask(boardId, groupId, taskId, activity ) {
+    const board = await getById(boardId)
+    const group = board.groups.find((group)=> group.id === groupId)
+    const taskIdx = group.tasks.findIndex((task)=> task.id === taskId)
+    group.tasks.splice(taskIdx, 1)
+    board.activities.unshift(activity)
+    return save(board)
+}
+
 
 
 // TEST DATA

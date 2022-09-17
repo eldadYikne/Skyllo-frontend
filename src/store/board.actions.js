@@ -39,12 +39,10 @@ export function loadBoards() {
     }
 }
 export function getCurrBoard(boardId) {
-    console.log('boardId',boardId)
     return async (dispatch) => {
         try {
             const board = await boardService.getById(boardId)
-            console.log(board)
-            dispatch({type: 'SET_BOARD', board})
+            dispatch({ type: 'SET_BOARD', board })
         } catch (err) {
             showErrorMsg('Cannot load board')
             console.log('Cannot load board', err)
@@ -102,7 +100,7 @@ export function addGroup(boardId, title, activity) {
             const board = await boardService.addGroup(boardId, title, activity)
             dispatch(getActionUpdateBoard(board))
             showSuccessMsg('Group Added')
-        } catch(err) {
+        } catch (err) {
             showErrorMsg('Cannot add group')
             console.log('tassk');
 
@@ -111,16 +109,43 @@ export function addGroup(boardId, title, activity) {
     }
 }
 
-export function addTask( boardId, groupId, task, activity ) {
+export function removeGroup(boardId, groupId, activity) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.removeGroup(boardId, groupId, activity)
+            dispatch(getActionUpdateBoard(board))
+            showSuccessMsg('Group Added')
+        } catch (err) {
+            showErrorMsg('Cannot add group')
+            console.log('error:', err)
+        }
+    }
+}
+
+export function saveTask(boardId, groupId, task, activity) {
     return async (dispatch) => {
         try {
             const board = await boardService.saveTask(boardId, groupId, task, activity)
             dispatch(getActionUpdateBoard(board))
-            showSuccessMsg('Group Added')
-        } catch(err) {
-            showErrorMsg('Cannot add group')
+            showSuccessMsg('task Added')
+        } catch (err) {
+            showErrorMsg('Cannot add task')
             console.log('error:', err)
         }
+    }
+}
+
+export function removeTask(boardId, groupId, taskId, activity) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.removeTask(boardId, groupId, taskId, activity)
+            dispatch(getActionUpdateBoard(board))
+            showSuccessMsg('Task deleted')
+        } catch (err) {
+            showErrorMsg('Cannot delete task')
+            console.log('error:', err)
+        }
+
     }
 }
 

@@ -1,3 +1,17 @@
+
+//mixin h3-dynamic-cmp
+
+@mixin for-h3-dynamic-cmp {
+    color: #5e6c84;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+
+
+
+
 /* Breakpoint mixins */
 
 @mixin for-mobile-layout {

@@ -10,7 +10,12 @@ export const storageService = {
 }
 
 function query(entityType, delay = 600) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || boardService.getBoard()
+    var entities = JSON.parse(localStorage.getItem(entityType))
+    if(!entities){
+        entities = boardService.getBoard() 
+        _save(entityType, entities)
+    } 
+        
 
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{

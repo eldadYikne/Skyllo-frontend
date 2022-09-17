@@ -23,7 +23,8 @@ export const AddBoard = ({ onChangeColor, bgColorCreate, createNewBoard,setIsSho
         <div style={{ background: bgColorCreate }} className="img-board-display">
             <SvgImgDisplay />
         </div >
-
+    <div className='create-board-actions'>
+        <h5 htmlFor="">Background</h5>
         <div className='imgs-littel-container'>
             {workspaceImgConsts.map(img => {
                 let urlImg = `url(${img})`
@@ -43,5 +44,7 @@ export const AddBoard = ({ onChangeColor, bgColorCreate, createNewBoard,setIsSho
         </div>
 
         <button onClick={() => createNewBoard(text)} className={classBtn}>Create</button>
+            </div>
+
     </div>
 }
