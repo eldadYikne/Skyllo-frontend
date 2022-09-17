@@ -92,11 +92,14 @@
     }
   }
   .group-preview-header {
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 32px;
     padding-bottom: 4px;
+
+
 
     & .group-more-options {
       border-radius: 3px;
@@ -172,9 +175,6 @@
       padding-top: 6px;
     }
 
-    
-
-
     & input {
       background: #0000;
       border: 0;
@@ -183,6 +183,7 @@
       font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
         Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
       font-weight: 700;
+      font-size: 15px;
       outline: 0;
       padding: 4px 8px 4px 12px;
       width: 100%;

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
-import LogoHover from '../assets/img/hover-logo.gif'
 
 export function AppHeader() {
 
@@ -19,13 +18,9 @@ export function AppHeader() {
             className='logo'
             src={Logo}
             alt=''
-
-          // onMouseOver={ img.src= LogoHover}
           />
-
           <span className='h1-logo'>Skyllo</span>
         </Link>
-
       </section>
 
       <div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'></div>
@@ -39,7 +34,7 @@ export function AppHeader() {
           <div className='user-modal-content'>
             <div className='user-modal-details'>
               <div className='user-details'>
-           
+
                 <div className='avatar-img-guest'></div>
                 <span>Guest</span>
               </div>
@@ -54,10 +49,7 @@ export function AppHeader() {
             </div>
           </div>
         </div>
-
       }
-
-
     </header>
   )
 }

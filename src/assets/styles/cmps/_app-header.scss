@@ -1,81 +1,83 @@
 .app-header {
-//   border-bottom: .5px solid;
+  //   border-bottom: .5px solid;
   background-color: $clr1;
   display: flex;
   justify-content: space-between;
   padding: 6px 10px;
   position: relative;
 
-.user-modal{
+  .user-modal {
 
-  min-height: 50px;
-  position: fixed;
-  width: 320px;
-  top: 50px;
-  right: 10px;
-  background-color: rgb(255, 255, 255);
-  z-index: 30;
-  border-radius: 3px;
+    min-height: 50px;
+    position: fixed;
+    width: 320px;
+    top: 50px;
+    right: 10px;
+    background-color: rgb(255, 255, 255);
+    z-index: 30;
+    border-radius: 3px;
 
-  & .user-modal-signup{
-    height: 30px;
-    background: inherit;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    outline: 0;
-    width: 100%;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    &:hover{
-      background-color: rgba(9,30,66,.04);
-      color: #172b4d;
-    }
-  }
-
-
-
-  & .user-modal-details{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: 1px solid #091e4221;
-    margin: 0 12px;
-
-    }
-
-  & .user-details{
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    
-    & span{
-      margin-left:12px;
-    }
-
-  }
-
-  &-header{
-    align-items: center;
-    border-bottom: 1px solid #091e4221;
-    color: #5e6c84;
-    display: flex;
-    justify-content: center;
-    line-height: 40px;
-    margin: 0 12px;
-    padding: 0 32px;
-    position: relative;
-    & button{
-      position: absolute;
-      // float: 0;
-      right: 0;
-      background-color: unset;
+    & .user-modal-signup {
+      height: 30px;
+      background: inherit;
       border: none;
-      font-size: 15px;
+      border-radius: 0;
+      box-shadow: none;
+      outline: 0;
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(9, 30, 66, .04);
+        color: #172b4d;
+      }
+    }
+
+
+
+    & .user-modal-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid #091e4221;
+      margin: 0 12px;
+
+    }
+
+    & .user-details {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+
+      & span {
+        margin-left: 12px;
+      }
+
+    }
+
+    &-header {
+      align-items: center;
+      border-bottom: 1px solid #091e4221;
+      color: #5e6c84;
+      display: flex;
+      justify-content: center;
+      line-height: 40px;
+      margin: 0 12px;
+      padding: 0 32px;
+      position: relative;
+
+      & button {
+        position: absolute;
+        // float: 0;
+        right: 0;
+        background-color: unset;
+        border: none;
+        font-size: 15px;
+      }
     }
   }
-}
 
   & .logo-container {
     border-radius: 3px;
@@ -83,8 +85,12 @@
     padding: 0px, 6px, 6px, 0px;
     max-height: 44px;
 
+    &:hover .logo {
+      background: url("../../img/hover-logo.gif") center center / cover;
+    }
+
     &:hover {
-      background-color: hsla(0,0%,100%,.2)
+      background-color: hsla(0, 0%, 100%, .2)
     }
 
     & a {
@@ -105,36 +111,38 @@
   & .logo {
     height: 22px;
     width: 22px;
+
+
     // background: url("../../img/logo.gif") no-repeat;
     //     <img
-//     className='logo'
-//     src={require(`../assets/img/logo.gif`)}
-//     alt=''
-//   />
+    //     className='logo'
+    //     src={require(`../assets/img/logo.gif`)}
+    //     alt=''
+    //   />
 
   }
 
-  & > * {
+  &>* {
     padding: 0 6px;
     line-height: 20px;
     // font-size: 14px;
   }
 
 }
-.avatar-img-guest{
-    background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
-    border-radius: 25em;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
-    margin-top: 3px;
-  }
 
-  .avatar-img{
-    border-radius: 25em;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
-    margin-top: 3px;
-  }
-  
+.avatar-img-guest {
+  background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+  border-radius: 25em;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  margin-top: 3px;
+}
+
+.avatar-img {
+  border-radius: 25em;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+  margin-top: 3px;
+}

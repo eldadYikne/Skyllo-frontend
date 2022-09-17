@@ -35,14 +35,17 @@ window.cs = boardService
 function query(filterBy) {
     return storageService.query(STORAGE_KEY)
 }
+
 function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/board/${boardId}`)
 }
+
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
+
 async function save(board, isStared) {
     var savedBoard
     console.log('enter');
