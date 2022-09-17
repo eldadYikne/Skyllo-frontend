@@ -106,28 +106,28 @@ function getLoggedinUser() {
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
 // })()
 function getMembers() {
-    return new Promise(gUsers)
+    return gUsers
 }
 const gUsers = [
     {
         fullname: 'Emma Mitchell',
-        img: '../assets/img/user-img/1.jpg' 
+        img: `../../assets/img/user-img/1.jpg` 
     },
     {
         fullname: 'John Smith',
-        img: '../assets/img/user-img/2.jpg'
+        img: `../../assets/img/user-img/2.jpg`
     },
     {
         fullname: 'Sam Collins',
-        img: '../assets/img/user-img/3.jpg'
+        img: `../../assets/img/user-img/3.jpg`
     },
     {
         fullname: 'Sasha Stinson',
-        img: '../assets/img/user-img/4.jpg'
+        img: `../../assets/img/user-img/4.jpg`
     },
     {
         fullname: 'Jane Abrams',
-        img: '../assets/img/user-img/5.jpg'
+        img: `../../assets/img/user-img/5.jpg`
     }
 
 ]

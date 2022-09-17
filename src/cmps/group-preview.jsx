@@ -19,11 +19,14 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
 
   const onAddTask = ev => {
     ev.preventDefault()
+    const title = ev.target[0].value
+    if(!title) return
     const task = {
-      title: ev.target[0].value
+      title
     }
     dispatch(saveTask(boardId, group.id, task, 'user addad task'))
     ev.target[0].value = ''
+    setIsAddingTask(false)
   }
   
   const handleChangeTitle = (ev) => {
@@ -96,7 +99,7 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
       </div>
 
       {!isAddingTask && (
-        <div onClick={addingTaskShown} className='add-task'>
+        <div onClick={()=>setIsAddingTask(true)} className='add-task'>
           <svg
             stroke='currentColor'
             fill='currentColor'
