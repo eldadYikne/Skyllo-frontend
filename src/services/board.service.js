@@ -25,8 +25,9 @@ export const boardService = {
     createBoard,
     getBoard,
     addGroup,
-    saveTask,
     removeGroup,
+    saveTask,
+    removeTask,
 }
 window.cs = boardService
 
@@ -97,8 +98,8 @@ async function addGroup(boardId, groupTitle, activity) {
 
 async function removeGroup(boardId, groupId, activity ) {
     const board = await getById(boardId)
-    const groupToRemoveIdx = board.groups.findIndex((group)=> group.id === groupId)
-    board.groups.splice(groupToRemoveIdx, 1)
+    const groupIdx = board.groups.findIndex((group)=> group.id === groupId)
+    board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
 
@@ -117,6 +118,16 @@ async function saveTask(boardId, groupId, task, activity) {
     board.activities.unshift(activity)
     return save(board)
 }
+
+async function removeTask(boardId, groupId, taskId, activity ) {
+    const board = await getById(boardId)
+    const group = board.groups.find((group)=> group.id === groupId)
+    const taskIdx = group.tasks.findIndex((task)=> task.id === taskId)
+    group.tasks.splice(taskIdx, 1)
+    board.activities.unshift(activity)
+    return save(board)
+}
+
 
 
 // TEST DATA

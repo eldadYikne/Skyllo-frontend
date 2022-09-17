@@ -34,8 +34,6 @@ export function BoardApp() {
     //     const groupToSave = { ...group, price }
     //     updateGroup(groupToSave)
     // }
-
-    console.log('board', board)
     if (!board) return <h1>Loading</h1>
     let backgroundStyle = board.style.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
     return <div style={{ [backgroundStyle]: board.style.bgImg, objectFit: 'cover', backgroundSize: 'cover'}} className="board-app" >

@@ -5,8 +5,6 @@ import { TaskPreview } from "./task-preview";
 
 export function TaskList({group}) {
     const board = useSelector(state => state.boardModule.board)
-    console.log(group)
-    console.log(board)
     return (
                <div className="list-container">
                 {group.tasks.map((task)=> {

@@ -2,7 +2,7 @@ import { TaskList } from './task-list'
 import { useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
-import { addTask } from '../store/board.actions'
+import { saveTask } from '../store/board.actions'
 
 export function GroupPreview ({ group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
@@ -15,20 +15,18 @@ export function GroupPreview ({ group, boardId, onRemoveGroup }) {
     const task = {
       title: ev.target[0].value
     }
-    dispatch(addTask(boardId, group.id, task, 'user addad task'))
+    dispatch(saveTask(boardId, group.id, task, 'user addad task'))
     ev.target[0].value = ''
   }
 
   const addingTaskShown = () => {
-
-
     setIsAddingTask(!isAddingTask)
   }
 
   return (
     <section className='group-preview '>
       <div className='group-preview-header'>
-        <form>
+        <form onS>
           <input type='text' value={group.title} id='' />
         </form>
 
