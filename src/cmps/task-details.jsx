@@ -106,7 +106,7 @@ export function TaskDetails () {
               ></textarea>
               {isFieldOpen &&
               <div className='description-edit'>
-                <button className='save-description' onClick={onSaveTask}>Save</button>
+                <button className='save-description' onMouseDown={onSaveTask}>Save</button>
                 <CloseDetailsModal
                   className='close-description-edit'
                   onClick={() => setIsFieldOpen(false)}

@@ -5,6 +5,7 @@ import { getActionSetWatchedUser } from '../store/review.actions'
 import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 import { showSuccessMsg } from '../services/event-bus.service'
 
+
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
@@ -17,7 +18,9 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    changeScore,
+
+    getMembers
 }
 
 window.userService = userService
@@ -102,6 +105,30 @@ function getLoggedinUser() {
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
 // })()
+function getMembers() {
+    return new Promise(gUsers)
+}
+const gUsers = [
+    {
+        fullname: 'Emma Mitchell',
+        img: '../assets/img/user-img/1.jpg' 
+    },
+    {
+        fullname: 'John Smith',
+        img: '../assets/img/user-img/2.jpg'
+    },
+    {
+        fullname: 'Sam Collins',
+        img: '../assets/img/user-img/3.jpg'
+    },
+    {
+        fullname: 'Sasha Stinson',
+        img: '../assets/img/user-img/4.jpg'
+    },
+    {
+        fullname: 'Jane Abrams',
+        img: '../assets/img/user-img/5.jpg'
+    }
 
-
+]
 
