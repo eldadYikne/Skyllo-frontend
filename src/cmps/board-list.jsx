@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { boardService } from '../services/board.service';
-import { addBoard, removeBoard, updateBoard } from '../store/board.actions';
+import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 
@@ -31,11 +31,11 @@ export function BoardList({ boards }) {
             console.log(err);
         }
     }
-    const onSetIsStared = async (boardId, isStared) => {
+    const onSetIsStared = async (boardId) => {
         try {
-            isStared = isStared ? false : true
             const board = await boardService.getById(boardId)
-            dispacth(updateBoard(board, isStared))
+            dispacth(updateBoard(board))
+            dispacth( loadBoards())
         } catch (err) {
             console.log(err);
         }
@@ -54,7 +54,7 @@ export function BoardList({ boards }) {
 
 
         </section>
-        <span>Popular templates</span>
+     
 
 
 
@@ -75,8 +75,8 @@ export function BoardList({ boards }) {
                         </div>
                     </Link>
                     <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
-                    { board.style.isStared? <img  onClick={() => onSetIsStared(board._id, board.style.isStared)} className= 'star-board-preview' src={require('../assets/img/star.png')} />
-                    :<SvgStar onClick={() => onSetIsStared(board._id, board.style.isStared)} className= 'star-board-preview'/>}
+                    { board.style.isStared? <img  onClick={() => onSetIsStared(board._id)} className= 'star-board-preview' src={require('../assets/img/star.png')} />
+                    :<SvgStar onClick={() => onSetIsStared(board._id)} className= 'star-board-preview'/>}
                 </div>
 
             })}
