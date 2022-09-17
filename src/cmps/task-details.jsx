@@ -114,7 +114,6 @@ export function TaskDetails () {
               </div>
               }
             </div>
-            
 
             <div className='activity-container'>
               <div className='container-title'>
@@ -163,10 +162,10 @@ export function TaskDetails () {
                 <ArchiveIcon /> Archive
               </button>
             </div>
+            <DynamicCmp />
           </section>
         </section>
       </div>
-      <DynamicCmp />
     </section>
   )
 }

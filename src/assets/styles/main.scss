@@ -35,8 +35,16 @@
 @import "cmps/task-list";
 @import "cmps/task-preview";
 @import "cmps/task-details";
-@import "cmps/dynamic-cmps";
 @import "cmps/add-board";
+@import "cmps/dynamic-cmp";
+
+//dynamic-cmps
+@import "dynamic-cmps/members-cmp";
+
+
+
+
+
 
 
 

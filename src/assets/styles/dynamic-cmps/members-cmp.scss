@@ -1,0 +1,25 @@
+
+
+.members-cmp{
+
+& h3{
+    @include for-h3-dynamic-cmp
+}
+
+
+& .members-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+& .member-preview{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: rgb(184, 186, 185);
+    cursor: pointer;
+}
+
+
+}
