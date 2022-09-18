@@ -35,7 +35,6 @@ export function BoardList({ boards }) {
         try {
             const board = await boardService.getById(boardId)
             dispacth(updateBoard(board))
-            dispacth(loadBoards())
         } catch (err) {
             console.log(err);
         }

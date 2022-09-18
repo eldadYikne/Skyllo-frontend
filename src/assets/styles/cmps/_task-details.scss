@@ -16,11 +16,19 @@
   z-index: 8;
   bottom: 0;
   background-color: #000000a3;
-  
-  & .details-bgColor{
+
+  & .details-bgColor {
     height: 116px;
     width: 48rem;
+   
+
+    & img {
+      background-position: center center;
+      background-size: cover;
+      height: 100%;
+      object-fit: contain;
     }
+  }
 }
 
 .task-details-modal {
@@ -247,7 +255,7 @@
         flex-direction: column;
         margin-left: 0;
         line-height: 20px;
-        
+
         &:last-child {
           margin-bottom: 24px;
         }
@@ -302,7 +310,7 @@
     cursor: pointer;
 
     &:hover {
-    border-radius: 50%;
+      border-radius: 50%;
       background-color: #1c1c1c29;
     }
   }
@@ -339,7 +347,7 @@
     display: block;
     overflow: hidden;
     resize: none;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
 
     &:focus {
       border: 0 #fff;
