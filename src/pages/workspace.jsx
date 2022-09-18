@@ -6,7 +6,7 @@ import { BoardList } from '../cmps/board-list'
 import { loadBoards } from '../store/board.actions'
 export function WorkSpace() {
 
-  const boards= useSelector(state=>state.boardModule.boards)
+  const boards = useSelector(state => state.boardModule.boards)
   const dispacth = useDispatch()
   useEffect(() => {
     dispacth(loadBoards())
@@ -14,7 +14,9 @@ export function WorkSpace() {
 
   return (
     <section className='workspace'>
-
+      <span className='title-workspace'>
+        Most popular templates
+      </span>
       <BoardList boards={boards} />
     </section>
   )
