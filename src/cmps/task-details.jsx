@@ -36,6 +36,8 @@ export function TaskDetails() {
   const [dynamicType, setDynamicType] = useState('')
   const [taskLabels, setTaskLabels] = useState('')
   const [sections, setSections] = useState([])
+  const [task, setTask] = useState()
+  const bgColor = initTask.cover ? initTask.cover : ''
 
   const loadLabels = () => {
     const labelIds = initTask.labelIds
@@ -50,6 +52,12 @@ export function TaskDetails() {
     setTask(taskCopy)
     loadLabels()
   }, [])
+
+useEffect(()=>{
+  loadLabels()
+
+},[task])
+
 
   const onSaveTask = () => {
     console.log('saving')
@@ -199,6 +207,7 @@ if(!task) return <h1>Loading</h1>
               <DynamicCmp
                 task={task} 
                 type={dynamicType} 
+                group={group}
                 setDynamicType={setDynamicType} 
                 setSections={setSections} />
             }
