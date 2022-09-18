@@ -79,7 +79,7 @@ export function addBoard(board) {
     }
 }
 
-export function updateBoard(board, isStared) {
+export function updateBoard(board, isStared ) {
     return (dispatch) => {
         boardService.save(board, isStared)
             .then(savedBoard => {
