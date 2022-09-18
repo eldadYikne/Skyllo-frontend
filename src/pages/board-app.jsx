@@ -10,6 +10,8 @@ import { BoardHeader } from "../cmps/board-header";
 import { GroupList } from "../cmps/group-list";
 import { boardService } from "../services/board.service";
 import { getCurrBoard, addGroup } from "../store/board.actions";
+import { onSignup } from "../store/user.actions";
+import { userService } from "../services/user.service";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -19,9 +21,14 @@ export function BoardApp() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
+        userService.signup({username:'dekel', password: '123'})
     }, [])
 
     const board = useSelector(state => state.boardModule.board)
+    const user = useSelector(state => state.userModule.user)
+
+
+
     // const onRemoveGroup = (groupId) => {
     //     removeGroup(groupId)
     // }
