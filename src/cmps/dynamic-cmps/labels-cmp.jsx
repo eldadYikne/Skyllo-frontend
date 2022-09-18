@@ -1,23 +1,51 @@
 
 import { useSelector } from 'react-redux'
 import { ReactComponent as EditIcon } from '../../assets/img/edit-icon.svg'
+import { utilService } from '../../services/util.service'
 
 
 
-export const LabelsCmp = () => {
+export const LabelsCmp = ({task}) => {
 
     const board = useSelector(state => state.boardModule.board)
 
-    const labels = board.labels
+    const BoardLabels = board.labels
 
+
+
+    const onChooseLabel = (labelId) =>{
+        if (!task.labelIds?.includes(labelId)){
+            const newLabelsToTask = [...task.labelIds, labelId]
+            const taskToUpdate = {...task, labelIds: newLabelsToTask}
+            
+        }
+
+
+
+    }
+
+    // const onClickLabel = (labelId) => {
+    //     if (!task.labelIds?.includes(labelId)) {
+    //         const newLabelIds = [...task.labelIds, labelId]
+    //         const taskToUpdate = { ...task, labelIds: newLabelIds }
+    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
+    //     } else {
+    //         const newLabelIds = task.labelIds.filter(currLabelId => {
+    //             return currLabelId !== labelId
+    //         })
+    //         const taskToUpdate = { ...task, labelIds: newLabelIds }
+    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
+    //     }
+    // }
     return <section className="labels-cmp">
 
         <h4>Labels</h4>
         <div className="labels-list">
-            {labels.map(label => {
+            {llll.map(label => {
                 return (
-                    <div className="label-container">
-                        <div style={{ backgroundColor: label.color }} className='label-color-box'>{label.title ? label.title : ''}</div>
+                    <div key={label.id} className="label-container">
+                        <div style={{ backgroundColor: label.color }} className='label-color-box' onClick={()=> onChooseLabel(label.id)}>
+                            {label.title ? label.title : ''}</div>
                         <button className='edit-label-btn'>
                             <EditIcon />
                         </button>
@@ -32,3 +60,44 @@ export const LabelsCmp = () => {
 
     </section>
 }
+
+
+const llll = [
+    {
+        //light purple
+        id: utilService.makeId(),
+        title: "Done",
+        color: "#7fb973"
+    },
+    {
+        //light blue
+        id: utilService.makeId(),
+        title: "Progress",
+        color: "#78afcf"
+    },
+    {
+        //green
+        id: utilService.makeId(),
+        title: "Free time",
+        
+        color: "#b8b8d1"
+    },
+    {
+        //red
+        id: utilService.makeId(),
+        title: "Urgent",
+        color: "#dd5959"
+    },
+    {
+        //yellow
+        id: utilService.makeId(),
+        title: "Can wait",
+        color: "#dfd762"
+    },
+    {
+        //orange
+        id: utilService.makeId(),
+        title: "Priority",
+        color: "#fea967"
+    }
+]

@@ -32,7 +32,25 @@
     flex-direction: column;
   }
 
-  // z-index: 10;
+  .action-type-content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 200px;
+
+    & .task-details-label-box {
+      cursor: pointer;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 4px 4px 0;
+      min-width: 40px;
+      height: 32px;
+      padding: 0 12px;
+      font-weight: 600;
+      color: #f5f5f5;
+    }
+  }
 
   & .details-content {
     @include for-normal-layout {

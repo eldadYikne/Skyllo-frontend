@@ -57,6 +57,7 @@ export function TaskDetails() {
   }
 
 
+
   return (
 
     <section className='task-details-view'>
@@ -89,7 +90,12 @@ export function TaskDetails() {
 
               <div className='actions-type'>
                 <h4>Labels</h4>
-                <div className='action-type-content'></div>
+                <div className='action-type-content'>
+                {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
+                  {task.labels&& task.labels.map(label=>{
+                    return <div className='task-details-label-box' style={{ backgroundColor: label.color }}></div>
+                  })}
+                </div>
               </div>
             </section>
 
@@ -154,7 +160,7 @@ export function TaskDetails() {
                 </button>
               </div>
             </div>
-            
+
             <div className='details-actions'>
               <h5>Actions</h5>
               <button onClick={onRemoveTask}>
@@ -162,7 +168,7 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp  type={dynamicType} setDynamicType={setDynamicType} />
+              <DynamicCmp task = {initTask}  type={dynamicType} setDynamicType={setDynamicType} />
             }
           </section>
         </section>
