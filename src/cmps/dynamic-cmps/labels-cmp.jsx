@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as EditIcon } from '../../assets/img/edit-icon.svg'
 import { utilService } from '../../services/util.service'
 import { saveTask } from '../../store/board.actions'
+import { EditLabel } from './edit-label-cmp'
 
 
 
@@ -13,7 +14,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask }) => {
 
     const board = useSelector(state => state.boardModule.board)
     const BoardLabels = board.labels
-    const [isEditLabel, setIsEditLabel] = useState(true)
+    const [isEditLabel, setIsEditLabel] = useState(false)
     const [isCreateLabel, setIsCreateLabel] = useState(true)
 
     const onChooseLabel = (labelId) => {
@@ -32,26 +33,32 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask }) => {
             setTask(taskToUpdate)   
         }
     }
+    return <section>
+        {!isEditLabel && <div>
+            <section className="labels-cmp">
+                <h4>Labels</h4>
+                <div className="labels-list">
+                    {board.labels.map(label => {
+                        return (
+                            <div key={label.id} className="label-container">
+                                <div style={{ backgroundColor: label.color }} className='label-color-box' onClick={() => onChooseLabel(label.id)}>
+                                    {label.title ? label.title : ''}</div>
+                                <button className='edit-label-btn'>
+                                    <EditIcon onClick={() => setIsEditLabel(!isEditLabel)} />
+                                </button>
+                            </div>
+                        )
+                    })}
+                </div>
 
-    return <section className="labels-cmp">
-        <h4>Labels</h4>
-        <div className="labels-list">
-            {board.labels.map(label => {
-                return (
-                    <div key={label.id} className="label-container">
-                        <div style={{ backgroundColor: label.color }} className='label-color-box' onClick={() => onChooseLabel(label.id)}>
-                            {label.title ? label.title : ''}</div>
-                        <button className='edit-label-btn'>
-                            <EditIcon />
-                        </button>
-                    </div>
-                )
-            })}
-        </div>
+                <button className='create-new-label-btn'>
+                    Create a new label
+                </button>
+            </section>
+        </div>}
 
-        <button className='create-new-label-btn'>
-            Create a new label
-        </button>
-
+        {isEditLabel &&
+            <EditLabel setIsEditLabel={setIsEditLabel} setDynamicType={setDynamicType} />
+        }
     </section>
 }

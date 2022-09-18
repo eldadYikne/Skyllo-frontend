@@ -40,6 +40,5 @@ export const detailsColorsConsts = [
     "#FF4136",
     "#FF851B",
     "#FFDC00"
-
 ]
 

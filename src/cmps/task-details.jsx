@@ -60,6 +60,12 @@ export function TaskDetails() {
     onSaveTask()
   },[task])
 
+useEffect(()=>{
+  loadLabels()
+
+},[task])
+
+
   const onSaveTask = () => {
     console.log('saving')
     dispatch(saveTask(board._id, group.id, task, 'user updated task'))
