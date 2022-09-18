@@ -283,6 +283,7 @@ function getBoard() {
                                 fullname: "Tal Tarablus",
                                 imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                             },
+
                             style: {
                                 bgColor: "#26de81"
                             }
