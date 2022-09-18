@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux'
 import { ReactComponent as EditIcon } from '../../assets/img/edit-icon.svg'
 import { utilService } from '../../services/util.service'
+import { saveTask } from '../../store/board.actions'
 
 
 
@@ -17,30 +18,18 @@ export const LabelsCmp = ({task}) => {
         if (!task.labelIds?.includes(labelId)){
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = {...task, labelIds: newLabelsToTask}
+            dispatch(saveTask(board._id, group.id, taskToUpdate))
 
         }
+        else{
 
-
-
+        }
     }
 
-    // const onClickLabel = (labelId) => {
-    //     if (!task.labelIds?.includes(labelId)) {
-    //         const newLabelIds = [...task.labelIds, labelId]
-    //         const taskToUpdate = { ...task, labelIds: newLabelIds }
-    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
-    //     } else {
-    //         const newLabelIds = task.labelIds.filter(currLabelId => {
-    //             return currLabelId !== labelId
-    //         })
-    //         const taskToUpdate = { ...task, labelIds: newLabelIds }
-    //         dispatch(updateTask(board._id, group.id, task.id, taskToUpdate));
-    //     }
-    // }
-    return <section className="labels-cmp">
 
+    return <section className="labels-cmp">
         <h4>Labels</h4>
-        {/* <div className="labels-list">
+        <div className="labels-list">
             {llll.map(label => {
                 return (
                     <div key={label.id} className="label-container">
@@ -52,7 +41,7 @@ export const LabelsCmp = ({task}) => {
                     </div>
                 )
             })}
-        </div> */}
+        </div>
 
         <button className='create-new-label-btn'>
             Create a new label
@@ -60,7 +49,6 @@ export const LabelsCmp = ({task}) => {
 
     </section>
 }
-
 
 const llll = [
     {

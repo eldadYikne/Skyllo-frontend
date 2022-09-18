@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
 
 export function AppHeader() {
 
   const [imgSrc, setImgSrc] = useState(Logo)
-
+  const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
 
 
@@ -22,9 +23,7 @@ export function AppHeader() {
           <span className='h1-logo'>Skyllo</span>
         </Link>
       </section>
-
       <div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'></div>
-
       {userModalOpen &&
         <div className='user-modal'>
           <section className='user-modal-header'>
