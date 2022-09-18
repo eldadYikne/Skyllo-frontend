@@ -8,6 +8,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 4px;
+            cursor: pointer;
 
             & button {
                 background-color: inherit;
@@ -33,9 +34,11 @@
         @include for-h3-dynamic-cmp
     }
 
-
     & .create-new-label-btn {
         @include for-dynamic-btn
        
     }
+
+
+    
 }

@@ -11,9 +11,9 @@ export const AddBoard = ({ onChangeColor, bgColorCreate, createNewBoard,setIsSho
         setText(ev.target.value)
         console.log(text,'tetx')
     }
+
     const classBtn= text? 'btn-create-board-filled ': "btn-create-board"
-
-
+    
     return <div className="creat-board-modal">
         <div className='title-create-board'>
         <span>Create Board</span>
