@@ -45,14 +45,10 @@ export function TaskDetails() {
     return setTaskLabels(taskLabel)
   }
   
-  const [task, handleChange, setTask] = useForm({
-    title: '',
-    description: ''
-  })
-
   useEffect(() => {
     const taskCopy = JSON.parse(JSON.stringify(initTask))
     setTask(taskCopy)
+    loadLabels()
   }, [])
 
   const onSaveTask = () => {
