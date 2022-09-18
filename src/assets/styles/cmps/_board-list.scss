@@ -7,23 +7,9 @@
     & a {
         color: $clr0;
         font-weight: 10px;
-
+        text-shadow: 2px 2px 4px #000000;
     }
 
 }
 
-.workspace {
-    position: relative;
-    max-width: 1033px;
-    margin: auto;
-    margin-top: 30px;
-
-    & span {
-        color: black;
-        margin-bottom: 20px;
-
-    }
-
-
-}
 

@@ -195,7 +195,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://media.npr.org/assets/img/2022/06/15/gettyimages-1329369484_custom-885a687ec4ed7acfd56a918dbc51f9204cebcf8b-s1100-c50.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663488783/sprint%204%20/220503164709-02-body-incredible-train-journeys_dh1ewu.jpg")',
                 isStared: false
             },
             labels: [
@@ -309,7 +309,6 @@ function getBoard() {
                     }
                 }
             ],
-            // for monday
             cmpsOrder: ["status-picker", "member-picker", "date-picker"]
         },
         {
@@ -339,7 +338,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("http://cdn.cnn.com/cnnnext/dam/assets/220503164709-02-body-incredible-train-journeys.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489044/sprint%204%20/abstract-pink-watercolor-background-illustration-high-resolution-free-photo_1340-21115_lorgj1.jpg")',
                 isStared: false
             },
             groups: []
@@ -355,7 +354,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://i2-prod.dublinlive.ie/incoming/article23902887.ece/ALTERNATES/s615/0_GettyImages-1271537082.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489115/sprint%204%20/0_GettyImages-1271537082_ekvkxq.jpg")',
                 isStared: false
             },
             groups: []
@@ -371,7 +370,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://cdn.pixabay.com/photo/2014/09/03/20/15/shoes-434918__480.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489161/sprint%204%20/shoes-434918__480_xlty5c.jpg")',
                 isStared: true
             },
             groups: []
@@ -387,7 +386,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://st2.depositphotos.com/1177973/9006/i/950/depositphotos_90068008-stock-photo-beautiful-golden-saxophone-with-musical.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489186/sprint%204%20/cool-music-background-1366x768-laptop-49923_pqf7dn.jpg")',
                 isStared: true
             },
             groups: []
@@ -403,7 +402,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRCuxUDUDTye7Smic5D3SJz0KNwgVWc27m1A&usqp=CAU")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489208/sprint%204%20/wp3422169_eakibu.jpg")',
                 isStared: true
             },
             groups: []
@@ -419,7 +418,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/2819238.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489228/sprint%204%20/2819238_bxfwdo.jpg")',
                 isStared: true
             },
             groups: []
@@ -435,7 +434,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://images.pexels.com/photos/414102/pexels-photo-414102.jpeg?cs=srgb&dl=pexels-pixabay-414102.jpg&fm=jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489252/sprint%204%20/pexels-photo-414102.jpeg_p3l2ze.jpg")',
                 isStared: true
             },
             groups: []
@@ -451,7 +450,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/3547009.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489270/sprint%204%20/3547009_fjiyfh.jpg")',
                 isStared: true
             },
             groups: []
@@ -467,7 +466,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://nextbigwhat.com/wp-content/webpc-passthru.php?src=https://nextbigwhat.com/wp-content/uploads/2021/12/DA-Feb-4.png&nocache=1")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489294/sprint%204%20/webpc-passthru.php_myunwy.png")',
                 isStared: true
             },
             groups: []
@@ -483,7 +482,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/87541.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489314/sprint%204%20/87541_ulolpm.jpg")',
                 isStared: true
             },
             groups: []
@@ -499,7 +498,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://coursework.vschool.io/content/images/2017/08/react.png")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489336/sprint%204%20/react_ugfgnl.png")',
                 isStared: true
             },
             groups: []
@@ -515,7 +514,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/87551.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489357/sprint%204%20/87551_vma4fs.jpg")',
                 isStared: true
             },
             groups: []
@@ -531,7 +530,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/405575.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489374/sprint%204%20/405575_emcdmf.jpg")',
                 isStared: true
             },
             groups: []
