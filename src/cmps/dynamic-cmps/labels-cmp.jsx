@@ -17,7 +17,7 @@ export const LabelsCmp = ({task}) => {
         if (!task.labelIds?.includes(labelId)){
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = {...task, labelIds: newLabelsToTask}
-            
+
         }
 
 
@@ -40,7 +40,7 @@ export const LabelsCmp = ({task}) => {
     return <section className="labels-cmp">
 
         <h4>Labels</h4>
-        <div className="labels-list">
+        {/* <div className="labels-list">
             {llll.map(label => {
                 return (
                     <div key={label.id} className="label-container">
@@ -52,7 +52,7 @@ export const LabelsCmp = ({task}) => {
                     </div>
                 )
             })}
-        </div>
+        </div> */}
 
         <button className='create-new-label-btn'>
             Create a new label
