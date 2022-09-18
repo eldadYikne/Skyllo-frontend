@@ -57,9 +57,7 @@ export function BoardList({ boards }) {
 
 
 
-        <span className='title-workspace'>
-            Most popular templates
-        </span>
+      
         <section className="board-list">
             <div onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
                 Creat New Board
