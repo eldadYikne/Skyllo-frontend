@@ -45,12 +45,14 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
-
-async function save(board, isStared) {
+async function save(board) {
     var savedBoard
     console.log('enter');
     if (board._id) {
-        board.style.isStared = isStared
+
+        console.log('staaar');
+        board.style.isStared = board.style.isStared ? false : true
+        console.log(board.style.isStared, ' board.style.isStared');
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
@@ -416,7 +418,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZXforlq8r5qU0cl2R1s08_vOmmNQa5tQ6wg&usqp=CAU")',
+                bgImg: 'url("https://wallpaperaccess.com/full/2819238.jpg")',
                 isStared: true
             },
             groups: []
@@ -448,7 +450,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://img.freepik.com/premium-photo/beautiful-sky-with-clouds-golden-light-sun_51530-1593.jpg?w=2000")',
+                bgImg: 'url("https://wallpaperaccess.com/full/3547009.jpg")',
                 isStared: true
             },
             groups: []
@@ -480,7 +482,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://st4.depositphotos.com/18630962/20629/i/600/depositphotos_206298280-stock-photo-hot-black-coffee-clear-glass.jpg")',
+                bgImg: 'url("https://wallpaperaccess.com/full/87541.jpg")',
                 isStared: true
             },
             groups: []
@@ -512,7 +514,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtRx9RfOVMAAMRnMzcE4Q60JD4q7Cljs-TSsux6tiwWKeCU_mcwCjNmHipClWLcfpYb04&usqp=CAU")',
+                bgImg: 'url("https://wallpaperaccess.com/full/87551.jpg")',
                 isStared: true
             },
             groups: []
@@ -528,7 +530,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBzZ0WGrS4PjHzoypyuCrqdhnL7VfU54IPymSQigDJtigK86ix7iULbELjsL_r7fUGDSU&usqp=CAU")',
+                bgImg: 'url("https://wallpaperaccess.com/full/405575.jpg")',
                 isStared: true
             },
             groups: []
