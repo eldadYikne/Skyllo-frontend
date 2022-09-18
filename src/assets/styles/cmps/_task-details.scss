@@ -16,6 +16,11 @@
   z-index: 8;
   bottom: 0;
   background-color: #000000a3;
+  
+  & .details-bgColor{
+    height: 116px;
+    width: 48rem;
+    }
 }
 
 .task-details-modal {

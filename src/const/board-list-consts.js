@@ -21,3 +21,17 @@ export const workspaceColorsConsts = [
     "#2ECC40"
 ]
 
+export const detailsColorsConsts = [
+    "#001f3f",
+    "#0074D9",
+    "#7FDBFF",
+    "#39CCCC",
+    "#B10DC9",
+    "#F012BE",
+    "#85144b",
+    "#FF4136",
+    "#FF851B",
+    "#FFDC00"
+
+]
+

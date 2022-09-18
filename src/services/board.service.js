@@ -116,7 +116,9 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
+        console.log(task);
         group.tasks.splice(taskIdx, 1, task)
+        console.log(task);
     } else {
         task.id = utilService.makeId()
         group.tasks.push(task)

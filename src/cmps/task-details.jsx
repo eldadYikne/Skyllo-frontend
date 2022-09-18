@@ -75,6 +75,11 @@ if(!task) return <h1>Loading</h1>
 
     <section className='task-details-view'>
       <div className='task-details-modal'>
+        {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
+          <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
+            <CoverIcon /> Cover
+          </button>
+        </div>}
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
           <CloseDetailsModal
             className='close-details-modal-icon'
