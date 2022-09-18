@@ -7,7 +7,7 @@ import { saveTask } from '../../store/board.actions'
 
 
 
-export const LabelsCmp = ({ task, group }) => {
+export const LabelsCmp = ({ task, group, setDynamicType, setTask }) => {
 
     const dispatch = useDispatch()
 
@@ -17,15 +17,19 @@ export const LabelsCmp = ({ task, group }) => {
     const [isCreateLabel, setIsCreateLabel] = useState(true)
 
     const onChooseLabel = (labelId) => {
+        console.log(task)
         if (!task.labelIds?.includes(labelId)) {
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
-            dispatch(saveTask(board._id, group.id, taskToUpdate))
+            console.log(taskToUpdate)
+            setTask(taskToUpdate)
+            
+            
         }
         else {
             const newLabelIds = task.labelIds.filter(currLabelId => currLabelId !== labelId)
             const taskToUpdate = { ...task, labelIds: newLabelIds }
-            dispatch(saveTask(board._id, group.id, taskToUpdate))
+            setTask(taskToUpdate)   
         }
     }
 

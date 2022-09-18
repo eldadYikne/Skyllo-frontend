@@ -8,7 +8,7 @@ import { LabelsCmp } from './dynamic-cmps/labels-cmp'
 import { MembersCmp } from './dynamic-cmps/members-cmp'
 
 
-export function DynamicCmp({ type, setDynamicType , task, setSections, group }) {
+export function DynamicCmp({ type, setDynamicType , task, setSections, group, setTask }) {
 
     const dynamicCmpToRender = (type) => {
 
@@ -18,13 +18,18 @@ export function DynamicCmp({ type, setDynamicType , task, setSections, group }) 
             case 'attachment':
                 return <AttachmentCmp />
             case 'cover':
-                return <CoverCmp   task={task} />
+                return <CoverCmp 
+                    task={task} 
+                    setTask={setTask}/>
             case 'labels':
-                return <LabelsCmp task={task} group={group} setDynamicType={setDynamicType}/>
+                return <LabelsCmp task={task}
+                    group={group} 
+                    setDynamicType={setDynamicType} 
+                    setTask={setTask}/>
             case 'checklist':
                 return <ChecklistCmp 
-                        setDynamicType={setDynamicType}
-                        setSections={setSections}
+                    setDynamicType={setDynamicType}
+                    setSections={setSections}
                         />
             // case 'dates':
             //     return <DatesCmp />

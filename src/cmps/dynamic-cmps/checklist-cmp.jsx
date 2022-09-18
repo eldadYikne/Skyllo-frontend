@@ -2,11 +2,10 @@
 
 
 
-export const ChecklistCmp = ({setDynamicType, setSections})=> {
-        const addChecklist = (ev) => {
-            ev.preventDefault()
-
-        }
+export const ChecklistCmp = ({setDynamicType, setTask})=> {
+    const addChecklist = (ev) => {
+        ev.preventDefault()
+    }
 
 
     return <section className="checklist-cmp">

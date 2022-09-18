@@ -7,7 +7,7 @@ import { saveTask } from "../../store/board.actions"
 
 
 
-export const CoverCmp = ({ task }) => {
+export const CoverCmp = ({ task, setTask }) => {
 
     const [bgColorExmpel, setBgColorExmpel] = useState('')
     const dispatch = useDispatch()
@@ -16,8 +16,9 @@ export const CoverCmp = ({ task }) => {
     const onChangeColor = (color) => {
         
         setBgColorExmpel(color)
-        const updatedTask = { ...task, cover: color }
-        dispatch(saveTask(params.boardId, params.groupId, updatedTask))
+        const taskToUpdate = { ...task, cover: color }
+        setTask(taskToUpdate)
+        // dispatch(saveTask(params.boardId, params.groupId, updatedTask))
     }
     const onCoverSelected = () => {
 

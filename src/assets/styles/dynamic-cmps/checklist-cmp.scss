@@ -1,11 +1,13 @@
-label {
-    @include for-h3-dynamic-cmp
-}
+.checklist-cmp {
+    label {
+        @include for-h3-dynamic-cmp
+    }
 
-input {
-    @include for-dynamic-input
-}
+    input {
+        @include for-dynamic-input
+    }
 
-.checklist-cmp button {
-    @include for-add-action-button
+    button {
+        @include for-add-action-button
+    }
 }

@@ -16,8 +16,6 @@ import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { removeTask, saveTask } from '../store/board.actions'
-import { useFormRegister } from '../hooks/useFormRegister'
-import { useForm } from '../hooks/useForm'
 import { boardService } from '../services/board.service'
 
 
@@ -26,6 +24,7 @@ export function TaskDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const board = useSelector(state => state.boardModule.board)
+
 
   const groupId = params.groupId
   const taskId = params.taskId
@@ -36,43 +35,50 @@ export function TaskDetails() {
   const [dynamicType, setDynamicType] = useState('')
   const [taskLabels, setTaskLabels] = useState('')
   const [sections, setSections] = useState([])
+  const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
 
+  
   const loadLabels = () => {
-    const labelIds = initTask.labelIds
-    const taskLabel = labelIds.map(id => {
+    if(!task) return
+    const labelIds = task.labelIds
+    const taskLabel = labelIds?.map(id => {
       return boardService.getLabelsById(board, id)
     })
     return setTaskLabels(taskLabel)
   }
   
   useEffect(() => {
-    const taskCopy = JSON.parse(JSON.stringify(initTask))
-    setTask(taskCopy)
     loadLabels()
-  }, [])
+  },[])
+
+  useEffect(()=> {
+    loadLabels()
+    onSaveTask()
+  },[task])
 
   const onSaveTask = () => {
     console.log('saving')
     dispatch(saveTask(board._id, group.id, task, 'user updated task'))
     if (isFieldOpen) setIsFieldOpen(false)
   }
-
+  
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsFieldOpen(false)
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
   }
-
+  
   const handleChange = ({ target }) => {
     const field = target.name
     const value = target.type === 'number' ? (+target.value || '') : target.value
     setTask(prevTask => ({ ...prevTask, [field]: value }))
-}
-
-if(!task) return <h1>Loading</h1>
+  }
+  
+  if(!task) return <h1>Loading</h1>
+  const bgColor = task.cover ? task.cover : ''
   return (
-
+    
     <section className='task-details-view'>
       <div className='task-details-modal'>
         {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
@@ -197,10 +203,14 @@ if(!task) return <h1>Loading</h1>
             </div>
             {dynamicType &&
               <DynamicCmp
-                task={task} 
+                task={task}
+                setTask={setTask} 
                 type={dynamicType} 
                 setDynamicType={setDynamicType} 
-                setSections={setSections} />
+                setSections={setSections}
+                group={group}
+                 />
+                
             }
           </section>
         </section>
