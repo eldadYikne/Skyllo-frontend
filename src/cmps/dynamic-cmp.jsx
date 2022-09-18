@@ -8,12 +8,7 @@ import { LabelsCmp } from './dynamic-cmps/labels-cmp'
 import { MembersCmp } from './dynamic-cmps/members-cmp'
 
 
-
-
-
-
 export function DynamicCmp({ type, setDynamicType , task }) {
-
 
     const dynamicCmpToRender = (type) => {
 
