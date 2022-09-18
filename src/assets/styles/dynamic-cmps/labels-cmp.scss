@@ -35,20 +35,7 @@
 
 
     & .create-new-label-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 3px;
-        padding: 6px 12px;
-        box-shadow: none;
-        border: none;
-        width: 100%;
-        min-height: 20px;
-        margin-top: 5px;
-        color: #42526e;
-
-        &:hover {
-            background-color: rgba(9, 30, 66, 0.08);
-        }
+        @include for-dynamic-btn
+       
     }
 }

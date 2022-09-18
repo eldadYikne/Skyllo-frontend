@@ -203,25 +203,26 @@ function getBoard() {
                     //light purple
                     id: utilService.makeId(),
                     title: "Done",
-                    color: "#b8b8d1"
+                    color: "#7fb973"
                 },
                 {
                     //light blue
                     id: utilService.makeId(),
                     title: "Progress",
-                    color: "#5b92b2"
+                    color: "#78afcf"
                 },
                 {
                     //green
                     id: utilService.makeId(),
-                    title: "Done",
-                    color: "#61bd4f"
+                    title: "Free time",
+                    
+                    color: "#b8b8d1"
                 },
                 {
                     //red
                     id: utilService.makeId(),
                     title: "Urgent",
-                    color: "#c74040"
+                    color: "#dd5959"
                 },
                 {
                     //yellow
@@ -232,11 +233,11 @@ function getBoard() {
                 {
                     //orange
                     id: utilService.makeId(),
-                    title: "free time",
-                    color: "#df8742"
+                    title: "Priority",
+                    color: "#fea967"
                 }
-        
-            ],
+            ]
+        ,
             members: [
                 {
                     _id: utilService.makeId(),
@@ -253,20 +254,29 @@ function getBoard() {
                         {
                             id: utilService.makeId(),
                             title: "Get the lab for trials",
-                            description: "Call the company and schedule"
+                            description: "Call the company and schedule",
+                            memberIds: [],
+                            labelIds: [],
+
                         },
                         {
                             id: utilService.makeId(),
                             title: "DNA replication",
-                            description: "get to 1M cells"
+                            description: "get to 1M cells",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Adding medicine to trial group",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
-                            title: "Following cell development"
+                            title: "Following cell development",
+                            memberIds: [],
+                            labelIds: [],
                         },
                     ],
                     style: {}
@@ -279,6 +289,8 @@ function getBoard() {
                             id: utilService.makeId(),
                             title: "Injet medicine to trial group",
                             description: "Group 1 only",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
@@ -309,8 +321,8 @@ function getBoard() {
                                     ]
                                 }
                             ],
-                            memberIds: ["u101"],
-                            labelIds: ["l101", "l102"],
+                            memberIds: [],
+                            labelIds: [],
                             createdAt: 1590999730348,
                             dueDate: 16156215211,
                             byMember: {
@@ -328,16 +340,22 @@ function getBoard() {
                             id: utilService.makeId(),
                             title: "Meet Health Ministry for Phase 3 approval",
                             description: "Build medication file",
+                            memberIds: [],
+                            labelIds: [],
                         },
                           {
                             id: utilService.makeId(),
                             title: "Calculate success rate in vivo",
                             description: "",
+                            memberIds: [],
+                            labelIds: [],
                         },
                           {
                             id: utilService.makeId(),
                             title: "Apply for Ethic review board",
                             description: "in order to get approval for phase 3",
+                            memberIds: [],
+                            labelIds: [],
                         },
                     ],
                     style: {
@@ -352,31 +370,43 @@ function getBoard() {
                         {
                             id: utilService.makeId(),
                             title: "Get patients agreement for trials",
-                            description: "Make a patients conference"
+                            description: "Make a patients conference",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Get all health file records",
-                            description: "discuss every patient's physician"
+                            description: "discuss every patient's physician",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Randomize a Placebo group",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Prescribe the medicine to trial group",
-                            description: "Give the Phycians the following plan"
+                            description: "Give the Phycians the following plan",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Follow disease remission",
-                            description: "Calculate the success rate, side effects and their rates"
+                            description: "Calculate the success rate, side effects and their rates",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Build clinical trial file",
-                            description: "set the file according to demands"
+                            description: "set the file according to demands",
+                            memberIds: [],
+                            labelIds: [],
                         },
                     ],
                     style: {} 
@@ -389,16 +419,22 @@ function getBoard() {
                         {
                             id: utilService.makeId(),
                             title: "Get FDA approval",
-                            description: "Send the file to FDA"
+                            description: "Send the file to FDA",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Get Health Minister's approval",
-                            description: "Send the file to Ministry of Health"
+                            description: "Send the file to Ministry of Health",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
                             title: "Organize company vacation",
+                            memberIds: [],
+                            labelIds: [],
                         },
                     ],
                     style: {} 

@@ -8,12 +8,7 @@ import { LabelsCmp } from './dynamic-cmps/labels-cmp'
 import { MembersCmp } from './dynamic-cmps/members-cmp'
 
 
-
-
-
-
 export function DynamicCmp({ type, setDynamicType }) {
-
 
     const dynamicCmpToRender = (type) => {
 
@@ -26,8 +21,8 @@ export function DynamicCmp({ type, setDynamicType }) {
             //     return <CoverCmp />
             case 'labels':
                 return <LabelsCmp />
-            // case 'checklist':
-            //     return <ChecklistCmp />
+            case 'checklist':
+                return <ChecklistCmp />
             // case 'dates':
             //     return <DatesCmp />
         }
