@@ -15,7 +15,9 @@
     vertical-align: top;
     white-space: nowrap;
     width: 272px;
-    background-color: #00000014;
+    // background-color: #00000014;
+    color: #fff;
+    background-color: #ffffff3d;
     border-radius: 3px;
     min-height: 32px;
     padding: 8px;
@@ -28,11 +30,13 @@
     }
 
     & .add-group-icon {
+      display: flex;
+      align-items: center;
       font-size: 16px;
       height: 20px;
       line-height: 20px;
       width: 20px;
-      display: inline-block;
+      // display: inline-block;
       font-style: normal;
       font-weight: 400;
     }
