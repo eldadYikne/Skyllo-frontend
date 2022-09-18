@@ -26,27 +26,29 @@ export function TaskDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const board = useSelector(state => state.boardModule.board)
-
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
+  // ELDAD
+  const bgColor = initTask.cover ? initTask.cover.length > 9 ? ' #f8f7f7' : initTask.cover :''
+
+  let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
   const [isFieldOpen, setIsFieldOpen] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
   const [taskLabels, setTaskLabels] = useState('')
   const [sections, setSections] = useState([])
   const [task, setTask] = useState()
-  const bgColor = initTask.cover ? initTask.cover : ''
 
   const loadLabels = () => {
     const labelIds = initTask.labelIds
-    const taskLabel = labelIds.map(id => {
+    const taskLabel = labelIds?.map(id => {
       return boardService.getLabelsById(board, id)
     })
     return setTaskLabels(taskLabel)
   }
-  
+
   useEffect(() => {
     const taskCopy = JSON.parse(JSON.stringify(initTask))
     setTask(taskCopy)
@@ -76,14 +78,15 @@ useEffect(()=>{
     const field = target.name
     const value = target.type === 'number' ? (+target.value || '') : target.value
     setTask(prevTask => ({ ...prevTask, [field]: value }))
-}
-
-if(!task) return <h1>Loading</h1>
+  }
+console.log(initTask.cover);
+  if (!task) return <h1>Loading</h1>
   return (
 
     <section className='task-details-view'>
       <div className='task-details-modal'>
-        {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
+        {bgColor && <div style={{ backgroundColor: bgColor }} className='details-bgColor'>
+          {initTask.cover.length > 9 && <img src={initTask.cover} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
           </button>
@@ -158,15 +161,15 @@ if(!task) return <h1>Loading</h1>
               ></textarea>
             </div>
 
-          {sections.checklist &&
-            <div className='checklist-container'>
-              <div className='container-title'>
-                <ChecklistIcon className='title-icon' />
-                <h5>Checklist</h5>
-              </div>
+            {sections.checklist &&
+              <div className='checklist-container'>
+                <div className='container-title'>
+                  <ChecklistIcon className='title-icon' />
+                  <h5>Checklist</h5>
+                </div>
 
 
-            </div>}
+              </div>}
           </section>
 
           {/*details side-bar: */}
@@ -205,11 +208,11 @@ if(!task) return <h1>Loading</h1>
             </div>
             {dynamicType &&
               <DynamicCmp
-                task={task} 
-                type={dynamicType} 
-                group={group}
-                setDynamicType={setDynamicType} 
-                setSections={setSections} />
+                task={task}
+                type={dynamicType}
+                setDynamicType={setDynamicType}
+                setSections={setSections}
+                group={group} />
             }
           </section>
         </section>

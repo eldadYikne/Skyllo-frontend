@@ -39,7 +39,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
     const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
     if (!title) return
     board.groups[groupIdx].title = title
-    dispatch(updateBoard(board, board.isStared, title))
+    dispatch(updateBoard(board))
   }
 
   const addingTaskShown = () => {

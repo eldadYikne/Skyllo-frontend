@@ -6,6 +6,8 @@ export const workspaceImgConsts = [
     `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg `,
 ]
 
+
+
 export const workspaceColorsConsts = [
     "#001f3f",
     "#0074D9",
@@ -21,6 +23,12 @@ export const workspaceColorsConsts = [
     "#2ECC40"
 ]
 
+export const detailsImgConsts = [
+    `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663519990/sprint%204%20/0_KSpjMuNzB8H4jnFt_zrena3.jpg `,
+    `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663520024/sprint%204%20/227_sdhp4y.webp  `,
+    `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663520071/sprint%204%20/flower-purple-lical-blosso_kw2nrf.jpg  `,
+    `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663520102/sprint%204%20/aerial-view-lago-antorno-dolomites-lake-mountain-landscape-alps-peak-misurina-cortina-di-ampezzo-italy-reflected-103752677_ij6gcp.jpg `,
+]
 export const detailsColorsConsts = [
     "#001f3f",
     "#0074D9",

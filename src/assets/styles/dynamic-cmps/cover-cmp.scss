@@ -114,6 +114,7 @@
         }
 
 
+
     }
 
 
@@ -134,5 +135,21 @@
         width: 100%;
         flex-wrap: wrap;
         gap: 5px;
+    }
+
+    & .imgs-littel-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: auto;
+
+        & .img-container img {
+            background-position: center center;
+            background-size: cover;
+            height: 42px;
+            width: 66px;
+            border-radius: 3px;
+            margin-inline-end: 7px;
+        }
     }
 }
