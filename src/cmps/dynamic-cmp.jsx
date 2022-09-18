@@ -4,23 +4,18 @@ import { AttachmentCmp } from './dynamic-cmps/attachment-cmp'
 import { MembersCmp } from './dynamic-cmps/members-cmp'
 
 
-
-
-
-
-export function DynamicCmp({ type, setDynamicType }) {
+export function DynamicCmp({ type, setDynamicType, task, onSaveTask }) {
 
 
     const dynamicCmpToRender = (type) => {
 
         switch (type) {
             case 'members':
-                return <MembersCmp />
+                return <MembersCmp task={task} onSaveTask={onSaveTask}/>
             case 'attachment':
                 return <AttachmentCmp />
         }
     }
-
 
     return (
         <section className="dynamic-cmp">

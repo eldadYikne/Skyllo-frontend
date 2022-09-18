@@ -43,9 +43,9 @@ export function TaskDetails() {
     setTask(initTask)
   }, [])
 
-  const onSaveTask = () => {
+  const onSaveTask = (taskToSave) => {
     console.log('saving')
-    dispatch(saveTask(board._id, group.id, task, 'user updated task'))
+    dispatch(saveTask(board._id, group.id, taskToSave, 'user updated task'))
     if (isFieldOpen) setIsFieldOpen(false)
   }
 
@@ -64,7 +64,7 @@ export function TaskDetails() {
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
           <CloseDetailsModal
             className='close-details-modal-icon'
-            onClick={onSaveTask} />
+            onClick={() => onSaveTask(task)} />
         </Link>
 
         <section className='details-header'>
@@ -108,7 +108,7 @@ export function TaskDetails() {
               ></textarea>
               {isFieldOpen &&
                 <div className='description-edit'>
-                  <button className='save-description' onMouseDown={onSaveTask}>Save</button>
+                  <button className='save-description' onMouseDown={() => onSaveTask(task)}>Save</button>
                   <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
                 </div>
               }
@@ -162,7 +162,7 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp type={dynamicType} setDynamicType={setDynamicType} />
+              <DynamicCmp type={dynamicType} setDynamicType={setDynamicType} task={task} onSaveTask={onSaveTask}/>
             }
           </section>
         </section>

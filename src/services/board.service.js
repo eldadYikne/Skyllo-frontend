@@ -28,6 +28,9 @@ export const boardService = {
     removeGroup,
     saveTask,
     removeTask,
+    getGroups,
+    getTasks
+
 }
 window.cs = boardService
 
@@ -98,7 +101,8 @@ async function addGroup(boardId, groupTitle, activity) {
 async function removeGroup(boardId, groupId, activity ) {
     const board = await getById(boardId)
     const groupIdx = board.groups.findIndex((group)=> group.id === groupId)
-    board.groups.splice(groupIdx, 1)
+    if(!board.groups[groupIdx]?.archivedAt) board.groups[groupIdx].archivedAt = Date.now()
+    else board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
 
@@ -122,10 +126,40 @@ async function removeTask(boardId, groupId, taskId, activity ) {
     const board = await getById(boardId)
     const group = board.groups.find((group)=> group.id === groupId)
     const taskIdx = group.tasks.findIndex((task)=> task.id === taskId)
-    group.tasks.splice(taskIdx, 1)
+    if(!group[taskIdx].archivedAt) group[taskIdx].archivedAt = Date.now()
+    else group.tasks.splice(taskIdx, 1)
     board.activities.unshift(activity)
     return save(board)
 }
+
+async function getGroups(boardId){
+    try{
+        const board = await getById(boardId)
+        const groups = board.groups.filter(group => !group.archivedAt)
+        return groups
+
+    }catch (err) {
+        console.log(err)
+    }
+}
+async function getTasks(boardId, groupId){
+    try {
+        const board = await getById(boardId)
+        console.log('board: ', board)
+        console.log(groupId)
+        console.log(board.groups)
+
+        const group = board.groups.find(currGroup => currGroup.id === groupId)
+        console.log('group: ', group)
+        const tasks = group.tasks.filter(task => !task.archivedAt)
+        return tasks
+
+    }catch (err) {
+        console.log(err) 
+    }
+}
+
+
 
 
 
@@ -216,7 +250,7 @@ function getBoard() {
                 {
                     id: utilService.makeId(),
                     title: "Group 1",
-                    archivedAt: 1589983468418,
+                    archivedAt: '',
                     tasks: [
                         {
                             id: utilService.makeId(),
@@ -236,7 +270,7 @@ function getBoard() {
                         {
                             id: utilService.makeId(),
                             title: "Do that",
-                            archivedAt: 1589983468418,
+                            archivedAt: '',
                         },
                         {
                             id: utilService.makeId(),

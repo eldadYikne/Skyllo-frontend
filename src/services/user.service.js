@@ -110,22 +110,27 @@ function getMembers() {
 }
 const gUsers = [
     {
+        _id: 'm101',
         fullname: 'Emma Mitchell',
         img: `../../assets/img/user-img/1.jpg` 
     },
     {
+        _id: 'm102',
         fullname: 'John Smith',
         img: `../../assets/img/user-img/2.jpg`
     },
     {
+        _id: 'm103',
         fullname: 'Sam Collins',
         img: `../../assets/img/user-img/3.jpg`
     },
     {
+        _id: 'm104',
         fullname: 'Sasha Stinson',
         img: `../../assets/img/user-img/4.jpg`
     },
     {
+        _id: 'm105',
         fullname: 'Jane Abrams',
         img: `../../assets/img/user-img/5.jpg`
     }

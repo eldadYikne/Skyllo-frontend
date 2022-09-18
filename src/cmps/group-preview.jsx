@@ -4,20 +4,22 @@ import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
 
+
 export function GroupPreview({board, group, boardId, onRemoveGroup }) {
+  
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
-
   const [title, setTitle] = useState('')
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     setTitle(group.title)
+    
   }, [group.title])
 
 
-  const onAddTask = ev => {
+  const onAddTask = (ev) => {
     ev.preventDefault()
     const title = ev.target[0].value
     if(!title) return
@@ -95,7 +97,7 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
       </div>
 
       <div className='list-container'>
-        <TaskList group={group} />
+        <TaskList group={group} boardId={board._id}/>
       </div>
 
       {!isAddingTask && (
