@@ -42,7 +42,6 @@ export function onLogin(credentials) {
     }
 }
 
-
 export function onSignup(credentials) {
     return async (dispatch) => {
         try {

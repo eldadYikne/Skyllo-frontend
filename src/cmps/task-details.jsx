@@ -29,15 +29,26 @@ export function TaskDetails() {
 
   const groupId = params.groupId
   const taskId = params.taskId
+  const group = board.groups.find(group => group.id === groupId)
+  const initTask = group.tasks.find(task => task.id === taskId)
 
+  const [isFieldOpen, setIsFieldOpen] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
+  const [taskLabels, setTaskLabels] = useState('')
   const [sections, setSections] = useState([])
 
-  const group = board.groups.find(group => group.id === groupId)
-  let initTask = group.tasks.find(task => task.id === taskId)
-
-  const [task, setTask] = useState()
-  const [isFieldOpen, setIsFieldOpen] = useState(false)
+  const loadLabels = () => {
+    const labelIds = initTask.labelIds
+    const taskLabel = labelIds.map(id => {
+      return boardService.getLabelsById(board, id)
+    })
+    return setTaskLabels(taskLabel)
+  }
+  
+  const [task, handleChange, setTask] = useForm({
+    title: '',
+    description: ''
+  })
 
   useEffect(() => {
     const taskCopy = JSON.parse(JSON.stringify(initTask))
@@ -97,9 +108,9 @@ if(!task) return <h1>Loading</h1>
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
-                {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
-                  {task.labels&& task.labels.map(label=>{
-                    return <div className='task-details-label-box' style={{ backgroundColor: label.color }}></div>
+                  {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
+                  {taskLabels && taskLabels.map(label => {
+                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color }}>{label.title}</div>
                   })}
                 </div>
               </div>
@@ -115,8 +126,8 @@ if(!task) return <h1>Loading</h1>
                 onClick={() => setIsFieldOpen(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description :'' }
-                // value={task.description ? task.description :''}
+                value={task.description ? task.description : ''}
+              // value={task.description ? task.description :''}
               ></textarea>
               {isFieldOpen &&
                 <div className='description-edit'>

@@ -68,7 +68,11 @@ async function login(userCred) {
         return saveLocalUser(user)
     }
 }
+
+
 async function signup(userCred) {
+    console.log('userCred service:', userCred)
+    
     userCred.score = 10000;
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)

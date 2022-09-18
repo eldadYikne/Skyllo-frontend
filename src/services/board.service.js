@@ -28,6 +28,7 @@ export const boardService = {
     removeGroup,
     saveTask,
     removeTask,
+    getLabelsById,
 }
 window.cs = boardService
 
@@ -133,6 +134,12 @@ async function removeTask(boardId, groupId, taskId, activity) {
     return save(board)
 }
 
+function getLabelsById(board, labelId){
+    const labels = board.labels.find(label => {
+      return label.id === labelId
+    })
+    return labels
+  }
 
 
 // TEST DATA
@@ -202,38 +209,38 @@ function getBoard() {
             labels: [
                 {
                     //light purple
-                    id: utilService.makeId(),
+                    id: 'la201',
                     title: "Done",
                     color: "#7fb973"
                 },
                 {
                     //light blue
-                    id: utilService.makeId(),
+                    id: 'la202',
                     title: "Progress",
                     color: "#78afcf"
                 },
                 {
                     //green
-                    id: utilService.makeId(),
+                    id: 'la203',
                     title: "Free time",
                     
                     color: "#b8b8d1"
                 },
                 {
                     //red
-                    id: utilService.makeId(),
+                    id: 'la204',
                     title: "Urgent",
                     color: "#dd5959"
                 },
                 {
                     //yellow
-                    id: utilService.makeId(),
+                    id: 'la205',
                     title: "Can wait",
                     color: "#dfd762"
                 },
                 {
                     //orange
-                    id: utilService.makeId(),
+                    id: 'la206',
                     title: "Priority",
                     color: "#fea967"
                 }

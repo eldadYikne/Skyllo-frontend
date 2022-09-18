@@ -3,15 +3,19 @@
   background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
   height: 40vh;
   text-align: center;
-
+  color: #091e42;
   & h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
+    // line-height: 0%;
   }
 
   & p {
-    font-size: 20px;
-    font-family: 'Charlie Text', sans-serif;
+    font-family: Charlie Text,sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1.4px;
+    margin-bottom: 24px;
+
   }
 
   & .get-started-btn {
@@ -30,6 +34,10 @@
     padding: 0.7rem 1rem 0.8rem;
     color: rgb(255, 255, 255);
     margin: auto;
+    margin-top: 7px;
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
     &:hover {
       background-color: darken(rgb(0, 101, 255), 8%);
     }
@@ -57,6 +65,10 @@
       height: 2vh;
       max-width: 33.33%;
       margin: auto;
+      margin-right: 60px;
+    }
+    & p{
+      margin-bottom: 20px;
     }
 
     & .get-started-btn {
@@ -65,6 +77,8 @@
 
     & .home-page-img {
       max-width: 465px;
+      margin-left: 0;
+
     }
   }
 }
