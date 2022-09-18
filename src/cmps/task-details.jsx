@@ -18,6 +18,7 @@ import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useForm } from '../hooks/useForm'
+import { boardService } from '../services/board.service'
 
 
 export function TaskDetails() {
@@ -28,19 +29,29 @@ export function TaskDetails() {
 
   const groupId = params.groupId
   const taskId = params.taskId
-
-  const [dynamicType, setDynamicType] = useState('')
-
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
+
+  const [isFieldOpen, setIsFieldOpen] = useState(false)
+  const [dynamicType, setDynamicType] = useState('')
+  const [taskLabels, setTaskLabels] = useState('')
+
+  const loadLabels = () => {
+    const labelIds = initTask.labelIds
+    const taskLabel = labelIds.map(id => {
+      return boardService.getLabelsById(board, id)
+    })
+    return setTaskLabels(taskLabel)
+  }
+  
   const [task, handleChange, setTask] = useForm({
     title: '',
     description: ''
   })
-  const [isFieldOpen, setIsFieldOpen] = useState(false)
 
   useEffect(() => {
     setTask(initTask)
+    loadLabels()
   }, [])
 
   const onSaveTask = () => {
@@ -55,8 +66,6 @@ export function TaskDetails() {
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
   }
-
-
 
   return (
 
@@ -91,9 +100,9 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
-                {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
-                  {task.labels&& task.labels.map(label=>{
-                    return <div className='task-details-label-box' style={{ backgroundColor: label.color }}></div>
+                  {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
+                  {taskLabels && taskLabels.map(label => {
+                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color }}>{label.title}</div>
                   })}
                 </div>
               </div>
@@ -109,8 +118,8 @@ export function TaskDetails() {
                 onClick={() => setIsFieldOpen(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description :'' }
-                // value={task.description ? task.description :''}
+                value={task.description ? task.description : ''}
+              // value={task.description ? task.description :''}
               ></textarea>
               {isFieldOpen &&
                 <div className='description-edit'>
@@ -168,7 +177,7 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp task = {initTask}  type={dynamicType} setDynamicType={setDynamicType} />
+              <DynamicCmp task={initTask} group={group} type={dynamicType} setDynamicType={setDynamicType} />
             }
           </section>
         </section>
