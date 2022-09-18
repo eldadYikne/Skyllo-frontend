@@ -2,8 +2,8 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
-import { detailsColorsConsts } from "../../const/board-list-consts"
-import { saveTask } from "../../store/board.actions"
+import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
+import { saveTask, updateBoard } from "../../store/board.actions"
 
 
 
@@ -14,15 +14,17 @@ export const CoverCmp = ({ task }) => {
     const params = useParams()
 
     const onChangeColor = (color) => {
-        
-        setBgColorExmpel(color)
+
+        const newColor = color.length > 9 ? `url(${color})` : color
+        setBgColorExmpel(newColor)
         const updatedTask = { ...task, cover: color }
         dispatch(saveTask(params.boardId, params.groupId, updatedTask))
+
     }
     const onCoverSelected = () => {
 
     }
-
+    let backgroundStyle = bgColorExmpel?.length > 9 ? 'backgroundImage' : 'backgroundColor'
     return <section className="cover-cmp">
 
         <div>
@@ -30,7 +32,7 @@ export const CoverCmp = ({ task }) => {
             <span> Size</span>
             <div className="cover-size-action">
 
-                <div onClick={onCoverSelected} className="uncoverd-choice" style={{ background: bgColorExmpel }}>
+                <div onClick={onCoverSelected} className="uncoverd-choice" style={{ [backgroundStyle]: bgColorExmpel }}>
                     <div className="uncoverd-second-background" >
                         <div className="line-background big coverd" > </div>
                         <div className="line-background coverd" > </div>
@@ -62,6 +64,13 @@ export const CoverCmp = ({ task }) => {
         <div className='colors-container' >
             {detailsColorsConsts.map(color => {
                 return <div onClick={() => onChangeColor(color)} key={color} className='color-container' style={{ backgroundColor: color }} > </div>
+            })}
+        </div>
+
+        <div className='imgs-littel-container'>
+            {detailsImgConsts.map(img => {
+                let urlImg = `url(${img})`
+                return <div onClick={() => onChangeColor(img)} key={img} className='img-container' > <img src={img} alt='' /></div>
             })}
         </div>
     </section>
