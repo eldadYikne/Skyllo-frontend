@@ -5,3 +5,7 @@ label {
 input {
     @include for-dynamic-input
 }
+
+.checklist-cmp button {
+    @include for-add-action-button
+}

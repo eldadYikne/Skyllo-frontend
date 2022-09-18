@@ -18,6 +18,7 @@ import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useForm } from '../hooks/useForm'
+import { boardService } from '../services/board.service'
 
 
 export function TaskDetails() {
@@ -30,17 +31,17 @@ export function TaskDetails() {
   const taskId = params.taskId
 
   const [dynamicType, setDynamicType] = useState('')
+  const [sections, setSections] = useState([])
 
   const group = board.groups.find(group => group.id === groupId)
-  const initTask = group.tasks.find(task => task.id === taskId)
-  const [task, handleChange, setTask] = useForm({
-    title: '',
-    description: ''
-  })
+  let initTask = group.tasks.find(task => task.id === taskId)
+
+  const [task, setTask] = useState()
   const [isFieldOpen, setIsFieldOpen] = useState(false)
 
   useEffect(() => {
-    setTask(initTask)
+    const taskCopy = JSON.parse(JSON.stringify(initTask))
+    setTask(taskCopy)
   }, [])
 
   const onSaveTask = () => {
@@ -56,8 +57,13 @@ export function TaskDetails() {
     navigate(-1)
   }
 
+  const handleChange = ({ target }) => {
+    const field = target.name
+    const value = target.type === 'number' ? (+target.value || '') : target.value
+    setTask(prevTask => ({ ...prevTask, [field]: value }))
+}
 
-
+if(!task) return <h1>Loading</h1>
   return (
 
     <section className='task-details-view'>
@@ -131,6 +137,16 @@ export function TaskDetails() {
                 placeholder='Comment..'
               ></textarea>
             </div>
+
+          {sections.checklist &&
+            <div className='checklist-container'>
+              <div className='container-title'>
+                <ChecklistIcon className='title-icon' />
+                <h5>Checklist</h5>
+              </div>
+
+
+            </div>}
           </section>
 
           {/*details side-bar: */}
@@ -168,7 +184,11 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp task = {initTask}  type={dynamicType} setDynamicType={setDynamicType} />
+              <DynamicCmp
+                task={task} 
+                type={dynamicType} 
+                setDynamicType={setDynamicType} 
+                setSections={setSections} />
             }
           </section>
         </section>
