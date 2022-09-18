@@ -33,9 +33,10 @@ export function TaskDetails() {
 
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
+  const bgColor = initTask.cover ? initTask.cover : ''
   const [task, handleChange, setTask] = useForm({
     title: '',
-    description: ''
+    description: '',
   })
   const [isFieldOpen, setIsFieldOpen] = useState(false)
 
@@ -56,12 +57,17 @@ export function TaskDetails() {
     navigate(-1)
   }
 
-
+ 
 
   return (
 
     <section className='task-details-view'>
       <div className='task-details-modal'>
+        {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
+          <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
+            <CoverIcon /> Cover
+          </button>
+        </div>}
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
           <CloseDetailsModal
             className='close-details-modal-icon'
@@ -91,8 +97,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
-                {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
-                  {task.labels&& task.labels.map(label=>{
+                  {/* <div className='task-details-label-box' style={{ backgroundColor: 'blue' }}></div> */}
+                  {task.labels && task.labels.map(label => {
                     return <div className='task-details-label-box' style={{ backgroundColor: label.color }}></div>
                   })}
                 </div>
@@ -109,8 +115,8 @@ export function TaskDetails() {
                 onClick={() => setIsFieldOpen(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description :'' }
-                // value={task.description ? task.description :''}
+                value={task.description ? task.description : ''}
+              // value={task.description ? task.description :''}
               ></textarea>
               {isFieldOpen &&
                 <div className='description-edit'>
@@ -168,7 +174,7 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp task = {initTask}  type={dynamicType} setDynamicType={setDynamicType} />
+              <DynamicCmp task={initTask} type={dynamicType} setDynamicType={setDynamicType} />
             }
           </section>
         </section>

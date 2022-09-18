@@ -22,8 +22,8 @@ export function DynamicCmp({ type, setDynamicType , task }) {
                 return <MembersCmp />
             case 'attachment':
                 return <AttachmentCmp />
-            // case 'cover':
-            //     return <CoverCmp />
+            case 'cover':
+                return <CoverCmp   task={task} />
             case 'labels':
                 return <LabelsCmp task={task} />
             // case 'checklist':

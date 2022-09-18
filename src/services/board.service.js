@@ -115,7 +115,9 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
+        console.log(task);
         group.tasks.splice(taskIdx, 1, task)
+        console.log(task);
     } else {
         task.id = utilService.makeId()
         group.tasks.push(task)
@@ -255,6 +257,7 @@ function getBoard() {
                             id: utilService.makeId(),
                             title: "Get the lab for trials",
                             description: "Call the company and schedule"
+            
                         },
                         {
                             id: utilService.makeId(),
@@ -354,6 +357,7 @@ function getBoard() {
                             id: utilService.makeId(),
                             title: "Get patients agreement for trials",
                             description: "Make a patients conference"
+                          
                         },
                         {
                             id: utilService.makeId(),
@@ -400,6 +404,7 @@ function getBoard() {
                         {
                             id: utilService.makeId(),
                             title: "Organize company vacation",
+
                         },
                     ],
                     style: {} 
