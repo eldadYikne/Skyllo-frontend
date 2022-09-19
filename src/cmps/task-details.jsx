@@ -15,8 +15,10 @@ import { ReactComponent as CoverIcon } from '../assets/img/cover-icon.svg'
 import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
+
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
+import { TaskChecklist } from './task-checklist'
 
 
 export function TaskDetails() {
@@ -35,10 +37,11 @@ export function TaskDetails() {
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
-  const [isFieldOpen, setIsFieldOpen] = useState(false)
+  const [isDescription, setIsDescription] = useState(false)
+  const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
   const [taskLabels, setTaskLabels] = useState('')
-  const [sections, setSections] = useState([])
+  
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
 
   
@@ -60,23 +63,23 @@ export function TaskDetails() {
     onSaveTask()
   },[task])
 
-useEffect(()=>{
-  loadLabels()
-
-},[task])
-
-
   const onSaveTask = () => {
     console.log('saving')
     dispatch(saveTask(board._id, group.id, task, 'user updated task'))
-    if (isFieldOpen) setIsFieldOpen(false)
+    if (isDescription) setIsDescription(false)
   }
   
   const onRemoveTask = (ev) => {
     ev.preventDefault()
-    setIsFieldOpen(false)
+    setIsDescription(false)
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
+  }
+  const onRemoveChecklist = (ev,checklistId) => {
+    ev.preventDefault()
+    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId) 
+    const taskToUpdate = {...task, checklists: checklistsToUpdate}
+    setTask(taskToUpdate)
   }
   
   const handleChange = ({ target }) => {
@@ -140,16 +143,15 @@ console.log(initTask.cover);
               </div>
               <textarea
                 onChange={handleChange}
-                onClick={() => setIsFieldOpen(true)}
+                onClick={() => setIsDescription(true)}
                 name='description'
                 id='description-textarea-basic'
                 value={task.description ? task.description : ''}
-              // value={task.description ? task.description :''}
               ></textarea>
-              {isFieldOpen &&
+              {isDescription &&
                 <div className='description-edit'>
                   <button className='save-description' onMouseDown={onSaveTask}>Save</button>
-                  <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
+                  <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>
               }
             </div>
@@ -166,15 +168,19 @@ console.log(initTask.cover);
               ></textarea>
             </div>
 
-            {sections.checklist &&
-              <div className='checklist-container'>
-                <div className='container-title'>
-                  <ChecklistIcon className='title-icon' />
-                  <h5>Checklist</h5>
-                </div>
-
-
-              </div>}
+            {task.checklists && 
+              task.checklists.map((checklist) => {
+                return <TaskChecklist
+                key={checklist.id}
+                task={task}
+                initChecklist={checklist}
+                setTask={setTask}
+                checklistId={checklist.id}
+                board={board}
+                onRemoveChecklist={onRemoveChecklist}
+                 
+                />}
+              )}
           </section>
 
           {/*details side-bar: */}
@@ -217,8 +223,8 @@ console.log(initTask.cover);
                 setTask={setTask} 
                 type={dynamicType} 
                 setDynamicType={setDynamicType} 
-                setSections={setSections}
                 group={group}
+                setIsChecklist={setIsChecklist}
                  />
                 
             }

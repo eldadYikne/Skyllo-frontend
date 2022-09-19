@@ -14,8 +14,6 @@ export function TaskPreview({ task }) {
         heightImg = '32px'
     }
 
-
-    console.log('bgColor', bgColor);
     return (
 
 
