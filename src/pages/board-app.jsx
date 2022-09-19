@@ -47,6 +47,8 @@ export function BoardApp() {
         <BoardHeader  board={board} />
         {board && <GroupList board={board} />}
         <Outlet />
+        {/* <div className='black-screen'></div> */}
+
     </div>
 }
 

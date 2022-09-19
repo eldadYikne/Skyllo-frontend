@@ -7,7 +7,25 @@
     color: lighten(#172b4d, 10%);
     position: relative;
 
+    .edit-task-preview-icon {
+        align-items: center;
+        background-color: #ebecf0;
+        color: #6d6d6d;
+        border-radius: 3px;
+        display: flex;
+        height: 25px;
+        justify-content: center;
+        padding: 4px;
+        float: right;
+        margin: 2px 2px 0 0;
+        width: 25px;
+        z-index: 15;
+        display: none;
+    }
 
+    &:hover .edit-task-preview-icon {
+        display: block;
+    }
 
     &.coverd {}
 
@@ -59,10 +77,6 @@
         }
     }
 
-
-
-
-
     & .task-preview-labels-list {
         display: flex;
         flex-wrap: wrap;
@@ -97,37 +111,48 @@
     }
 
 
-    // .task-preview-Characters {
-    //     display: flex;
-    //     flex-wrap: wrap;
-    //     justify-content: center;
+    .task-preview-Characters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 6px 8px 2px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
 
-    //     & .task-preview-pins {
-    //         flex: 1 1;
-    //         gap: 4px;
-    //         padding: 4px;
-    //         padding-bottom: 4px;
-    //         background-color: #e1e1e1;
-    //         align-items: center;
-    //     }
+        & .task-preview-pins {
+            flex: 1 1;
+            gap: 4px;
+            // padding: 4px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 4px;
+            align-items: center;
 
-    //     & .task-preview-members-container {
-    //         display: flex;
-    //         justify-content: flex-end;
-    //         padding-bottom: 4px;
+            & .task-preview-pin {
+                // background-color: #172b4d;
+                border-radius: 3px;
+                font-size: 12px;
+                gap: 4px;
+                padding: 2px 5px;
+            }
+        }
 
-    //         & .task-preview-member-box{
-    //             align-items: center;
-    //             border-radius: 50%;
-    //             cursor: pointer;
-    //             display: flex;
-    //             height: 30px;
-    //             justify-content: center;
-    //             object-fit: cover;
-    //             width: 30px;
-    //             background-color: aqua;
-    //             margin-left: 1px;
-    //         }
-    //     }
-    // }
+        & .task-preview-members-container {
+            display: flex;
+            justify-content: flex-end;
+            padding-bottom: 4px;
+
+            & .task-preview-member-box {
+                align-items: center;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                height: 30px;
+                justify-content: center;
+                object-fit: cover;
+                width: 30px;
+                margin-left: 1px;
+            }
+        }
+    }
 }

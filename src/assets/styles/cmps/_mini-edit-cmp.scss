@@ -1,0 +1,116 @@
+.mini-edit-task-container {
+    position: fixed;
+    background-color: rgb(143, 143, 143);
+    border-radius: 3px;
+    // box-shadow: 0 1px 0 #16181b40;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    max-width: 300px;
+    min-height: 300px;
+    // position: relative;
+    top: 129px;
+    left: 21px;
+
+    & .mini-edit-main-card {
+        word-wrap: break-word;
+        background-color: #fff;
+        border-radius: 3px;
+        // box-shadow: 0 1px 0 #16181b40;
+        flex-direction: column;
+        max-width: 300px;
+        min-height: 20px;
+        padding: 6px 8px 2px;
+        position: relative;
+        max-height: 200px;
+        width: 200px;
+    }
+
+
+    & .mini-edit-side-bar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & .mini-edit-textarea-container{
+        height: 80%;
+    }
+
+    & #mini-edit-textarea {
+        resize: none;
+        border: none;
+        inset: 0;
+        border-radius: 3px;
+        width: 100%;
+        height: 100%;
+        &:focus{
+            border: unset;
+            outline: 0;
+        }
+    }
+
+    & .save-mini-edit {
+        position: absolute;
+        bottom: 0;
+        background-color: #0079bf;
+        border: none;
+        border-radius: 3px;
+        color: #fff;
+        font-size: .875rem;
+        margin-right: 4px;
+        padding: 6px 12px;
+        // margin-top: 20px;
+
+        &:hover {
+            background-color: #026aa7;
+            box-shadow: none;
+        }
+    }
+
+
+    & .mini-edit-actions-btn {
+        background: transparent or rgba(0, 0, 0, 0);
+        // background: transparent or rgba(201, 167, 167, );
+        background-color: rgb(204, 204, 204);
+        border: none;
+        border-radius: 3px;
+        color: #e6e6e6;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue;
+        font-size: 14px;
+        gap: 5px;
+        margin: 0 0 4px 8px;
+        padding: 6px 12px 6px 8px;
+        transition: -webkit-transform 85ms ease-in;
+        transition: transform 85ms ease-in;
+        transition: transform 85ms ease-in, -webkit-transform 85ms ease-in;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        height: 40px;
+
+        &:hover {
+            background: #000c;
+            color: #fff;
+            -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+        }
+
+        word-wrap: break-word;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+.black-screen {
+    background-color: rgba(0,0,0,.639);
+    display: block;
+    inset: 0;
+    min-height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    transition: opacity .2s ease-out;
+    width: 100vw;
+    z-index: 15;
+}
