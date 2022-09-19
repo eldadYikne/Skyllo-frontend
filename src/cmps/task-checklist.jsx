@@ -6,15 +6,15 @@ import { utilService } from '../services/util.service'
 import { updateBoard } from '../store/board.actions'
 
 export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChecklist }) {
-    const [checklist, setChecklist] = useState({...initChecklist})
-    const [ todoTxt, setTodoTxt ] = useState('')
     const dispatch = useDispatch()
-    const [isFocus, setIsFocus] = useState(initChecklist?.isFocus? initChecklist.isFocus : true)
-    const [progress, setProgress] = useState(0)
-    const [complete, setComplete] = useState()
-    // const [selectedList, setSelectedList] = useState(initChecklist)
+    const [ isFocus, setIsFocus ] = useState(initChecklist?.isFocus? initChecklist.isFocus : true)
+    const [ checklist, setChecklist ] = useState({...initChecklist})
+    const [ todoTxt, setTodoTxt ] = useState('')
+    const [ progress, setProgress ] = useState(0)
+    const [ complete, setComplete] = useState()
+    const [ editMode, setEditMode ] = useState(false)
     
-    const classIsFocus = initChecklist?.isFocus? 'editable-checklist' : 'non-editable-checklist'
+
    
     useEffect(() => {
         setChecklist({...initChecklist})
@@ -22,18 +22,22 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
 
     },[task])
 
+
     useEffect(() => {
         dispatch(updateBoard(board))
     },[checklist])
     
+
     const onToggleInput = () => {
         setTodoTxt('')
-        // setChecklist({...checklist, isFocus: !checklist.isFocus})
         setIsFocus(!isFocus)
+    }
+    const onEditTodo = () => {
+        setEditMode(true)
     }
 
     const onAddTodo = () => {
-        if(!todo.txt) return
+        if(!todoTxt) return
         const todo = {
             id: utilService.makeId(),
             txt: todoTxt,
@@ -79,26 +83,27 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
         return ratio 
     }
 
-    // if(!initChecklist) return <h1>loading</h1> 
+    
     return (
+
         <div className='checklist-container'>
                 <div className='container-checklist-title'>
                   <ChecklistIcon className='title-icon' />
                   <h5>{checklist.title}</h5>
-                  <button className='delete-btn' onClick={(ev) => onRemoveChecklist(ev,checklist.id)}>Delete</button>
+                  <button className='delete-btn ' onClick={(ev) => onRemoveChecklist(ev,checklist.id)}>Delete</button>
                 </div>
                 <progress id="file" value={progress} max="100" class={complete} style={{background: 'green'}} ></progress>
                 {checklist.todos && 
-                <section className='todos-container'>
+                <section className='todos-container '>
                     {checklist.todos.map(todo => {
-                        const classIsDone = todo?.isDone? 'done' : 'active'
-                        const classIsChecked = todo?.isDone? 'checkbox checked' : 'checkbox'
+                        const classIsDone = todo?.isDone? 'done ' : 'active '
+                        const classIsChecked = todo?.isDone? 'checkbox checked ' : 'checkbox '
                         return (
-                        <div className='checklist-todo'>
+                        <div className='checklist-todo '>
                             <div className={classIsChecked} onClick={()=> onToggleDone(todo.id)} >
                                 {todo.isDone && <span className='checkbox-checked-content'></span>}
                             </div>
-                            <div className={classIsDone} key={todo.id}>{todo.txt}</div>
+                                <div className={classIsDone} onClick={onEditTodo} key={todo.id}>{todo.txt}</div>
                         </div>
                         )
                     })}
