@@ -32,7 +32,7 @@ export const AttachmentCmp = ({ task, setTask }) => {
         try {
             console.log('yess');
             const data = await uploadService.uploadImg(ev)
-            console.log(data.secure_url);
+            console.log(data.secure_url)
             const taskToUpdate = {
                 ...task, attachments: [...task.attachments,
                 {
@@ -51,7 +51,7 @@ export const AttachmentCmp = ({ task, setTask }) => {
 
 
     }
-    console.log(text, 'tetx')
+   
 
     return <section className="attachment-cmp">
         <div className="upload-source"><input className="input-computer-upload" type="file" onChange={onUploadImg} />

@@ -103,11 +103,11 @@ export function TaskPreview({ task }) {
     return (
         <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
             <EditTaskIcon className="edit-task-preview-icon" onClick={onClickMiniEdit} />
-            <div >
-                {/* {isMiniEditShown&&
+            {/* <div >
+                {isMiniEditShown&&
             <MiniEdit task={task} board={board} setIsMiniEditShown={setIsMiniEditShown} />
-        } */}
-            </div>
+        }
+            </div> */}
             {bgColor &&
                 <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
                     {task.cover?.isFullCover && <div>

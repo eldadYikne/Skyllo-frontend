@@ -83,8 +83,6 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
         return ratio
     }
 
-    // var percent = 80
-
     return (
 
         <div className='checklist-container'>
@@ -93,10 +91,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
                 <h5>{checklist.title}</h5>
                 <button className='delete-btn ' onClick={(ev) => onRemoveChecklist(ev, checklist.id)}>Delete</button>
             </div>
-            {/* <div className="progress-bar">
-                <div style={{ width: percent + '%' }} className="percent-bar">
-                </div>
-            </div> */}
+
 
             <progress id="file" value={progress} max="100" class={complete} style={{ background: 'green' }} ></progress>
             {checklist.todos &&

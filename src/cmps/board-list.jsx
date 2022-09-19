@@ -62,7 +62,7 @@ export function BoardList({ boards }) {
 
 
             {boards.map(board => {
-                const bgImg = board.style.bgImg
+                const bgImg = board.style?.bgImg
                 let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
                 return <div className='board-previwe-container'>
                     <Link key={board._id} to={`board/${board._id}`} >
