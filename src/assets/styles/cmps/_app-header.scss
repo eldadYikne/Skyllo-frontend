@@ -171,3 +171,22 @@
   margin-top: 3px;
 }
 
+
+.progress-bar {
+  height: 9.2px;
+  width: 92%;
+  border: 1px solid;
+  margin-bottom: 4px;
+  margin: 0 0 5px 40px;
+  border-radius: 3px;
+  transition: all 0.4s;
+}
+
+.percent-bar {
+  width: 0;
+  height: 8px;
+  background-color: green;
+  transition: 1s;
+  border-radius: 3px;
+  transition: all 0.4s;
+}

@@ -39,13 +39,13 @@ export function TaskDetails() {
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
- 
-  
+
+
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
-  
+
   const [taskLabels, setTaskLabels] = useState(null)
   const [taskMembers, setTaskMembers] = useState(null)
-  
+
   const loadLabels = () => {
     if (!task) return
     const labelIds = task.labelIds
@@ -55,23 +55,23 @@ export function TaskDetails() {
     return setTaskLabels(taskLabel)
   }
 
-  const loadMembers = () =>{
+  const loadMembers = () => {
     if (!task) return
     const membersIds = task.memberIds
     const taskMembers = membersIds?.map(id => {
-      
+
       return boardService.getMembersById(board, id)
     })
-    
+
     return setTaskMembers(taskMembers)
   }
 
-  
+
   useEffect(() => {
-    setTimeout(()=>{
+    setTimeout(() => {
       loadLabels()
-    },500)
-    
+    }, 500)
+
     onSaveTask()
     loadMembers()
   }, [task])
@@ -87,13 +87,13 @@ export function TaskDetails() {
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
   }
-  const onRemoveChecklist = (ev,checklistId) => {
+  const onRemoveChecklist = (ev, checklistId) => {
     ev.preventDefault()
-    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId) 
-    const taskToUpdate = {...task, checklists: checklistsToUpdate}
+    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId)
+    const taskToUpdate = { ...task, checklists: checklistsToUpdate }
     setTask(taskToUpdate)
   }
-  
+
   const handleChange = ({ target }) => {
     const field = target.name
     const value = target.type === 'number' ? (+target.value || '') : target.value
@@ -101,10 +101,10 @@ export function TaskDetails() {
   }
 
   const getMemberBackground = (member) => {
-    
-    if (member.img) return  `url(${member.img}) center center / cover` 
 
-    else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;` 
+    if (member.img) return `url(${member.img}) center center / cover`
+
+    else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
 
 
@@ -141,8 +141,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Members</h4>
                 <div className='action-type-content'>
-                  {taskMembers&& taskMembers.map(member=>{
-                    return <div key={member._id} className='task-details-member-box'  style={{ background:getMemberBackground(member)}}></div>
+                  {taskMembers && taskMembers.map(member => {
+                    return <div key={member._id} className='task-details-member-box' style={{ background: getMemberBackground(member) }}></div>
                   })}
                   <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
 
@@ -152,8 +152,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
-                  {taskLabels && taskLabels.map(label => {                    
-                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color? label.color:'green' }}>{label.title?label.title:''}</div>
+                  {taskLabels && taskLabels.map(label => {
+                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color ? label.color : 'green' }}>{label.title ? label.title : ''}</div>
                   })}
                   <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
 
@@ -167,7 +167,7 @@ export function TaskDetails() {
                 <h5>Description</h5>
               </div>
               <textarea
-                style={{backgroundColor: task.description? 'inherit':'#091e420a' }}
+                style={{ backgroundColor: task.description ? 'inherit' : '#091e420a' }}
                 onChange={handleChange}
                 onClick={() => setIsDescription(true)}
                 name='description'
@@ -180,7 +180,7 @@ export function TaskDetails() {
                   <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>}
             </div>
-
+            
             <div className='description-container'>
               <div className='container-title'>
                 <AttachmentBigIcon className='title-icon' />
@@ -190,9 +190,9 @@ export function TaskDetails() {
               {initTask.attachments?.map(attachment => {
                 return <div className='attachment-container'>
                   <div className='img-attachment' >
-                    <a src={attachment.url}/>
-                    <img src={attachment.url}/>
-            
+                    <a src={attachment.url} />
+                    <img src={attachment.url} />
+
                   </div>
                   <div className='attachment-detalis'>
                     <a src={attachment.url}> {attachment.title}</a>
@@ -213,18 +213,19 @@ export function TaskDetails() {
               ></textarea>
             </div>
 
-            {task.checklists && 
+            {task.checklists &&
               task.checklists.map((checklist) => {
                 return <TaskChecklist
-                key={checklist.id}
-                task={task}
-                initChecklist={checklist}
-                setTask={setTask}
-                checklistId={checklist.id}
-                board={board}
-                onRemoveChecklist={onRemoveChecklist}
-                 
-                />}
+                  key={checklist.id}
+                  task={task}
+                  initChecklist={checklist}
+                  setTask={setTask}
+                  checklistId={checklist.id}
+                  board={board}
+                  onRemoveChecklist={onRemoveChecklist}
+
+                />
+              }
               )}
           </section>
 
@@ -265,13 +266,13 @@ export function TaskDetails() {
             {dynamicType &&
               <DynamicCmp
                 task={task}
-                setTask={setTask} 
-                type={dynamicType} 
-                setDynamicType={setDynamicType} 
+                setTask={setTask}
+                type={dynamicType}
+                setDynamicType={setDynamicType}
                 group={group}
                 setIsChecklist={setIsChecklist}
-                 />
-                
+              />
+
             }
           </section>
         </section>
