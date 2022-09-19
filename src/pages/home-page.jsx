@@ -13,15 +13,15 @@ export const HomePage = () => {
       </div>
 
       <div className='home-page-content main-container'>
-        <h1>Trello helps teams move work forward.</h1>
+        <h1>Skyllo helps teams move work forward.</h1>
         <p>
           Collaborate, manage projects, and reach new productivity peaks. From
           high rises to the home office, the way your team works is
-          unique—accomplish it all with Trello.
+          unique accomplish it all with Skyllo.
         </p>
 
         <Link className='get-started-btn' to='workspace'>
-          Get Started!
+          Try our demo 
         </Link>
       </div>
 

@@ -10,13 +10,22 @@ import { WorkSpace } from './pages/workspace'
 import { LoginSignup } from './cmps/login-signup'
 import { TaskDetails } from './cmps/task-details'
 import { BoardApp } from './pages/board-app'
+import { useSelector } from 'react-redux'
+import { HomePageHeader } from './cmps/header-home-page'
 
-export class RootCmp extends React.Component {
 
-    render() {
+export const RootCmp =()=>{
+    const user = useSelector(state => state.userModule.user)
+    
+    
         return (
             <div>
+                {!user&& <HomePageHeader/>}
+            {user&&
                 <AppHeader />
+            }
+                    {/* <div className='black-screen'></div> */}
+
                 <main>
                     <Routes>
                         <Route path='/' element={<HomePage />} />
@@ -30,7 +39,7 @@ export class RootCmp extends React.Component {
             </div>
         )
     }
-}
+
 
 // Sign-up
 // Login

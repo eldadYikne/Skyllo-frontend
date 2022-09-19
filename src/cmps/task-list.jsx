@@ -1,42 +1,41 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { boardService } from "../services/board.service";
 import { TaskDetails } from "./task-details";
 import { TaskPreview } from "./task-preview";
 
-export function TaskList({group, boardId}) {
-    const [tasks, setTasks] = useState([])
-
-    useEffect(() => {
-        loadTasks()
-        console.log('useeffect:', group)
-    },[])
-
-    // useEffect(() => {
-    //     loadTasks()
-    // },[tasks])
-
-    const loadTasks = async () => {
-        console.log('1', group.id)
-        const tasksToDisplay = await boardService.getTasks(boardId, group.id)
-        console.log('loadtasks: ' ,group)
-        setTasks(tasksToDisplay)        
-    }
-
+export function TaskList({ group }) {
     const board = useSelector(state => state.boardModule.board)
-    if(!tasks) return <h1>Loading</h1>
+
     return (
-               <div className="list-container">
-                {tasks.map((task)=> {
-                    return (
-                        <Link to={`${group.id}/${task.id}`} key={task.id}>
+        <div className="list-container">
+            {group.tasks.map((task, index) => {
+                return (
+                    <Link to={`${group.id}/${task.id}`} key={task.id}>
                         <div>
-                            <TaskPreview task={task} loadTasks={loadTasks}/>  
+                            <Draggable draggableId={task.id} index={index}>
+
+                                {(provided) => {
+                                    return (<li key={index} index={index}
+                                        {...provided.draggableProps} {...provided.dragHandleProps}
+                                        ref={provided.innerRef} >
+
+                                        <TaskPreview
+                                            task={task}
+                                        >
+                                        </TaskPreview>
+
+                                    </li>)
+                                }}
+                            </Draggable>
+
                         </div>
-                        </Link>
-                    )
-                })}
-            </div> 
+                    </Link>
+                )
+            })}
+        </div>
     )
 }
+// {taskLabels && !task.cover?.isFullCover &&

@@ -19,6 +19,7 @@
 
 
 // Components
+@import "cmps/home-page-header";
 @import "cmps/app-header";
 @import "cmps/user-msg";
 @import "cmps/login";
@@ -37,6 +38,8 @@
 @import "cmps/task-details";
 @import "cmps/add-board";
 @import "cmps/dynamic-cmp";
+@import "cmps/attachment-details";
+@import "cmps/mini-edit-cmp";
 
 //dynamic-cmps
 @import "dynamic-cmps/members-cmp";
@@ -45,6 +48,7 @@
 @import "dynamic-cmps/dates-cmp";
 @import "dynamic-cmps/checklist-cmp";
 @import "dynamic-cmps/cover-cmp";
+@import "dynamic-cmps/edit-label-cmp";
 
 
 

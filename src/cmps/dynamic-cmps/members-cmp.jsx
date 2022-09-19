@@ -1,7 +1,7 @@
 import { userService } from "../../services/user.service"
 
 
-export const MembersCmp = ({ task, onSaveTask }) => {
+export const MembersCmp = ({task,setTask}) => {
 
     const members = userService.getMembers()
     
@@ -11,19 +11,39 @@ export const MembersCmp = ({ task, onSaveTask }) => {
         onSaveTask(task)
     }
 
+
+    const onChooseMember = (memberId) => {
+        if (!task.memberIds?.includes(memberId)) {
+            const newMembersToTask = [...task.memberIds, memberId]
+            const taskToUpdate = { ...task, memberIds: newMembersToTask }
+            setTask(taskToUpdate)
+        }
+
+        else {
+            const newMemberIds = task.memberIds.filter(currMemberId => currMemberId !== memberId)
+            const taskToUpdate = { ...task, memberIds: newMemberIds }
+            setTask(taskToUpdate)
+        }
+    }
+
+    const getMemberBackground = (member) => {
+        // console.log('member:', member)
+        if (member.img) return  `url(${member.img}) center center / cover` 
+      }
+
     return <section className="members-cmp">
-        <h3>Members</h3>
+        <h3>Board Members</h3>
         <section className="members-list">
             {members.map((member) => {
-                
                 return (
-
-                    <div key={member._id} className="member-preview" onClick={()=>onAddMember(member._id)} >
-                        <div className="avatar-img">
-                            <img src={member.img} alt="" />
-                            
+                    <div key={member.img} className="member-preview"
+                        onClick={() => onChooseMember(member._id)}
+                    >
+                        <div className="avatar-img-members-cmp" 
+                        style={{ background:getMemberBackground(member)}}
+                        >
                         </div>
-                        <span>{member.fullname}</span>
+                        <p>{member.fullname}</p>
                     </div>
 
                 )

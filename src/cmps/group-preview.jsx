@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
+import { Droppable } from 'react-beautiful-dnd'
 
 export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
@@ -39,7 +40,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
     const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
     if (!title) return
     board.groups[groupIdx].title = title
-    dispatch(updateBoard(board, board.isStared, title))
+    dispatch(updateBoard(board))
   }
 
   const addingTaskShown = () => {
@@ -94,8 +95,21 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       </div>
 
       <div className='list-container'>
-        <TaskList group={group} boardId={board._id}/>
+        <Droppable droppableId={group.id}>
+          {(provided) => {
+            return (<li 
+              {...provided.draggableProps} 
+              ref={provided.innerRef} > 
+
+          <TaskList group={group}>
+          </TaskList>
+          {provided.placeholder}
+          </li>)
+          }}
+
+        </Droppable>
       </div>
+
 
       {!isAddingTask && (
         <div onClick={() => setIsAddingTask(true)} className='add-task'>

@@ -14,10 +14,8 @@ export function BoardList({ boards }) {
 
 
     const onChangeColor = (info) => {
-        console.log(info);
         setColorCreate(info)
     }
-
 
     const createNewBoard = async (text) => {
         try {
@@ -25,7 +23,6 @@ export function BoardList({ boards }) {
 
             const board = await boardService.createBoard(text, bgColorCreate)
             dispacth(addBoard(board))
-            console.log(text, bgColorCreate);
             setIsShown(false)
         } catch (err) {
             console.log(err);
@@ -35,7 +32,6 @@ export function BoardList({ boards }) {
         try {
             const board = await boardService.getById(boardId)
             dispacth(updateBoard(board))
-            dispacth( loadBoards())
         } catch (err) {
             console.log(err);
         }
@@ -49,15 +45,15 @@ export function BoardList({ boards }) {
 
     return <div className='workspace'>
 
-        <span>Stard templates</span>
+        {/* <span>Stard templates</span>
         <section className='stard-boards'>
 
 
-        </section>
-     
+        </section> */}
 
 
 
+      
         <section className="board-list">
             <div onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
                 Creat New Board
@@ -66,7 +62,7 @@ export function BoardList({ boards }) {
 
 
             {boards.map(board => {
-                const bgImg = board.style.bgImg
+                const bgImg = board.style?.bgImg
                 let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
                 return <div className='board-previwe-container'>
                     <Link key={board._id} to={`board/${board._id}`} >
@@ -75,8 +71,8 @@ export function BoardList({ boards }) {
                         </div>
                     </Link>
                     <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
-                    { board.style.isStared? <img  onClick={() => onSetIsStared(board._id)} className= 'star-board-preview' src={require('../assets/img/star.png')} />
-                    :<SvgStar onClick={() => onSetIsStared(board._id)} className= 'star-board-preview'/>}
+                    {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-board-preview' src={require('../assets/img/star.png')} />
+                        : <SvgStar onClick={() => onSetIsStared(board._id)} className='star-board-preview' />}
                 </div>
 
             })}

@@ -21,10 +21,13 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
     padding: 5px;
+    margin-block-end: .3px;
+    margin-block-start:.3px ;
 }
 
 img {
     width: 100%;
+    
 }
 
 a {
@@ -35,4 +38,26 @@ a {
 button {
     cursor: pointer;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 

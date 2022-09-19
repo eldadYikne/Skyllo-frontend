@@ -6,6 +6,30 @@
   padding: 6px 10px;
   position: relative;
 
+
+  .app-header-login-btn{
+    background-color: inherit;
+    border-radius: 0.2rem;
+    color: #0065ff;
+    font-family: Charlie Text,sans-serif;
+    font-size: 1.09375rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.25rem 0.5rem;
+    border: none;
+  }
+  .app-header-signup-btn{
+    background-color: #0065ff;
+    border-radius: 0.2rem;
+    color: #fff;
+    font-family: Charlie Text,sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 0.25rem 0.5rem;
+    border: none;
+  }
+
   .user-modal {
 
     min-height: 50px;
@@ -145,4 +169,24 @@
   height: 35px;
   width: 35px;
   margin-top: 3px;
+}
+
+
+.progress-bar {
+  height: 9.2px;
+  width: 92%;
+  border: 1px solid;
+  margin-bottom: 4px;
+  margin: 0 0 5px 40px;
+  border-radius: 3px;
+  transition: all 0.4s;
+}
+
+.percent-bar {
+  width: 0;
+  height: 8px;
+  background-color: green;
+  transition: 1s;
+  border-radius: 3px;
+  transition: all 0.4s;
 }

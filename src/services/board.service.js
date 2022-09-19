@@ -28,12 +28,10 @@ export const boardService = {
     removeGroup,
     saveTask,
     removeTask,
-    getGroups,
-    getTasks
-
+    getLabelsById,
+    getMembersById,
 }
 window.cs = boardService
-
 
 function query(filterBy) {
     return storageService.query(STORAGE_KEY)
@@ -48,19 +46,17 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
+
 async function save(board) {
     var savedBoard
     console.log('enter');
     if (board._id) {
 
-        console.log('staaar');
         board.style.isStared = board.style.isStared ? false : true
-        console.log(board.style.isStared, ' board.style.isStared');
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
-        console.log('sad');
         // Later, owner is set by the backend
         // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
@@ -89,7 +85,6 @@ function createBoard(title, bgImg) {
 
 async function addGroup(boardId, groupTitle, activity) {
     const board = await getById(boardId)
-    console.log(boardId)
     const group = {
         id: utilService.makeId(),
         title: groupTitle,
@@ -103,11 +98,10 @@ async function addGroup(boardId, groupTitle, activity) {
     return save(board)
 }
 
-async function removeGroup(boardId, groupId, activity ) {
+async function removeGroup(boardId, groupId, activity) {
     const board = await getById(boardId)
-    const groupIdx = board.groups.findIndex((group)=> group.id === groupId)
-    if(!board.groups[groupIdx]?.archivedAt) board.groups[groupIdx].archivedAt = Date.now()
-    else board.groups.splice(groupIdx, 1)
+    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+    board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
 
@@ -116,7 +110,7 @@ async function removeGroup(boardId, groupId, activity ) {
 async function saveTask(boardId, groupId, task, activity) {
     const board = await getById(boardId)
     const group = board.groups.find(currGroup => currGroup.id === groupId)
-    if(task.id) {
+    if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
         group.tasks.splice(taskIdx, 1, task)
     } else {
@@ -127,45 +121,27 @@ async function saveTask(boardId, groupId, task, activity) {
     return save(board)
 }
 
-async function removeTask(boardId, groupId, taskId, activity ) {
+async function removeTask(boardId, groupId, taskId, activity) {
     const board = await getById(boardId)
-    const group = board.groups.find((group)=> group.id === groupId)
-    const taskIdx = group.tasks.findIndex((task)=> task.id === taskId)
-    if(!group[taskIdx].archivedAt) group[taskIdx].archivedAt = Date.now()
-    else group.tasks.splice(taskIdx, 1)
+    const group = board.groups.find((group) => group.id === groupId)
+    const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
+    group.tasks.splice(taskIdx, 1)
     board.activities.unshift(activity)
     return save(board)
 }
 
-async function getGroups(boardId){
-    try{
-        const board = await getById(boardId)
-        const groups = board.groups.filter(group => !group.archivedAt)
-        return groups
-
-    }catch (err) {
-        console.log(err)
-    }
+function getLabelsById(board, labelId) {
+    const labels = board.labels.find(label => {
+        return label.id === labelId
+    })
+    return labels
 }
-async function getTasks(boardId, groupId){
-    try {
-        const board = await getById(boardId)
-        console.log('board: ', board)
-        console.log(groupId)
-        console.log(board.groups)
-
-        const group = board.groups.find(currGroup => currGroup.id === groupId)
-        console.log('group: ', group)
-        const tasks = group.tasks.filter(task => !task.archivedAt)
-        return tasks
-
-    }catch (err) {
-        console.log(err) 
-    }
+function getMembersById(board, memberId) {
+    const members = board.members.find(member => {
+        return member._id === memberId
+    })
+    return members
 }
-
-
-
 
 
 // TEST DATA
@@ -219,69 +195,137 @@ function getBoard() {
 
     const gBoards =
         [{
+            toggleLabels: false,
             _id: "b101",
-            title: "Robot dev proj",
-            archivedAt: 1589983468418,
+            title: "Medicine trials",
+            archivedAt: '',
             createdAt: 1589983468418,
             createdBy: {
                 _id: "u101",
-                fullname: "Abi Abambi",
+                fullname: "TRA PHARMA",
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://media.npr.org/assets/img/2022/06/15/gettyimages-1329369484_custom-885a687ec4ed7acfd56a918dbc51f9204cebcf8b-s1100-c50.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663488783/sprint%204%20/220503164709-02-body-incredible-train-journeys_dh1ewu.jpg")',
                 isStared: false
             },
             labels: [
                 {
-                    id: utilService.makeId(),
+                    //light purple
+                    id: 'la201',
                     title: "Done",
-                    color: "#61bd4f"
+                    color: "#7fb973"
                 },
                 {
-                    id: utilService.makeId(),
+                    //light blue
+                    id: 'la202',
                     title: "Progress",
-                    color: "#61bd33"
+                    color: "#78afcf"
+                },
+                {
+                    //green
+                    id: 'la203',
+                    title: "Free time",
+
+                    color: "#b8b8d1"
+                },
+                {
+                    //red
+                    id: 'la204',
+                    title: "Urgent",
+                    color: "#dd5959"
+                },
+                {
+                    //yellow
+                    id: 'la205',
+                    title: "Can wait",
+                    color: "#dfd762"
+                },
+                {
+                    //orange
+                    id: 'la206',
+                    title: "Priority",
+                    color: "#fea967"
                 }
-            ],
+            ]
+            ,
             members: [
                 {
-                    _id: utilService.makeId(),
-                    fullname: "Tal Tarablus",
-                    imgUrl: "https://www.google.com"
-                }
+                    _id: '1011',
+                    fullname: 'Eldad Yikne',
+                    img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
+                    ` 
+                },
+                {
+                    _id: '1012',
+                    fullname: 'Dekel Ido',
+                    img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583549/sprint%204%20/T03E3RZ2KHV-U03KC7A8R6F-97b018241b8a-512_ougkz6.jpg
+                    `
+                },
+                {
+                    _id: '1013',
+                    fullname: 'Yaara Yehuda',
+                    img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583460/sprint%204%20/T03E3RZ2KHV-U03KVHTDXAR-77f29bd19fdf-512_vqrj3l.jpg
+                    `
+                },
+                {
+                    _id: '1014',
+                    fullname: 'Roi Yotvat',
+                    img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583580/sprint%204%20/T03E3RZ2KHV-U03HE9ZJTA6-79c26a7781c8-512_m1ydbz.png
+                    `
+                },
             ],
             groups: [
                 {
                     id: utilService.makeId(),
-                    title: "Group 1",
+                    title: "PHASE 1- in vitro",
                     archivedAt: '',
                     tasks: [
                         {
                             id: utilService.makeId(),
-                            title: "Replace logo"
+                            title: "Get the lab for trials",
+                            description: "Call the company and schedule",
+                            memberIds: [],
+                            labelIds: [],
+
                         },
                         {
                             id: utilService.makeId(),
-                            title: "Add Samples"
-                        }
+                            title: "DNA replication",
+                            description: "get to 1M cells",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Adding medicine to trial group",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Following cell development",
+                            memberIds: [],
+                            labelIds: [],
+                        },
                     ],
-                    style: {}
+                    style: {},
                 },
                 {
                     id: utilService.makeId(),
-                    title: "Group 2",
+                    title: "PHASE 2- In vivo",
                     tasks: [
                         {
                             id: utilService.makeId(),
-                            title: "Do that",
-                            archivedAt: '',
+                            title: "Injet medicine to trial group",
+                            description: "Group 1 only",
+                            memberIds: [],
+                            labelIds: [],
                         },
                         {
                             id: utilService.makeId(),
-                            title: "Help me",
-                            status: "in-progress",
-                            description: "description",
+                            title: "Following the influences ",
+                            description: "Note Side effects, Healings and deaths",
                             comments: [
                                 {
                                     id: utilService.makeId(),
@@ -290,7 +334,6 @@ function getBoard() {
                                     byMember: {
                                         _id: utilService.makeId(),
                                         fullname: "Tal Tarablus",
-                                        imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                     }
                                 }
                             ],
@@ -307,8 +350,8 @@ function getBoard() {
                                     ]
                                 }
                             ],
-                            memberIds: ["u101"],
-                            labelIds: ["l101", "l102"],
+                            memberIds: [],
+                            labelIds: [],
                             createdAt: 1590999730348,
                             dueDate: 16156215211,
                             byMember: {
@@ -317,13 +360,113 @@ function getBoard() {
                                 fullname: "Tal Tarablus",
                                 imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                             },
+
                             style: {
                                 bgColor: "#26de81"
                             }
-                        }
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Meet Health Ministry for Phase 3 approval",
+                            description: "Build medication file",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Calculate success rate in vivo",
+                            description: "",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Apply for Ethic review board",
+                            description: "in order to get approval for phase 3",
+                            memberIds: [],
+                            labelIds: [],
+                        },
                     ],
                     style: {
                     }
+                },
+                {
+                    toggleLabels: false,
+                    id: utilService.makeId(),
+                    title: "PHASE 3 - Clinical trials",
+                    archivedAt: '',
+                    tasks: [
+                        {
+                            id: utilService.makeId(),
+                            title: "Get patients agreement for trials",
+                            description: "Make a patients conference",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Get all health file records",
+                            description: "discuss every patient's physician",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Randomize a Placebo group",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Prescribe the medicine to trial group",
+                            description: "Give the Phycians the following plan",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Follow disease remission",
+                            description: "Calculate the success rate, side effects and their rates",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Build clinical trial file",
+                            description: "set the file according to demands",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                    ],
+                    style: {}
+                },
+                {
+                    id: utilService.makeId(),
+                    title: "Get Approval",
+                    archivedAt: '',
+                    tasks: [
+                        {
+                            id: utilService.makeId(),
+                            title: "Get FDA approval",
+                            description: "Send the file to FDA",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Get Health Minister's approval",
+                            description: "Send the file to Ministry of Health",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                        {
+                            id: utilService.makeId(),
+                            title: "Organize company vacation",
+                            memberIds: [],
+                            labelIds: [],
+                        },
+                    ],
+                    style: {}
                 }
             ],
             activities: [
@@ -342,7 +485,6 @@ function getBoard() {
                     }
                 }
             ],
-            // for monday
             cmpsOrder: ["status-picker", "member-picker", "date-picker"]
         },
         {
@@ -372,7 +514,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("http://cdn.cnn.com/cnnnext/dam/assets/220503164709-02-body-incredible-train-journeys.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489044/sprint%204%20/abstract-pink-watercolor-background-illustration-high-resolution-free-photo_1340-21115_lorgj1.jpg")',
                 isStared: false
             },
             groups: []
@@ -388,7 +530,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://i2-prod.dublinlive.ie/incoming/article23902887.ece/ALTERNATES/s615/0_GettyImages-1271537082.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489115/sprint%204%20/0_GettyImages-1271537082_ekvkxq.jpg")',
                 isStared: false
             },
             groups: []
@@ -404,7 +546,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://cdn.pixabay.com/photo/2014/09/03/20/15/shoes-434918__480.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489161/sprint%204%20/shoes-434918__480_xlty5c.jpg")',
                 isStared: true
             },
             groups: []
@@ -420,7 +562,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://st2.depositphotos.com/1177973/9006/i/950/depositphotos_90068008-stock-photo-beautiful-golden-saxophone-with-musical.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489186/sprint%204%20/cool-music-background-1366x768-laptop-49923_pqf7dn.jpg")',
                 isStared: true
             },
             groups: []
@@ -436,7 +578,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRCuxUDUDTye7Smic5D3SJz0KNwgVWc27m1A&usqp=CAU")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489208/sprint%204%20/wp3422169_eakibu.jpg")',
                 isStared: true
             },
             groups: []
@@ -452,7 +594,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/2819238.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489228/sprint%204%20/2819238_bxfwdo.jpg")',
                 isStared: true
             },
             groups: []
@@ -468,7 +610,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://images.pexels.com/photos/414102/pexels-photo-414102.jpeg?cs=srgb&dl=pexels-pixabay-414102.jpg&fm=jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489252/sprint%204%20/pexels-photo-414102.jpeg_p3l2ze.jpg")',
                 isStared: true
             },
             groups: []
@@ -484,7 +626,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/3547009.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489270/sprint%204%20/3547009_fjiyfh.jpg")',
                 isStared: true
             },
             groups: []
@@ -500,7 +642,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://nextbigwhat.com/wp-content/webpc-passthru.php?src=https://nextbigwhat.com/wp-content/uploads/2021/12/DA-Feb-4.png&nocache=1")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489294/sprint%204%20/webpc-passthru.php_myunwy.png")',
                 isStared: true
             },
             groups: []
@@ -516,7 +658,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/87541.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489314/sprint%204%20/87541_ulolpm.jpg")',
                 isStared: true
             },
             groups: []
@@ -532,7 +674,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://coursework.vschool.io/content/images/2017/08/react.png")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489336/sprint%204%20/react_ugfgnl.png")',
                 isStared: true
             },
             groups: []
@@ -548,7 +690,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/87551.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489357/sprint%204%20/87551_vma4fs.jpg")',
                 isStared: true
             },
             groups: []
@@ -564,7 +706,7 @@ function getBoard() {
                 imgUrl: "http://some-img"
             },
             style: {
-                bgImg: 'url("https://wallpaperaccess.com/full/405575.jpg")',
+                bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489374/sprint%204%20/405575_emcdmf.jpg")',
                 isStared: true
             },
             groups: []

@@ -22,6 +22,14 @@ export function getActionUpdateBoard(board) {
     }
 }
 
+// export function getActionUpdateBoard(board) {
+//     return {
+//         type: 'UPDATE_BOARD',
+//         board
+//     }
+// }
+
+
 export function loadBoards() {
     return async (dispatch) => {
         try {
@@ -80,10 +88,10 @@ export function addBoard(board) {
 }
 
 export function updateBoard(board) {
+    
     return (dispatch) => {
         boardService.save(board)
             .then(savedBoard => {
-                console.log('Updated Board:', savedBoard);
                 dispatch(getActionUpdateBoard(savedBoard))
                 showSuccessMsg('Board updated')
             })
@@ -145,9 +153,9 @@ export function removeTask(boardId, groupId, taskId, activity) {
             showErrorMsg('Cannot delete task')
             console.log('error:', err)
         }
-
     }
 }
+
 
 // Demo for Optimistic Mutation
 // (IOW - Assuming the server call will work, so updating the UI first)
