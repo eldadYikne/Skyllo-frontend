@@ -37,3 +37,4 @@ export function TaskList({ group }) {
         </div>
     )
 }
+// {taskLabels && !task.cover?.isFullCover &&

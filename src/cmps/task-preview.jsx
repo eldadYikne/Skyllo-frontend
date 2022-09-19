@@ -91,10 +91,10 @@ export function TaskPreview({ task }) {
         else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
 
-    const onClickMiniEdit = (ev) =>{
+    const onClickMiniEdit = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        
+
         setIsMiniEditShown(!isMiniEditShown)
     }
 
@@ -102,12 +102,12 @@ export function TaskPreview({ task }) {
 
     return (
         <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
-            <EditTaskIcon className="edit-task-preview-icon" onClick={onClickMiniEdit}/>
+            <EditTaskIcon className="edit-task-preview-icon" onClick={onClickMiniEdit} />
             <div >
-           {/* {isMiniEditShown&&
+                {/* {isMiniEditShown&&
             <MiniEdit task={task} board={board} setIsMiniEditShown={setIsMiniEditShown} />
         } */}
-        </div>
+            </div>
             {bgColor &&
                 <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
                     {task.cover?.isFullCover && <div>
@@ -117,7 +117,7 @@ export function TaskPreview({ task }) {
                 </div>
             }
             {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
-            {taskLabels &&
+            {taskLabels && !task.cover?.isFullCover &&
                 <div className="task-preview-labels-list">
                     {taskLabels.map(label => {
                         return <div onClick={onToggleLabels}
@@ -133,9 +133,9 @@ export function TaskPreview({ task }) {
             <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
             <div className="task-preview-Characters">
                 <div className="task-preview-pins">
-                    {task.description&&<div className="task-preview-pin attachment-pin"><DescriptionIcon/></div>}
-                    {task.attachment&& <div className="task-preview-pin attachment-pin"><AttachmentIcon/> <span>{taskAttachments.length}</span> </div>}
-                    {task.checklists&&<div className="task-preview-pin checklists-pin"><ChecklistIcon/> <span>{task.checklists.length}</span></div>}
+                    {task.description && <div className="task-preview-pin attachment-pin"><DescriptionIcon /></div>}
+                    {task.attachment && <div className="task-preview-pin attachment-pin"><AttachmentIcon /> <span>{taskAttachments.length}</span> </div>}
+                    {task.checklists && <div className="task-preview-pin checklists-pin"><ChecklistIcon /> <span>{task.checklists.length}</span></div>}
                     <div className="task-preview-pin activities-pin"></div>
                 </div>
 
