@@ -135,26 +135,26 @@ export function TaskDetails() {
                 <button className='side-bar-action-btn' onClick={() => setDynamicType('members')} >
                   <MembersIcon /> Members
                 </button>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('labels')}>
                   <LabelsIcon /> Labels
                 </button>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('checklist')}>
                   <ChecklistIcon /> Checklist
                 </button>
               </div>
               <div className='details-actions'>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('dates')}>
                   <DatesIcon /> Dates
                 </button>
                 <button className='side-bar-action-btn' onClick={() => setDynamicType('attachment')}>
                   <AttachmentIcon /> Attachment
                 </button>
-                <button className='side-bar-action-btn'>
+                <button className='side-bar-action-btn' onClick={() => setDynamicType('cover')}>
                   <CoverIcon /> Cover
                 </button>
               </div>
             </div>
-
+            
             <div className='details-actions'>
               <h5>Actions</h5>
               <button onClick={onRemoveTask}>
@@ -162,7 +162,7 @@ export function TaskDetails() {
               </button>
             </div>
             {dynamicType &&
-              <DynamicCmp type={dynamicType} setDynamicType={setDynamicType} task={task} onSaveTask={onSaveTask}/>
+              <DynamicCmp  type={dynamicType} setDynamicType={setDynamicType} />
             }
           </section>
         </section>

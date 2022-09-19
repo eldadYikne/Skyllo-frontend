@@ -10,7 +10,7 @@ export function TaskPreview({ task, loadTasks }) {
 
     return (
         <section className="task-preview">
-            <h1>{task.title}</h1>
+            <p>{task.title}</p>
         </section>
     )
 }

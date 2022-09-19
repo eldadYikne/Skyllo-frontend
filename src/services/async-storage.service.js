@@ -14,7 +14,8 @@ function query(entityType, delay = 600) {
     if(!entities){
         entities = boardService.getBoard() 
         _save(entityType, entities)
-    }
+    } 
+    
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
             // reject('OOOOPs')

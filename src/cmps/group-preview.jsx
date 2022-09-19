@@ -4,9 +4,7 @@ import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { useDispatch } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
 
-
-export function GroupPreview({board, group, boardId, onRemoveGroup }) {
-  
+export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
   const [title, setTitle] = useState('')
@@ -18,11 +16,10 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
     
   }, [group.title])
 
-
-  const onAddTask = (ev) => {
+  const onAddTask = ev => {
     ev.preventDefault()
     const title = ev.target[0].value
-    if(!title) return
+    if (!title) return
     const task = {
       title
     }
@@ -30,7 +27,7 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
     ev.target[0].value = ''
     setIsAddingTask(false)
   }
-  
+
   const handleChangeTitle = (ev) => {
     // ev.preventDefault()
     const title = ev.target.value
@@ -42,7 +39,7 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
     const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
     if (!title) return
     board.groups[groupIdx].title = title
-    dispatch(updateBoard(board,board.isStared,title))
+    dispatch(updateBoard(board, board.isStared, title))
   }
 
   const addingTaskShown = () => {
@@ -101,7 +98,7 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
       </div>
 
       {!isAddingTask && (
-        <div onClick={()=>setIsAddingTask(true)} className='add-task'>
+        <div onClick={() => setIsAddingTask(true)} className='add-task'>
           <svg
             stroke='currentColor'
             fill='currentColor'
@@ -127,12 +124,10 @@ export function GroupPreview({board, group, boardId, onRemoveGroup }) {
         <div className='adding-task-container'>
           <form onSubmit={onAddTask}>
             <textarea
-
               placeholder='Enter task title..'
               name='adding-task'
               id='textarea'
             />
-
             <div className='adding-task-actions'>
               <button className='add-task-btn'>Add Task</button>
               <span className='close-adding-task'>

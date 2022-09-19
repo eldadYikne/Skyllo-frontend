@@ -41,8 +41,6 @@ export function GroupList() {
     }
 
     setIsAddGroup(!isAddGroup)
-    console.log('inppp');
-    console.log('isAddGroup:', isAddGroup)
   }
 
   if(!groups) return <h1>Loading</h1>
