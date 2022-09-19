@@ -15,6 +15,7 @@ import { ReactComponent as CoverIcon } from '../assets/img/cover-icon.svg'
 import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
+import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
 
@@ -30,7 +31,7 @@ export function TaskDetails() {
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
   // ELDAD
-  const bgColor = initTask.cover ? initTask.cover.length > 9 ? ' #f8f7f7' : initTask.cover : ''
+  const bgColor = initTask.cover?.color ? initTask.cover.color.length > 9 ? ' #80837f' : initTask.cover.color : ''
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
@@ -105,7 +106,7 @@ export function TaskDetails() {
     <section className='task-details-view'>
       <div className='task-details-modal'>
         {bgColor && <div style={{ backgroundColor: bgColor }} className='details-bgColor'>
-          {initTask.cover.length > 9 && <img src={initTask.cover} />}
+          {initTask.cover?.color.length > 9 && <img src={initTask.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
           </button>
@@ -167,8 +168,27 @@ export function TaskDetails() {
                 <div className='description-edit'>
                   <button className='save-description' onMouseDown={onSaveTask}>Save</button>
                   <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
+                </div>}
+            </div>
+
+            <div className='description-container'>
+              <div className='container-title'>
+                <AttachmentBigIcon className='title-icon' />
+                <h5>Attachment</h5>
+              </div>
+
+              {initTask.attachments?.map(attachment => {
+                return <div className='attachment-container'>
+                  <div className='img-attachment' >
+                    <a src={attachment.url}/>
+                    <img src={attachment.url}/>
+            
+                  </div>
+                  <div className='attachment-detalis'>
+                    <a src={attachment.url}> {attachment.title}</a>
+                  </div>
                 </div>
-              }
+              })}
             </div>
 
             <div className='activity-container'>
@@ -235,6 +255,7 @@ export function TaskDetails() {
                 setSections={setSections}
                 group={group}
               />
+
             }
           </section>
         </section>

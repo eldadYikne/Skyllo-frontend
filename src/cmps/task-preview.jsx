@@ -14,15 +14,30 @@ export function TaskPreview({ task }) {
     const [taskLabels, setTaskLabels] = useState()
     const [taskMembers, setTaskMembers] = useState()
     const dispatch = useDispatch()
+    const [coverTask, setCoverTask] = useState('')
+    const [coverTaskUpper, setCoverTaskUpper] = useState('')
+    const [bgColor, setBgColor] = useState(task.cover?.color ? `url(${task.cover.color})` : '')
+    const [backgroundStyle, setBackgroundStyle] = useState(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')
+    const [heightImg, setHeightImg] = useState('')
+    const [textColor, setTextColor] = useState('')
+    const [taskTitlePos, setTaskTitlePos] = useState('task-title')
 
-    let bgColor = task.cover ? task.cover : ''
-    let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
-    let heightImg
-    if (bgColor?.length > 9) {
-        bgColor = `url(${bgColor})`
-        heightImg = '162px'
-    } else {
-        heightImg = '32px'
+    const loadTaskCover = () => {
+        setBackgroundStyle(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')
+        if (task.cover?.color?.length > 9) {
+            setBgColor(task.cover?.color ? `url(${task.cover.color})` : '')
+            setHeightImg(task.cover?.isFullCover ? '192px' : '162px')
+            setTaskTitlePos(task.cover?.isFullCover ? 'task-title full ' : 'task-title ')
+            if (task.cover.isFullCover) {
+                setCoverTask(task.cover?.isDark ? `linear-gradient(180deg,#00000080,#000)` : `linear-gradient(180deg,#ffffff80,#fff)`)
+                setTextColor(task.cover?.isDark ? '#ffff' : 'black')
+                setCoverTaskUpper(task.cover?.isDark ? ' linear-gradient(180deg,#0000,#00000080)' : ' linear-gradient(180deg,#fff0,#ffffff80)')
+            }
+        } else {
+            setBgColor(task.cover?.color ? task.cover.color : '')
+            setHeightImg('32px')
+            setTaskTitlePos(task.cover?.isFullCover ? 'task-title text-full ' : 'task-title ')
+        }
     }
 
     const loadLabels = () => {
@@ -42,15 +57,14 @@ export function TaskPreview({ task }) {
 
             return boardService.getMembersById(board, id)
         })
-        console.log('taskMembers:', taskMembers)
-
         return setTaskMembers(taskMembers)
     }
 
     useEffect(() => {
+        loadTaskCover()
         loadLabels()
         loadMembers()
-    }, [board])
+    }, [board,task])
 
     const onToggleLabels = (ev) => {
         ev.preventDefault()
@@ -61,9 +75,19 @@ export function TaskPreview({ task }) {
 
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
 
+
+
     return (
-        <section className="task-preview">
-            {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>}
+        <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
+            {bgColor &&
+                <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
+                    {task.cover?.isFullCover && <div>
+                        <div className="cover-dark-up" style={{ background: coverTaskUpper }}> </div>
+                        <div className="cover-dark-task" style={{ background: coverTask }}></div>
+                    </div>}
+                </div>
+            }
+            {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
             {taskLabels &&
                 <div className="task-preview-labels-list">
                     {taskLabels.map(label => {
@@ -76,7 +100,8 @@ export function TaskPreview({ task }) {
                     })}
                 </div>
             }
-            <p>{task.title}</p>
+
+            <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
             <div className="task-preview-Characters">
 
                 <div className="task-preview-pins">
@@ -86,7 +111,7 @@ export function TaskPreview({ task }) {
                 <div className="task-preview-members-container">
                     {taskMembers && taskMembers.map(member => {
                         return <div className="task-preview-member-box">
-                            
+
                         </div>
                     })}
                 </div>

@@ -3,6 +3,18 @@
         @include for-h3-dynamic-cmp
     }
 
+
+    & .remove-btn {
+        background-color: #091e420a;
+        border: none;
+        border-radius: 3px;
+        color: #172b4d;
+        height: 32px;
+        padding: 6px 12px;
+        margin-bottom: 16px;
+        width: 100%;
+    }
+
     & .cover-size-action {
         display: flex;
         flex-direction: row;
@@ -19,6 +31,9 @@
             height: 61px;
             display: flex;
             flex-direction: column-reverse;
+            background-size: cover;
+            cursor: pointer;
+
 
             & .uncoverd-second-background {
                 background: white;
@@ -86,6 +101,10 @@
             height: 61px;
             display: flex;
             flex-direction: column;
+            background-size: cover !important;
+            cursor: pointer;
+
+
 
             & .two-line-background {
                 margin-inline-start: 8px;
@@ -97,6 +116,10 @@
                     height: 3px;
                     border-radius: 3px;
                     margin-top: 5px;
+
+                    &.dark {
+                        background-color: #cfd3da;
+                    }
 
                     &.big {
                         width: 90%;
@@ -113,8 +136,58 @@
             }
         }
 
+        &.text {
+            height: 45px;
 
+            & .coverd-choice {
+                cursor: pointer;
+                height: 45px;
 
+                &.darken {
+                    background-position: center center !important;
+                    text-align: center;
+
+                    & p {
+                        color: $clr0;
+                        font-size: 14px;
+                        font-weight: 600;
+                        letter-spacing: .8px;
+                        line-height: 25px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    &.choice {
+                        height: 45px;
+
+                    }
+                }
+
+                &.bright {
+
+                    background-position: center center !important;
+                    text-align: center;
+
+                    & p {
+                        color: #5e6c84;
+                        font-size: 14px;
+                        font-weight: 600;
+                        letter-spacing: .8px;
+                        line-height: 25px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    &.choice {
+                        height: 45px;
+
+                    }
+                }
+            }
+
+        }
     }
 
 
@@ -143,6 +216,7 @@
         justify-content: space-between;
         margin: auto;
 
+
         & .img-container img {
             background-position: center center;
             background-size: cover;
@@ -151,5 +225,54 @@
             border-radius: 3px;
             margin-inline-end: 7px;
         }
+    }
+}
+
+
+.btn-create-board {
+    align-items: center;
+    background-color: rgba(9, 30, 66, 0.04);
+    border: none;
+    box-shadow: none;
+    color: #a5adba;
+    // cursor: not-allowed;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 6px 12px;
+    text-decoration: none;
+    white-space: normal;
+    width: 100%;
+    border-radius: 3px;
+
+    &.filled {
+        background-color: #0079bf;
+        color: #fff;
+        width: 100%;
+        cursor: pointer;
+    }
+}
+
+.input-text {
+    display: flex;
+    flex-direction: column;
+
+    & input {
+        background-color: #fafbfc;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        color: #172b4d;
+        display: block;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 4px 0 12px;
+        outline: none;
+        padding: 8px 12px;
+        width: 100%;
+    }
+
+    & span {
+        @include for-h3-dynamic-cmp
     }
 }

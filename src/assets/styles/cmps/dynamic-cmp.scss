@@ -1,20 +1,24 @@
-.dynamic-cmp{
+.dynamic-cmp {
     background-color: #fff;
     border: 1px solid #d3d3d3;
     border-radius: 3px;
-    box-shadow: 0 8px 16px (9,30,66),0 0 0 1px rgba(9,30,66,.08);
+    box-shadow: 0 8px 16px (9, 30, 66), 0 0 0 1px rgba(9, 30, 66, .08);
     min-height: 50px;
     position: fixed;
     width: 321px;
     z-index: 35;
+    position: absolute;
+    top:0;
 
-
-    &-content{
+    &-content {
         padding: 12px;
-        
+
     }
 
-    &-header{
+
+
+
+    &-header {
         align-items: center;
         border-bottom: 1px solid #091e4221;
         color: #5e6c84;
@@ -24,7 +28,8 @@
         margin: 0 12px;
         padding: 0 32px;
     }
-    &-close{
+
+    &-close {
         background-color: unset;
         border: none;
         font-size: 12px;

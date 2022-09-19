@@ -19,7 +19,9 @@ export function DynamicCmp({ type, setDynamicType , task, setSections, group, se
                 setTask={setTask}
                 />
             case 'attachment':
-                return <AttachmentCmp />
+                return <AttachmentCmp 
+                task={task} 
+                setTask={setTask}/>
             case 'cover':
                 return <CoverCmp 
                     task={task} 
