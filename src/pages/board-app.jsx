@@ -12,6 +12,7 @@ import { boardService } from "../services/board.service";
 import { getCurrBoard, addGroup } from "../store/board.actions";
 import { onSignup } from "../store/user.actions";
 import { userService } from "../services/user.service";
+import { DragDropContext } from "react-beautiful-dnd";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -21,31 +22,28 @@ export function BoardApp() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
-        userService.signup({username:'dekel', password: '123'})
+        userService.signup({ username: 'dekel', password: '123' })
     }, [])
 
     const board = useSelector(state => state.boardModule.board)
     const user = useSelector(state => state.userModule.user)
 
 
+    const onDragEnd = (result) => {
+        const { destination, source, draggabaleId } = result
+    }
 
-    // const onRemoveGroup = (groupId) => {
-    //     removeGroup(groupId)
-    // }
-    // const onAddGroup = () => {
-    //     const group = GroupService.getEmptyGroup()
-    //     addGroup(Group)
-    // }
-    // const onUpdateGroup = (group) => {
-    //     const price = +prompt('New price?')
-    //     const groupToSave = { ...group, price }
-    //     updateGroup(groupToSave)
-    // }
     if (!board) return <h1>Loading</h1>
     let backgroundStyle = board.style.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
-    return <div style={{ [backgroundStyle]: board.style.bgImg, objectFit: 'cover', backgroundSize: 'cover'}} className="board-app" >
-        <BoardHeader  board={board} />
-        {board && <GroupList board={board} />}
+    return <div style={{ [backgroundStyle]: board.style.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="board-app" >
+        <BoardHeader board={board} />
+
+        <DragDropContext
+            onDragEnd={onDragEnd}
+        >
+            {board && <GroupList board={board} />}
+        </DragDropContext>
+
         <Outlet />
         {/* <div className='black-screen'></div> */}
 

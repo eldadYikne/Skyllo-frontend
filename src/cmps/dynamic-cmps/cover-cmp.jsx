@@ -30,6 +30,7 @@ export const CoverCmp = ({ task, setTask }) => {
         console.log('isCover', isCover)
         console.log('isFullCover', isFullCover)
         setFullCover(isCover)
+        
         const taskToUpdate = { ...task, cover: { ...task.cover, isFullCover: isCover } }
         setTask(taskToUpdate)
     }

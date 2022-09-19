@@ -19,6 +19,7 @@ import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-i
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
 import { TaskChecklist } from './task-checklist'
+import { AttachmentDetails } from './task-details/attachmaent-details'
 
 
 export function TaskDetails() {
@@ -180,26 +181,7 @@ export function TaskDetails() {
                   <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>}
             </div>
-            
-            <div className='description-container'>
-              <div className='container-title'>
-                <AttachmentBigIcon className='title-icon' />
-                <h5>Attachment</h5>
-              </div>
-
-              {initTask.attachments?.map(attachment => {
-                return <div className='attachment-container'>
-                  <div className='img-attachment' >
-                    <a src={attachment.url} />
-                    <img src={attachment.url} />
-
-                  </div>
-                  <div className='attachment-detalis'>
-                    <a src={attachment.url}> {attachment.title}</a>
-                  </div>
-                </div>
-              })}
-            </div>
+            {task.attachments && <AttachmentDetails setTask={setTask} task={initTask} />}
 
             <div className='activity-container'>
               <div className='container-title'>
