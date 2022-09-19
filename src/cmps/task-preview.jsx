@@ -6,7 +6,7 @@ import { boardService } from "../services/board.service";
 import { updateBoard } from "../store/board.actions";
 import { TaskDetails } from "./task-details";
 
-export function TaskPreview({ task }) {
+export function TaskPreview({ task ,index}) {
 
     const board = useSelector(state => state.boardModule.board)
     const labelsOpen = board.toggleLabels
@@ -32,6 +32,8 @@ export function TaskPreview({ task }) {
                 setCoverTask(task.cover?.isDark ? `linear-gradient(180deg,#00000080,#000)` : `linear-gradient(180deg,#ffffff80,#fff)`)
                 setTextColor(task.cover?.isDark ? '#ffff' : 'black')
                 setCoverTaskUpper(task.cover?.isDark ? ' linear-gradient(180deg,#0000,#00000080)' : ' linear-gradient(180deg,#fff0,#ffffff80)')
+            } else {
+                setTextColor('black')
             }
         } else {
             setBgColor(task.cover?.color ? task.cover.color : '')
@@ -53,7 +55,6 @@ export function TaskPreview({ task }) {
         if (!task) return
         const membersIds = task.memberIds
         const taskMembers = membersIds?.map(id => {
-            console.log('iddddddddddd:', id)
 
             return boardService.getMembersById(board, id)
         })
@@ -64,7 +65,7 @@ export function TaskPreview({ task }) {
         loadTaskCover()
         loadLabels()
         loadMembers()
-    }, [board,task])
+    }, [board, task])
 
     const onToggleLabels = (ev) => {
         ev.preventDefault()
@@ -78,44 +79,47 @@ export function TaskPreview({ task }) {
 
 
     return (
-        <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
-            {bgColor &&
-                <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
-                    {task.cover?.isFullCover && <div>
-                        <div className="cover-dark-up" style={{ background: coverTaskUpper }}> </div>
-                        <div className="cover-dark-task" style={{ background: coverTask }}></div>
-                    </div>}
+ 
+
+            <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
+                {bgColor &&
+                    <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
+                        {task.cover?.isFullCover && task.cover?.color?.length > 9 && <div>
+                            <div className="cover-dark-up" style={{ background: coverTaskUpper }}> </div>
+                            <div className="cover-dark-task" style={{ background: coverTask }}></div>
+                        </div>}
+                    </div>
+                }
+                {taskLabels && !task.cover?.isFullCover &&
+                    <div className="task-preview-labels-list">
+                        {taskLabels.map(label => {
+                            return <div onClick={onToggleLabels}
+                                key={label.color}
+                                className={labelsClass}
+                                style={{ backgroundColor: label.color }}>
+                                {labelsOpen && <span>{label.title}</span>}
+                            </div>
+                        })}
+                    </div>
+                }
+
+                <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
+                <div className="task-preview-Characters">
+
+                    <div className="task-preview-pins">
+
+                    </div>
+
+                    <div className="task-preview-members-container">
+                        {taskMembers && taskMembers.map(member => {
+                            return <div className="task-preview-member-box">
+
+                            </div>
+                        })}
+                    </div>
                 </div>
-            }
-            {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
-            {taskLabels &&
-                <div className="task-preview-labels-list">
-                    {taskLabels.map(label => {
-                        return <div onClick={onToggleLabels}
-                            key={label.color}
-                            className={labelsClass}
-                            style={{ backgroundColor: label.color }}>
-                            {labelsOpen && <span>{label.title}</span>}
-                        </div>
-                    })}
-                </div>
-            }
+            </section>
+          
 
-            <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
-            <div className="task-preview-Characters">
-
-                <div className="task-preview-pins">
-
-                </div>
-
-                <div className="task-preview-members-container">
-                    {taskMembers && taskMembers.map(member => {
-                        return <div className="task-preview-member-box">
-
-                        </div>
-                    })}
-                </div>
-            </div>
-        </section>
     )
 }

@@ -18,6 +18,7 @@ import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
+import { AttachmentDetails } from './task-details/attachmaent-details'
 
 
 export function TaskDetails() {
@@ -39,10 +40,10 @@ export function TaskDetails() {
   const [dynamicType, setDynamicType] = useState('')
   const [sections, setSections] = useState([])
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
-  
+
   const [taskLabels, setTaskLabels] = useState(null)
   const [taskMembers, setTaskMembers] = useState(null)
-  
+
   const loadLabels = () => {
     if (!task) return
     const labelIds = task.labelIds
@@ -52,25 +53,25 @@ export function TaskDetails() {
     return setTaskLabels(taskLabel)
   }
 
-  const loadMembers = () =>{
+  const loadMembers = () => {
     if (!task) return
     const membersIds = task.memberIds
     const taskMembers = membersIds?.map(id => {
-      console.log('iddddddddddd:',id)
-      
+      console.log('iddddddddddd:', id)
+
       return boardService.getMembersById(board, id)
     })
-    console.log('taskMembers:',taskMembers )
-    
+    console.log('taskMembers:', taskMembers)
+
     return setTaskMembers(taskMembers)
   }
 
-  
+
   useEffect(() => {
-    setTimeout(()=>{
+    setTimeout(() => {
       loadLabels()
-    },500)
-    
+    }, 500)
+
     onSaveTask()
     loadMembers()
   }, [task])
@@ -94,10 +95,10 @@ export function TaskDetails() {
   }
 
   const getMemberBackground = (member) => {
-    
-    if (member.img) return  `url(${member.img}) center center / cover` 
 
-    else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;` 
+    if (member.img) return `url(${member.img}) center center / cover`
+
+    else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
 
 
@@ -135,8 +136,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Members</h4>
                 <div className='action-type-content'>
-                  {taskMembers&& taskMembers.map(member=>{
-                    return <div key={member._id} className='task-details-member-box' style={{ background:getMemberBackground(member)}}></div>
+                  {taskMembers && taskMembers.map(member => {
+                    return <div key={member._id} className='task-details-member-box' style={{ background: getMemberBackground(member) }}></div>
                   })}
                 </div>
               </div>
@@ -144,8 +145,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
-                  {taskLabels && taskLabels.map(label => {                    
-                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color? label.color:'green' }}>{label.title?label.title:''}</div>
+                  {taskLabels && taskLabels.map(label => {
+                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color ? label.color : 'green' }}>{label.title ? label.title : ''}</div>
                   })}
                 </div>
               </div>
@@ -170,26 +171,7 @@ export function TaskDetails() {
                   <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
                 </div>}
             </div>
-
-            <div className='description-container'>
-              <div className='container-title'>
-                <AttachmentBigIcon className='title-icon' />
-                <h5>Attachment</h5>
-              </div>
-
-              {initTask.attachments?.map(attachment => {
-                return <div className='attachment-container'>
-                  <div className='img-attachment' >
-                    <a src={attachment.url}/>
-                    <img src={attachment.url}/>
-            
-                  </div>
-                  <div className='attachment-detalis'>
-                    <a src={attachment.url}> {attachment.title}</a>
-                  </div>
-                </div>
-              })}
-            </div>
+            {task.attachments && <AttachmentDetails setTask={setTask} task={initTask} />}
 
             <div className='activity-container'>
               <div className='container-title'>
