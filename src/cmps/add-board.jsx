@@ -10,7 +10,6 @@ export const AddBoard = ({ onChangeColor, bgColorCreate, createNewBoard, setIsSh
     const changeHandel = (ev) => {
         ev.preventDefault()
         setText(ev.target.value)
-        console.log(text, 'tetx')
     }
 
     const classBtn = text ? 'btn-create-board-filled ' : "btn-create-board"

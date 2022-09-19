@@ -3,9 +3,6 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
-import { saveTask, updateBoard } from "../../store/board.actions"
-
-
 
 export const CoverCmp = ({ task, setTask }) => {
 

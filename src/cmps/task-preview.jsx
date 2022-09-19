@@ -6,14 +6,27 @@ import { boardService } from "../services/board.service";
 import { updateBoard } from "../store/board.actions";
 import { TaskDetails } from "./task-details";
 
-export function TaskPreview({ task ,index}) {
+
+//charecters icons
+import { ReactComponent as AttachmentIcon } from '../assets/img/attachmaent-iconbig.svg'
+import { ReactComponent as ChecklistIcon } from '../assets/img/checklist-icon.svg'
+import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
+import { ReactComponent as EditTaskIcon } from '../assets/img/edit-icon-task.svg'
+import { MiniEdit } from "./mini-edit-cmp";
+
+export function TaskPreview({ task }) {
 
     const board = useSelector(state => state.boardModule.board)
     const labelsOpen = board.toggleLabels
+    const [isMiniEditShown, setIsMiniEditShown] = useState(false)
 
     const [taskLabels, setTaskLabels] = useState()
     const [taskMembers, setTaskMembers] = useState()
+    const [taskAttachments, setTaskAttachments] = useState()
+    const [taskChecklists, setTaskChecklists] = useState()
     const dispatch = useDispatch()
+
+    //task-cover
     const [coverTask, setCoverTask] = useState('')
     const [coverTaskUpper, setCoverTaskUpper] = useState('')
     const [bgColor, setBgColor] = useState(task.cover?.color ? `url(${task.cover.color})` : '')
@@ -55,7 +68,6 @@ export function TaskPreview({ task ,index}) {
         if (!task) return
         const membersIds = task.memberIds
         const taskMembers = membersIds?.map(id => {
-
             return boardService.getMembersById(board, id)
         })
         return setTaskMembers(taskMembers)
@@ -74,52 +86,66 @@ export function TaskPreview({ task ,index}) {
         dispatch(updateBoard(newBoard))
     }
 
+    const getMemberBackground = (member) => {
+        if (member.img) return `url(${member.img}) center center / cover`
+        else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
+    }
+
+    const onClickMiniEdit = (ev) =>{
+        ev.preventDefault()
+        ev.stopPropagation()
+        
+        setIsMiniEditShown(!isMiniEditShown)
+    }
+
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
 
-
-
     return (
- 
-
-            <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
-                {bgColor &&
-                    <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
-                        {task.cover?.isFullCover && task.cover?.color?.length > 9 && <div>
-                            <div className="cover-dark-up" style={{ background: coverTaskUpper }}> </div>
-                            <div className="cover-dark-task" style={{ background: coverTask }}></div>
-                        </div>}
-                    </div>
-                }
-                {taskLabels && !task.cover?.isFullCover &&
-                    <div className="task-preview-labels-list">
-                        {taskLabels.map(label => {
-                            return <div onClick={onToggleLabels}
-                                key={label.color}
-                                className={labelsClass}
-                                style={{ backgroundColor: label.color }}>
-                                {labelsOpen && <span>{label.title}</span>}
-                            </div>
-                        })}
-                    </div>
-                }
-
-                <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
-                <div className="task-preview-Characters">
-
-                    <div className="task-preview-pins">
-
-                    </div>
-
-                    <div className="task-preview-members-container">
-                        {taskMembers && taskMembers.map(member => {
-                            return <div className="task-preview-member-box">
-
-                            </div>
-                        })}
-                    </div>
+        <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
+            <EditTaskIcon className="edit-task-preview-icon" onClick={onClickMiniEdit}/>
+            <div >
+           {/* {isMiniEditShown&&
+            <MiniEdit task={task} board={board} setIsMiniEditShown={setIsMiniEditShown} />
+        } */}
+        </div>
+            {bgColor &&
+                <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
+                    {task.cover?.isFullCover && <div>
+                        <div className="cover-dark-up" style={{ background: coverTaskUpper }}> </div>
+                        <div className="cover-dark-task" style={{ background: coverTask }}></div>
+                    </div>}
                 </div>
-            </section>
-          
+            }
+            {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
+            {taskLabels &&
+                <div className="task-preview-labels-list">
+                    {taskLabels.map(label => {
+                        return <div onClick={onToggleLabels}
+                            key={label.color}
+                            className={labelsClass}
+                            style={{ backgroundColor: label.color }}>
+                            {labelsOpen && <span>{label.title}</span>}
+                        </div>
+                    })}
+                </div>
+            }
 
+            <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
+            <div className="task-preview-Characters">
+                <div className="task-preview-pins">
+                    {task.description&&<div className="task-preview-pin attachment-pin"><DescriptionIcon/></div>}
+                    {task.attachment&& <div className="task-preview-pin attachment-pin"><AttachmentIcon/> <span>{taskAttachments.length}</span> </div>}
+                    {task.checklists&&<div className="task-preview-pin checklists-pin"><ChecklistIcon/> <span>{task.checklists.length}</span></div>}
+                    <div className="task-preview-pin activities-pin"></div>
+                </div>
+
+                <div className="task-preview-members-container">
+                    {taskMembers && taskMembers.map(member => {
+                        return <div className="task-preview-member-box" style={{ background: getMemberBackground(member) }}>
+                        </div>
+                    })}
+                </div>
+            </div>
+        </section>
     )
 }

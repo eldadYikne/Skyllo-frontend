@@ -45,6 +45,8 @@ export function BoardApp() {
         </DragDropContext>
 
         <Outlet />
+        {/* <div className='black-screen'></div> */}
+
     </div>
 }
 
