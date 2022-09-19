@@ -14,10 +14,8 @@ export function BoardList({ boards }) {
 
 
     const onChangeColor = (info) => {
-        console.log(info);
         setColorCreate(info)
     }
-
 
     const createNewBoard = async (text) => {
         try {
@@ -25,7 +23,6 @@ export function BoardList({ boards }) {
 
             const board = await boardService.createBoard(text, bgColorCreate)
             dispacth(addBoard(board))
-            console.log(text, bgColorCreate);
             setIsShown(false)
         } catch (err) {
             console.log(err);

@@ -29,7 +29,6 @@ export const MembersCmp = ({task,setTask}) => {
         <h3>Board Members</h3>
         <section className="members-list">
             {members.map((member) => {
-                
                 return (
                     <div key={member.img} className="member-preview"
                         onClick={() => onChooseMember(member._id)}

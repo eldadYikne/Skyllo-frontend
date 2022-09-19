@@ -59,11 +59,9 @@ export function TaskDetails() {
     if (!task) return
     const membersIds = task.memberIds
     const taskMembers = membersIds?.map(id => {
-      console.log('iddddddddddd:',id)
       
       return boardService.getMembersById(board, id)
     })
-    console.log('taskMembers:',taskMembers )
     
     return setTaskMembers(taskMembers)
   }
@@ -137,7 +135,6 @@ export function TaskDetails() {
             {task.title}
           </textarea>
         </section>
-
         <section className='details-content'>
           <section className='details-main-content'>
             <section className='first-content'>
@@ -145,8 +142,10 @@ export function TaskDetails() {
                 <h4>Members</h4>
                 <div className='action-type-content'>
                   {taskMembers&& taskMembers.map(member=>{
-                    return <div key={member._id} className='task-details-member-box' style={{ background:getMemberBackground(member)}}></div>
+                    return <div key={member._id} className='task-details-member-box'  style={{ background:getMemberBackground(member)}}></div>
                   })}
+                  <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
+
                 </div>
               </div>
 
@@ -156,6 +155,8 @@ export function TaskDetails() {
                   {taskLabels && taskLabels.map(label => {                    
                     return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color? label.color:'green' }}>{label.title?label.title:''}</div>
                   })}
+                  <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
+
                 </div>
               </div>
             </section>
@@ -166,6 +167,7 @@ export function TaskDetails() {
                 <h5>Description</h5>
               </div>
               <textarea
+                style={{backgroundColor: task.description? 'inherit':'#091e420a' }}
                 onChange={handleChange}
                 onClick={() => setIsDescription(true)}
                 name='description'

@@ -43,7 +43,7 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
         dispatch(updateBoard(boardToUpdate))
 
         // setTask(taskToUpdate)
-
+        setHideHeader(true)
         setIsCreateLabel(false)
     }
 
@@ -51,7 +51,6 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
         setHideHeader(false)
         
     }, [])
-    console.log('board-createee:',board )
     
     const handleChangeLabelText = (ev) => {
         const text = ev.target.value
