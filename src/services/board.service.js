@@ -52,14 +52,11 @@ async function save(board) {
     console.log('enter');
     if (board._id) {
 
-        console.log('staaar');
         board.style.isStared = board.style.isStared ? false : true
-        console.log(board.style.isStared, ' board.style.isStared');
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
-        console.log('sad');
         // Later, owner is set by the backend
         // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
@@ -88,7 +85,6 @@ function createBoard(title, bgImg) {
 
 async function addGroup(boardId, groupTitle, activity) {
     const board = await getById(boardId)
-    console.log(boardId)
     const group = {
         id: utilService.makeId(),
         title: groupTitle,
@@ -116,9 +112,7 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
-        console.log(task);
         group.tasks.splice(taskIdx, 1, task)
-        console.log(task);
     } else {
         task.id = utilService.makeId()
         group.tasks.push(task)
