@@ -4,13 +4,18 @@
         @include for-h3-dynamic-cmp
     }
 
+    & input{
+            @include for-dynamic-input
+        
+    }
+
     & .edit-labels-color-container {
         grid-gap: 8px;
         display: grid;
         gap: 8px;
+        padding: 8px;
         grid-template-columns: repeat(auto-fit, 48px);
     }
-
 
     & .edit-label-btns{
         margin-top: 3px;
@@ -25,6 +30,7 @@
             margin-right: 4px;
             padding: 6px 12px;
         }
+        
         & .delete-label-btn{
             background-color: #b04632;
             border: none;
@@ -33,9 +39,12 @@
             font-size: .875rem;
             margin-right: 4px;
             padding: 6px 12px;
+            cursor: pointer;
         }
     }
-    
+
+
+
 & .close-edit-label-modal{
     border: none;
     background-color: unset;
@@ -55,6 +64,9 @@
         cursor: pointer;
         height: 32px;
         position: relative;
+        display: flex;
+        & .color-chosen-icon{
+            margin: auto;
+        }
     }
-
 }

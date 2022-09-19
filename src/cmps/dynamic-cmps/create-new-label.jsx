@@ -1,62 +1,58 @@
-
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
 import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-form.svg'
 import { ReactComponent as GoBackIcon } from '../../assets/img/go-back-label-icon.svg'
 import { ReactComponent as ChosenColorIcon } from '../../assets/img/label-exist-icon.svg'
+
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
 import { detailsColorsConsts } from '../../const/board-list-consts';
 import { updateBoard } from '../../store/board.actions';
+import { utilService } from '../../services/util.service'
+import { useEffect } from 'react'
 
 
-export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader }) => {
-    const board = useSelector(state => state.boardModule.board)
-
+export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHideHeader,board }) => {
     const params = useParams()
     const taskId = params.taskId
     const groupId = params.groupId
 
-    const currGroup = board.groups.find(group => group.id === groupId)
-    const currTask = currGroup.tasks.find(task => task.id === taskId)
+    const group = board.groups.find(group => group.id === groupId)
+    const task = group.tasks.find(task => task.id === taskId)
 
-    const [editInputText, setEditInputText] = useState(selectedLabel.title)
-    const [selectedEditColor, setSelectedEditColor] = useState(selectedLabel.color)
+    const [editInputText, setEditInputText] = useState('')
+    const [selectedEditColor, setSelectedEditColor] = useState('green')
+
     const dispatch = useDispatch()
 
     const onLabelSave = (ev) => {
-
-        ev.preventDefault();
+        ev.preventDefault()
         const labelToSave = {
-            id: selectedLabel.id,
+            id: utilService.makeId(),
             title: editInputText,
             color: selectedEditColor
         }
 
-        const boardLabelIdx = board.labels.findIndex(boardLabel => {
-            return boardLabel.id === labelToSave.id
-        })
-        board.labels.splice([boardLabelIdx], 1, labelToSave);
-        dispatch(updateBoard(board))
-        setIsEditLabel(false)
-        setHideHeader(true)
+        const newLabelIds = [...task.labelIds, labelToSave.id]
+        const taskToUpdate = { ...task, labelIds: newLabelIds }
+
+        const groupIdx = board.groups.findIndex(currGroup => group.id === currGroup.id)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex(currTask => task.id === currTask.id)
+        
+        board.groups[groupIdx].tasks.splice(taskIdx, 1, taskToUpdate)
+        const boardToUpdate = { ...board, labels: [...board.labels, labelToSave] }
+        dispatch(updateBoard(boardToUpdate))
+
+        // setTask(taskToUpdate)
+
+        setIsCreateLabel(false)
     }
 
-    const onDeleteLabel = (ev) => {
-        ev.preventDefault()
-        board.labels = board.labels.filter(label => label.id !== selectedLabel.id)
-        console.log('selectedLabel:', selectedLabel)
-        const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
-        const updatedTask = { ...currTask, labelIds: newLabelIds }
-        const groupIdx = board.groups.findIndex(group => currGroup.id === group.id)
-        const taskIdx = board.groups[groupIdx].tasks.findIndex(task => currTask.id === task.id)
-        board.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask);
-
-        dispatch(updateBoard(board))
-        setTask(updatedTask)
-        setIsEditLabel(false)
-        setHideHeader(true)
-    }
-
+    useEffect(() => {
+        setHideHeader(false)
+        
+    }, [])
+    console.log('board-createee:',board )
+    
     const handleChangeLabelText = (ev) => {
         const text = ev.target.value
         setEditInputText(text)
@@ -66,17 +62,17 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         setSelectedEditColor(color)
     }
 
+    const onGoBack = () => {
+        setIsCreateLabel(false)
+        setHideHeader(true)
+    }
+
     const selectedColorIcon = (color) => {
         if (color === selectedEditColor) return <ChosenColorIcon className='color-chosen-icon' />
     }
 
-    const onGoBack = () => {
-        setIsEditLabel(false)
-        setHideHeader(true)
-    }
-
     return <section className="edit-label-cmp">
-        <section className="dynamic-cmp-header">{'Edit label'}
+        <section className="dynamic-cmp-header">{'Create new label'}
             <button className='close-edit-label-modal'>
                 <CloseDynamicCmp onClick={() => setDynamicType('')} />
             </button>
@@ -96,22 +92,17 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
                             onClick={() => handleChangeLabelColor(color)}
                             key={color}
                             style={{ backgroundColor: color }}>
-                            {selectedColorIcon(color)}
+                                {selectedColorIcon(color)}
                         </div>
                     })}
-
                 </section>
                 <section className='edit-label-btns'>
                     <button className='create-new-label-btn'>
-                        Save label
+                        Create
                     </button>
-                    <span onClick={onDeleteLabel} className='delete-label-btn'>
-                        Delete
-                    </span>
                 </section>
             </form>
-
         </section>
-
     </section>
+
 }

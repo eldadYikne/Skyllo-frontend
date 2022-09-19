@@ -114,25 +114,28 @@ function getMembers() {
 }
 const gUsers = [
     {
-        fullname: 'Emma Mitchell',
-        img: `../../assets/img/user-img/1.jpg` 
+        _id: '1011',
+        fullname: 'Eldad Yikne',
+        img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
+        ` 
     },
     {
-        fullname: 'John Smith',
-        img: `../../assets/img/user-img/2.jpg`
+        _id: '1012',
+        fullname: 'Dekel Ido',
+        img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583549/sprint%204%20/T03E3RZ2KHV-U03KC7A8R6F-97b018241b8a-512_ougkz6.jpg
+        `
     },
     {
-        fullname: 'Sam Collins',
-        img: `../../assets/img/user-img/3.jpg`
+        _id: '1013',
+        fullname: 'Yaara Yehuda',
+        img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583460/sprint%204%20/T03E3RZ2KHV-U03KVHTDXAR-77f29bd19fdf-512_vqrj3l.jpg
+        `
     },
     {
-        fullname: 'Sasha Stinson',
-        img: `../../assets/img/user-img/4.jpg`
+        _id: '1014',
+        fullname: 'Roi Yotvat',
+        img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583580/sprint%204%20/T03E3RZ2KHV-U03HE9ZJTA6-79c26a7781c8-512_m1ydbz.png
+        `
     },
-    {
-        fullname: 'Jane Abrams',
-        img: `../../assets/img/user-img/5.jpg`
-    }
-
 ]
 

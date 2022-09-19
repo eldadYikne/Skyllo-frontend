@@ -9,8 +9,6 @@ export function AppHeader() {
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
 
-
-
   return (
     <header className='app-header'>
       <section className='logo-container'>

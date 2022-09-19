@@ -17,4 +17,76 @@
         background-position: center center;
         background-size: cover;
     }
+
+
+
+
+
+    & .task-preview-labels-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px;
+        margin-bottom: 5px;
+
+        & .task-preview-label-preview-open {
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            height: 16px;
+            padding: 0 8px;
+            font-size: 12px;
+            min-height: 16px;
+            font-weight: 700;
+            transition: height .5s, padding .3s;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+            // color: rgb(255, 255, 255);
+        }
+
+        & .task-preview-label-preview {
+            align-content: center;
+            border-radius: 4px;
+            font-size: 12px;
+            height: 8px;
+            // padding: 4px;
+            position: relative;
+            transition: height .5s, padding .3s;
+            width: 40px;
+        }
+    }
+
+
+    // .task-preview-Characters {
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     justify-content: center;
+
+    //     & .task-preview-pins {
+    //         flex: 1 1;
+    //         gap: 4px;
+    //         padding: 4px;
+    //         padding-bottom: 4px;
+    //         background-color: #e1e1e1;
+    //         align-items: center;
+    //     }
+
+    //     & .task-preview-members-container {
+    //         display: flex;
+    //         justify-content: flex-end;
+    //         padding-bottom: 4px;
+
+    //         & .task-preview-member-box{
+    //             align-items: center;
+    //             border-radius: 50%;
+    //             cursor: pointer;
+    //             display: flex;
+    //             height: 30px;
+    //             justify-content: center;
+    //             object-fit: cover;
+    //             width: 30px;
+    //             background-color: aqua;
+    //             margin-left: 1px;
+    //         }
+    //     }
+    // }
 }

@@ -29,9 +29,9 @@ export const boardService = {
     saveTask,
     removeTask,
     getLabelsById,
+    getMembersById,
 }
 window.cs = boardService
-
 
 function query(filterBy) {
     return storageService.query(STORAGE_KEY)
@@ -136,12 +136,21 @@ async function removeTask(boardId, groupId, taskId, activity) {
     return save(board)
 }
 
-function getLabelsById(board, labelId){
+function getLabelsById(board, labelId) {
     const labels = board.labels.find(label => {
-      return label.id === labelId
+        return label.id === labelId
     })
     return labels
-  }
+}
+function getMembersById(board, memberId) {
+    console.log('boarddddddd:', board)
+    console.log('memberIdddddd:', memberId)
+    
+    const members = board.members.find(member => {
+        return member._id === memberId
+    })
+    return members
+}
 
 
 // TEST DATA
@@ -195,6 +204,7 @@ function getBoard() {
 
     const gBoards =
         [{
+            toggleLabels: false,
             _id: "b101",
             title: "Medicine trials",
             archivedAt: '',
@@ -225,7 +235,7 @@ function getBoard() {
                     //green
                     id: 'la203',
                     title: "Free time",
-                    
+
                     color: "#b8b8d1"
                 },
                 {
@@ -247,12 +257,37 @@ function getBoard() {
                     color: "#fea967"
                 }
             ]
-        ,
+            ,
             members: [
                 {
                     _id: utilService.makeId(),
                     fullname: "Tal Tarablus",
                     imgUrl: "https://www.google.com"
+                },
+                {
+                    _id: '1011',
+                    fullname: 'Emma Mitchell',
+                    img: `../../assets/img/user-img/1.jpg` 
+                },
+                {
+                    _id: '1012',
+                    fullname: 'John Smith',
+                    img: `../../assets/img/user-img/2.jpg`
+                },
+                {
+                    _id: '1013',
+                    fullname: 'Sam Collins',
+                    img: `../../assets/img/user-img/3.jpg`
+                },
+                {
+                    _id: '1014',
+                    fullname: 'Sasha Stinson',
+                    img: `../../assets/img/user-img/4.jpg`
+                },
+                {
+                    _id: '1015',
+                    fullname: 'Jane Abrams',
+                    img: `../../assets/img/user-img/5.jpg`
                 }
             ],
             groups: [
@@ -289,7 +324,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {}
+                    style: {},
                 },
                 {
                     id: utilService.makeId(),
@@ -345,22 +380,22 @@ function getBoard() {
                             style: {
                                 bgColor: "#26de81"
                             }
-                        }, 
-                          {
+                        },
+                        {
                             id: utilService.makeId(),
                             title: "Meet Health Ministry for Phase 3 approval",
                             description: "Build medication file",
                             memberIds: [],
                             labelIds: [],
                         },
-                          {
+                        {
                             id: utilService.makeId(),
                             title: "Calculate success rate in vivo",
                             description: "",
                             memberIds: [],
                             labelIds: [],
                         },
-                          {
+                        {
                             id: utilService.makeId(),
                             title: "Apply for Ethic review board",
                             description: "in order to get approval for phase 3",
@@ -372,7 +407,7 @@ function getBoard() {
                     }
                 },
                 {
-                   
+                    toggleLabels: false,
                     id: utilService.makeId(),
                     title: "PHASE 3 - Clinical trials",
                     archivedAt: '',
@@ -419,7 +454,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {} 
+                    style: {}
                 },
                 {
                     id: utilService.makeId(),
@@ -447,7 +482,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {} 
+                    style: {}
                 }
             ],
             activities: [
