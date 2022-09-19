@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useEffect,useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { boardService } from '../services/board.service'
 import { removeGroup, storeAddGroup } from '../store/board.actions'
@@ -11,6 +11,7 @@ export function GroupList() {
   const board = useSelector(state => state.boardModule.board)
   const dispatch = useDispatch()
 
+  const [labelsShown, setLabelsShown] = useState(board.labelsShown)
   const inputRef = useRef()
 
   const [isAddGroup, setIsAddGroup] = useState(false)
@@ -26,7 +27,7 @@ export function GroupList() {
     dispatch(removeGroup(board._id, groupId, 'user deleted a List'))
   }
 
-  const isAddGroupShown = () =>{
+  const isAddGroupShown = () => {
     if (isAddGroup) {
       inputRef.current.focus()
     }
@@ -39,11 +40,11 @@ export function GroupList() {
       {board?.groups && board.groups.map(group => {
         return (
           <li key={group.id}>
-            <GroupPreview 
-                board= {board}
-                group={group}
-                boardId={board._id}
-                onRemoveGroup={onRemoveGroup}
+            <GroupPreview
+              board={board}
+              group={group}
+              boardId={board._id}
+              onRemoveGroup={onRemoveGroup}
             />
           </li>
         )
@@ -80,7 +81,7 @@ export function GroupList() {
       {isAddGroup && (
         <div className='add-group-form'>
           <form className='add-group' onSubmit={onAddGroup}>
-            <input ref={inputRef} type='text'  placeholder='Enter list title' />
+            <input ref={inputRef} type='text' placeholder='Enter list title' />
             <div className='add-group-actions'>
               <button className='add-group-btn'>Add list</button>
               <CloseAddGroup

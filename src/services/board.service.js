@@ -29,9 +29,9 @@ export const boardService = {
     saveTask,
     removeTask,
     getLabelsById,
+    getMembersById,
 }
 window.cs = boardService
-
 
 function query(filterBy) {
     return storageService.query(STORAGE_KEY)
@@ -52,14 +52,11 @@ async function save(board) {
     console.log('enter');
     if (board._id) {
 
-        console.log('staaar');
         board.style.isStared = board.style.isStared ? false : true
-        console.log(board.style.isStared, ' board.style.isStared');
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
-        console.log('sad');
         // Later, owner is set by the backend
         // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
@@ -88,7 +85,6 @@ function createBoard(title, bgImg) {
 
 async function addGroup(boardId, groupTitle, activity) {
     const board = await getById(boardId)
-    console.log(boardId)
     const group = {
         id: utilService.makeId(),
         title: groupTitle,
@@ -116,9 +112,7 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
-        console.log(task);
         group.tasks.splice(taskIdx, 1, task)
-        console.log(task);
     } else {
         task.id = utilService.makeId()
         group.tasks.push(task)
@@ -136,12 +130,21 @@ async function removeTask(boardId, groupId, taskId, activity) {
     return save(board)
 }
 
-function getLabelsById(board, labelId){
+function getLabelsById(board, labelId) {
     const labels = board.labels.find(label => {
-      return label.id === labelId
+        return label.id === labelId
     })
     return labels
-  }
+}
+function getMembersById(board, memberId) {
+    console.log('boarddddddd:', board)
+    console.log('memberIdddddd:', memberId)
+    
+    const members = board.members.find(member => {
+        return member._id === memberId
+    })
+    return members
+}
 
 
 // TEST DATA
@@ -195,6 +198,7 @@ function getBoard() {
 
     const gBoards =
         [{
+            toggleLabels: false,
             _id: "b101",
             title: "Medicine trials",
             archivedAt: '',
@@ -225,7 +229,7 @@ function getBoard() {
                     //green
                     id: 'la203',
                     title: "Free time",
-                    
+
                     color: "#b8b8d1"
                 },
                 {
@@ -247,12 +251,37 @@ function getBoard() {
                     color: "#fea967"
                 }
             ]
-        ,
+            ,
             members: [
                 {
                     _id: utilService.makeId(),
                     fullname: "Tal Tarablus",
                     imgUrl: "https://www.google.com"
+                },
+                {
+                    _id: '1011',
+                    fullname: 'Emma Mitchell',
+                    img: `../../assets/img/user-img/1.jpg` 
+                },
+                {
+                    _id: '1012',
+                    fullname: 'John Smith',
+                    img: `../../assets/img/user-img/2.jpg`
+                },
+                {
+                    _id: '1013',
+                    fullname: 'Sam Collins',
+                    img: `../../assets/img/user-img/3.jpg`
+                },
+                {
+                    _id: '1014',
+                    fullname: 'Sasha Stinson',
+                    img: `../../assets/img/user-img/4.jpg`
+                },
+                {
+                    _id: '1015',
+                    fullname: 'Jane Abrams',
+                    img: `../../assets/img/user-img/5.jpg`
                 }
             ],
             groups: [
@@ -289,7 +318,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {}
+                    style: {},
                 },
                 {
                     id: utilService.makeId(),
@@ -345,22 +374,22 @@ function getBoard() {
                             style: {
                                 bgColor: "#26de81"
                             }
-                        }, 
-                          {
+                        },
+                        {
                             id: utilService.makeId(),
                             title: "Meet Health Ministry for Phase 3 approval",
                             description: "Build medication file",
                             memberIds: [],
                             labelIds: [],
                         },
-                          {
+                        {
                             id: utilService.makeId(),
                             title: "Calculate success rate in vivo",
                             description: "",
                             memberIds: [],
                             labelIds: [],
                         },
-                          {
+                        {
                             id: utilService.makeId(),
                             title: "Apply for Ethic review board",
                             description: "in order to get approval for phase 3",
@@ -372,7 +401,7 @@ function getBoard() {
                     }
                 },
                 {
-                   
+                    toggleLabels: false,
                     id: utilService.makeId(),
                     title: "PHASE 3 - Clinical trials",
                     archivedAt: '',
@@ -419,7 +448,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {} 
+                    style: {}
                 },
                 {
                     id: utilService.makeId(),
@@ -447,7 +476,7 @@ function getBoard() {
                             labelIds: [],
                         },
                     ],
-                    style: {} 
+                    style: {}
                 }
             ],
             activities: [
