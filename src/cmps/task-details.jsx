@@ -39,7 +39,6 @@ export function TaskDetails() {
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
-  const [taskLabels, setTaskLabels] = useState('')
   
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
   
@@ -177,7 +176,7 @@ export function TaskDetails() {
               {isDescription &&
                 <div className='description-edit'>
                   <button className='save-description' onMouseDown={onSaveTask}>Save</button>
-                  <button className='close-description' onClick={() => setIsFieldOpen(false)}>Cancel</button>
+                  <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>}
             </div>
 
