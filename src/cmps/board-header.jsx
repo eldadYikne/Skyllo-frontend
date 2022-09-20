@@ -16,7 +16,8 @@ export function BoardHeader({ board }) {
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
-            dispacth(updateBoard(board))
+            const boadToUpdet = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
+            dispacth(updateBoard(boadToUpdet))
         } catch (err) {
             console.log(err);
         }
@@ -51,8 +52,8 @@ export function BoardHeader({ board }) {
 
                 <div className="nav-right">
                     <div className='board-header-menu-btn'>
-                            <MenuIcon/>
-                            <p>Show Menu</p>
+                        <MenuIcon />
+                        <p>Show Menu</p>
                     </div>
                 </div>
 

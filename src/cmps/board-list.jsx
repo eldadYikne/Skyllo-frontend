@@ -31,7 +31,9 @@ export function BoardList({ boards }) {
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
-            dispacth(updateBoard(board))
+            const isStar = board.style.isStared
+            const boadToUpdet = { ...board, style: { ...board.style, isStared: isStar } }
+            dispacth(updateBoard(boadToUpdet))
         } catch (err) {
             console.log(err);
         }
