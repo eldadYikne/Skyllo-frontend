@@ -50,10 +50,9 @@ export const MiniEdit = ({task,board,setIsMiniEditShown}) => {
       const onClickEditAction =(ev)=>{
         ev.preventDefault()
         ev.stopPropagation()
-        
+
         setDynamicType(ev.target.name)
       }
-
 
     return <section className="mini-edit-task-container" >
 
@@ -65,7 +64,6 @@ export const MiniEdit = ({task,board,setIsMiniEditShown}) => {
             <div className="mini-edit-footer">
                 <button onClick={onSaveTitle} className='save-mini-edit'>Save</button>
             </div>
-
         </div>
 
         <div className="mini-edit-side-bar">
