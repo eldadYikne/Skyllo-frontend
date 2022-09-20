@@ -51,8 +51,6 @@ async function save(board) {
     var savedBoard
     console.log('enter');
     if (board._id) {
-
-        board.style.isStared = board.style.isStared ? false : true
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
@@ -104,7 +102,6 @@ async function removeGroup(boardId, groupId, activity) {
     board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
-
 }
 
 async function saveTask(boardId, groupId, task, activity) {

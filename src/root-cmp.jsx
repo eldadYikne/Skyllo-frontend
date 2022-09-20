@@ -14,19 +14,23 @@ import { useSelector } from 'react-redux'
 import { HomePageHeader } from './cmps/header-home-page'
 
 
-export const RootCmp =()=>{
+export const RootCmp = () => {
     const user = useSelector(state => state.userModule.user)
-    
-    
-        return (
-            <div>
-                {!user&& <HomePageHeader/>}
-            {user&&
+    const board = useSelector(state => state.boardModule.board)
+    let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
+
+
+
+    return (
+        <div className='root-cmp'>
+            {!user && <HomePageHeader />}
+            {user &&
                 <AppHeader />
             }
-                    {/* <div className='black-screen'></div> */}
+            {/* <div className='black-screen'></div> */}
+           
 
-                <main>
+                <main style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className='main-app'>
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
@@ -36,9 +40,10 @@ export const RootCmp =()=>{
                         </Route>
                     </Routes>
                 </main>
-            </div>
-        )
-    }
+         
+        </div>
+    )
+}
 
 
 // Sign-up
@@ -46,7 +51,7 @@ export const RootCmp =()=>{
 
 // HomePage
 
-// WorkSpace --> BoardList--->BoardPreview 
+// WorkSpace --> BoardList--->BoardPreview
 
 // BoardApp--(BoardHeader)--->GroupList--->GroupPreview--->TaskList--->TaskPreview
 

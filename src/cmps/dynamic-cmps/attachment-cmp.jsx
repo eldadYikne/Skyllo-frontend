@@ -15,34 +15,19 @@ export const AttachmentCmp = ({ task, setTask }) => {
         if (!task.attachments) task.attachments = []
 
         const taskToUpdate = {
-            ...task, attachments: [...task.attachments,
-            {
-                id: utilService.makeId(),
-                title: textTitle,
-                url: text,
-                isCover: false,
-                isEdit: false,
-                createdAt: Date.now(),
-            }]
+            ...task, attachments: [...task.attachments, createAttachment(textTitle, text)]
         }
         if (!textTitle) return
         setTask(taskToUpdate)
     }
+   
     const onUploadImg = async (ev) => {
         try {
-            console.log('yess');
             const data = await uploadService.uploadImg(ev)
-            console.log(data.secure_url)
+            console.log(data.secure_url);
+            if (!task.attachments) task.attachments = []
             const taskToUpdate = {
-                ...task, attachments: [...task.attachments,
-                {
-                    id: utilService.makeId(),
-                    title: data.original_filename,
-                    url: data.secure_url,
-                    isCover: false,
-                    isEdit: false,
-                    createdAt: Date.now(),
-                }]
+                ...task, attachments: [...task.attachments, createAttachment(data.original_filename, data.secure_url)]
             }
             setTask(taskToUpdate)
         } catch (err) {
@@ -51,7 +36,16 @@ export const AttachmentCmp = ({ task, setTask }) => {
 
 
     }
-   
+    const createAttachment = (title, url) => {
+        return {
+            id: utilService.makeId(),
+            title: title,
+            url: url,
+            isCover: false,
+            isEdit: false,
+            createdAt: Date.now(),
+        }
+    }
 
     return <section className="attachment-cmp">
         <div className="upload-source"><input className="input-computer-upload" type="file" onChange={onUploadImg} />

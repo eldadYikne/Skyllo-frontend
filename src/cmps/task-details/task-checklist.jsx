@@ -92,7 +92,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
             </div>
 
 
-            <progress id="file" value={progress} max="100" class={complete} style={{ background: 'green' }} ></progress>
+            <progress id="file" value={progress} max="100" className={complete} style={{ background: 'green' }} ></progress>
             {checklist.todos &&
                 <section className='todos-container '>
                     {checklist.todos.map(todo => {
