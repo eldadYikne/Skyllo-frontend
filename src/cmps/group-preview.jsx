@@ -8,13 +8,13 @@ import { Droppable } from 'react-beautiful-dnd'
 export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
-
   const [title, setTitle] = useState('')
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     setTitle(group.title)
+    
   }, [group.title])
 
   const onAddTask = ev => {

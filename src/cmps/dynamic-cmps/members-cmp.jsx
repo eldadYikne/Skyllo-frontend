@@ -4,6 +4,12 @@ import { userService } from "../../services/user.service"
 export const MembersCmp = ({task,setTask}) => {
 
     const members = userService.getMembers()
+    
+    const onAddMember = (memberId) => {
+        if (!task.memberIds.length) task.memberIds = []
+        task.memberIds.push(memberId)
+        onSaveTask(task)
+    }
 
 
     const onChooseMember = (memberId) => {

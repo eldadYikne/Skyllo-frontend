@@ -11,31 +11,24 @@ import { Draggable } from 'react-beautiful-dnd'
 export function GroupList() {
   const board = useSelector(state => state.boardModule.board)
   const dispatch = useDispatch()
-
   const [labelsShown, setLabelsShown] = useState(board.labelsShown)
   const inputRef = useRef()
-
   const [isAddGroup, setIsAddGroup] = useState(false)
-
   const onAddGroup = (ev) => {
     ev.preventDefault()
     const listTitle = ev.target[0].value
     dispatch(addGroup(board._id, listTitle, 'user added a List'))
   }
-
   const onRemoveGroup = (ev, groupId) => {
     ev.preventDefault()
     dispatch(removeGroup(board._id, groupId, 'user deleted a List'))
   }
-
   const isAddGroupShown = () => {
     if (isAddGroup) {
       inputRef.current.focus()
     }
-
     setIsAddGroup(!isAddGroup)
   }
-
   return (
     <section className='group-list'>
 {board?.groups && board.groups.map((group, index) => {
@@ -91,7 +84,6 @@ export function GroupList() {
           <span>Add another List</span>
         </div>
       )}
-
       {isAddGroup && (
         <div className='add-group-form'>
           <form className='add-group' onSubmit={onAddGroup}>
@@ -106,10 +98,50 @@ export function GroupList() {
           </form>
         </div>
       )}
-
     </section>
   )
 }
+// {board?.groups && board.groups.map((group, index) => {
+//   return (
+//     <div>
+//       <Draggable draggableId={group.id} index={index}>
+//         {(provided) => {
+//           return (<li key={index} index={index}
+//             {...provided.draggableProps} {...provided.dragHandleProps}
+//             ref={provided.innerRef} >
+//             <GroupPreview
+//               board={board}
+//               group={group}
+//               boardId={board._id}
+//               onRemoveGroup={onRemoveGroup}
+//             >
+//             </GroupPreview>
+//           </li>)
+//         }}
+//       </Draggable>
+//     </div>)
+// })}
+// {board?.groups && board.groups.map((group, index) => {
+
+//   return (
+//     <div>
+//       <Draggable draggableId={group.id} index={index}>
+//         {(provided) => {
+//           return (<li key={index} index={index}
+//             {...provided.draggableProps} {...provided.dragHandleProps}
+//             ref={provided.innerRef} >
+//             <GroupPreview
+//               board={board}
+//               group={group}
+//               boardId={board._id}
+//               onRemoveGroup={onRemoveGroup}
+//             >
+//             </GroupPreview>
+//           </li>)
+//         }}
+//       </Draggable>
+//     </div>)
+// })}
 // {board?.groups && board.groups.map((group, index) => {
 
 //   return (

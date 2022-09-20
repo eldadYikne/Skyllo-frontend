@@ -18,8 +18,8 @@ import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
-import { TaskChecklist } from './task-checklist'
 import { AttachmentDetails } from './task-details/attachmaent-details'
+import { TaskChecklist } from './task-details/task-checklist'
 
 
 export function TaskDetails() {
@@ -122,7 +122,7 @@ export function TaskDetails() {
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
           <CloseDetailsModal
             className='close-details-modal-icon'
-            onClick={onSaveTask} />
+            onClick={() => onSaveTask(task)} />
         </Link>
 
         <section className='details-header'>
