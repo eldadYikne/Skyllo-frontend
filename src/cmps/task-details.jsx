@@ -253,6 +253,7 @@ export function TaskDetails() {
                 setDynamicType={setDynamicType}
                 group={group}
                 setIsChecklist={setIsChecklist}
+                board={board}
               />
 
             }

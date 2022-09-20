@@ -1,6 +1,8 @@
 import { TaskList } from './task-list'
 import { useEffect, useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
+import { ReactComponent as MoreOptions } from '../assets/img/more-options-icon.svg'
+
 import { useDispatch } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
 import { Droppable } from 'react-beautiful-dnd'
@@ -59,19 +61,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
           onClick={() => setIsShowOptions(!isShowOptions)}
           className='group-more-options'
         >
-          <svg
-            stroke='currentColor'
-            fill='currentColor'
-            strokeWidth='0'
-            viewBox='0 0 512 512'
-            height='1em'
-            width='1em'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <circle cx='256' cy='256' r='48'></circle>
-            <circle cx='416' cy='256' r='48'></circle>
-            <circle cx='96' cy='256' r='48'></circle>
-          </svg>
+          <MoreOptions />
         </div>
 
         {isShowOptions && (

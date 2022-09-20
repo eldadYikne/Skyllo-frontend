@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { HomePageHeader } from './cmps/header-home-page'
 
 
+
 export const RootCmp = () => {
     const user = useSelector(state => state.userModule.user)
     const board = useSelector(state => state.boardModule.board)
