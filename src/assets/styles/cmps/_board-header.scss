@@ -1,0 +1,103 @@
+.nav-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    & .board-header-nav-left-actions {
+        display: flex;
+        margin: 0 5px;
+
+        & .action-board-header {
+            align-items: center;
+            background-color: hsla(0, 0%, 100%, .239);
+            border-radius: 3px;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            padding: 5px;
+            text-decoration: none;
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        & .board-header-members-container {
+            display: flex;
+            padding-left: 0;
+            & .board-header-member-box {
+                align-items: center;
+                border-radius: 25em;
+                cursor: pointer;
+                display: flex;
+                font-weight: 600;
+                height: 30px;
+                justify-content: center;
+                object-fit: cover;
+                width: 30px;
+                &:not(:first-child){
+                    margin: 0 0 0 -10px;
+                }
+            }
+        }
+        & .invite-member-icon{
+            align-items: center;
+            background-color: hsla(0,0%,100%,.239);
+            border-radius: 3px;
+            margin-left: 4px;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            padding: 6px;
+            min-width: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            &:hover{
+                background-color: hsla(0,0%,100%,.459);
+            }
+        }
+
+        & .board-header-favorite-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: gold;
+            min-width: 30px;
+            margin-right: 3px;
+
+            &:hover{
+                background-color: hsla(0,0%,100%,.459);
+            }
+        }
+    }
+
+    & .star-app-header{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.nav-right{
+    gap: 10px;
+    padding-right: 23px;
+    display: flex;
+    & .board-header-menu-btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: hsla(0, 0%, 100%, .239);
+        border-radius: 3px;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        padding: 5px;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover{
+            background-color: hsla(0,0%,100%,.459);
+        }
+    }
+}

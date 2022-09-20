@@ -8,7 +8,6 @@ import { ReactComponent as ChosenColorIcon } from '../../assets/img/label-exist-
 import { detailsColorsConsts } from '../../const/board-list-consts';
 import { updateBoard } from '../../store/board.actions';
 
-
 export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader }) => {
     const board = useSelector(state => state.boardModule.board)
 
@@ -47,12 +46,13 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         console.log('selectedLabel:', selectedLabel)
         const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
         const updatedTask = { ...currTask, labelIds: newLabelIds }
+        // setTask(updatedTask)
+
         const groupIdx = board.groups.findIndex(group => currGroup.id === group.id)
         const taskIdx = board.groups[groupIdx].tasks.findIndex(task => currTask.id === task.id)
-        board.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask);
+        const boardToUpdate = board.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask)
 
-        dispatch(updateBoard(board))
-        setTask(updatedTask)
+        dispatch(updateBoard(boardToUpdate))
         setIsEditLabel(false)
         setHideHeader(true)
     }

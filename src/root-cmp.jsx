@@ -24,6 +24,8 @@ export const RootCmp =()=>{
             {user&&
                 <AppHeader />
             }
+                    {/* <div className='black-screen'></div> */}
+
                 <main>
                     <Routes>
                         <Route path='/' element={<HomePage />} />

@@ -104,7 +104,6 @@ async function removeGroup(boardId, groupId, activity) {
     board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
-
 }
 
 async function saveTask(boardId, groupId, task, activity) {
@@ -137,9 +136,6 @@ function getLabelsById(board, labelId) {
     return labels
 }
 function getMembersById(board, memberId) {
-    console.log('boarddddddd:', board)
-    console.log('memberIdddddd:', memberId)
-    
     const members = board.members.find(member => {
         return member._id === memberId
     })
@@ -254,11 +250,6 @@ function getBoard() {
             ,
             members: [
                 {
-                    _id: utilService.makeId(),
-                    fullname: "Tal Tarablus",
-                    imgUrl: "https://www.google.com"
-                },
-                {
                     _id: '1011',
                     fullname: 'Eldad Yikne',
                     img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
@@ -342,7 +333,6 @@ function getBoard() {
                                     byMember: {
                                         _id: utilService.makeId(),
                                         fullname: "Tal Tarablus",
-                                        imgUrl: "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                     }
                                 }
                             ],

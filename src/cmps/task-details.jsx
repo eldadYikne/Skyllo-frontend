@@ -40,8 +40,8 @@ export function TaskDetails() {
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
- 
-  
+
+
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
 
   const [taskLabels, setTaskLabels] = useState(null)
@@ -60,10 +60,10 @@ export function TaskDetails() {
     if (!task) return
     const membersIds = task.memberIds
     const taskMembers = membersIds?.map(id => {
-      
+
       return boardService.getMembersById(board, id)
     })
-    
+
     return setTaskMembers(taskMembers)
   }
 
@@ -88,13 +88,13 @@ export function TaskDetails() {
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
   }
-  const onRemoveChecklist = (ev,checklistId) => {
+  const onRemoveChecklist = (ev, checklistId) => {
     ev.preventDefault()
-    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId) 
-    const taskToUpdate = {...task, checklists: checklistsToUpdate}
+    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId)
+    const taskToUpdate = { ...task, checklists: checklistsToUpdate }
     setTask(taskToUpdate)
   }
-  
+
   const handleChange = ({ target }) => {
     const field = target.name
     const value = target.type === 'number' ? (+target.value || '') : target.value
@@ -142,8 +142,8 @@ export function TaskDetails() {
               <div className='actions-type'>
                 <h4>Members</h4>
                 <div className='action-type-content'>
-                  {taskMembers&& taskMembers.map(member=>{
-                    return <div key={member._id} className='task-details-member-box'  style={{ background:getMemberBackground(member)}}></div>
+                  {taskMembers && taskMembers.map(member => {
+                    return <div key={member._id} className='task-details-member-box' style={{ background: getMemberBackground(member) }}></div>
                   })}
                   <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
 
@@ -168,7 +168,7 @@ export function TaskDetails() {
                 <h5>Description</h5>
               </div>
               <textarea
-                style={{backgroundColor: task.description? 'inherit':'#091e420a' }}
+                style={{ backgroundColor: task.description ? 'inherit' : '#091e420a' }}
                 onChange={handleChange}
                 onClick={() => setIsDescription(true)}
                 name='description'
@@ -195,18 +195,19 @@ export function TaskDetails() {
               ></textarea>
             </div>
 
-            {task.checklists && 
+            {task.checklists &&
               task.checklists.map((checklist) => {
                 return <TaskChecklist
-                key={checklist.id}
-                task={task}
-                initChecklist={checklist}
-                setTask={setTask}
-                checklistId={checklist.id}
-                board={board}
-                onRemoveChecklist={onRemoveChecklist}
-                 
-                />}
+                  key={checklist.id}
+                  task={task}
+                  initChecklist={checklist}
+                  setTask={setTask}
+                  checklistId={checklist.id}
+                  board={board}
+                  onRemoveChecklist={onRemoveChecklist}
+
+                />
+              }
               )}
           </section>
 
@@ -247,13 +248,13 @@ export function TaskDetails() {
             {dynamicType &&
               <DynamicCmp
                 task={task}
-                setTask={setTask} 
-                type={dynamicType} 
-                setDynamicType={setDynamicType} 
+                setTask={setTask}
+                type={dynamicType}
+                setDynamicType={setDynamicType}
                 group={group}
                 setIsChecklist={setIsChecklist}
-                 />
-                
+              />
+
             }
           </section>
         </section>
