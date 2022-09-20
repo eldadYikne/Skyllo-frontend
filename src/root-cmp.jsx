@@ -17,9 +17,7 @@ import { HomePageHeader } from './cmps/header-home-page'
 export const RootCmp = () => {
     const user = useSelector(state => state.userModule.user)
     const board = useSelector(state => state.boardModule.board)
-    let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
-
-
+   
 
     return (
         <div className='root-cmp'>
@@ -30,7 +28,7 @@ export const RootCmp = () => {
             {/* <div className='black-screen'></div> */}
            
 
-                <main style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className='main-app'>
+                <main className='main-app' >
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
