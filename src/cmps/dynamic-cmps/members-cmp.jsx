@@ -8,7 +8,6 @@ export const MembersCmp = ({task,setTask}) => {
     const onAddMember = (memberId) => {
         if (!task.memberIds.length) task.memberIds = []
         task.memberIds.push(memberId)
-        onSaveTask(task)
     }
 
 
