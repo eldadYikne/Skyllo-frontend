@@ -6,6 +6,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { detailsColorsConsts } from '../../const/board-list-consts';
+import { labelsColors } from '../../const/board-list-consts';
 import { updateBoard } from '../../store/board.actions';
 import { utilService } from '../../services/util.service'
 import { useEffect } from 'react'
@@ -26,6 +27,7 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
 
     const onLabelSave = (ev) => {
         ev.preventDefault()
+        ev.stopPropagation()
         const labelToSave = {
             id: utilService.makeId(),
             title: editInputText,
@@ -86,7 +88,7 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
                 <input onChange={handleChangeLabelText} type='text' value={editInputText} id='' />
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>
-                    {detailsColorsConsts.map(color => {
+                    {labelsColors.map(color => {
                         return <div className='label-edit-color-box'
                             onClick={() => handleChangeLabelColor(color)}
                             key={color}

@@ -9,10 +9,11 @@ import { Outlet, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/board-header";
 import { GroupList } from "../cmps/group-list";
 import { boardService } from "../services/board.service";
-import { getCurrBoard, addGroup } from "../store/board.actions";
+import { getCurrBoard, addGroup, updateBoard } from "../store/board.actions";
 import { onSignup } from "../store/user.actions";
 import { userService } from "../services/user.service";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Popover } from "../cmps/popover-cmp";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -31,42 +32,83 @@ export function BoardApp() {
     const user = useSelector(state => state.userModule.user)
 
 
-    const onDragEnd = (result) => {
-        const { destination, source, draggabaleId } = result
+    const onDragEnd = result => {
+        const { destination, source, draggableId, type } = result;
+        const newBoard = structuredClone(board)
+
         if (!destination) {
-            return
+            return;
         }
-        if (destination.droppableId === source.droppableId &&
+
+        if (
+            destination.droppableId === source.droppableId &&
             destination.index === source.index
         ) {
-            return
+            return;
+        }
+        console.log('group', result)
+
+        if (source.droppableId === destination.droppableId && type === "group") {
+            const currGroup = newBoard.groups.find(group => group.id === draggableId)
+            newBoard.groups.splice(source.index, 1)
+            newBoard.groups.splice(destination.index, 0, currGroup)
+            return dispatch(updateBoard(newBoard))
+
         }
 
-        const group = board.groups[source.droppableId];
+        if (source.droppableId === destination.droppableId) {
+            const group = newBoard.groups.find(group => group.id === source.droppableId)
+            console.log('group', group)
+            const currTask = group.tasks.find(task => task.id === draggableId)
+            group.tasks.splice(source.index, 1);
+            group.tasks.splice(destination.index, 0, currTask)
+            return dispatch(updateBoard(newBoard))
 
-        const newTaskIds = Array.from(group.tasks, (task) => task.id)
-        console.log('newTaskIds', newTaskIds)
+        }
 
+        if (source.droppableId !== destination.droppableId) {
+            const fromGroup = newBoard.groups.find(group => group.id === source.droppableId)
+            const toGroup = newBoard.groups.find(group => group.id === destination.droppableId)
+            const currTask = fromGroup.tasks.find(task => task.id === draggableId)
+            fromGroup.tasks.splice(source.index, 1);
+            toGroup.tasks.splice(destination.index, 0, currTask)
+            return dispatch(updateBoard(newBoard))
+
+        }
     }
 
     if (!board) return <h1>Loading</h1>
     let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
-    return <div     style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
+    return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
+
 
         <div className="board-app" >
             <BoardHeader board={board} />
+            <Popover board={board}  />
+            <DragDropContext onDragEnd={onDragEnd}>
 
-            <DragDropContext
-                onDragEnd={onDragEnd}
-            >
-                {board && <GroupList board={board} />}
+                <Droppable droppableId='all-groups' direction="horizontal" type="group">
+                    {(provided) => {
+                        return (<li className='list-move-group'
+                            {...provided.draggableProps}
+                            ref={provided.innerRef} >
+
+                            <GroupList board={board} >
+                                {provided.placeholder}
+                            </GroupList>
+
+                        </li>)
+                    }}
+                </Droppable>
+
             </DragDropContext>
+
 
             <Outlet />
 
         </div>
-    </div>
+    </div >
 }
 
 

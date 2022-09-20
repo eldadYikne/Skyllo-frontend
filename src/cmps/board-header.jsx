@@ -11,18 +11,22 @@ import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg'
 export function BoardHeader({ board }) {
     const dispacth = useDispatch()
     const members = board.members
-
-
+    if (!board.isPopoverShown) board.isPopoverShown = false
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
-            const boadToUpdet = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
-            dispacth(updateBoard(boadToUpdet))
+            const boadToUpdate = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
+            dispacth(updateBoard(boadToUpdate))
         } catch (err) {
             console.log(err);
         }
     }
+    const onShownPopover = () => {
+        board.isPopoverShown=!board.isPopoverShown
+        const boardToUpdate={...board}
+        dispacth(updateBoard(boardToUpdate))
 
+    }
 
 
 
@@ -31,8 +35,11 @@ export function BoardHeader({ board }) {
         else return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
 
+
+
     return (
         <section className="board-header ">
+            
             <nav className="board-header main-container">
                 <div className="nav-left">
                     <h1>{board.title}</h1>
@@ -53,7 +60,7 @@ export function BoardHeader({ board }) {
                 <div className="nav-right">
                     <div className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p>Show Menu</p>
+                        <p onClick={onShownPopover}>Show Menu</p>
                     </div>
                 </div>
 

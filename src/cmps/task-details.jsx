@@ -41,9 +41,10 @@ export function TaskDetails() {
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
 
+  const [mouseLocation, setMouseLocation] = useState(null)
+
 
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
-
   const [taskLabels, setTaskLabels] = useState(null)
   const [taskMembers, setTaskMembers] = useState(null)
 
@@ -60,13 +61,10 @@ export function TaskDetails() {
     if (!task) return
     const membersIds = task.memberIds
     const taskMembers = membersIds?.map(id => {
-
       return boardService.getMembersById(board, id)
     })
-
     return setTaskMembers(taskMembers)
   }
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -107,6 +105,17 @@ export function TaskDetails() {
 
     else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
+
+
+
+  const onOpenDynamicCmp =(ev) =>{
+     const mouseClickLocation =ev.target.getClientRects()
+     setMouseLocation(mouseClickLocation[0].y)
+    setDynamicType(ev.target.name)
+    console.log('mouseLocation:', mouseLocation)
+    
+  }
+
 
 
   if (!task) return <h1>Loading</h1>
@@ -216,24 +225,24 @@ export function TaskDetails() {
             <div className='details-actions'>
               <h5>Add to task</h5>
               <div className='details-actions'>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('members')} >
+                <button className='side-bar-action-btn' name='members' onClick={onOpenDynamicCmp} >
                   <MembersIcon /> Members
                 </button>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('labels')}>
+                <button className='side-bar-action-btn' name='labels' onClick={onOpenDynamicCmp}>
                   <LabelsIcon /> Labels
                 </button>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('checklist')}>
+                <button className='side-bar-action-btn' name='checklist' onClick={onOpenDynamicCmp}>
                   <ChecklistIcon /> Checklist
                 </button>
               </div>
               <div className='details-actions'>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('dates')}>
+                <button className='side-bar-action-btn' name='dates' onClick={onOpenDynamicCmp}>
                   <DatesIcon /> Dates
                 </button>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('attachment')}>
+                <button className='side-bar-action-btn' name='attachment' onClick={onOpenDynamicCmp}>
                   <AttachmentIcon /> Attachment
                 </button>
-                <button className='side-bar-action-btn' onClick={() => setDynamicType('cover')}>
+                <button className='side-bar-action-btn' name='cover' onClick={onOpenDynamicCmp}>
                   <CoverIcon /> Cover
                 </button>
               </div>
@@ -247,6 +256,7 @@ export function TaskDetails() {
             </div>
             {dynamicType &&
               <DynamicCmp
+                mouseLocation={mouseLocation}
                 task={task}
                 setTask={setTask}
                 type={dynamicType}

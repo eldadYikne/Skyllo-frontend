@@ -19,11 +19,13 @@ export function TaskList({ group }) {
 
                                 {(provided) => {
                                     return (<li key={index} index={index}
-                                        {...provided.draggableProps} {...provided.dragHandleProps}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
 
                                         <TaskPreview
                                             task={task}
+                                            group={group}
                                         >
                                         </TaskPreview>
 
