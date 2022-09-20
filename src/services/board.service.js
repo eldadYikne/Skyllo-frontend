@@ -104,7 +104,6 @@ async function removeGroup(boardId, groupId, activity) {
     board.groups.splice(groupIdx, 1)
     board.activities.unshift(activity)
     return save(board)
-
 }
 
 async function saveTask(boardId, groupId, task, activity) {
