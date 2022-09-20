@@ -20,7 +20,9 @@ export function BoardApp() {
 
     const params = useParams()
     const dispatch = useDispatch()
+
     useEffect(() => {
+        
         dispatch(getCurrBoard(params.boardId))
         userService.signup({ username: 'dekel', password: '123' })
     }, [])
@@ -39,11 +41,17 @@ export function BoardApp() {
         ) {
             return
         }
+        
+        const group = board.groups[source.droppableId];
+        
+        const newTaskIds = Array.from(group.tasks, (task)=>task.id)
+        console.log('newTaskIds',newTaskIds)
+        
     }
 
     if (!board) return <h1>Loading</h1>
-    let backgroundStyle = board.style.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
-    return <div style={{ [backgroundStyle]: board.style.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="board-app" >
+  
+    return <div  className="board-app" >
         <BoardHeader board={board} />
 
         <DragDropContext
