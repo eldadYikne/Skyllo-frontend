@@ -18,8 +18,8 @@ import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
-import { TaskChecklist } from './task-checklist'
 import { AttachmentDetails } from './task-details/attachmaent-details'
+import { TaskChecklist } from './task-details/task-checklist'
 
 
 export function TaskDetails() {

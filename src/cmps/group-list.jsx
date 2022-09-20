@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { boardService } from '../services/board.service'
+import { boardService, getGroups } from '../services/board.service'
 import { removeGroup, storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
@@ -17,14 +17,14 @@ export function GroupList() {
   const [isAddGroup, setIsAddGroup] = useState(false)
   const [groups, setGroups] = useState([])
 
-  useEffect(() => {
-    loadGroups()
-  }, [])
+  // useEffect(() => {
+  //   loadGroups()
+  // }, [])
 
-  const loadGroups = async () => {
-    const groupsToDisplay = await boardService.getGroups(board._id)
-    setGroups(groupsToDisplay)
-  }
+  // const loadGroups = async () => {
+  //   const groupsToDisplay = await boardService.getGroups(board._id)
+  //   setGroups(groupsToDisplay)
+  // }
 
   const onAddGroup = (ev) => {
     ev.preventDefault()

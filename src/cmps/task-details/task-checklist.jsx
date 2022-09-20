@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { ReactComponent as ChecklistIcon } from '../assets/img/checklist-icon.svg'
-import { utilService } from '../services/util.service'
-import { updateBoard } from '../store/board.actions'
+import { ReactComponent as ChecklistIcon } from '../../assets/img/checklist-icon.svg'
+import { utilService } from '../../services/util.service'
+import { updateBoard } from '../../store/board.actions'
 
 export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChecklist }) {
+
     const dispatch = useDispatch()
     const [isFocus, setIsFocus] = useState(initChecklist?.isFocus ? initChecklist.isFocus : true)
     const [checklist, setChecklist] = useState({ ...initChecklist })
@@ -13,8 +14,6 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
     const [progress, setProgress] = useState(0)
     const [complete, setComplete] = useState()
     const [editMode, setEditMode] = useState(false)
-
-
 
     useEffect(() => {
         setChecklist({ ...initChecklist })
@@ -105,6 +104,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
                                 <div className={classIsDone} onClick={onEditTodo} key={todo.id}>{todo.txt}</div>
+                                <button></button>
                             </div>
                         )
                     })}
