@@ -31,6 +31,14 @@ export function BoardApp() {
 
     const onDragEnd = (result) => {
         const { destination, source, draggabaleId } = result
+        if (!destination) {
+            return
+        }
+        if (destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return
+        }
     }
 
     if (!board) return <h1>Loading</h1>
