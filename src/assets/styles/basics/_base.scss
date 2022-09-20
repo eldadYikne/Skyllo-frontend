@@ -67,7 +67,12 @@ button {
     overflow-x: auto;
 }
 .main-app{
+   height: 100vh;
+}
+.main{
     overflow: auto;
     display: flex;
     flex: 1;
+    height: 100%;
+
 }
