@@ -1,29 +1,38 @@
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { userService } from "../../services/user.service"
+import { saveTask } from "../../store/board.actions"
 
 
-export const MembersCmp = ({task,setTask}) => {
+export const MembersCmp = ({ task, setTask, group }) => {
 
+    const board = useSelector(state => state.boardModule.board)
     const members = userService.getMembers()
+    const dispatch = useDispatch()
 
+    const onChooseMember = (memberId, ev) => {
+        ev.preventDefault()
+        
 
-    const onChooseMember = (memberId) => {
         if (!task.memberIds?.includes(memberId)) {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
-            setTask(taskToUpdate)
+
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
+            // setTask(taskToUpdate)
         }
 
         else {
             const newMemberIds = task.memberIds.filter(currMemberId => currMemberId !== memberId)
             const taskToUpdate = { ...task, memberIds: newMemberIds }
-            setTask(taskToUpdate)
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
         }
     }
 
     const getMemberBackground = (member) => {
         // console.log('member:', member)
-        if (member.img) return  `url(${member.img}) center center / cover` 
-      }
+        if (member.img) return `url(${member.img}) center center / cover`
+    }
 
     return <section className="members-cmp">
         <h3>Board Members</h3>
@@ -31,10 +40,10 @@ export const MembersCmp = ({task,setTask}) => {
             {members.map((member) => {
                 return (
                     <div key={member.img} className="member-preview"
-                        onClick={() => onChooseMember(member._id)}
+                        onClick={(ev) => onChooseMember(member._id, ev)}
                     >
-                        <div className="avatar-img-members-cmp" 
-                        style={{ background:getMemberBackground(member)}}
+                        <div className="avatar-img-members-cmp"
+                            style={{ background: getMemberBackground(member) }}
                         >
                         </div>
                         <p>{member.fullname}</p>

@@ -27,6 +27,7 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
 
     const onLabelSave = (ev) => {
         ev.preventDefault()
+        ev.stopPropagation()
         const labelToSave = {
             id: utilService.makeId(),
             title: editInputText,
