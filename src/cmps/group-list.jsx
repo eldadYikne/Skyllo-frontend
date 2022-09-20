@@ -96,3 +96,25 @@ export function GroupList() {
     </section>
   )
 }
+// {board?.groups && board.groups.map((group, index) => {
+
+//   return (
+//     <div>
+//       <Draggable draggableId={group.id} index={index}>
+//         {(provided) => {
+//           return (<li key={index} index={index}
+//             {...provided.draggableProps} {...provided.dragHandleProps}
+//             ref={provided.innerRef} >
+
+//             <GroupPreview
+//               board={board}
+//               group={group}
+//               boardId={board._id}
+//               onRemoveGroup={onRemoveGroup}
+//             >
+//             </GroupPreview>
+//           </li>)
+//         }}
+//       </Draggable>
+//     </div>)
+// })}

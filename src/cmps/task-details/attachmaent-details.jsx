@@ -11,6 +11,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
     const [isEdit, setEdit] = useState(false)
     const [text, setText] = useState('')
 
+
     const onRemoveAttachment = (attachmentId) => {
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         console.log(newAttachments, 'newAttachments')
@@ -31,15 +32,14 @@ export const AttachmentDetails = ({ task, setTask }) => {
         setEdit(true)
     }
     const onUpdetAttachment = (attachmentId) => {
-        let currAttachments = task.attachments.find(attachment => attachment.id === attachmentId)
-        console.log(currAttachments);
-        currAttachments.title = text
+        let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
+        const attachmentToUpdate = { ...currAttachment, title: text }
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
-        const taskToUpadet = { ...task, attachments: [...newAttachments, currAttachments] }
+        const taskToUpadet = { ...task, attachments: [...newAttachments, attachmentToUpdate] }
         setTask(taskToUpadet)
         setEdit(true)
     }
-    
+
     return <div className='description-container'>
         <div className='container-title'>
             <AttachmentBigIcon className='title-icon' />
@@ -65,10 +65,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                         </div>
                         <sapn onClick={() => onMakeCover(attachment.url)} className="make-cover-span"><MakeCover /> Make Cover</sapn>
                     </div>
-
-
-
-                    {isEdit && <div className='edit-attachment-container'>
+                    {attachment.isEdit && <div className='edit-attachment-container'>
                         <section className="dynamic-cmp">
                             <section className="dynamic-cmp-header">
                                 Edit attachment

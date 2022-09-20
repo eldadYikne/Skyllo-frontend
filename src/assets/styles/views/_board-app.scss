@@ -1,5 +1,9 @@
 .board-app {
-  height: 100vh;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
 
   & .board-header {
     // margin-bottom: 55px;
