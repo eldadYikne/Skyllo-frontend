@@ -11,18 +11,22 @@ import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg'
 export function BoardHeader({ board }) {
     const dispacth = useDispatch()
     const members = board.members
-
-
+    if (!board.isPopoverShown) board.isPopoverShown = false
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
-            const boadToUpdet = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
-            dispacth(updateBoard(boadToUpdet))
+            const boadToUpdate = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
+            dispacth(updateBoard(boadToUpdate))
         } catch (err) {
             console.log(err);
         }
     }
+    const onShownPopover = () => {
+        board.isPopoverShown=!board.isPopoverShown
+        const boardToUpdate={...board}
+        dispacth(updateBoard(boardToUpdate))
 
+    }
 
 
 
@@ -56,7 +60,7 @@ export function BoardHeader({ board }) {
                 <div className="nav-right">
                     <div className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p>Show Menu</p>
+                        <p onClick={onShownPopover}>Show Menu</p>
                     </div>
                 </div>
 

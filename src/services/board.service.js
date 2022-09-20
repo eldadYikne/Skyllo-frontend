@@ -251,7 +251,7 @@ function getBoard() {
                     _id: '1011',
                     fullname: 'Eldad Yikne',
                     img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
-                    ` 
+                    `
                 },
                 {
                     _id: '1012',

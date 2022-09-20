@@ -74,10 +74,10 @@ button {
     flex-direction: column;
     overflow-x: auto;
 }
+.main-app{
+   height: 100vh;
+   overflow: hidden;
 
-.main-app {
-    overflow: hidden;
-    height: 100vh;
 }
 
 .main {

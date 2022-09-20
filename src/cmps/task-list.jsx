@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { boardService } from "../services/board.service";
 import { TaskDetails } from "./task-details";
 import { TaskPreview } from "./task-preview";
 
@@ -18,7 +19,8 @@ export function TaskList({ group }) {
 
                                 {(provided) => {
                                     return (<li key={index} index={index}
-                                        {...provided.draggableProps} {...provided.dragHandleProps}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
 
                                         <TaskPreview
