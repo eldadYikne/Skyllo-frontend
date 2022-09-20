@@ -6,6 +6,7 @@ import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-f
 import { ReactComponent as GoBackIcon } from '../../assets/img/go-back-label-icon.svg'
 import { ReactComponent as ChosenColorIcon } from '../../assets/img/label-exist-icon.svg'
 import { detailsColorsConsts } from '../../const/board-list-consts';
+import { labelsColors } from '../../const/board-list-consts';
 import { updateBoard } from '../../store/board.actions';
 
 export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader }) => {
@@ -91,7 +92,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
                 <input onChange={handleChangeLabelText} type='text' value={editInputText} id='' />
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>
-                    {detailsColorsConsts.map(color => {
+                    {labelsColors.map(color => {
                         return <div className='label-edit-color-box'
                             onClick={() => handleChangeLabelColor(color)}
                             key={color}

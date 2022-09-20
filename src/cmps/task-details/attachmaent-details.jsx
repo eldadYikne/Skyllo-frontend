@@ -11,7 +11,6 @@ export const AttachmentDetails = ({ task, setTask }) => {
     const [isEdit, setEdit] = useState(false)
     const [text, setText] = useState('')
 
-    
     const onRemoveAttachment = (attachmentId) => {
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         console.log(newAttachments, 'newAttachments')
