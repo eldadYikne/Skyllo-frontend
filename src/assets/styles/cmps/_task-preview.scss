@@ -44,7 +44,7 @@
 
         & .cover-dark-up {
             position: absolute;
-            bottom: 23px;
+            bottom: 28px;
             height: 15px;
             width: 100%;
         }
@@ -53,11 +53,11 @@
             height: 20px;
             line-height: 20px;
             padding: 8px;
-            height: 23px;
+            height: 29px;
             line-height: 20px;
             padding: 8px;
             position: absolute;
-            bottom: 0px;
+            bottom: -1px;
             width: 100%;
         }
     }
@@ -66,9 +66,10 @@
 
         &.full {
             position: absolute;
-            bottom: 0;
             color: rgb(238, 236, 232);
             font-weight: 500;
+            bottom: 0px;
+            padding-bottom: 8px;
         }
 
         &.text-full {

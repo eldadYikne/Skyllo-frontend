@@ -131,7 +131,7 @@ export function TaskPreview({ task }) {
             }
 
             <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
-            <div className="task-preview-Characters">
+            {!task.cover?.isFullCover &&  <div className="task-preview-Characters">
                 <div className="task-preview-pins">
                     {task.description && <div className="task-preview-pin attachment-pin"><DescriptionIcon /></div>}
                     {task.attachment && <div className="task-preview-pin attachment-pin"><AttachmentIcon /> <span>{taskAttachments.length}</span> </div>}
@@ -145,7 +145,7 @@ export function TaskPreview({ task }) {
                         </div>
                     })}
                 </div>
-            </div>
+            </div>}
         </section>
     )
 }

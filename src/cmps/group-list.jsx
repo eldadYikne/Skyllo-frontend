@@ -6,6 +6,7 @@ import { removeGroup, storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
+import { Draggable } from 'react-beautiful-dnd'
 
 export function GroupList() {
   const board = useSelector(state => state.boardModule.board)
@@ -37,18 +38,31 @@ export function GroupList() {
 
   return (
     <section className='group-list'>
-      {board?.groups && board.groups.map(group => {
-        return (
-          <li key={group.id}>
+{board?.groups && board.groups.map((group, index) => {
+
+  return (
+    <div>
+      <Draggable draggableId={group.id} index={index}>
+        {(provided) => {
+          return (<li className='list-move-group' key={index} index={index}
+            {...provided.draggableProps} 
+            {...provided.dragHandleProps}
+            ref={provided.innerRef} >
+
             <GroupPreview
               board={board}
               group={group}
               boardId={board._id}
               onRemoveGroup={onRemoveGroup}
-            />
-          </li>
-        )
-      })}
+            >
+          {provided.placeholder}
+            </GroupPreview>
+          </li>)
+        }}
+      </Draggable>
+    </div>)
+})}
+
 
       {!isAddGroup && (
         <div
@@ -100,10 +114,10 @@ export function GroupList() {
 
 //   return (
 //     <div>
-//       <Draggable draggableId={group.id} index={index}>
+//       <Droppable draggableId={group.id} index={index}>
 //         {(provided) => {
 //           return (<li key={index} index={index}
-//             {...provided.draggableProps} {...provided.dragHandleProps}
+//             {...provided.draggableProps} 
 //             ref={provided.innerRef} >
 
 //             <GroupPreview
@@ -112,9 +126,21 @@ export function GroupList() {
 //               boardId={board._id}
 //               onRemoveGroup={onRemoveGroup}
 //             >
+//           {provided.placeholder}
 //             </GroupPreview>
 //           </li>)
 //         }}
-//       </Draggable>
+//       </Droppable>
 //     </div>)
 // })}
+
+// <Droppable droppableId={group.id}>
+//           {(provided) => {
+//             return (<li
+//               {...provided.draggableProps}
+//               ref={provided.innerRef} >
+//           {provided.placeholder}
+//             </li>)
+//           }}
+
+//         </Droppable>

@@ -99,12 +99,12 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
           {(provided) => {
             return (<li 
               {...provided.draggableProps} 
-              ref={provided.innerRef} > 
+              ref={provided.innerRef} >
 
-          <TaskList group={group}>
-          </TaskList>
-          {provided.placeholder}
-          </li>)
+              <TaskList group={group}>
+              {provided.placeholder}
+              </TaskList>
+            </li>)
           }}
 
         </Droppable>

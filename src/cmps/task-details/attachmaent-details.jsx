@@ -27,9 +27,11 @@ export const AttachmentDetails = ({ task, setTask }) => {
         setText(ev.target.value)
         console.log(ev.target.value);
     }
-    const onEdit = (attachmaentTitle, ev) => {
-        ev.stopPropagation()
-        setEdit(true)
+    const onEdit = (attachmentId, ev) => {
+        let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
+        currAttachment.isEdit = !currAttachment.isEdit
+        const newTask = { ...task }
+        setTask(newTask)
     }
     const onUpdetAttachment = (attachmentId) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
@@ -61,7 +63,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                             <span>-</span>
                             <sapn onClick={() => onRemoveAttachment(attachment.id)} className="delete-span">Delete</sapn>
                             <span>-</span>
-                            <sapn onClick={(ev) => onEdit(attachment.title, ev)} className="edit-span">Edit</sapn>
+                            <sapn onClick={() => onEdit(attachment.id)} className="edit-span">Edit</sapn>
                         </div>
                         <sapn onClick={() => onMakeCover(attachment.url)} className="make-cover-span"><MakeCover /> Make Cover</sapn>
                     </div>
@@ -70,7 +72,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                             <section className="dynamic-cmp-header">
                                 Edit attachment
                                 <button className='dynamic-cmp-close'>
-                                    <CloseDynamicCmp onClick={() => setEdit(false)} />
+                                    <CloseDynamicCmp onClick={() => onEdit(attachment.id)} />
                                 </button>
                             </section>
 
