@@ -52,17 +52,24 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
         setProgress(getProgress())
     }
 
+    const onRemoveTodo = (todoId) => {
+
+    }
+
     const onToggleDone = (todoId) => {
         const todo = checklist.todos.find(currTodo => currTodo.id === todoId)
         const newTodo = { ...todo, isDone: !todo.isDone }
-        const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todoId)
+        updateTodo(newTodo)
+    }
+
+    const updateTodo = (todoToUpdate) => {
+        const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todoToUpdate.id)
         const newChecklist = { ...checklist }
-        newChecklist.todos.splice(todoIdx, 1, newTodo)
+        newChecklist.todos.splice(todoIdx, 1, todoToUpdate)
         setChecklist(newChecklist)
         const progress = getProgress()
         setProgress(progress)
         setComplete(progress === 100 ? 'green' : '')
-        console.log(complete)
     }
 
     const handleChangeTxt = ({ target }) => {
@@ -70,6 +77,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
         const txt = target.value
         setTodoTxt(txt)
     }
+
 
     const getProgress = () => {
         console.log('hello progress')
@@ -104,7 +112,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
                                 <div className={classIsDone} onClick={onEditTodo} key={todo.id}>{todo.txt}</div>
-                                <button></button>
+                                <button onClick={() => onRemoveTodo(todo.id)}></button>
                             </div>
                         )
                     })}
