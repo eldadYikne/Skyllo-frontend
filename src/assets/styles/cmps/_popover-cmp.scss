@@ -145,10 +145,35 @@
 
     & .activities-container {
         & .activity-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 5px;
+
+            & .activity-info-time {
+                display: flex;
+                flex-direction: column;
+                & .time-ago  {
+                    color: #5e6c84 !important;
+                    font-size: 12px !important;
+                    font-weight: 400;
+                    line-height: 20px;
+                    margin: 0;
+
+                }
+            }
+
+            & .img-user-activity {
+                width: 35px;
+                height: 35px;
+                margin-right: 8px;
+            }
+
             & img {
-                height: 25px;
-                width: 25px;
+                height: 35px;
+                width: 35px;
                 border-radius: 50%;
+
             }
 
             & .user-name {
@@ -156,6 +181,29 @@
                 font-size: 14px;
                 font-weight: 700;
                 line-height: 20px;
+            }
+
+            & .activity-task-name {}
+
+            & .activity-info {
+                & span {
+                    margin-right: 5px;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+                & a {
+                    color: #172b4d;
+                    border-bottom: #172b4d .5px solid;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+              
             }
 
         }

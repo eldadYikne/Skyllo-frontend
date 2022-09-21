@@ -9,11 +9,13 @@ import Logo from '../assets/img/trello-logo-Sign-up.png'
 import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
 import { useDispatch } from 'react-redux'
+import { uploadService } from '../services/upload.service'
 
 export function LoginSignup() {
-    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', imgUrl: '' })
     const [isSignup, setIsSignup] = useState(true)
     const [users, setUsers] = useState([])
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -37,24 +39,44 @@ export function LoginSignup() {
         if (ev) ev.preventDefault()
         if (!credentials.username) return
         dispatch(onLogin(credentials))
+        navigate(-1)
         clearState()
     }
 
     const onClickSignup = (ev = null) => {
         if (ev) ev.preventDefault()
         if (!credentials.username || !credentials.password || !credentials.fullname) return
-        dispatch(onSignup(credentials))
-        navigate(-1)
-        clearState()
+        if (!credentials.imgUrl) {
+            setTimeout(() => {
+                dispatch(onSignup(credentials))
+                navigate(-1)
+                clearState()
+            }, 10000)
+        } else {
+            dispatch(onSignup(credentials))
+            navigate(-1)
+            clearState()
+        }
+
+
     }
 
     const toggleSignup = () => {
         setIsSignup(!isSignup)
     }
-    const onUploaded = (imgUrl) => {
-        setCredentials({ ...credentials, imgUrl })
-    }
 
+
+    const onUploaded = async (ev) => {
+        try {
+            const data = await uploadService.uploadImg(ev)
+            console.log(data.secure_url);
+            setCredentials({ ...credentials, imgUrl: data.secure_url })
+            console.log(credentials);
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
     return (
         <div className="login-sign-up-page">
             <div className='login-page-header'>
@@ -147,8 +169,7 @@ export function LoginSignup() {
                                 onChange={handleChange}
                                 required
                             />
-                            
-                            <ImgUploader onUploaded={onUploaded} />
+                            <div className="upload-source"><input className="input-computer-upload" type="file" onChange={onUploaded} />Upload Profile Image</div>
 
                             <button onClick={onClickSignup} >Signup</button>
                         </form>

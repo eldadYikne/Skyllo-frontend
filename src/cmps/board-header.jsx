@@ -62,7 +62,13 @@ export function BoardHeader({ board }) {
         else return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
 
+    const onAddMemberToBoard =(user) =>{
 
+        console.log('userrrrrrrrrrrrrrrrrr:', user)
+        
+
+
+    }
 
     return (
         <section className="board-header ">
@@ -77,7 +83,10 @@ export function BoardHeader({ board }) {
                         </div>
                         <div className='board-header-members-container'>
                             {members && members.map(member => {
-                                return <div key={member._id} className='board-header-member-box' style={{ background: getMemberBackground(member) }}></div>
+                                return <div key={member._id} className='board-header-member-box'
+                                 style={{ background: getMemberBackground(member) }}
+                                 
+                                 ></div>
                             })}
                         </div>
 
@@ -96,8 +105,11 @@ export function BoardHeader({ board }) {
 
                                     <div className='users-modal-users-list'>
 
-                                        { users.map(user => {
-                                            return <div className='users-modal-user-preview'> <div key={user._id} className='users-modal-user-box' style={{ background: getUserBackground(user) }}></div>
+                                        {users&& users.map(user => {
+                                            return <div className='users-modal-user-preview'> <div key={user._id} className='users-modal-user-box'
+                                             style={{ background: getUserBackground(user) }}
+                                             onClick={()=>onAddMemberToBoard(user)}
+                                             ></div>
                                                 <span>{user.fullname}</span>
                                             </div>
                                         })}

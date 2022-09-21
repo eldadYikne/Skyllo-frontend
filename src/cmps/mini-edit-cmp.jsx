@@ -81,14 +81,14 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         ev.stopPropagation()
         if (!title) return
         const taskToUpdate = { ...task, title: title }
-        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'addad task', taskTilte: task.title, taskId: task.id, user: 'usery' }))
+        dispatch(saveTask(board._id, group.id, taskToUpdate,{ text: 'update task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
         setIsMiniEditShown(false)
     }
 
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, user: 'usery' }))
+        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
         setIsMiniEditShown(false)
     }
 

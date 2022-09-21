@@ -27,7 +27,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       title
     }
 
-    dispatch(saveTask(boardId, group.id, task, { text: 'addad task', taskTilte: task.title, taskId: task.id, user: 'usery' }))
+    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId:group.id, user: 'usery' }))
     ev.target[0].value = ''
     setIsAddingTask(false)
   }

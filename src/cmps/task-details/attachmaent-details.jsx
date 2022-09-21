@@ -5,6 +5,7 @@ import { updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-form.svg'
 import { useState } from 'react'
 import { utilService } from '../../services/util.service'
+import moment from 'moment'
 
 
 export const AttachmentDetails = ({ task, setTask }) => {
@@ -63,7 +64,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                     <div className='attachment-detalis'>
                         <p> {attachment.title}</p>
                         <div className='time-line-attachment'>
-                            <span>{getDateString(attachment.createdAt)} </span>
+                            <span>{moment(attachment.createdAt).fromNow()} </span>
                             <span>-</span>
                             <sapn onClick={() => onRemoveAttachment(attachment.id)} className="delete-span">Delete</sapn>
                             <span>-</span>

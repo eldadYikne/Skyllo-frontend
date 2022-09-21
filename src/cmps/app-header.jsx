@@ -19,7 +19,7 @@ export function AppHeader() {
 
   }
 
-
+console.log(user);
   return (
     <header className='app-header'>
       <section className='logo-container'>
@@ -32,7 +32,9 @@ export function AppHeader() {
           <span className='h1-logo'>Skyllo</span>
         </Link>
       </section>
-      <div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'></div>
+
+      {user?.imgUrl ? <div style={{ backgroundImage: `url(${user.imgUrl})`}} onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'> </div>:<div onClick={() => setUserModalOpen(!userModalOpen)} className='avatar-img-guest'></div>}
+
       {userModalOpen &&
         <div className='user-modal'>
           <section className='user-modal-header'>
@@ -42,16 +44,16 @@ export function AppHeader() {
           <div className='user-modal-content'>
             <div className='user-modal-details'>
               <div className='user-details'>
-                <div className='avatar-img-guest'></div>
-                <span>Guest</span>
+                {user?.imgUrl ? <div style={{ backgroundImage: `url(${user.imgUrl})` }} className='avatar-img-guest'></div> : <div className='avatar-img-guest'> </div>}
+                {user? <span>{user.fullname} </span> : <span>Guest</span>}
               </div>
-                {!user &&
-                    <Link to='/login'>
+              {!user &&
+                <Link to='/login'>
                   <div className='user-modal-signup'>
                     Sign up now
                   </div>
-              </Link>
-                }
+                </Link>
+              }
             </div>
             <div className='user-modal-details'>
               <Link to='/login'>
