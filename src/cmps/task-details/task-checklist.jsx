@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux'
 import { ReactComponent as ChecklistIcon } from '../../assets/img/checklist-icon.svg'
 import { ReactComponent as MoreOptions } from '../../assets/img/more-options-icon.svg'
 import { utilService } from '../../services/util.service'
-import { updateBoard } from '../../store/board.actions'
+import { saveTask, updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseTask } from '../../assets/img/close-task-form.svg'
 
-export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChecklist }) {
+export function TaskChecklist({ task, group, initChecklist, setTask, board, onRemoveChecklist }) {
 
     const dispatch = useDispatch()
     const [isFocus, setIsFocus] = useState(initChecklist?.isFocus ? initChecklist.isFocus : true)
@@ -21,7 +21,6 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
     useEffect(() => {
         setChecklist({ ...initChecklist })
         setProgress(getProgress())
-
     }, [task])
 
 
@@ -58,10 +57,10 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
     const onRemoveTodo = (ev, todoId) => {
         ev.preventDefault()
         const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todoId)
-        const newTodos = [...checklist.todos]
-        newTodos.splice(todoIdx, 1)
-        const newChecklist = {...checklist, todos: newTodos}
+        checklist.todos.splice(todoIdx, 1)
+        const newChecklist = {...checklist}
         updateChecklist(newChecklist)
+        setIsModalOpen(null)
     }
 
     const onToggleDone = (todoId) => {
@@ -112,7 +111,7 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
             </div>
 
 
-            <progress id="file" value={progress} max="100" className={complete} style={{ background: 'green' }} ></progress>
+            <progress id="file" value={progress} max="100" className={complete}></progress>
             {checklist.todos &&
                 <section className='todos-container '>
                     {checklist.todos.map(todo => {
@@ -124,17 +123,17 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
                                 <div className={classIsDone} onClick={onEditTodo} key={todo.id}>{todo.txt}</div>
-                                {!isModalOpen && <button className='remove-todo-btn' onClick={() => setIsModalOpen(!isModalOpen)}>
+                                <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
                                 <MoreOptions />
                                 </button>
-                                }
-                                {isModalOpen && (
+                                
+                                {isModalOpen === todo.id && (
                                     <div className='options-modal-open'>
                                            <section className='modal-actions'>
                                              <p>Actions</p>
                                              <CloseTask
                                               className='close-modal-icon'
-                                              onClick={() => setIsModalOpen(!isModalOpen)}
+                                              onClick={() => setIsModalOpen(null)}
                                             />
                                           </section>
                                           <button
@@ -145,7 +144,6 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
                                           </button>
                                         </div>
                                 )
-
                                 }
                             </div>
                         )
@@ -169,22 +167,3 @@ export function TaskChecklist({ task, initChecklist, setTask, board, onRemoveChe
 
     )
 }
-
-// {isShowOptions && (
-//     <div className='options-modal-open'>
-//       <section className='modal-actions'>
-//         <p>Actions</p>
-//         <CloseTask
-//           className='close-modal-icon'
-//           onClick={() => setIsShowOptions(!isShowOptions)}
-//         />
-//       </section>
-
-//       <button
-//         className='delete-group-btn'
-//         onClick={ev => onRemoveGroup(ev, group.id)}
-//       >
-//         Delete
-//       </button>
-//     </div>
-//   )}

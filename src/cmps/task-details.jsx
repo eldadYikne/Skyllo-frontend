@@ -20,6 +20,7 @@ import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
 import { AttachmentDetails } from './task-details/attachmaent-details'
 import { TaskChecklist } from './task-details/task-checklist'
+import { utilService } from '../services/util.service'
 
 
 export function TaskDetails() {
@@ -106,8 +107,7 @@ export function TaskDetails() {
     else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
 
-
-
+ 
   const onOpenDynamicCmp =(ev) =>{
      const mouseClickLocation =ev.target.getClientRects()
      setMouseLocation(mouseClickLocation[0].y)
@@ -115,7 +115,6 @@ export function TaskDetails() {
     console.log('mouseLocation:', mouseLocation)
     
   }
-
 
 
   if (!task) return <h1>Loading</h1>
@@ -148,6 +147,7 @@ export function TaskDetails() {
         <section className='details-content'>
           <section className='details-main-content'>
             <section className='first-content'>
+            <div className='members-labels-content'>
               <div className='actions-type'>
                 <h4>Members</h4>
                 <div className='action-type-content'>
@@ -158,7 +158,6 @@ export function TaskDetails() {
 
                 </div>
               </div>
-
               <div className='actions-type'>
                 <h4>Labels</h4>
                 <div className='action-type-content'>
@@ -166,9 +165,21 @@ export function TaskDetails() {
                     return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color ? label.color : 'green' }}>{label.title ? label.title : ''}</div>
                   })}
                   <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
-
                 </div>
               </div>
+              </div>
+              {task.dueDate &&
+              <div className='actions-type' onClick={() => setDynamicType('dates')}>
+                <h4>Due date</h4>
+                <div className='action-type-content'>
+                  <div className='due-date-checkbox'></div>
+                  <div className='task-details-date-container'>
+                   <p>{task.dueDate.dateToDisplay}</p>
+                  </div>
+                </div>
+              </div>
+              }
+
             </section>
 
             <div className='description-container'>
