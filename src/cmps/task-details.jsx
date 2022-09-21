@@ -183,15 +183,6 @@ export function TaskDetails() {
                 </div>
               </div>
 
-              <div className='actions-type'>
-                <h4>Due date</h4>
-                <div className='action-type-content'>
-                  <div className='task-details-date-container'>
-                    yaara
-                  </div>
-                </div>
-              </div>
-              </div>
               {task.dueDate &&
               <div className='actions-type' onClick={() => setDynamicType('dates')}>
                 <h4>Due date</h4>
