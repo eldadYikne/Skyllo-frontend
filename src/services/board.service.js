@@ -100,7 +100,7 @@ async function removeGroup(boardId, groupId, activity) {
     const board = await getById(boardId)
     const groupIdx = board.groups.findIndex((group) => group.id === groupId)
     board.groups.splice(groupIdx, 1)
-    board.activities.unshift(activity)
+    // board.activities.unshift(activity)
     return save(board)
 }
 
@@ -114,7 +114,8 @@ async function saveTask(boardId, groupId, task, activity) {
         task.id = utilService.makeId()
         group.tasks.push(task)
     }
-    board.activities.unshift(activity)
+
+    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user))
     return save(board)
 }
 
@@ -123,10 +124,22 @@ async function removeTask(boardId, groupId, taskId, activity) {
     const group = board.groups.find((group) => group.id === groupId)
     const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
     group.tasks.splice(taskIdx, 1)
-    board.activities.unshift(activity)
+    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user))
     return save(board)
 }
+const createactivity = (text = '', taskTilte = '', taskId = '', user = '') => {
+    return {
+        id: utilService.makeId(),
+        txt: text,
+        createdAt: Date.now(),
+        byMember: { user },
+        task: {
+            id: taskId,
+            title: taskTilte
+        }
+    }
 
+}
 function getLabelsById(board, labelId) {
     const labels = board.labels.find(label => {
         return label.id === labelId
@@ -140,51 +153,6 @@ function getMembersById(board, memberId) {
     return members
 }
 
-
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
-
-
-
-
-// const activity = {
-//     id: utilService.makeId(),
-//     txt: "Changed Color",
-//     createdAt: Date.now(),
-//     byMember: userService.getLoggedinUser(),
-//     task: 'task'
-// }
-
-// // Store - saveTask
-// function storeSaveTask(task, activity) {
-
-//     board = boardService.saveTask(boardId, groupId, task, activity)
-//     commit(board)
-// }
-
-// // boardService
-// function saveTask(boardId, groupId, task, activity) {
-//     const board = getById(boardId)
-//     // PUT /api/board/b123/task/t678
-
-//     // TODO: find the task, and update
-//     board.activities.unshift(activity)
-//     saveBoard(board)
-//     // return board
-//     // return task
-// }
-
-// function saveTask(boardId, groupId, task, activity) {
-//     const board = getById(boardId)
-// PUT /api/board/b123/task/t678
-
-// TODO: find the task, and update
-// board.tasks.unshift(task)
-
-// saveBoard(board)
-// return board
-// return task
-// }
 
 
 function getBoard() {

@@ -57,7 +57,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                 return <div key={attachment.id} className='attachment-container'>
                     <div className='img-attachment' >
                         <a href={attachment.url} className='img-url' style={{ background: `url(${attachment.url}) ` }} src={attachment.url} >
-                        </a>
+                        </a> <a className='img-url no-img'   > <img src={ `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663759814/sprint%204%20/icons8-attachment-32_ppkh9l.png`}/></a>
                     </div>
 
                     <div className='attachment-detalis'>

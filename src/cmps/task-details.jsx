@@ -78,14 +78,14 @@ export function TaskDetails() {
   }, [task])
 
   const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, 'user updated task'))
+    dispatch(saveTask(board._id, group.id, task, { text: 'updated task', taskTilte: task.title, taskId: task.id, user: 'usery' }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
+    dispatch(removeTask(board._id, group.id, task.id, { text: 'delete task', taskTilte: task.title, taskId: task.id, user: 'usery' }))
     navigate(-1)
   }
   const onRemoveChecklist = (ev, checklistId) => {
@@ -183,15 +183,7 @@ export function TaskDetails() {
                 </div>
               </div>
 
-              <div className='actions-type'>
-                <h4>Due date</h4>
-                <div className='action-type-content'>
-                  <div className='task-details-date-container'>
-                    yaara
-                  </div>
-                </div>
-              </div>
-              </div>
+           
               {task.dueDate &&
               <div className='actions-type' onClick={() => setDynamicType('dates')}>
                 <h4>Due date</h4>
