@@ -6,6 +6,7 @@ import { removeGroup, storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
+import { LoaderSkyllo } from './loader-cmp'
 import { Draggable } from 'react-beautiful-dnd'
 
 export function GroupList() {
@@ -29,6 +30,8 @@ export function GroupList() {
     }
     setIsAddGroup(!isAddGroup)
   }
+
+  if (!board) return <LoaderSkyllo />
   return (
     <section className='group-list'>
 {board?.groups && board.groups.map((group, index) => {

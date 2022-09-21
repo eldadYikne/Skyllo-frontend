@@ -14,7 +14,9 @@ import { ReactComponent as DescriptionIcon } from '../assets/img/description-ico
 import { ReactComponent as EditTaskIcon } from '../assets/img/edit-icon-task.svg'
 import { MiniEdit } from "./mini-edit-cmp";
 
-export function TaskPreview({ task }) {
+export function TaskPreview({ task, group }) {
+
+    const [mouseClickLocation, setMouseClickLocation] = useState(null)
 
     const board = useSelector(state => state.boardModule.board)
     const labelsOpen = board.toggleLabels
@@ -95,6 +97,8 @@ export function TaskPreview({ task }) {
         ev.preventDefault()
         ev.stopPropagation()
 
+        const mouseClickLocation = ev.target.getClientRects()
+        setMouseClickLocation(mouseClickLocation[0])
         setIsMiniEditShown(!isMiniEditShown)
     }
 
@@ -103,11 +107,24 @@ export function TaskPreview({ task }) {
     return (
         <section className={task.cover?.isFullCover ? "task-preview covered" : "task-preview "}>
             <EditTaskIcon className="edit-task-preview-icon" onClick={onClickMiniEdit} />
-            {/* <div >
-                {isMiniEditShown&&
-            <MiniEdit task={task} board={board} setIsMiniEditShown={setIsMiniEditShown} />
-        }
-            </div> */}
+            <div >
+                {isMiniEditShown &&
+                    <MiniEdit
+                        task={task}
+                        group={group}
+                        board={board}
+                        onToggleLabels={onToggleLabels}
+                        mouseLocation={mouseClickLocation}
+                        setIsMiniEditShown={setIsMiniEditShown}
+                        getMemberBackground={getMemberBackground} />
+                }
+                {isMiniEditShown &&
+                    <div>
+                        <div className='black-screen' onClick={onClickMiniEdit}>
+                        </div>
+                    </div>
+                }
+            </div>
             {bgColor &&
                 <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
                     {task.cover?.isFullCover && <div>
@@ -116,6 +133,7 @@ export function TaskPreview({ task }) {
                     </div>}
                 </div>
             }
+
             {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
             {taskLabels && !task.cover?.isFullCover &&
                 <div className="task-preview-labels-list">

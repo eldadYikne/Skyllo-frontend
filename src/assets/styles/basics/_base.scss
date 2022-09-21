@@ -12,11 +12,16 @@ body {
     font-size: rem(18px);
     margin: 0;
     margin: auto;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
     overflow: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0 0 0.6em;
     line-height: 1;
 }
@@ -24,12 +29,12 @@ h1, h2, h3, h4, h5, h6 {
 p {
     padding: 5px;
     margin-block-end: .3px;
-    margin-block-start:.3px ;
+    margin-block-start: .3px;
 }
 
 img {
     width: 100%;
-    
+
 }
 
 a {
@@ -43,24 +48,27 @@ button {
 
 ::-webkit-scrollbar {
     width: 8px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
     border-radius: 6px;
-  }
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
     border-radius: 6px;
 
-  }
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
 
-.root-cmp{
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.root-cmp {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -71,10 +79,23 @@ button {
    overflow: hidden;
 
 }
-.main{
+
+.main {
     overflow: auto;
     display: flex;
     flex: 1;
     height: 100%;
 
+}
+
+.page-loader{
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & .loader-gif{
+        height: 200px;
+        width: 200px;
+    }
 }

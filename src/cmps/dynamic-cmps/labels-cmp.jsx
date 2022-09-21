@@ -20,24 +20,31 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
     const [isCreateLabel, setIsCreateLabel] = useState(false)
     const [selectedLabel, setSelectedLabel] = useState('')
 
-    const onChooseLabel = (labelId) => {
-        console.log(task)
+    const onChooseLabel = (labelId, ev) => {
+        ev.preventDefault()
+        
         if (!task.labelIds?.includes(labelId)) {
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
             console.log(taskToUpdate)
             setTask(taskToUpdate)
+
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
         }
 
         else {
             const newLabelIds = task.labelIds.filter(currLabelId => currLabelId !== labelId)
             const taskToUpdate = { ...task, labelIds: newLabelIds }
             setTask(taskToUpdate)
+
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
         }
     }
 
-    const onChooseLabelToEdit = (label) => {
+    const onChooseLabelToEdit = (label, ev) => {
         console.log('label:', label)
+        ev.preventDefault()
+
         setIsEditLabel(!isEditLabel)
         setHideHeader(false)
         setSelectedLabel(label)
@@ -58,12 +65,13 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
                     {board.labels.map(label => {
                         return (
                             <div key={label.id} className="label-container">
-                                <div style={{ backgroundColor: label.color }} className='label-color-box' onClick={() => onChooseLabel(label.id)}>
+                                <div style={{ backgroundColor: label.color }}
+                                    className='label-color-box' onClick={(ev) => onChooseLabel(label.id, ev)}>
                                     {label.title ? label.title : ''}
                                     {labelExistIcon(label.id)}
                                 </div>
                                 <button className='edit-label-btn'>
-                                    <EditIcon onClick={() => onChooseLabelToEdit(label)} />
+                                    <EditIcon onClick={(ev) => onChooseLabelToEdit(label, ev)} />
                                 </button>
                             </div>
                         )
@@ -77,7 +85,9 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
         </div>}
 
         {isEditLabel &&
-            <EditLabel setIsEditLabel={setIsEditLabel}
+            <EditLabel
+                task={task}
+                setIsEditLabel={setIsEditLabel}
                 selectedLabel={selectedLabel}
                 setDynamicType={setDynamicType}
                 setTask={setTask}

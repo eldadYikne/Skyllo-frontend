@@ -6,7 +6,23 @@ export const workspaceImgConsts = [
     `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg `,
 ]
 
+export const labelsColors = [
+    "#001f3f",
+    "#0079bf",
+    "#70b500",
+    "#ff9f1a",
+    "#f2d600",
+    "#c377e0",
+    "#ff78cb",
+    "#00c2e0",
+    "#51e898",
+    "#c4c9cc",
+    "DFE1E6",
 
+    "DFE1E6",
+    "DFE1E6",
+    "DFE1E6",
+]
 
 export const workspaceColorsConsts = [
     "#001f3f",

@@ -35,8 +35,11 @@ export function BoardHeader({ board }) {
         else return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
 
+
+
     return (
         <section className="board-header ">
+            
             <nav className="board-header main-container">
                 <div className="nav-left">
                     <h1>{board.title}</h1>

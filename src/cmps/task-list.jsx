@@ -25,6 +25,7 @@ export function TaskList({ group }) {
 
                                         <TaskPreview
                                             task={task}
+                                            group={group}
                                         >
                                         </TaskPreview>
 
