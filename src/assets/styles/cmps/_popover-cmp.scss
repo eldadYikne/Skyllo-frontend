@@ -16,6 +16,34 @@
     width: 340px;
     z-index: 30;
 
+    & .colors-header-popover {
+
+
+        & .go-back-popover {
+            cursor: pointer;
+        }
+    }
+
+    & .colors-container-popover {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 8px;
+        padding: 10px;
+        overflow: auto;
+        & .color-container {
+            height: 100px;
+            border-radius: 3px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            
+        }
+        & .image-category-container{
+            text-align: center;
+            color: #172b4d;
+        }
+    }
+
     &.open {
         -webkit-transform: translateX(0);
         transform: translateX(0);
@@ -67,6 +95,7 @@
             color: #172b4d;
             cursor: pointer;
             font-size: 14px;
+
             & img {
                 border-radius: 3px;
                 width: 100%;

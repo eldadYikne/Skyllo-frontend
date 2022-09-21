@@ -52,8 +52,8 @@ export function BoardApp() {
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
+            console.log('ikjasdhdfisdnsdaolfn');
             return dispatch(updateBoard(newBoard))
-
         }
 
         if (source.droppableId === destination.droppableId) {
