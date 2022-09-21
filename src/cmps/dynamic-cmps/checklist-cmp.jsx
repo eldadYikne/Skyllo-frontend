@@ -4,6 +4,7 @@ export const ChecklistCmp = ({task, setDynamicType, setTask})=> {
 
     const addChecklist = (ev) => {
         ev.preventDefault()
+        ev.stopPropagation()
         const newChecklist = {
             id: utilService.makeId(),
             title: ev.target[0].value,

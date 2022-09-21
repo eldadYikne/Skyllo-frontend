@@ -51,6 +51,28 @@
         }
 } 
 
+@mixin for-checkbox {
+      display: flex;
+      background-color: #fafbfc;
+      border-radius: 2px;
+      box-shadow: inset 0 0 0 2px #dfe1e6;
+      flex-shrink: 0;
+      height: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: all .2s ease-in-out;
+      white-space: nowrap;
+      width: 16px;
+
+      &.checked {
+        background-color: #0079bf;
+        box-shadow: inset 0 0 0 2px #0079bf;
+        // position: absolute;
+
+      }
+    
+}
+
 @mixin for-add-action-button {
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
           Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;

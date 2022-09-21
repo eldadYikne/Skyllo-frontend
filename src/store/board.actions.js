@@ -88,15 +88,20 @@ export function addBoard(board) {
 }
 
 export function updateBoard(board) {
-    
-    return (dispatch) => {
+
+    return (dispatch, getState) => {
+        const prevBoard = getState().boardModule.board
+
+        dispatch(getActionUpdateBoard({ ...board }))
         boardService.save(board)
             .then(savedBoard => {
-                dispatch(getActionUpdateBoard(savedBoard))
+                // dispatch(getActionUpdateBoard(savedBoard))
                 showSuccessMsg('Board updated')
             })
             .catch(err => {
                 showErrorMsg('Cannot update board')
+                dispatch(getActionUpdateBoard(prevBoard))
+
                 console.log('Cannot save board', err)
             })
     }

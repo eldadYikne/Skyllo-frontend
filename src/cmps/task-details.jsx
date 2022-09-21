@@ -191,6 +191,19 @@ export function TaskDetails() {
                   </div>
                 </div>
               </div>
+              </div>
+              {task.dueDate &&
+              <div className='actions-type' onClick={() => setDynamicType('dates')}>
+                <h4>Due date</h4>
+                <div className='action-type-content'>
+                  <div className='due-date-checkbox'></div>
+                  <div className='task-details-date-container'>
+                   <p>{task.dueDate.dateToDisplay}</p>
+                  </div>
+                </div>
+              </div>
+              }
+
             </section>
 
             <div className='description-container'>
@@ -285,6 +298,7 @@ export function TaskDetails() {
                 setDynamicType={setDynamicType}
                 group={group}
                 setIsChecklist={setIsChecklist}
+                board={board}
               />
 
             }

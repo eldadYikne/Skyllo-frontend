@@ -3,6 +3,7 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     delay,
+    getDateToDisplay,
     lightenDarkenColor,
 }
 
@@ -32,6 +33,12 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 }
+
+function getDateToDisplay(date) {
+    const options = ({ month: "short", day: "numeric"})
+    return new Date(date).toLocaleDateString('en-US', options)
+}
+
 
 function delay(ms = 1500) {
     return new Promise(resolve => {
