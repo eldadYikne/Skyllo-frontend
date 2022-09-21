@@ -13,6 +13,10 @@ flex-direction: column;
     & .input-computer-upload{
     position: absolute;
     opacity: 0;
+    &:hover{
+        background-color: #485161;
+        cursor: pointer;
+    }
     }
 }
 
