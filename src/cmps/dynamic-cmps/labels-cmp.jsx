@@ -29,7 +29,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
             console.log(taskToUpdate)
             setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
         }
 
         else {
@@ -37,7 +37,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
             const taskToUpdate = { ...task, labelIds: newLabelIds }
             setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'deleted task'))
         }
     }
 

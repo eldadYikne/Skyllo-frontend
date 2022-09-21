@@ -20,12 +20,12 @@ export function GroupList() {
   const onAddGroup = (ev) => {
     ev.preventDefault()
     const listTitle = ev.target[0].value
-    dispatch(addGroup(board._id, listTitle, {text:`added a group `,user:'usery' }))
+    dispatch(addGroup(board._id, listTitle, { text: `added a group `, user: 'usery' }))
   }
 
   const onRemoveGroup = (ev, groupId) => {
     ev.preventDefault()
-    dispatch(removeGroup(board._id, groupId, {text:`added a group `,user:'usery' }))
+    dispatch(removeGroup(board._id, groupId, { text: `added a group `, user: 'usery' }))
   }
   const isAddGroupShown = () => {
     if (isAddGroup) {
@@ -39,28 +39,28 @@ export function GroupList() {
     <section className='group-list'>
       {board?.groups && board.groups.map((group, index) => {
 
-  return (
+        return (
 
-      <Draggable draggableId={group.id} index={index}>
-        {(provided) => {
-          return (<li className='list-move-group' key={index} index={index}
-            {...provided.draggableProps} 
-            {...provided.dragHandleProps}
-            ref={provided.innerRef} >
+          <Draggable draggableId={group.id} key={index} index={index}>
+            {(provided) => {
+              return (<li className='list-move-group' index={index}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef} >
 
-            <GroupPreview
-              board={board}
-              group={group}
-              boardId={board._id}
-              onRemoveGroup={onRemoveGroup}
-            >
-          {provided.placeholder}
-            </GroupPreview>
-          </li>)
-        }}
-      </Draggable>
-    )
-})}
+                <GroupPreview
+                  board={board}
+                  group={group}
+                  boardId={board._id}
+                  onRemoveGroup={onRemoveGroup}
+                >
+                  {provided.placeholder}
+                </GroupPreview>
+              </li>)
+            }}
+          </Draggable>
+        )
+      })}
 
 
       {!isAddGroup && (

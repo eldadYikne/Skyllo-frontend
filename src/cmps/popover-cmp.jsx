@@ -1,16 +1,20 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { ReactComponent as CloseDynamicCmp } from '../assets/img/close-task-form.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { category, imagesCategory, popoverColorsConsts } from "../const/board-list-consts"
 import { updateBoard } from "../store/board.actions"
 import { ReactComponent as GoBackIcon } from '../assets/img/go-back-label-icon.svg'
+import { Link } from "react-router-dom"
+import { utilService } from "../services/util.service"
+import moment from "moment/moment"
 
 export const Popover = ({ board }) => {
     const dispacth = useDispatch()
     const [isColors, setIsColors] = useState(false)
     const [isImages, setIsImages] = useState(false)
     const [isCategory, setCategory] = useState('')
+    const user = useSelector(state => state.userModule.user)
 
 
 
@@ -51,14 +55,14 @@ export const Popover = ({ board }) => {
             </div>
         </div>
         <div className="popover-main-content">
-        {!isColors && !isImages && !isCategory && <div className="img-colors-popover">
+            {!isColors && !isImages && !isCategory && <div className="img-colors-popover">
 
-            <div onClick={() => setIsColors(true)} className="colors-popover"> <img src={'https://skello.herokuapp.com/static/media/color-teaser-sidebar.ec32a2ed8dd8198b8ef0.jpg'} />Colors</div>
-            <div onClick={() => setIsImages(true)} className="imgs-popover"><img src={'https://skello.herokuapp.com/static/media/imgs-teaser-sidebar.8f9c1323c9c16601a9a4.jpg'} />Images</div>
+                <div onClick={() => setIsColors(true)} className="colors-popover"> <img src={'https://skello.herokuapp.com/static/media/color-teaser-sidebar.ec32a2ed8dd8198b8ef0.jpg'} />Colors</div>
+                <div onClick={() => setIsImages(true)} className="imgs-popover"><img src={'https://skello.herokuapp.com/static/media/imgs-teaser-sidebar.8f9c1323c9c16601a9a4.jpg'} />Images</div>
 
-        </div>}
+            </div>}
 
-       
+
             {isColors &&
                 <div className="colors-container-popover">
                     {popoverColorsConsts.map(color => {
@@ -72,8 +76,8 @@ export const Popover = ({ board }) => {
                 <div className="colors-container-popover">
                     {category.map(category => {
                         let urlImg = `url(${category.bgImage})`
-                        return <div className="image-category-container">
-                            <div onClick={() => onChangeCategory(category.name)} key={category.name} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
+                        return <div key={category.name} className="image-category-container">
+                            <div onClick={() => onChangeCategory(category.name)} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
                             <span>{category.name}</span>
                         </div>
                     })}
@@ -84,27 +88,34 @@ export const Popover = ({ board }) => {
                 <div className="colors-container-popover">
                     {imagesCategory[isCategory].map(bgImgUrl => {
                         let urlImg = `url(${bgImgUrl})`
-                        return <div className="image-category-container">
-                            <div onClick={() => onChangeColor(urlImg)} key={bgImgUrl} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
+                        return <div key={bgImgUrl} className="image-category-container">
+                            <div onClick={() => onChangeColor(urlImg)} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
 
                         </div>
                     })}
 
                 </div>
-            } 
-            {!isCategory &&!isImages &&!isColors &&<div className="activity-popover"> <ActivityIcon /> Activities</div>}
+            }
+            {!isCategory && !isImages && !isColors && <div className="activity-popover"> <ActivityIcon /> Activities</div>}
 
-            {!isCategory &&!isImages &&!isColors && <section className="activities-container">
-                
-                {board.activities.map(activity=>{
-                    return <div className="activity-container"><img className="img-user-activity" src={`${board.members[0].img}`}/> 
-                        <span className="user-name">{board.members[0].fullname}</span>
-                        <span>{activity.txt}</span>
-                        <span>{activity.task.title}</span>
+            {!isCategory && !isImages && !isColors && <section className="activities-container">
+
+                {board.activities.map(activity => {
+                    return <div key={activity.id} className="activity-container">
+                        <div ><img className="img-user-activity" src={`${user.imgUrl}`} /></div>
+                        <div className="activity-info-time">
+
+                            <div className="activity-info">
+                                <span className="user-name">{user.fullname}</span>
+                                <span className="activity-task-name">{activity.txt}</span>
+                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
+                            </div>
+                            <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>
+                        </div>
                     </div>
                 })}
-                </section>}
-            
+            </section>}
+
 
         </div>
     </section>

@@ -7,7 +7,6 @@ export const AttachmentCmp = ({ task, setTask }) => {
 
     const [text, setText] = useState('')
     const [textTitle, setTitleUrl] = useState('')
-    const [UploadImg, seUploadImg] = useState('')
 
 
     const onChangehandel = () => {
@@ -43,7 +42,7 @@ export const AttachmentCmp = ({ task, setTask }) => {
             url: url,
             isCover: false,
             isEdit: false,
-            createdAt: Date.now(),
+            createdAt: new Date(),
         }
     }
 

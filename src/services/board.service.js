@@ -93,7 +93,7 @@ async function addGroup(boardId, groupTitle, activity) {
     }
     board.groups.push(group)
     if (!board.activities) board.activities = []
-    board.activities.unshift(activity)
+    // board.activities.unshift(activity)
     return save(board)
 }
 
@@ -110,13 +110,15 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
+        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()
+        console.log(task);
+        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
         group.tasks.push(task)
     }
 
-    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user))
     return save(board)
 }
 
@@ -125,15 +127,16 @@ async function removeTask(boardId, groupId, taskId, activity) {
     const group = board.groups.find((group) => group.id === groupId)
     const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
     group.tasks.splice(taskIdx, 1)
-    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user))
+    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user,activity.groupId))
     return save(board)
 }
-const createactivity = (text = '', taskTilte = '', taskId = '', user = '') => {
+const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,groupId='') => {
     return {
         id: utilService.makeId(),
         txt: text,
-        createdAt: Date.now(),
+        createdAt: new Date() ,
         byMember: { user },
+        groupId,
         task: {
             id: taskId,
             title: taskTilte
@@ -438,7 +441,7 @@ function getBoard() {
             activities: [
                 {
                     id: utilService.makeId(),
-                    txt: "Changed Color",
+                    txt: "Enter to board",
                     createdAt: 154514,
                     byMember: {
                         _id: "u101",
@@ -447,7 +450,7 @@ function getBoard() {
                     },
                     task: {
                         id: utilService.makeId(),
-                        title: "Replace Logo"
+                        title: ""
                     }
                 }
             ],
