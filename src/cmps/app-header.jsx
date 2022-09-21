@@ -1,13 +1,24 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
+import { onLogout } from '../store/user.actions'
 
 export function AppHeader() {
 
   const [imgSrc, setImgSrc] = useState(Logo)
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const onClickLogout = () => {
+
+    dispatch(onLogout())
+
+  }
+
 
   return (
     <header className='app-header'>
@@ -31,18 +42,23 @@ export function AppHeader() {
           <div className='user-modal-content'>
             <div className='user-modal-details'>
               <div className='user-details'>
-
                 <div className='avatar-img-guest'></div>
                 <span>Guest</span>
               </div>
-              <div className='user-modal-signup'>
-                Sign up now
-              </div>
+                {!user &&
+                    <Link to='/login'>
+                  <div className='user-modal-signup'>
+                    Sign up now
+                  </div>
+              </Link>
+                }
             </div>
             <div className='user-modal-details'>
-              <div className='user-modal-signup'>
-                Logout
-              </div>
+              <Link to='/login'>
+                <div className='user-modal-signup' onClick={onClickLogout}>
+                  Logout
+                </div>
+              </Link>
             </div>
           </div>
         </div>

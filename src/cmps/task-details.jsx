@@ -42,9 +42,7 @@ export function TaskDetails() {
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
-
   const [mouseLocation, setMouseLocation] = useState(null)
-
 
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
   const [taskLabels, setTaskLabels] = useState(null)
@@ -162,7 +160,6 @@ export function TaskDetails() {
                         style={{ background: getMemberBackground(member) }}></div>
                     })}
                     <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
-
                   </div>
                 </div>
 

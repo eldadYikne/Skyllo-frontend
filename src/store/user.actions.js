@@ -28,6 +28,8 @@ export function removeUser(userId) {
 }
 
 export function onLogin(credentials) {
+    console.log('credentials:', credentials)
+    
     return async (dispatch) => {
         try {
             const user = await userService.login(credentials)
@@ -43,6 +45,8 @@ export function onLogin(credentials) {
 }
 
 export function onSignup(credentials) {
+    console.log('credentialsactionnnnn:', credentials)
+    
     return async (dispatch) => {
         try {
             const user = await userService.signup(credentials)

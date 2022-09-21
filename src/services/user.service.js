@@ -25,6 +25,10 @@ export const userService = {
 
 window.userService = userService
 
+getUsers().then(user=>{
+    console.log('userssssssssssss', user)
+    
+})
 
 function getUsers() {
     return storageService.query('user')
@@ -73,7 +77,6 @@ async function login(userCred) {
 async function signup(userCred) {
     console.log('userCred service:', userCred)
     
-    userCred.score = 10000;
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)
@@ -103,7 +106,6 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
-
 // ;(async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'user1', password:'123',score: 10000, isAdmin: false})
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
@@ -112,6 +114,7 @@ function getLoggedinUser() {
 function getMembers() {
     return gUsers
 }
+
 const gUsers = [
     {
         _id: '1011',

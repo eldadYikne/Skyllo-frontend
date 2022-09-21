@@ -17,6 +17,7 @@ export const CoverCmp = ({ task, setTask }) => {
     let coverChoice = isFullCover ? "coverd-choice choice" : "coverd-choice  "
 
     const onChangeColor = (color, ev) => {
+        ev.preventDefault()
         ev.stopPropagation()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
@@ -35,10 +36,10 @@ export const CoverCmp = ({ task, setTask }) => {
         const taskToUpdate = { ...task, cover: { ...task.cover, isFullCover: isCover } }
         setTask(taskToUpdate)
     }
-
-
     const changeHandel = (ev) => {
         ev.preventDefault()
+        ev.stopPropagation()
+
         setText(ev.target.value)
         console.log(text, 'tetx')
     }

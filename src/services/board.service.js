@@ -30,6 +30,7 @@ export const boardService = {
     removeTask,
     getLabelsById,
     getMembersById,
+    getGUsers,
 }
 window.cs = boardService
 
@@ -711,15 +712,63 @@ function getBoard() {
         ]
     return gBoards
 }
-const user = {
-    _id: "u101",
-    fullname: "Abi Abambi",
-    username: "abi@ababmi.com",
-    password: "aBambi123",
-    imgUrl: "http://some-img.jpg",
-    mentions: [{
-        id: utilService.makeId(),
-        boardId: "m101",
-        taskId: "t101"
-    }]
+
+
+function getGUsers (){
+
+    return [
+        {
+            _id: "1014",
+            fullname: "Roi Yotvat",
+            username: "Roi Yotvat",
+            password: "roi1010",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583580/sprint%204%20/T03E3RZ2KHV-U03HE9ZJTA6-79c26a7781c8-512_m1ydbz.png
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: "1013",
+            fullname: 'Yaara Yehuda',
+            username: "yaara yehuda",
+            password: "yaara123",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583460/sprint%204%20/T03E3RZ2KHV-U03KVHTDXAR-77f29bd19fdf-512_vqrj3l.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: "1012",
+            fullname: "Dekel Ido",
+            username: "dekelido",
+            password: "dekel1010",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583549/sprint%204%20/T03E3RZ2KHV-U03KC7A8R6F-97b018241b8a-512_ougkz6.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: '1011',
+            fullname: "Eldad Yikne",
+            username: 'eldad',
+            password: "aBambi123",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+    ]
+
 }

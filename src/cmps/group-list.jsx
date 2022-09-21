@@ -6,6 +6,7 @@ import { removeGroup, storeAddGroup } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
+import { ReactComponent as AddGroupIcon } from '../assets/img/add-group-icon.svg'
 import { LoaderSkyllo } from './loader-cmp'
 import { Draggable } from 'react-beautiful-dnd'
 
@@ -34,30 +35,30 @@ export function GroupList() {
   if (!board) return <LoaderSkyllo />
   return (
     <section className='group-list'>
-{board?.groups && board.groups.map((group, index) => {
+      {board?.groups && board.groups.map((group, index) => {
 
-  return (
-    <div>
-      <Draggable draggableId={group.id} index={index}>
-        {(provided) => {
-          return (<li className='list-move-group' key={index} index={index}
-            {...provided.draggableProps} 
-            {...provided.dragHandleProps}
-            ref={provided.innerRef} >
+        return (
+          <div>
+            <Draggable draggableId={group.id} index={index}>
+              {(provided) => {
+                return (<li className='list-move-group' key={index} index={index}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef} >
 
-            <GroupPreview
-              board={board}
-              group={group}
-              boardId={board._id}
-              onRemoveGroup={onRemoveGroup}
-            >
-          {provided.placeholder}
-            </GroupPreview>
-          </li>)
-        }}
-      </Draggable>
-    </div>)
-})}
+                  <GroupPreview
+                    board={board}
+                    group={group}
+                    boardId={board._id}
+                    onRemoveGroup={onRemoveGroup}
+                  >
+                    {provided.placeholder}
+                  </GroupPreview>
+                </li>)
+              }}
+            </Draggable>
+          </div>)
+      })}
 
 
       {!isAddGroup && (
@@ -66,23 +67,7 @@ export function GroupList() {
           onClick={isAddGroupShown}
         >
           <span className='add-group-icon'>
-            <svg
-              stroke='currentColor'
-              fill='currentColor'
-              strokeWidth='0'
-              viewBox='0 0 24 24'
-              className='icon'
-              height='1em'
-              width='1em'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                fill='white'
-                stroke='#fff'
-                strokeWidth='2'
-                d='M12,22 L12,2 M2,12 L22,12'
-              ></path>
-            </svg>
+            <AddGroupIcon />
           </span>
           <span>Add another List</span>
         </div>
@@ -152,7 +137,7 @@ export function GroupList() {
 //       <Droppable draggableId={group.id} index={index}>
 //         {(provided) => {
 //           return (<li key={index} index={index}
-//             {...provided.draggableProps} 
+//             {...provided.draggableProps}
 //             ref={provided.innerRef} >
 
 //             <GroupPreview

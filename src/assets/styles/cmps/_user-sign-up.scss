@@ -1,0 +1,173 @@
+.login-sign-up-page {
+    align-items: center;
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 15px;
+    position: relative;
+
+    & .logo-sign-up{
+        margin-right: 7px;
+        height: 40px;
+        width: 40px;
+    }
+
+    & .avatar-img-guest-login {
+        background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+        border-radius: 25em;
+        cursor: pointer;
+        height: 25px;
+        width: 25px;
+        margin-top: 3px;
+    }
+
+    & .avatar-img-google-login {
+        border-radius: 25em;
+        cursor: pointer;
+        height: 25px;
+        width: 25px;
+        margin-top: 3px;
+    }
+
+
+    & .login-page-header {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 2.5rem 0;
+        width: 100%;
+    }
+
+    & h1 {
+        color: #293856;
+        font-family: Secular, sans-serif;
+        font-size: 3rem;
+        letter-spacing: .02em;
+        margin-bottom: 0;
+        padding-top: 6px;
+    }
+
+
+    & .sign-up-login-content {
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 0 0 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 350px;
+        min-width: 350px;
+        padding: 25px 40px;
+        position: relative;
+
+        & h2 {
+            color: #5e6c84;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -.01em;
+            line-height: 28px;
+            margin-bottom: 25px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        & form {
+            display: flex;
+            flex-direction: column;
+
+
+
+
+            & input {
+                background-color: #fafbfc;
+                border: 2px solid #dfe1e6;
+                border-radius: 3px;
+                font-size: 14px;
+                height: 44px;
+                margin-bottom: 16.8px;
+                max-width: 400px;
+                outline: none;
+                padding: 0.5em;
+                width: 100%;
+            }
+
+            & button {
+                border: 0;
+                border-radius: 0.3em;
+                color: #fff;
+                font-weight: 700;
+                min-height: 40px;
+                padding: 0.6em 1.3em;
+                position: relative;
+                background-color: #0052cc;
+            }
+
+            & .login-btn {
+                border: 0;
+                border-radius: 0.3em;
+                color: #fff;
+                font-weight: 700;
+                min-height: 40px;
+                padding: 0.6em 1.3em;
+                position: relative;
+                background-color: #4b993c;
+            }
+        }
+
+        & .continue-as-guest {
+            background: #fff;
+            border-color: transparent;
+            border-radius: 3px;
+            box-shadow: 1px 1px 5px 0;
+            color: rgba(0, 0, 0, .54);
+            height: 39px;
+            margin-bottom: 12px;
+            padding-top: 0;
+            text-align: center;
+            width: 99%;
+
+            & p{
+                padding-top: 8px;
+            }
+
+            &:hover {
+                background-color: #f9fafc;
+            }
+        }
+
+        & .continue-as-guest-content {
+            align-items: center;
+            display: flex;
+            margin-left: 48px;
+        }
+
+        & .sign-up-login-links-btn {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+            & p {
+                cursor: pointer;
+                color: #5e98ba;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+                font-size: 14px;
+                text-align: center;
+
+            }
+
+            & p:first-child {
+                margin-right: 20px;
+            }
+        }
+
+
+    }
+
+    & .login-span {
+        text-align: center;
+        margin-top: 6px;
+        margin-bottom: 6px
+    }
+}

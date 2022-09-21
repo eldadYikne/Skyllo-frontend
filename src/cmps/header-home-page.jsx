@@ -20,9 +20,12 @@ export const HomePageHeader = () => {
             </Link>
         </section>
         <section className="home-page-login-signup">
-
+            <Link to='/login'>
             <button className="home-page-login-btn">Login</button>
+            </Link>
+            <Link to='/login'>
             <button className="home-page-signup-btn">Sign up</button>
+            </Link>
 
         </section>
 

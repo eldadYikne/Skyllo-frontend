@@ -22,7 +22,6 @@ export function TaskList({ group }) {
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
-
                                         <TaskPreview
                                             task={task}
                                             group={group}

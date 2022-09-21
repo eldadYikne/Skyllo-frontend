@@ -7,6 +7,7 @@ import { ReactComponent as GoBackIcon } from '../../assets/img/go-back-label-ico
 import { ReactComponent as ChosenColorIcon } from '../../assets/img/label-exist-icon.svg'
 import { detailsColorsConsts } from '../../const/board-list-consts';
 import { labelsColors } from '../../const/board-list-consts';
+import { utilService } from '../../services/util.service';
 import { updateBoard } from '../../store/board.actions';
 
 export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group }) => {
@@ -24,9 +25,9 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
     const dispatch = useDispatch()
 
     const onLabelSave = (ev) => {
-
         ev.preventDefault();
         ev.stopPropagation();
+
         const labelToSave = {
             id: selectedLabel.id,
             title: editInputText,
@@ -42,7 +43,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         // const newLabelsToTask = [...currTask.labelIds, selectedLabel.id]
         // const taskToUpdate = { ...currTask, labelIds: newLabelsToTask }
         // setTask(taskToUpdate)
-        
+
         const boardToUpdate = structuredClone(board)
         boardToUpdate.labels.splice([boardLabelIdx], 1, labelToSave);
         dispatch(updateBoard(boardToUpdate))
@@ -64,18 +65,17 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         //     })
         // })
         // console.log('tasksWithLabelToDelete:', tasksWithLabelToDelete)
-        
+
         const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
         const updatedTask = { ...currTask, labelIds: newLabelIds }
-        
-        const groupIdx = board.groups.findIndex(currGroup => currGroup === group.id)
-        const taskIdx = board.groups[groupIdx].tasks.findIndex(task => currTask.id === task.id)
-        
-        boardToUpdate.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask)
+
+        // const groupIdx = board.groups.findIndex(currGroup => currGroup === group.id)
+        const taskIdx = group.tasks.findIndex(task => currTask.id === task.id)
+
+        group.tasks.splice(taskIdx, 1, updatedTask)
         boardToUpdate.labels = boardToUpdate.labels.filter(label => label.id !== selectedLabel.id)
-        boardToUpdate.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask)
-        
-        
+        group.tasks.splice(taskIdx, 1, updatedTask)
+
         dispatch(updateBoard(boardToUpdate))
 
         // setTask(updatedTask)
@@ -88,10 +88,10 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         setEditInputText(text)
     }
 
-    const handleChangeLabelColor = (color,ev) => {
+    const handleChangeLabelColor = (color, ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-        
+
         setSelectedEditColor(color)
     }
 
@@ -106,6 +106,13 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         setIsEditLabel(false)
         setHideHeader(true)
     }
+    const onHoverLabel = (ev, color) => {
+        ev.target.style.background = utilService.lightenDarkenColor(color, -10);
+    }
+
+    const onLeaveHoverLabel = (ev, color) => {
+        ev.target.style.background = color
+    }
 
     return <section className="edit-label-cmp">
         <section className="dynamic-cmp-header">{'Edit label'}
@@ -119,13 +126,15 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
 
         <section className='edit-labels-modal'>
             <h4>Name</h4>
-            <form className='edit-label-form' onSubmit={onLabelSave}>
+            <form className='edit-label-form' onSubmit={(ev)=>onLabelSave(ev)}>
                 <input onChange={handleChangeLabelText} type='text' value={editInputText} id='' />
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>
                     {labelsColors.map(color => {
                         return <div className='label-edit-color-box'
-                            onClick={(ev) => handleChangeLabelColor(color,ev)}
+                            onMouseEnter={(ev) => onHoverLabel(ev, color)}
+                            onMouseLeave={(ev) => onLeaveHoverLabel(ev, color)}
+                            onClick={(ev) => handleChangeLabelColor(color, ev)}
                             key={color}
                             style={{ backgroundColor: color }}>
                             {selectedColorIcon(color)}

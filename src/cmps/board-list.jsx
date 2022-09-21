@@ -11,7 +11,7 @@ export function BoardList({ boards }) {
 
     const [bgColorCreate, setColorCreate] = useState('#39CCCC')
     const [createIsShown, setIsShown] = useState(false)
-    const dispacth = useDispatch()
+    const dispatch = useDispatch()
 
 
     const onChangeColor = (info) => {
@@ -23,7 +23,7 @@ export function BoardList({ boards }) {
             if (!text) return
 
             const board = await boardService.createBoard(text, bgColorCreate)
-            dispacth(addBoard(board))
+            dispatch(addBoard(board))
             setIsShown(false)
         } catch (err) {
             console.log(err);
@@ -34,7 +34,7 @@ export function BoardList({ boards }) {
             const board = await boardService.getById(boardId)
             const isStar = board.style.isStared
             const boadToUpdet = { ...board, style: { ...board.style, isStared: isStar } }
-            dispacth(updateBoard(boadToUpdet))
+            dispatch(updateBoard(boadToUpdet))
         } catch (err) {
             console.log(err);
         }
@@ -43,7 +43,7 @@ export function BoardList({ boards }) {
 
     const onRemoveBoard = (boardId) => {
         console.log(boardId);
-        dispacth(removeBoard(boardId))
+        dispatch(removeBoard(boardId))
     }
     return <div className='workspace'>
 
