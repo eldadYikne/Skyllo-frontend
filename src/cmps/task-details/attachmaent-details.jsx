@@ -4,6 +4,7 @@ import { ReactComponent as MakeCover } from '../../assets/img/attachment-makecov
 import { updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-form.svg'
 import { useState } from 'react'
+import { utilService } from '../../services/util.service'
 
 
 export const AttachmentDetails = ({ task, setTask }) => {
@@ -41,6 +42,9 @@ export const AttachmentDetails = ({ task, setTask }) => {
         setTask(taskToUpadet)
         setEdit(true)
     }
+    const getDateString = (date) => {
+        return utilService.getDateToDisplay(date)
+    }
 
     return <div className='description-container'>
         <div className='container-title'>
@@ -59,7 +63,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                     <div className='attachment-detalis'>
                         <p> {attachment.title}</p>
                         <div className='time-line-attachment'>
-                            <span>{attachment.createdAt} </span>
+                            <span>{getDateString(attachment.createdAt)} </span>
                             <span>-</span>
                             <sapn onClick={() => onRemoveAttachment(attachment.id)} className="delete-span">Delete</sapn>
                             <span>-</span>

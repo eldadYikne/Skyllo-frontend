@@ -12,23 +12,24 @@ export const MembersCmp = ({ task, setTask, group }) => {
 
     const onChooseMember = (memberId, ev) => {
         ev.preventDefault()
-        
-
+        ev.stopPropagation()
         if (!task.memberIds?.includes(memberId)) {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
-
+            
+            setTask(taskToUpdate)
             dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
-            // setTask(taskToUpdate)
         }
-
+        
         else {
             const newMemberIds = task.memberIds.filter(currMemberId => currMemberId !== memberId)
             const taskToUpdate = { ...task, memberIds: newMemberIds }
+            setTask(taskToUpdate)
             dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
         }
     }
 
+    
     const getMemberBackground = (member) => {
         // console.log('member:', member)
         if (member.img) return `url(${member.img}) center center / cover`

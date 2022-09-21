@@ -5,6 +5,7 @@ import { boardService } from '../services/board.service';
 import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
+import { LoaderSkyllo } from './loader-cmp';
 
 export function BoardList({ boards }) {
 
@@ -44,7 +45,6 @@ export function BoardList({ boards }) {
         console.log(boardId);
         dispacth(removeBoard(boardId))
     }
-
     return <div className='workspace'>
 
         {/* <span>Stard templates</span>

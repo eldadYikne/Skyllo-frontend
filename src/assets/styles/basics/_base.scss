@@ -30,6 +30,7 @@ p {
     padding: 5px;
     margin-block-end: .3px;
     margin-block-start: .3px;
+    padding-top: 0px;
 }
 
 img {
@@ -94,7 +95,9 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    
     & .loader-gif{
+        background-color: rgb(196, 196, 196);
         height: 200px;
         width: 200px;
     }

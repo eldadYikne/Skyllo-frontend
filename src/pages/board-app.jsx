@@ -14,6 +14,7 @@ import { onSignup } from "../store/user.actions";
 import { userService } from "../services/user.service";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Popover } from "../cmps/popover-cmp";
+import { LoaderSkyllo } from "../cmps/loader-cmp";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -77,7 +78,7 @@ export function BoardApp() {
         }
     }
 
-    if (!board) return <h1>Loading</h1>
+    if (!board) return <LoaderSkyllo />
     let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
     return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">

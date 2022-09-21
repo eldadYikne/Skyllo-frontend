@@ -29,7 +29,6 @@
         display: block;
     }
 
-    &.coverd {}
 
     &:hover {
         background-color: darken(#ffffff, 3%)
@@ -87,12 +86,24 @@
         padding: 4px;
         margin-bottom: 5px;
 
+
+        & .labels-task-preview-mini-color{
+            top: 4px;
+            bottom: 4px;
+            // left: 4px;
+            border-radius: 50%;
+            margin-right: 3px;
+            margin-left: 0;
+            width: 10px;
+            height: 10px;
+        }
+
         & .task-preview-label-preview-open {
             display: flex;
             align-items: center;
             border-radius: 4px;
             height: 16px;
-            padding: 0 8px;
+            padding: 0 6px;
             font-size: 12px;
             min-height: 16px;
             font-weight: 400;
@@ -122,14 +133,39 @@
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
 
+
+
         & .task-preview-pins {
             flex: 1 1;
             gap: 4px;
-            // padding: 4px;
             display: flex;
             align-items: center;
             padding-bottom: 4px;
             align-items: center;
+
+            & .task-preview-date-container{
+                display: flex;
+                background-color: #ec9488;
+                border-radius: 3px;
+                color: #fff;
+                padding-left: 2px;
+                padding-right: 5px;
+                align-items: center;
+
+                & .task-preview-date-pin{
+                    display: flex;
+                    margin-right: 3px;
+                    height: 14px;
+                    width: 14px;
+                    align-items: center;
+                }
+
+                & .task-preview-date-due{
+                    display: flex;
+                    align-items: center;
+                    font-size: 15px;
+                }
+            }
 
             & .task-preview-pin {
                 // background-color: #172b4d;

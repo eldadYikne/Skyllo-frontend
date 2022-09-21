@@ -9,15 +9,15 @@ import { detailsColorsConsts } from '../../const/board-list-consts';
 import { labelsColors } from '../../const/board-list-consts';
 import { updateBoard } from '../../store/board.actions';
 
-export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader }) => {
+export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group }) => {
     const board = useSelector(state => state.boardModule.board)
 
     const params = useParams()
     const taskId = params.taskId
     const groupId = params.groupId
 
-    const currGroup = board.groups.find(group => group.id === groupId)
-    const currTask = currGroup.tasks.find(task => task.id === taskId)
+    // const currGroup = board.groups.find(group => group.id === groupId)
+    const currTask = group.tasks.find(task => task.id === taskId)
 
     const [editInputText, setEditInputText] = useState(selectedLabel.title)
     const [selectedEditColor, setSelectedEditColor] = useState(selectedLabel.color)
@@ -26,6 +26,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
     const onLabelSave = (ev) => {
 
         ev.preventDefault();
+        ev.stopPropagation();
         const labelToSave = {
             id: selectedLabel.id,
             title: editInputText,
@@ -67,7 +68,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
         const updatedTask = { ...currTask, labelIds: newLabelIds }
         
-        const groupIdx = board.groups.findIndex(group => currGroup.id === group.id)
+        const groupIdx = board.groups.findIndex(currGroup => currGroup === group.id)
         const taskIdx = board.groups[groupIdx].tasks.findIndex(task => currTask.id === task.id)
         
         boardToUpdate.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask)
@@ -87,7 +88,10 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         setEditInputText(text)
     }
 
-    const handleChangeLabelColor = (color) => {
+    const handleChangeLabelColor = (color,ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        
         setSelectedEditColor(color)
     }
 
@@ -95,7 +99,10 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         if (color === selectedEditColor) return <ChosenColorIcon className='color-chosen-icon' />
     }
 
-    const onGoBack = () => {
+    const onGoBack = (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+
         setIsEditLabel(false)
         setHideHeader(true)
     }
@@ -118,7 +125,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
                 <section className='edit-labels-color-container'>
                     {labelsColors.map(color => {
                         return <div className='label-edit-color-box'
-                            onClick={() => handleChangeLabelColor(color)}
+                            onClick={(ev) => handleChangeLabelColor(color,ev)}
                             key={color}
                             style={{ backgroundColor: color }}>
                             {selectedColorIcon(color)}

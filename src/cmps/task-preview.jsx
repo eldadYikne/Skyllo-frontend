@@ -12,7 +12,9 @@ import { ReactComponent as AttachmentIcon } from '../assets/img/attachmaent-icon
 import { ReactComponent as ChecklistIcon } from '../assets/img/checklist-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as EditTaskIcon } from '../assets/img/edit-icon-task.svg'
+import { ReactComponent as DueDate } from '../assets/img/due-date-preview-icon.svg'
 import { MiniEdit } from "./mini-edit-cmp";
+import { utilService } from "../services/util.service";
 
 export function TaskPreview({ task, group }) {
 
@@ -66,6 +68,7 @@ export function TaskPreview({ task, group }) {
         })
         return setTaskLabels(taskLabel)
     }
+    
     const loadMembers = () => {
         if (!task) return
         const membersIds = task.memberIds
@@ -113,6 +116,7 @@ export function TaskPreview({ task, group }) {
                         task={task}
                         group={group}
                         board={board}
+                        bgColor={bgColor}
                         onToggleLabels={onToggleLabels}
                         mouseLocation={mouseClickLocation}
                         setIsMiniEditShown={setIsMiniEditShown}
@@ -142,6 +146,7 @@ export function TaskPreview({ task, group }) {
                             key={label.color}
                             className={labelsClass}
                             style={{ backgroundColor: label.color }}>
+                            {labelsOpen &&<div className='labels-task-preview-mini-color'style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20)}}></div>}    
                             {labelsOpen && <span>{label.title}</span>}
                         </div>
                     })}
@@ -151,8 +156,19 @@ export function TaskPreview({ task, group }) {
             <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
             {!task.cover?.isFullCover &&  <div className="task-preview-Characters">
                 <div className="task-preview-pins">
-                    {task.description && <div className="task-preview-pin attachment-pin"><DescriptionIcon /></div>}
-                    {task.attachment && <div className="task-preview-pin attachment-pin"><AttachmentIcon /> <span>{taskAttachments.length}</span> </div>}
+
+                   {task.dueDate&&
+                    <div className="task-preview-date-container">
+                        <div className="task-preview-date-pin">
+                        <DueDate/>
+                        </div>
+                        <div className="task-preview-date-due">
+                        Date
+                        </div>  
+                    </div>
+                    }
+                    {task.description && <div className="task-preview-pin "><DescriptionIcon /></div>}
+                    {task.attachments && <div className="task-preview-pin "><AttachmentIcon /> <span>{task.attachments.length}</span> </div>}
                     {task.checklists && <div className="task-preview-pin checklists-pin"><ChecklistIcon /> <span>{task.checklists.length}</span></div>}
                     <div className="task-preview-pin activities-pin"></div>
                 </div>

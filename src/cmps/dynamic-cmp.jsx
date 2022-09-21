@@ -4,12 +4,12 @@ import { ReactComponent as CloseDynamicCmp } from '../assets/img/close-task-form
 import { AttachmentCmp } from './dynamic-cmps/attachment-cmp'
 import { ChecklistCmp } from './dynamic-cmps/checklist-cmp'
 import { CoverCmp } from './dynamic-cmps/cover-cmp'
-import { DatesCmp } from './dynamic-cmps/dates-cmp'
 import { LabelsCmp } from './dynamic-cmps/labels-cmp'
 import { MembersCmp } from './dynamic-cmps/members-cmp'
+import { TaskDate } from './dynamic-cmps/task-date'
 
 
-export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation }) {
+export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board }) {
 
     const [hideHeader, setHideHeader] = useState(true)
 
@@ -48,9 +48,14 @@ export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsCh
                     task={task}
                     setDynamicType={setDynamicType}
                     setTask={setTask}
-                    setIsChecklist={setIsChecklist} />
-            // case 'dates':
-            //     return <DatesCmp />
+                    setIsChecklist={setIsChecklist} /> 
+            case 'dates':
+                return <TaskDate 
+                    board={board}
+                    group={group}
+                    task={task}
+                    setDynamicType={setDynamicType}
+                    />
         }
     }
 
