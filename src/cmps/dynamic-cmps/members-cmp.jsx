@@ -7,7 +7,7 @@ import { saveTask } from "../../store/board.actions"
 export const MembersCmp = ({ task, setTask, group }) => {
 
     const board = useSelector(state => state.boardModule.board)
-    const members = userService.getMembers()
+    const members = board.members
     const dispatch = useDispatch()
 
     const onChooseMember = (memberId, ev) => {

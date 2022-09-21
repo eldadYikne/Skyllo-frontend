@@ -102,11 +102,11 @@ export const Popover = ({ board }) => {
 
                 {board.activities.map(activity => {
                     return <div key={activity.id} className="activity-container">
-                        <div ><img className="img-user-activity" src={`${user.imgUrl}`} /></div>
+                        <div ><img className="img-user-activity" src={`${user?.imgUrl}`} /></div>
                         <div className="activity-info-time">
 
                             <div className="activity-info">
-                                <span className="user-name">{user.fullname}</span>
+                                <span className="user-name">{user?.fullname}</span>
                                 <span className="activity-task-name">{activity.txt}</span>
                                 {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
                             </div>
