@@ -15,7 +15,7 @@ export const CoverCmp = ({ task, setTask }) => {
     let backgroundStyle = bgColorExmpel?.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const classBtn = text ? 'btn-create-board filled ' : "btn-create-board"
     let coverChoice = isFullCover ? "coverd-choice choice" : "coverd-choice  "
-
+    
     const onChangeColor = (color) => {
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)

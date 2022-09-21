@@ -6,22 +6,37 @@ export const workspaceImgConsts = [
     `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg `,
 ]
 
-export const labelsColors = [
-    "#001f3f",
-    "#0079bf",
-    "#70b500",
-    "#ff9f1a",
-    "#f2d600",
-    "#c377e0",
-    "#ff78cb",
-    "#00c2e0",
+export const defaultLabelsColors = [
+    "#B7DDB0",
+    "#F5EA92",
+    "#BCD9EA",
+    "#FAD29C",
+    "#EDDBF4",
     "#51e898",
-    "#c4c9cc",
-    "DFE1E6",
+]
 
-    "DFE1E6",
-    "DFE1E6",
-    "DFE1E6",
+export const labelsColors = [
+    "#B7DDB0",
+    "#F5EA92",
+    "#BCD9EA",
+    "#FAD29C",
+    "#EDDBF4",
+    "#51e898",
+    "#F5DD29",
+    "#00c2e0",
+    "#FFAF3F",
+    "#DFC0EB",
+    "#49852E",
+    "#f2d600",
+    "#026AA7",
+    "#ff9f1a",
+    "#6C547B",
+
+    "#FBEDEB",
+    "#F5D3CE",
+    "#EFB3AB",
+    "#EF7564",
+    "#e13b24",
 ]
 
 export const workspaceColorsConsts = [
@@ -36,7 +51,7 @@ export const workspaceColorsConsts = [
     "#FF851B",
     "#FFDC00",
     "#3D9970",
-    "#2ECC40"
+    "#2ECC40",
 ]
 
 export const detailsImgConsts = [

@@ -20,6 +20,8 @@ import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.service'
 import { AttachmentDetails } from './task-details/attachmaent-details'
 import { TaskChecklist } from './task-details/task-checklist'
+import { utilService } from '../services/util.service'
+import { LoaderSkyllo } from './loader-cmp'
 
 
 export function TaskDetails() {
@@ -100,25 +102,27 @@ export function TaskDetails() {
   }
 
   const getMemberBackground = (member) => {
-
     if (member.img) return `url(${member.img}) center center / cover`
-
     else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
 
-
-
-  const onOpenDynamicCmp =(ev) =>{
-     const mouseClickLocation =ev.target.getClientRects()
-     setMouseLocation(mouseClickLocation[0].y)
+  const onOpenDynamicCmp = (ev) => {
+    const mouseClickLocation = ev.target.getClientRects()
+    setMouseLocation(mouseClickLocation[0].y)
     setDynamicType(ev.target.name)
     console.log('mouseLocation:', mouseLocation)
-    
+  }
+
+  const onHoverLabel = (ev, color) => {
+    ev.target.style.background = utilService.lightenDarkenColor(color, -10);
+  }
+
+  const onLeaveHoverLabel = (ev, color) => {
+    ev.target.style.background = color
   }
 
 
-
-  if (!task) return <h1>Loading</h1>
+  if (!task) return <LoaderSkyllo />
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
@@ -148,25 +152,43 @@ export function TaskDetails() {
         <section className='details-content'>
           <section className='details-main-content'>
             <section className='first-content'>
-              <div className='actions-type'>
-                <h4>Members</h4>
-                <div className='action-type-content'>
-                  {taskMembers && taskMembers.map(member => {
-                    return <div key={member._id} className='task-details-member-box' style={{ background: getMemberBackground(member) }}></div>
-                  })}
-                  <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
+              <div className='members-labels-content'>
 
+                <div className='actions-type'>
+                  <h4>Members</h4>
+                  <div className='action-type-content'>
+                    {taskMembers && taskMembers.map(member => {
+                      return <div key={member._id} className='task-details-member-box'
+                        style={{ background: getMemberBackground(member) }}></div>
+                    })}
+                    <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
+
+                  </div>
+                </div>
+
+                <div className='actions-type'>
+                  <h4>Labels</h4>
+                  <div className='action-type-content'>
+                    {taskLabels && taskLabels.map(label => {
+                      return <div key={label.id} className='task-details-label-box'
+                        onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
+                        onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
+                        style={{ backgroundColor: label.color }}>
+                        <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>
+                        {label.title ? label.title : ''}
+                      </div>
+                    })}
+                    <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
+                  </div>
                 </div>
               </div>
 
               <div className='actions-type'>
-                <h4>Labels</h4>
+                <h4>Due date</h4>
                 <div className='action-type-content'>
-                  {taskLabels && taskLabels.map(label => {
-                    return <div key={label.id} className='task-details-label-box' style={{ backgroundColor: label.color ? label.color : 'green' }}>{label.title ? label.title : ''}</div>
-                  })}
-                  <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
-
+                  <div className='task-details-date-container'>
+                    yaara
+                  </div>
                 </div>
               </div>
             </section>

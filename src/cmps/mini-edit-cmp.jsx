@@ -7,7 +7,7 @@ import { ReactComponent as CoverIcon } from '../assets/img/cover-icon.svg'
 import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as TaskIcon } from '../assets/img/task-icon.svg'
 import { ReactComponent as DatesIcon } from '../assets/img/dates-icon.svg'
-import { ReactComponent as AttachmentIcon } from '../assets/img/attachmaent-iconbig.svg'
+import { ReactComponent as AttachmentIcon } from '../assets/img/attachment-small-icon.svg'
 import { ReactComponent as ChecklistIcon } from '../assets/img/checklist-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 
@@ -17,8 +17,9 @@ import { removeTask, saveTask, updateBoard } from '../store/board.actions'
 import { useParams } from 'react-router-dom'
 import { DynamicCmp } from './dynamic-cmp'
 import { boardService } from '../services/board.service'
+import { utilService } from '../services/util.service'
 
-export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels }) => {
+export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels ,bgColor }) => {
 
     const [mouseLocationForDynamic, setMouseLocationForDynamic] = useState(null)
 
@@ -30,34 +31,67 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const [dynamicType, setDynamicType] = useState('')
     const [title, setTitle] = useState('')
     const [taskMembers, setTaskMembers] = useState(null)
+    const [taskLabels, setTaskLabels] = useState(null)
+    // const [bgColor, setBgColor] = useState(task.cover?.color ? `url(${task.cover.color})` : '')
+    const [backgroundStyle, setBackgroundStyle] = useState(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')
 
 
+    const loadTaskCover = () => {
+
+    }
+
+
+    const loadMembers = () => {
+        if (!task) return
+        const membersIds = task.memberIds
+        const taskMembers = membersIds?.map(id => {
+            return boardService.getMembersById(board, id)
+        })
+        return setTaskMembers(taskMembers)
+    }
+
+    const loadLabels = () => {
+        if (!task) return
+        if (!task.labelIds) return
+        const labelIds = task.labelIds
+        const taskLabel = labelIds?.map(id => {
+            return boardService.getLabelsById(board, id)
+        })
+        return setTaskLabels(taskLabel)
+    }
+
+    useEffect(() => {
+        setTitle(task.title)
+        loadMembers()
+        loadLabels()
+
+    }, [task.title, task])
 
     const handleChangeTitle = (ev) => {
         const title = ev.target.value
         setTitle(title)
     }
 
-    const onHandleChangeText = (ev) => {
+    const handleClick = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-
     }
     const onSaveTitle = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-
         if (!title) return
-        dispatch(updateBoard(board))
+        const taskToUpdate = { ...task, title: title }
+        dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
         setIsMiniEditShown(false)
     }
+
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
         dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
         setIsMiniEditShown(false)
     }
-    
+
     const onClickEditAction = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
@@ -70,18 +104,42 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const labelsOpen = board.toggleLabels
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
 
+    const heightImg = task.cover?.color?.length>9? '135px': '32px'
+
     return <section className="mini-edit-task-container" style={{ top: mouseLocation.y + 40, left: mouseLocation.x - 230 }} >
         <div >
+            <div className='mini-edit-cover'>
+            </div>
+            
+            {bgColor &&
+                <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
+                </div>
+            }
+
             <div className="mini-edit-main-card">
- 
+                {taskLabels &&
+                    <div className="task-preview-labels-list">
+                        {taskLabels.map(label => {
+                            return <div
+                                onClick={onToggleLabels}
+                                key={label.color}
+                                className={labelsClass}
+                                style={{ backgroundColor: label.color }}>
+                               {labelsOpen && <div className='labels-task-preview-mini-color'style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20)}}></div>}
+                                {labelsOpen &&
+                                 <span>{label.title}</span>}
+                            </div>
+                        })}
+                    </div>
+                }
 
                 <div className="mini-edit-textarea-container">
-                    <textarea name="" id="mini-edit-textarea" onClick={onHandleChangeText} onChange={handleChangeTitle} value={title}></textarea>
+                    <textarea name="" id="mini-edit-textarea" onClick={handleClick} onChange={handleChangeTitle} value={title}></textarea>
                 </div>
-                <div className='mini-edit-footer'>
+                <div className='mini-edit-footer' onClick={handleClick}>
                     <div className='mini-edit-characters'>
-                        {task.description && <div className="task-preview-pin attachment-pin"><DescriptionIcon /></div>}
-                        {task.attachment && <div className="task-preview-pin attachment-pin"><AttachmentIcon /> <span>{task.attachments.length}</span> </div>}
+                        {task.description && <div className="task-preview-pin "><DescriptionIcon /></div>}
+                        {task.attachments && <div className="task-preview-pin attachment-pin-div"><AttachmentIcon className='attachment-pin' /> <span>{task.attachments.length}</span> </div>}
                         {task.checklists && <div className="task-preview-pin mini-edit-checklists-pin"><ChecklistIcon /> <span>{task.checklists.length}</span></div>}
                     </div>
 
@@ -99,10 +157,12 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         </div>
 
         <div className="mini-edit-side-bar">
-            <button className="mini-edit-actions-btn" >
+
+            <button className="mini-edit-actions-btn" onClick={() => setIsMiniEditShown(false)} >
                 <TaskIcon />
                 Open task
             </button>
+
             <button className="mini-edit-actions-btn" name='members' onClick={onClickEditAction}>
                 <MembersIcon />
                 Change members
@@ -115,7 +175,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
                 <LabelsIcon />
                 Edit labels
             </button>
-            <button className="mini-edit-actions-btn" name='labels' onClick={onClickEditAction}>
+            <button className="mini-edit-actions-btn" name='dates' onClick={onClickEditAction}>
                 <DatesIcon />
                 Edit dates
             </button>

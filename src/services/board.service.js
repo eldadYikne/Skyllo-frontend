@@ -211,38 +211,38 @@ function getBoard() {
                     //light purple
                     id: 'la201',
                     title: "Done",
-                    color: "#7fb973"
+                    color: "#B7DDB0"
                 },
                 {
                     //light blue
                     id: 'la202',
                     title: "Progress",
-                    color: "#78afcf"
+                    color: "#F5EA92"
                 },
                 {
                     //green
                     id: 'la203',
                     title: "Free time",
 
-                    color: "#b8b8d1"
+                    color: "#FAD29C"
                 },
                 {
                     //red
                     id: 'la204',
                     title: "Urgent",
-                    color: "#dd5959"
+                    color: "#EFB3AB"
                 },
                 {
                     //yellow
                     id: 'la205',
                     title: "Can wait",
-                    color: "#dfd762"
+                    color: "#DFC0EB"
                 },
                 {
                     //orange
                     id: 'la206',
                     title: "Priority",
-                    color: "#fea967"
+                    color: "#8BBDD9"
                 }
             ]
             ,

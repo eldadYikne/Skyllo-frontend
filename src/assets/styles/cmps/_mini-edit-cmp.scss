@@ -14,10 +14,24 @@
         flex-wrap: wrap;
         justify-content: space-between;
 
+        & .task-preview-pin{
+            display: flex;
+            align-items: center;
+        }
+
         & .mini-edit-checklists-pin {
             display: flex;
             align-items: center;
             padding: 1px;
+        }
+
+        & .attachment-pin-div{
+            & span{
+                font-size: 1em;
+            }
+            & .attachment-pin{
+                height: 14px;
+            }
         }
 
         & .mini-edit-characters {
@@ -41,7 +55,6 @@
         word-wrap: break-word;
         background-color: #fff;
         display: flex;
-        border-radius: 3px;
         box-shadow: 0 1px 0 #16181b40;
         flex-direction: column;
         max-width: 300px;

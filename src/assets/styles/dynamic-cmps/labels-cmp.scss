@@ -42,7 +42,18 @@
     }
 }
 
-
+.labels-details-mini-color{
+    // position: absolute;
+    
+    top: 4px;
+    bottom: 4px;
+    // left: 4px;
+    border-radius: 50%;
+    margin-right: 7px;
+    margin-left: 0;
+    width: 13px;
+    height: 13px;
+}
 
 .label-exist-icon{
 position: absolute;
