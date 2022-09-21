@@ -14,7 +14,7 @@ export function TaskList({ group }) {
             {group.tasks.map((task, index) => {
                 return (
                     <Link to={`${group.id}/${task.id}`} key={task.id}>
-                        <div>
+                       
                             <Draggable draggableId={task.id} index={index}>
 
                                 {(provided) => {
@@ -32,7 +32,7 @@ export function TaskList({ group }) {
                                 }}
                             </Draggable>
 
-                        </div>
+                        
                     </Link>
                 )
             })}

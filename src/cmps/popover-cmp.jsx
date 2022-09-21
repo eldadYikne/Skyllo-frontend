@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { ReactComponent as CloseDynamicCmp } from '../assets/img/close-task-form.svg'
+import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { category, imagesCategory, popoverColorsConsts } from "../const/board-list-consts"
 import { updateBoard } from "../store/board.actions"
 import { ReactComponent as GoBackIcon } from '../assets/img/go-back-label-icon.svg'
@@ -10,6 +11,7 @@ export const Popover = ({ board }) => {
     const [isColors, setIsColors] = useState(false)
     const [isImages, setIsImages] = useState(false)
     const [isCategory, setCategory] = useState('')
+
 
 
 
@@ -37,52 +39,73 @@ export const Popover = ({ board }) => {
     }
 
     return <section className={classPopover}>
-        <div className="popover-header">
-            <span>Menu</span>
-            {isImages && !isColors && <div className="colors-header-popover"> <span className="go-back-popover" onClick={() => setIsImages(false)}><GoBackIcon /></span> <span>Images</span> </div>}
-            {isColors && !isImages && <div className="colors-header-popover"> <span className="go-back-popover" onClick={() => setIsColors(false)}><GoBackIcon /></span> <span>Colors</span> </div>}
-            {!isColors && !isImages && isCategory && <div className="colors-header-popover"> <span className="go-back-popover" onClick={onGoBack}><GoBackIcon /></span> <span>{isCategory}</span> </div>}
-            <button onClick={onShownPopover} className="close-btn-popover"><CloseDynamicCmp /></button>
+        <div>
+
+
+            <div className="popover-header">
+                {!isColors && !isImages && !isCategory && <span>Menu</span>}
+                {isImages && !isColors && <div className="colors-header-popover"> <span className="go-back-popover" onClick={() => setIsImages(false)}><GoBackIcon /></span> <span>Images</span> </div>}
+                {isColors && !isImages && <div className="colors-header-popover"> <span className="go-back-popover" onClick={() => setIsColors(false)}><GoBackIcon /></span> <span>Colors</span> </div>}
+                {!isColors && !isImages && isCategory && <div className="colors-header-popover"> <span className="go-back-popover" onClick={onGoBack}><GoBackIcon /></span> <span>{isCategory}</span> </div>}
+                <button onClick={onShownPopover} className="close-btn-popover"><CloseDynamicCmp /></button>
+            </div>
         </div>
-        {!isColors && !isImages && !isCategory&& <div className="img-colors-popover">
+        <div className="popover-main-content">
+        {!isColors && !isImages && !isCategory && <div className="img-colors-popover">
 
             <div onClick={() => setIsColors(true)} className="colors-popover"> <img src={'https://skello.herokuapp.com/static/media/color-teaser-sidebar.ec32a2ed8dd8198b8ef0.jpg'} />Colors</div>
             <div onClick={() => setIsImages(true)} className="imgs-popover"><img src={'https://skello.herokuapp.com/static/media/imgs-teaser-sidebar.8f9c1323c9c16601a9a4.jpg'} />Images</div>
 
         </div>}
-        {isColors &&
-            <div className="colors-container-popover">
-                {popoverColorsConsts.map(color => {
-                    return <div onClick={() => onChangeColor(color)} key={color} className='color-container' style={{ backgroundColor: color }} > </div>
-                })}
 
-            </div>
-        }
-        {isImages &&
-            <div className="colors-container-popover">
-                {category.map(category => {
-                    let urlImg = `url(${category.bgImage})`
-                    return <div className="image-category-container">
-                        <div onClick={() => onChangeCategory(category.name)} key={category.name} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
-                        <span>{category.name}</span>
+       
+            {isColors &&
+                <div className="colors-container-popover">
+                    {popoverColorsConsts.map(color => {
+                        return <div onClick={() => onChangeColor(color)} key={color} className='color-container' style={{ backgroundColor: color }} > </div>
+                    })}
+
+                </div>
+            }
+
+            {isImages &&
+                <div className="colors-container-popover">
+                    {category.map(category => {
+                        let urlImg = `url(${category.bgImage})`
+                        return <div className="image-category-container">
+                            <div onClick={() => onChangeCategory(category.name)} key={category.name} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
+                            <span>{category.name}</span>
+                        </div>
+                    })}
+
+                </div>
+            }
+            {isCategory &&
+                <div className="colors-container-popover">
+                    {imagesCategory[isCategory].map(bgImgUrl => {
+                        let urlImg = `url(${bgImgUrl})`
+                        return <div className="image-category-container">
+                            <div onClick={() => onChangeColor(urlImg)} key={bgImgUrl} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
+
+                        </div>
+                    })}
+
+                </div>
+            } 
+            {!isCategory &&!isImages &&!isColors &&<div className="activity-popover"> <ActivityIcon /> Activities</div>}
+
+            {!isCategory &&!isImages &&!isColors && <section className="activities-container">
+                
+                {board.activities.map(activity=>{
+                    return <div className="activity-container"><img className="img-user-activity" src={`${board.members[0].img}`}/> 
+                        <span className="user-name">{board.members[0].fullname}</span>
+                        <span>{activity.txt}</span>
+                        <span>{activity.task.title}</span>
                     </div>
                 })}
+                </section>}
+            
 
-            </div>
-        }
-        {isCategory &&
-            <div className="colors-container-popover">
-                {imagesCategory[isCategory].map(bgImgUrl => {
-                    let urlImg = `url(${bgImgUrl})`
-                    return <div className="image-category-container">
-                        <div onClick={() => onChangeColor(urlImg)} key={bgImgUrl} className='color-container' style={{ backgroundImage: urlImg }} >  </div>
-
-                    </div>
-                })}
-
-            </div>
-        }
-
-
+        </div>
     </section>
 }

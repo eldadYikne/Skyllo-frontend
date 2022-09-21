@@ -11,7 +11,8 @@ export const AttachmentCmp = ({ task, setTask }) => {
 
 
     const onChangehandel = () => {
-        setText(text)
+        // setText(text)
+        const urlNotImg= text.includes()
         if (!task.attachments) task.attachments = []
 
         const taskToUpdate = {
@@ -33,7 +34,6 @@ export const AttachmentCmp = ({ task, setTask }) => {
         } catch (err) {
             console.log(err);
         }
-
 
     }
     const createAttachment = (title, url) => {

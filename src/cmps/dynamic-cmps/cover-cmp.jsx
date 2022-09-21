@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
+import { saveTask } from "../../store/board.actions"
 
 export const CoverCmp = ({ task, setTask }) => {
 
@@ -15,14 +16,16 @@ export const CoverCmp = ({ task, setTask }) => {
     let backgroundStyle = bgColorExmpel?.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const classBtn = text ? 'btn-create-board filled ' : "btn-create-board"
     let coverChoice = isFullCover ? "coverd-choice choice" : "coverd-choice  "
-
+    const dispatch = useDispatch()
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
+        ev.preventDefault()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
+        // dispatch(saveTask(taskToUpdate))
         setTask(taskToUpdate)
 
     }
@@ -43,6 +46,7 @@ export const CoverCmp = ({ task, setTask }) => {
         setText(ev.target.value)
         console.log(text, 'tetx')
     }
+
     const onTasktCoverSelected = (isDarked) => {
         if (isDarked) {
             setBgColorTextExmple(`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),${bgColorExmpel}`)
