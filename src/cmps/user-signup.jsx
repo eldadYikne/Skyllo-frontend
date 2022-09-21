@@ -36,7 +36,7 @@ export function LoginSignup() {
     const onClickLogin = (ev = null) => {
         if (ev) ev.preventDefault()
         if (!credentials.username) return
-        onLogin(credentials)
+        dispatch(onLogin(credentials))
         clearState()
     }
 
@@ -147,6 +147,7 @@ export function LoginSignup() {
                                 onChange={handleChange}
                                 required
                             />
+                            
                             <ImgUploader onUploaded={onUploaded} />
 
                             <button onClick={onClickSignup} >Signup</button>

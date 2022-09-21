@@ -19,16 +19,11 @@ export const userService = {
     remove,
     update,
     changeScore,
-
+    getUsers,
     getMembers
 }
 
 window.userService = userService
-
-getUsers().then(user=>{
-    console.log('userssssssssssss', user)
-    
-})
 
 function getUsers() {
     return storageService.query('user')
@@ -76,7 +71,7 @@ async function login(userCred) {
 
 async function signup(userCred) {
     console.log('userCred service:', userCred)
-    
+
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)
@@ -120,7 +115,7 @@ const gUsers = [
         _id: '1011',
         fullname: 'Eldad Yikne',
         img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
-        ` 
+        `
     },
     {
         _id: '1012',
