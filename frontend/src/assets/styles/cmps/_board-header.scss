@@ -121,11 +121,24 @@
                 width: fit-content;
                 cursor: pointer;
             }
-
+            & .board-header-extra-member-box{
+                align-items: center;
+                border-radius: 25em;
+                cursor: pointer;
+                display: flex;
+                font-weight: 600;
+                height: 30px;
+                justify-content: center;
+                object-fit: cover;
+                width: 30px;
+                background-color: #ebecf0;
+                color: #172b4d;
+                margin: 0 0 0 -6px;
+             }
             & .board-header-members-container {
                 display: flex;
                 padding-left: 0;
-
+          
                 & .board-header-member-box {
                     align-items: center;
                     border-radius: 25em;

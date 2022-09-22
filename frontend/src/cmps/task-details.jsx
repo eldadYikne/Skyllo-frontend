@@ -77,14 +77,14 @@ export function TaskDetails() {
   }, [task])
 
   const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
+    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
+    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
     navigate(-1)
   }
 
@@ -122,10 +122,9 @@ export function TaskDetails() {
   }
 
   const isOverDue = (date) => {
-    if(date < Date.now()) return 'overdue'
-    return 'ontime' 
+    if (date < Date.now()) return 'overdue'
+    return 'ontime'
   }
-
 
   if (!task) return <LoaderSkyllo />
   return (
@@ -138,9 +137,11 @@ export function TaskDetails() {
           </button>
         </div>}
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
-          <CloseDetailsModal
-            className='close-details-modal-icon'
-            onClick={() => onSaveTask(task)} />
+          <div className='close-details-modal-exit'>
+            <CloseDetailsModal
+              className='close-details-modal-icon'
+              onClick={() => onSaveTask(task)} />
+          </div>
         </Link>
 
         <section className='details-header'>
@@ -179,7 +180,7 @@ export function TaskDetails() {
                       return <div key={label.id} className='task-details-label-box'
                         onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
-                        style={{ backgroundColor: label.color }}>
+                        style={{ backgroundColor: label?.color }}>
                         <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>
                         {label.title ? label.title : ''}
                       </div>
@@ -191,16 +192,16 @@ export function TaskDetails() {
 
 
               {task.dueDate &&
-              <div className='actions-type' onClick={() => setDynamicType('dates')}>
-                <h4>Due date</h4>
-                <div className='action-type-content'>
-                  <div className='due-date-checkbox'></div>
-                  <div className='task-details-date-container'>
-                   <p>{task.dueDate.dateToDisplay}</p>
-                   <div className={task.dueDate.date < Date.now()? 'overdue' : 'ontime'}>{isOverDue(task.dueDate.date)}</div>
+                <div className='actions-type' onClick={() => setDynamicType('dates')}>
+                  <h4>Due date</h4>
+                  <div className='action-type-content'>
+                    <div className='due-date-checkbox'></div>
+                    <div className='task-details-date-container'>
+                      <p>{task.dueDate.dateToDisplay}</p>
+                      <div className={task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{isOverDue(task.dueDate.date)}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
               }
 
             </section>
@@ -217,7 +218,7 @@ export function TaskDetails() {
                 name='description'
                 id='description-textarea-basic'
                 value={task.description ? task.description : ''}
-                placeholder={task.description? '':'Add more details description'}
+                placeholder={task.description ? '' : 'Add more details description'}
               ></textarea>
               {isDescription &&
                 <div className='description-edit'>

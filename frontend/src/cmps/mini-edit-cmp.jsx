@@ -29,6 +29,11 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const [currTask, setTask] = useState(JSON.parse(JSON.stringify(task)))
     const user = useSelector(state => state.userModule.user)
 
+    const [mouseLocationTop,setMouseLocationTop] = useState(mouseLocation)
+    console.log('mouseLocationTop:', mouseLocationTop)
+ 
+
+
     const [dynamicType, setDynamicType] = useState('')
     const [title, setTitle] = useState('')
     const [taskMembers, setTaskMembers] = useState(null)
@@ -60,7 +65,13 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         })
         return setTaskLabels(taskLabel)
     }
-
+   
+    useEffect(()=>{
+        console.log('mouseLocationnnnnnnnnn:', mouseLocation)
+        
+        if (mouseLocation[0].y > 575) { setMouseLocationTop({y:mouseLocation[0].y-400, x:mouseLocation[0].x})}
+        console.log('mouseLocatioxxxxxxxxxxxxx:', mouseLocation)
+    },[])
     useEffect(() => {
         setTitle(task.title)
         loadMembers()
@@ -119,8 +130,6 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
             <div className="mini-edit-main-card">
                 {taskLabels &&
-                  
-
                         <div className="mini-edit-labels-list">
                             {taskLabels.map(label => {
                                 return <div

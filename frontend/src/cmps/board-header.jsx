@@ -108,8 +108,9 @@ export function BoardHeader({ board }) {
                                         <div className='avatar-img-guest-member-box' key={member._id}></div>
                                 }
                             })}
+                            {members.length > 4 && <div className='board-header-extra-member-box'>+{members.length - 4}</div>}
                         </div>
-                    <span className='board-header-border-left'></span>
+                        <span className='board-header-border-left'></span>
 
                         <div className='invite-member-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)}>
                             <InviteMemberIcon />
