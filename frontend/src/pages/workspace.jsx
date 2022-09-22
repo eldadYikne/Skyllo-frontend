@@ -14,10 +14,8 @@ export function WorkSpace() {
 
   return (
     <section className='workspace'>
-      <span className='title-workspace'>
-        Most popular templates
-      </span>
-      <BoardList boards={boards} />
+      
+      <BoardList loadBoards={loadBoards} boards={boards} />
     </section>
   )
 }

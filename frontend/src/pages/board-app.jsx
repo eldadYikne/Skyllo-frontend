@@ -39,27 +39,24 @@ export function BoardApp() {
             return;
         }
 
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
-            return;
-        }
+       
 
         console.log('group', result)
-        // GRABBALE GROUP
+        // DRABBALE GROUP
+        console.log(source.droppableId === destination.droppableId,source.droppableId , destination.droppableId)
         if (source.droppableId === destination.droppableId && type === "group") {
+            console.log(source, 'sourcesourcesourcesourcesource');
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
-          
-        // GRABBALE TASK IN SAME GROUP
+
+            // GRABBALE TASK IN SAME GROUP
         } else if (source.droppableId === destination.droppableId) {
             const group = newBoard.groups.find(group => group.id === source.droppableId)
             const currTask = group?.tasks?.find(task => task.id === draggableId)
             group?.tasks?.splice(source.index, 1);
             group?.tasks?.splice(destination.index, 0, currTask)
-        // GRABBALE TASK 
+            // GRABBALE TASK 
         } else if (source.droppableId !== destination.droppableId) {
             const fromGroup = newBoard.groups.find(group => group.id === source.droppableId)
             const toGroup = newBoard.groups.find(group => group.id === destination.droppableId)
@@ -68,34 +65,33 @@ export function BoardApp() {
             toGroup.tasks.splice(destination.index, 0, currTask)
 
         }
-        return dispatch(updateBoard(newBoard))
+        dispatch(updateBoard(newBoard))
     }
 
     if (!board) return <LoaderSkyllo />
     let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
-    return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
+    return <div  style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
 
 
-        <div className="board-app" >
+        <div style={{overflow:'auto'}}  className="board-app" >
             <BoardHeader board={board} />
             <Popover board={board} />
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext  onDragEnd={onDragEnd}>
 
-                <Droppable droppableId='all-groups' direction="horizontal" type="group">
+                <Droppable   droppableId='all-groups' direction="horizontal" type="group">
                     {(provided) => {
-                        return (<li className='list-move-group'
+                        return <li className='list-move-group'
                             {...provided.draggableProps}
                             ref={provided.innerRef} >
 
                             <GroupList board={board} >
-                                {provided.placeholder}
                             </GroupList>
+                            { provided.placeholder }
 
-                        </li>)
+                        </li>
                     }}
                 </Droppable>
-
             </DragDropContext>
 
 

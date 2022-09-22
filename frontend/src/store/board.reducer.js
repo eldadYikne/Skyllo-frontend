@@ -23,7 +23,7 @@ export function boardReducer(state = initialState, action) {
             break
         case 'UPDATE_BOARD':            
             newState = { ...state, board: action.board }
-            console.log('newState.board:', newState.board)
+            // console.log('newState.board:', newState.board)
             
             break
         case 'UNDO_REMOVE_BOARD':

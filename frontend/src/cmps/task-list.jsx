@@ -18,16 +18,17 @@ export function TaskList({ group }) {
                             <Draggable draggableId={task.id} index={index}>
 
                                 {(provided) => {
-                                    return (<div key={index} index={index}
+                                    return (<div key={task.id+index} index={index}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
                                         <TaskPreview
                                             task={task}
                                             group={group}
+                                            
                                         >
                                         </TaskPreview>
-
+                                        
                                     </div>)
                                 }}
                             </Draggable>

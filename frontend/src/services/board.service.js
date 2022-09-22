@@ -50,7 +50,6 @@ async function remove(boardId) {
 
 async function save(board) {
     var savedBoard
-    console.log('enter');
     if (board._id) {
         savedBoard = await storageService.put(STORAGE_KEY, board)
         // boardChannel.postMessage(getActionUpdateBoard(savedBoard))
@@ -708,7 +707,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489161/sprint%204%20/shoes-434918__480_xlty5c.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -724,7 +723,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489186/sprint%204%20/cool-music-background-1366x768-laptop-49923_pqf7dn.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -740,7 +739,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489208/sprint%204%20/wp3422169_eakibu.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -756,7 +755,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489228/sprint%204%20/2819238_bxfwdo.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -772,7 +771,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489252/sprint%204%20/pexels-photo-414102.jpeg_p3l2ze.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -788,7 +787,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489270/sprint%204%20/3547009_fjiyfh.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -804,7 +803,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489294/sprint%204%20/webpc-passthru.php_myunwy.png")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -820,7 +819,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489314/sprint%204%20/87541_ulolpm.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -836,7 +835,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489336/sprint%204%20/react_ugfgnl.png")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -852,7 +851,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489357/sprint%204%20/87551_vma4fs.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },
@@ -868,7 +867,7 @@ function getBoard() {
             },
             style: {
                 bgImg: 'url("https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489374/sprint%204%20/405575_emcdmf.jpg")',
-                isStared: true
+                isStared: false
             },
             groups: []
         },

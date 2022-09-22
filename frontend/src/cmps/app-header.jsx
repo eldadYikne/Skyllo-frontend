@@ -19,7 +19,7 @@ export function AppHeader() {
 
   }
 
-console.log(user);
+
   return (
     <header className='app-header'>
       <section className='logo-container'>

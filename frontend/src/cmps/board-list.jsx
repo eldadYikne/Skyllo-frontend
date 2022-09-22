@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { boardService } from '../services/board.service';
 import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
+import { ReactComponent as SvgClock } from '../assets/img/clock.svg';
 import { LoaderSkyllo } from './loader-cmp';
 
-export function BoardList({ boards }) {
+export function BoardList({ boards, loadBoards }) {
 
     const [bgColorCreate, setColorCreate] = useState('#39CCCC')
     const [createIsShown, setIsShown] = useState(false)
     const dispatch = useDispatch()
 
-
+    useEffect(() => {
+        dispatch(loadBoards())
+    }, [])
     const onChangeColor = (info) => {
         setColorCreate(info)
     }
@@ -29,15 +32,16 @@ export function BoardList({ boards }) {
             console.log(err);
         }
     }
-    const onSetIsStared = async (boardId) => {
-        try {
-            const board = await boardService.getById(boardId)
-            const isStar = board.style.isStared
-            const boadToUpdet = { ...board, style: { ...board.style, isStared: isStar } }
-            dispatch(updateBoard(boadToUpdet))
-        } catch (err) {
-            console.log(err);
-        }
+    const onSetIsStared = (board) => {
+        console.log('board',board);
+        let boadrToUpdate = structuredClone(board)
+        boadrToUpdate = { ...board, style: { ...board.style, isStared: !boadrToUpdate.style.isStared } }
+        dispatch(updateBoard(boadrToUpdate))
+        console.log(boadrToUpdate);
+        setTimeout(() => {
+            dispatch(loadBoards())
+        }, 1000);
+
 
     }
 
@@ -47,38 +51,70 @@ export function BoardList({ boards }) {
     }
     return <div className='workspace'>
 
-        {/* <span>Stard templates</span>
-        <section className='stard-boards'>
-
-
-        </section> */}
-
-
-
-      
+        <span className='title-workspace'>
+            <SvgStar width="2.5%"
+                height="2.5%"
+                fill="#172b4d"
+                stroke="#172b4d" />  <span>
+                Starred boards
+            </span>
+        </span>
         <section className="board-list">
-            <div onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
-                Creat New Board
-            </div>
+
             {createIsShown && <AddBoard setIsShown={setIsShown} createNewBoard={createNewBoard} bgColorCreate={bgColorCreate} onChangeColor={onChangeColor} />}
 
 
             {boards.map(board => {
                 const bgImg = board.style?.bgImg
                 let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
-                return <div className='board-previwe-container'>
-                    <Link key={board._id} to={`board/${board._id}`} >
-                        <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
-                            {board.title}
-                        </div>
-                    </Link>
-                    <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
-                    {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-board-preview' src={require('../assets/img/star.png')} />
-                        : <SvgStar onClick={() => onSetIsStared(board._id)} className='star-board-preview' />}
-                </div>
+                {
+                    return board.style.isStared && <div key={board._id} className='board-previwe-container'>
+                        <Link to={`board/${board._id}`} >
+                            <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
+                                <div className='darken-board-preview'>
+                                </div>
+                                <span className="board-previw-title">{board.title}</span>
+                            </div>
+                        </Link>
+                        {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
+                        <img onClick={() => onSetIsStared(board)} className='star-board-preview stared' src={require('../assets/img/star.png')} />
+
+                    </div>
+                }
 
             })}
+        </section >
+        <span className='title-workspace'>
+            <SvgClock width="2.5%"
+                height="2.5%"
+                fill="#172b4d"
+                stroke="#172b4d" />
+            <span>
+                Most popular templates
+            </span>
+        </span>
 
+        <section className="board-list">
+            {boards.map(board => {
+                const bgImg = board.style?.bgImg
+                let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
+                {
+                    return !board.style.isStared && <div key={board._id} className='board-previwe-container'>
+                        <Link to={`board/${board._id}`} >
+                            <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
+                                <div className='darken-board-preview'>
+                                </div>
+                                <span className="board-previw-title">{board.title}</span>
+                            </div>
+                        </Link>
+                        {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
+                        <SvgStar  stroke-width="6%"   onClick={() => onSetIsStared(board)} className='star-board-preview' />
+                    </div>
+                }
+            })}
+            <div onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
+                Creat new board
+            </div>
 
         </section>
     </div >
