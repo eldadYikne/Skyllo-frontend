@@ -50,7 +50,6 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
     setIsAddingTask(!isAddingTask)
   }
 
-
   return (
     <section className='group-preview '>
       <div className='group-preview-header'>
