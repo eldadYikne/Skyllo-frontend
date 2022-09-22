@@ -121,7 +121,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
               d='M12,22 L12,2 M2,12 L22,12'
             ></path>
           </svg>
-          <p>Add a task</p>
+          <p>Add a card</p>
         </div>
       )}
 

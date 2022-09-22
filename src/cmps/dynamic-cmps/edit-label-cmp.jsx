@@ -8,7 +8,7 @@ import { ReactComponent as ChosenColorIcon } from '../../assets/img/label-exist-
 import { detailsColorsConsts } from '../../const/board-list-consts';
 import { labelsColors } from '../../const/board-list-consts';
 import { utilService } from '../../services/util.service';
-import { updateBoard } from '../../store/board.actions';
+import { saveTask, updateBoard } from '../../store/board.actions';
 
 export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group }) => {
     const board = useSelector(state => state.boardModule.board)
@@ -37,32 +37,33 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         const boardLabelIdx = board.labels.findIndex(boardLabel => {
             return boardLabel.id === labelToSave.id
         })
+        
+        const boardToUpdate = structuredClone(board)
+        boardToUpdate.labels.splice([boardLabelIdx], 1, labelToSave);
+
+        dispatch(updateBoard(boardToUpdate))
+        setIsEditLabel(false)
+        setHideHeader(true)
         //    const newBoard =  board.labels.splice([boardLabelIdx], 1, labelToSave);
         // const newLabelsToTask = [...task.labelIds, labelId]
         // const taskToUpdate = { ...task, labelIds: newLabelsToTask }
         // const newLabelsToTask = [...currTask.labelIds, selectedLabel.id]
         // const taskToUpdate = { ...currTask, labelIds: newLabelsToTask }
         // setTask(taskToUpdate)
-
-        const boardToUpdate = structuredClone(board)
-        boardToUpdate.labels.splice([boardLabelIdx], 1, labelToSave);
-        dispatch(updateBoard(boardToUpdate))
-
-        setIsEditLabel(false)
-        setHideHeader(true)
     }
 
     const onDeleteLabel = (ev) => {
         ev.preventDefault()
         const boardToUpdate = structuredClone(board)
-
+        console.log('selectedLabel:', selectedLabel)
+        
         // boardToUpdate.labels = board.labels.filter(label => label.id !== selectedLabel.id)
         // console.log('selectedLabel:', selectedLabel)
-
+        
         // const tasksWithLabelToDelete = board.groups.map(group=>{
-        //  return  group.tasks.map(task=>{
-        //         return task.labelIds.filter(labelId => labelId !== selectedLabel.id)
-        //     })
+            //  return  group.tasks.map(task=>{
+                //         return task.labelIds.filter(labelId => labelId !== selectedLabel.id)
+                //     })
         // })
         // console.log('tasksWithLabelToDelete:', tasksWithLabelToDelete)
 
@@ -71,14 +72,11 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
 
         // const groupIdx = board.groups.findIndex(currGroup => currGroup === group.id)
         const taskIdx = group.tasks.findIndex(task => currTask.id === task.id)
+        group.tasks.splice(taskIdx, 1, updatedTask)
 
-        group.tasks.splice(taskIdx, 1, updatedTask)
         boardToUpdate.labels = boardToUpdate.labels.filter(label => label.id !== selectedLabel.id)
-        group.tasks.splice(taskIdx, 1, updatedTask)
 
         dispatch(updateBoard(boardToUpdate))
-
-        // setTask(updatedTask)
         setIsEditLabel(false)
         setHideHeader(true)
     }
@@ -91,7 +89,6 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
     const handleChangeLabelColor = (color, ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-
         setSelectedEditColor(color)
     }
 
@@ -126,7 +123,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
 
         <section className='edit-labels-modal'>
             <h4>Name</h4>
-            <form className='edit-label-form' onSubmit={(ev)=>onLabelSave(ev)}>
+            <form className='edit-label-form' onSubmit={(ev) => onLabelSave(ev)}>
                 <input onChange={handleChangeLabelText} type='text' value={editInputText} id='' />
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>

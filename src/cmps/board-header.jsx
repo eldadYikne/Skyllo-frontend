@@ -61,15 +61,12 @@ export function BoardHeader({ board }) {
     const getUserBackground = (user) => {
         if (user.imgUrl) return `url(${user.imgUrl}) center center / cover`
         else {
-            console.log('eeeeeeeeeeeeeeeeeee:', user)
-
             return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
         }
     }
 
     const onAddMemberToBoard = (user) => {
         const boardToUpdate = structuredClone(board)
-        console.log('userrrrrrrrrrrrrrrrrr:', user)
         const currMember = {
             _id: user._id,
             fullname: user.fullname,
@@ -93,7 +90,7 @@ export function BoardHeader({ board }) {
     return (
         <section className="board-header ">
 
-            <nav className="board-header main-container">
+            <nav className="board-header main-container board-header-main-nav">
                 <div className="nav-left">
                     <h1>{board.title}</h1>
                     <div className="board-header-nav-left-actions">
@@ -101,6 +98,9 @@ export function BoardHeader({ board }) {
                             {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />
                                 : <SvgStar onClick={() => onSetIsStared(board._id)} className='star-board-preview' />}
                         </div>
+
+                        <span className='board-header-border-left'></span>
+
                         <div className='board-header-members-container'>
                             {members && members.map(member => {
                                 {
@@ -109,6 +109,7 @@ export function BoardHeader({ board }) {
                                 }
                             })}
                         </div>
+                    <span className='board-header-border-left'></span>
 
                         <div className='invite-member-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)}>
                             <InviteMemberIcon />

@@ -18,7 +18,7 @@ export const MembersCmp = ({ task, setTask, group }) => {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
             
-            // setTask(taskToUpdate)
+            setTask(taskToUpdate)
             dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose member', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
         }
         
@@ -30,7 +30,6 @@ export const MembersCmp = ({ task, setTask, group }) => {
         }
     }
 
-    
     const getMemberBackground = (member) => {
         // console.log('member:', member)
         if (member.img) return `url(${member.img}) center center / cover`

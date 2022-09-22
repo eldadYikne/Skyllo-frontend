@@ -76,16 +76,17 @@ export function TaskDetails() {
   }, [task])
 
   const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: 'usery' }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: 'usery' }))
     navigate(-1)
   }
+
   const onRemoveChecklist = (ev, checklistId) => {
     ev.preventDefault()
     const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId)
@@ -154,10 +155,12 @@ export function TaskDetails() {
 
                 <div className='actions-type'>
                   <h4>Members</h4>
-                  <div className='action-type-content'>
+                  <div className='action-type-content members-details-content'>
                     {taskMembers && taskMembers.map(member => {
-                      { return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
-                       <div key={member._id} className='avatar-img-guest-member-box'></div> }
+                      {
+                        return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                          <div key={member._id} className='avatar-img-guest-member-box'></div>
+                      }
                     })}
                     <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
                   </div>
@@ -180,17 +183,17 @@ export function TaskDetails() {
                 </div>
               </div>
 
-           
+
               {task.dueDate &&
-              <div className='actions-type' onClick={() => setDynamicType('dates')}>
-                <h4>Due date</h4>
-                <div className='action-type-content'>
-                  <div className='due-date-checkbox'></div>
-                  <div className='task-details-date-container'>
-                   <p>{task.dueDate.dateToDisplay}</p>
+                <div className='actions-type' onClick={() => setDynamicType('dates')}>
+                  <h4>Due date</h4>
+                  <div className='action-type-content'>
+                    <div className='due-date-checkbox'></div>
+                    <div className='task-details-date-container'>
+                      <p>{task.dueDate.dateToDisplay}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
               }
 
             </section>
