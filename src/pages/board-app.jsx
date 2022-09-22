@@ -47,18 +47,19 @@ export function BoardApp() {
         }
 
         console.log('group', result)
+        // GRABBALE GROUP
         if (source.droppableId === destination.droppableId && type === "group") {
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
           
-
+        // GRABBALE TASK IN SAME GROUP
         } else if (source.droppableId === destination.droppableId) {
             const group = newBoard.groups.find(group => group.id === source.droppableId)
             const currTask = group?.tasks?.find(task => task.id === draggableId)
             group?.tasks?.splice(source.index, 1);
             group?.tasks?.splice(destination.index, 0, currTask)
-
+        // GRABBALE TASK 
         } else if (source.droppableId !== destination.droppableId) {
             const fromGroup = newBoard.groups.find(group => group.id === source.droppableId)
             const toGroup = newBoard.groups.find(group => group.id === destination.droppableId)
