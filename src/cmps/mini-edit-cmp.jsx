@@ -66,12 +66,12 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         return setTaskLabels(taskLabel)
     }
    
-    useEffect(()=>{
-        console.log('mouseLocationnnnnnnnnn:', mouseLocation)
+    // useEffect(()=>{
+    //     console.log('mouseLocationnnnnnnnnn:', mouseLocation)
         
-        if (mouseLocation[0].y > 575) { setMouseLocationTop({y:mouseLocation[0].y-400, x:mouseLocation[0].x})}
-        console.log('mouseLocatioxxxxxxxxxxxxx:', mouseLocation)
-    },[])
+    //     if (mouseLocation[0].y > 575) { setMouseLocationTop({y:mouseLocation[0].y-400, x:mouseLocation[0].x})}
+    //     console.log('mouseLocatioxxxxxxxxxxxxx:', mouseLocation)
+    // },[])
     useEffect(() => {
         setTitle(task.title)
         loadMembers()
