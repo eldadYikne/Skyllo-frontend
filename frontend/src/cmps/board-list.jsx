@@ -108,7 +108,7 @@ export function BoardList({ boards, loadBoards }) {
                             </div>
                         </Link>
                         {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
-                        <SvgStar  stroke-width="6%"   onClick={() => onSetIsStared(board)} className='star-board-preview' />
+                        <SvgStar  strokeWidth="6%"   onClick={() => onSetIsStared(board)} className='star-board-preview' />
                     </div>
                 }
             })}
