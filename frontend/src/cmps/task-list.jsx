@@ -40,20 +40,23 @@ export function TaskList({ group }) {
                     <Link to={`${group.id}/${task.id}`} key={task.id}>
                         <Draggable draggableId={task.id} index={index}>
 
-                            {(provided) => {
-                                return (<div key={index} index={index}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    ref={provided.innerRef} >
-                                    <TaskPreview
-                                        task={task}
-                                        group={group}
-                                    >
-                                    </TaskPreview>
+                                {(provided) => {
+                                    return (<div key={task.id+index} index={index}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        ref={provided.innerRef} >
+                                        <TaskPreview
+                                            task={task}
+                                            group={group}
+                                            
+                                        >
+                                        </TaskPreview>
+                                        
+                                    </div>)
+                                }}
+                            </Draggable>
 
-                                </div>)
-                            }}
-                        </Draggable>
+                        
                     </Link>
 
                 )

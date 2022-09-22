@@ -100,7 +100,7 @@ export const Popover = ({ board }) => {
 
             {!isCategory && !isImages && !isColors && <section className="activities-container">
 
-                {board.activities.map(activity => {
+                {board?.activities?.map(activity => {
                     return <div key={activity.id} className="activity-container">
                       {activity?.byMember?.imgUrl?  <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
                        <div  className='avatar-img-guest-popover'></div>}

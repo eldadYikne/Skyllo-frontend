@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { boardService } from '../services/board.service'
-import { removeGroup, storeAddGroup } from '../store/board.actions'
+import { removeGroup, storeAddGroup, updateBoard } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";
 import { ReactComponent as CloseAddGroup } from '../assets/img/close-task-form.svg'
@@ -34,15 +34,20 @@ export function GroupList() {
     }
     setIsAddGroup(!isAddGroup)
   }
+  const onShownPopover = () => {
+    board.isPopoverShown = false
+    const boardToUpdate = { ...board }
+    dispatch(updateBoard(boardToUpdate))
 
+}
   if (!board) return <LoaderSkyllo />
   return (
-    <section className='group-list'>
+    <section onClick={onShownPopover} className='group-list'>
       {board?.groups && board.groups.map((group, index) => {
 
         return (
 
-          <Draggable draggableId={group.id} key={index} index={index}>
+          <Draggable draggableId={group.id} key={group.id} index={index}>
             {(provided) => {
               return (<div className='list-move-group' index={index}
                 {...provided.draggableProps}
@@ -55,8 +60,8 @@ export function GroupList() {
                   boardId={board._id}
                   onRemoveGroup={onRemoveGroup}
                 >
-                  {provided.placeholder}
                 </GroupPreview>
+                  {/* {provided.placeholder} */}
               </div>)
             }}
           </Draggable>

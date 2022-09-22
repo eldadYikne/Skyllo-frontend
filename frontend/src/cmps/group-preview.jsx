@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
 import { Droppable } from 'react-beautiful-dnd'
 
-export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
+export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
   const [title, setTitle] = useState('')
@@ -28,7 +28,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       title
     }
 
-    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId:group.id, user: user }))
+    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId: group.id, user: user }))
     ev.target[0].value = ''
     setIsAddingTask(false)
   }
@@ -86,15 +86,15 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
 
       <div className='list-container'>
         <Droppable droppableId={group.id}>
-          {(provided) => {
-            return (<div
+          {(provided,snapshot) => {
+            return <div
               {...provided.draggableProps}
               ref={provided.innerRef} >
 
               <TaskList group={group}>
-                {provided.placeholder}
               </TaskList>
-            </div>)
+              {provided.placeholder}
+            </div>
           }}
 
         </Droppable>

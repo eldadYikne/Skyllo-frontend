@@ -3,13 +3,37 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
+    padding-bottom: 51px;
 
     & a {
         color: $clr0;
         font-weight: 10px;
-        text-shadow: 2px 2px 4px #000000;
     }
 
 }
 
 
+.title-workspace {
+    margin-bottom: 10px;
+    display: flex;
+    padding: 0 0 11px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+
+    & span {
+        color: #172b4d;
+
+        margin: 3px 0 0 10px;
+        display: inline-block;
+        flex: 1;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+    }
+}

@@ -91,7 +91,6 @@ export function updateBoard(board) {
 
     return (dispatch, getState) => {
         const prevBoard = getState().boardModule.board
-
         dispatch(getActionUpdateBoard({ ...board }))
         boardService.save(board)
             .then(savedBoard => {
