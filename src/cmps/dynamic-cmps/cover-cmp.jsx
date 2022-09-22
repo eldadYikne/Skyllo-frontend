@@ -25,9 +25,9 @@ export const CoverCmp = ({ task, setTask }) => {
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
-        dispatch(saveTask(taskToUpdate))
+        // dispatch(saveTask(taskToUpdate))
 
-        // setTask(taskToUpdate)
+        setTask(taskToUpdate)
 
     }
 

@@ -14,18 +14,7 @@
   overflow-y: auto;
   padding-bottom: 60px;
 
-  // width: 100%;
-  // height: 100vh;
-  // position: absolute;
-  // padding-top: 100px;
-  // z-index: 8;
-  // bottom: 0;
-  // background-color: #000000a3;
-  // display: flex;
-  // overflow-y: auto;
-  // justify-content: center;
-  // align-items: flex-start;
-  // padding-bottom: 60px;
+
 
   & .details-bgColor {
     height: 170px;
@@ -84,6 +73,10 @@
 
     }
 
+    & .task-details-member-box-plus-member {
+      font-size: 14px
+    }
+
     & .task-details-date-container {
       background-color: #eaecf0;
       cursor: pointer;
@@ -96,7 +89,7 @@
       margin: 0 4px 0 4px;
       min-width: 32px;
       padding: 2px 12px;
-      gap:0.3em;
+      gap: 0.3em;
 
       p {
         padding: 0;
@@ -120,14 +113,14 @@
         border-radius: 2px;
         margin: auto 0 auto 8px;
       }
-      
+
 
       &:hover {
         background-color: #d9dadd;
       }
 
     }
-    
+
 
     & .task-details-label-box-plus-label {
       background-color: #eaecf0;
@@ -182,20 +175,20 @@
       position: relative;
       // background-color: #bdbebf;
 
-    
+
       & .first-content {
         display: flex;
         flex-direction: column;
         flex: 1 1;
         flex-wrap: wrap;
         margin: 0 0 12px 40px;
-       flex-direction: column;
+        flex-direction: column;
 
-       & .members-labels-content {
-        display: flex;
-       }
+        & .members-labels-content {
+          display: flex;
+        }
 
-        & .members-labels-content{
+        & .members-labels-content {
           display: flex;
         }
 
@@ -747,4 +740,5 @@ image.png .green {
   .active {
     text-decoration: none;
     list-style: none;
-  }}
+  }
+}

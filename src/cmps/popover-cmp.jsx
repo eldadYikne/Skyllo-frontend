@@ -102,21 +102,21 @@ export const Popover = ({ board }) => {
 
                 {board.activities.map(activity => {
                     return <div key={activity.id} className="activity-container">
-                      {activity?.byMember?.imgUrl?  <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
-                       <div  className='avatar-img-guest-popover'></div>}
+                        {activity?.byMember?.imgUrl ? <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
+                            <div className='avatar-img-guest-popover'></div>}
                         <div className="activity-info-time">
 
                             <div className="activity-info">
                                 <span className="user-name">{activity?.byMember?.username}</span>
                                 <span className="activity-task-name">{activity.txt}</span>
-                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
+                                {activity.txt !== 'deleted task' && activity?.task?.id ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>
                         </div>
                     </div>
                 })}
             </section>}
-            
+
 
 
         </div>
