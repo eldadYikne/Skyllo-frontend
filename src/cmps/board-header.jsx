@@ -114,7 +114,7 @@ export function BoardHeader({ board }) {
                             <InviteMemberIcon />
                         </div>
 
-                        {!isMembersModalOpen &&
+                        {isMembersModalOpen &&
                             <section className='board-header-users-modal'>
 
                                 <div className='users-modal-header'>

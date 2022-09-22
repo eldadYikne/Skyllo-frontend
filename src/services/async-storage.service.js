@@ -18,8 +18,6 @@ function query(entityType, delay = 600) {
     }
 
     if (!entities && entityType === 'user') {
-        
-        // entities = userService.getUsers()
         entities = boardService.getGUsers()
         _save(entityType, entities)
     }
