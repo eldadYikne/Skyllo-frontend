@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin: 2px 0 8px;
+    margin: 2px 0 0px;
     gap: 5px;
     max-height: 32px;
     border-radius: 3px;
@@ -63,7 +63,6 @@
 
     & .adding-task-actions {
       display: flex;
-      margin: 8px 0 8px 0;
 
       & .close-adding-task {
         font-size: 20px;

@@ -10,7 +10,7 @@ import { labelsColors } from '../../const/board-list-consts';
 import { utilService } from '../../services/util.service';
 import { saveTask, updateBoard } from '../../store/board.actions';
 
-export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group }) => {
+export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group, user }) => {
     const board = useSelector(state => state.boardModule.board)
 
     const params = useParams()
@@ -37,7 +37,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         const boardLabelIdx = board.labels.findIndex(boardLabel => {
             return boardLabel.id === labelToSave.id
         })
-        
+
         const boardToUpdate = structuredClone(board)
         boardToUpdate.labels.splice([boardLabelIdx], 1, labelToSave);
 
@@ -56,26 +56,33 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         ev.preventDefault()
         const boardToUpdate = structuredClone(board)
         console.log('selectedLabel:', selectedLabel)
-        
+
         // boardToUpdate.labels = board.labels.filter(label => label.id !== selectedLabel.id)
         // console.log('selectedLabel:', selectedLabel)
-        
+
         // const tasksWithLabelToDelete = board.groups.map(group=>{
-            //  return  group.tasks.map(task=>{
-                //         return task.labelIds.filter(labelId => labelId !== selectedLabel.id)
-                //     })
+        //  return  group.tasks.map(task=>{
+        //         return task.labelIds.filter(labelId => labelId !== selectedLabel.id)
+        //     })
         // })
         // console.log('tasksWithLabelToDelete:', tasksWithLabelToDelete)
 
         const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
-        const updatedTask = { ...currTask, labelIds: newLabelIds }
+        console.log('newLabelIds:', newLabelIds)
 
-        // const groupIdx = board.groups.findIndex(currGroup => currGroup === group.id)
+        const updatedTask = { ...currTask, labelIds: newLabelIds }
+        console.log('currTaskkk:', updatedTask)
+
+        const groupIdx = boardToUpdate.groups.findIndex(currGroup => currGroup.id === group.id)
+
         const taskIdx = group.tasks.findIndex(task => currTask.id === task.id)
-        group.tasks.splice(taskIdx, 1, updatedTask)
+
+        boardToUpdate.groups[groupIdx].tasks.splice(taskIdx, 1, updatedTask)
 
         boardToUpdate.labels = boardToUpdate.labels.filter(label => label.id !== selectedLabel.id)
+        console.log('boardToUpdateeee:', boardToUpdate)
 
+        // setTask(updatedTask)
         dispatch(updateBoard(boardToUpdate))
         setIsEditLabel(false)
         setHideHeader(true)

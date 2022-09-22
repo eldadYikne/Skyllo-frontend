@@ -108,6 +108,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
 
         {isEditLabel &&
             <EditLabel
+                user={user}
                 group={group}
                 task={task}
                 setIsEditLabel={setIsEditLabel}
@@ -119,6 +120,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
 
         {isCreateLabel &&
             <CreateLabel
+                user={user}
                 group={group}
                 board={board}
                 setHideHeader={setHideHeader}

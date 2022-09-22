@@ -21,6 +21,7 @@ export function TaskPreview({ task, group }) {
     const [mouseClickLocation, setMouseClickLocation] = useState(null)
 
     const board = useSelector(state => state.boardModule.board)
+    
     const labelsOpen = board.toggleLabels
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
 
@@ -61,7 +62,13 @@ export function TaskPreview({ task, group }) {
     const loadLabels = () => {
         if (!task) return
         if (!task.labelIds) return
+
         const labelIds = task.labelIds
+        
+        console.log('labelIds:', labelIds)
+
+        // const taskLabel = boardService.getLabelsById(board, labelIds)
+
         const taskLabel = labelIds?.map(id => {
             return boardService.getLabelsById(board, id)
         })
@@ -101,11 +108,11 @@ export function TaskPreview({ task, group }) {
 
         const mouseClickLocation = ev.target.getClientRects()
         console.log('mouseClickLocation:', mouseClickLocation)
-        if (mouseClickLocation[0].y > 575) { setMouseClickLocation(mouseClickLocation[0]-200)}
+        
 
-        else {
+      
             setMouseClickLocation(mouseClickLocation[0])
-        }
+        
         setIsMiniEditShown(!isMiniEditShown)
     }
 

@@ -126,21 +126,8 @@ export function TaskDetails() {
     if (date < Date.now()) return 'overdue'
     return 'ontime'
   }
-  const getBgColorOfImg = (url) => {
-    const fac = new FastAverageColor();
-    fac.getColorAsync(url)
-      .then(color => {
-        if(!task.cover.backgroundColor) task.cover.backgroundColor=''
-        task.cover.backgroundColor = color.rgba;
-        task.cover.backgroundColor= color.isDark ? '#fff' : '#000';
 
-        console.log('Average color', color);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-  getBgColorOfImg('https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg')
+  // getBgColorOfImg('https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg')
 
   if (!task) return <LoaderSkyllo />
   return (
@@ -153,9 +140,11 @@ export function TaskDetails() {
           </button>
         </div>}
         <Link key={board._id} to={`/workspace/board/${board._id}`}>
-          <CloseDetailsModal
-            className='close-details-modal-icon'
-            onClick={() => onSaveTask(task)} />
+          <div className='close-details-modal-exit'>
+            <CloseDetailsModal
+              className='close-details-modal-icon'
+              onClick={() => onSaveTask(task)} />
+          </div>
         </Link>
 
         <section className='details-header'>
@@ -194,7 +183,7 @@ export function TaskDetails() {
                       return <div key={label.id} className='task-details-label-box'
                         onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
-                        style={{ backgroundColor: label.color }}>
+                        style={{ backgroundColor: label?.color }}>
                         <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>
                         {label.title ? label.title : ''}
                       </div>
