@@ -161,10 +161,12 @@ export function TaskDetails() {
 
                 <div className='actions-type'>
                   <h4>Members</h4>
-                  <div className='action-type-content'>
+                  <div className='action-type-content members-details-content'>
                     {taskMembers && taskMembers.map(member => {
-                      return <div key={member._id} className='task-details-member-box'
-                        style={{ background: getMemberBackground(member) }}></div>
+                      {
+                        return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                          <div key={member._id} className='avatar-img-guest-member-box'></div>
+                      }
                     })}
                     <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
                   </div>
@@ -187,7 +189,7 @@ export function TaskDetails() {
                 </div>
               </div>
 
-           
+
               {task.dueDate &&
               <div className='actions-type' onClick={() => setDynamicType('dates')}>
                 <h4>Due date</h4>

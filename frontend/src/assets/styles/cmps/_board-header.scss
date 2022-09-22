@@ -1,9 +1,19 @@
 
+.board-header-main-nav{
+    width: 100vw !important;
+}
     .nav-left {
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+
+        & .board-header-border-left{
+            border-left: 1px solid #453f3f3d;
+            // float: left;
+            height: 16px;
+            margin: 8px 8px 12px 8px;
+        }
 
         & .board-header-users-modal {
             background-color: #fff;
@@ -159,7 +169,7 @@
                 color: gold;
                 min-width: 30px;
                 margin-right: 3px;
-
+                margin-left: 3px;
                 &:hover {
                     background-color: hsla(0, 0%, 100%, .459);
                 }

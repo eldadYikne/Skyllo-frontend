@@ -31,7 +31,6 @@ export const MembersCmp = ({ task, setTask, group }) => {
         }
     }
 
-    
     const getMemberBackground = (member) => {
         // console.log('member:', member)
         if (member.img) return `url(${member.img}) center center / cover`

@@ -50,7 +50,6 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
     setIsAddingTask(!isAddingTask)
   }
 
-
   return (
     <section className='group-preview '>
       <div className='group-preview-header'>
@@ -121,7 +120,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
               d='M12,22 L12,2 M2,12 L22,12'
             ></path>
           </svg>
-          <p>Add a task</p>
+          <p>Add a card</p>
         </div>
       )}
 

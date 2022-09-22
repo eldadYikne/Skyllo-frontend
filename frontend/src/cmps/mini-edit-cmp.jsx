@@ -19,7 +19,7 @@ import { DynamicCmp } from './dynamic-cmp'
 import { boardService } from '../services/board.service'
 import { utilService } from '../services/util.service'
 
-export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels ,bgColor }) => {
+export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels, bgColor }) => {
 
     const [mouseLocationForDynamic, setMouseLocationForDynamic] = useState(null)
 
@@ -105,13 +105,13 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const labelsOpen = board.toggleLabels
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
 
-    const heightImg = task.cover?.color?.length>9? '135px': '32px'
+    const heightImg = task.cover?.color?.length > 9 ? '135px' : '32px'
 
     return <section className="mini-edit-task-container" style={{ top: mouseLocation.y + 40, left: mouseLocation.x - 230 }} >
         <div >
             <div className='mini-edit-cover'>
             </div>
-            
+
             {bgColor &&
                 <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background">
                 </div>
@@ -126,9 +126,9 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
                                 key={label.color}
                                 className={labelsClass}
                                 style={{ backgroundColor: label.color }}>
-                               {labelsOpen && <div className='labels-task-preview-mini-color'style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20)}}></div>}
+                                {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
                                 {labelsOpen &&
-                                 <span>{label.title}</span>}
+                                    <span>{label.title}</span>}
                             </div>
                         })}
                     </div>
@@ -146,7 +146,8 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
                     <div className='mini-edit-members-container'>
                         {taskMembers && taskMembers.map(member => {
-                            return <div key={member._id} className='task-details-member-box' style={{ background: getMemberBackground(member) }}></div>
+                            { return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                             <div className='avatar-img-guest-member-box' key={member._id}></div> }
                         })}
                     </div>
 
