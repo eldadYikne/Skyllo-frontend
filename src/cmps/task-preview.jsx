@@ -175,7 +175,7 @@ export function TaskPreview({ task, group }) {
 
                 <div className="task-preview-members-container">
                     {taskMembers && taskMembers.map(member => {
-                        return <div className="task-preview-member-box" style={{ background: getMemberBackground(member) }}>
+                        return <div key={member._id} className="task-preview-member-box" style={{ background: getMemberBackground(member) }}>
                         </div>
                     })}
                 </div>

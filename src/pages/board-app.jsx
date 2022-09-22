@@ -45,35 +45,29 @@ export function BoardApp() {
         ) {
             return;
         }
-        console.log('group', result)
 
+        console.log('group', result)
         if (source.droppableId === destination.droppableId && type === "group") {
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
-            console.log('ikjasdhdfisdnsdaolfn');
-            return dispatch(updateBoard(newBoard))
-        }
+          
 
-        if (source.droppableId === destination.droppableId) {
+        } else if (source.droppableId === destination.droppableId) {
             const group = newBoard.groups.find(group => group.id === source.droppableId)
-            console.log('group', group)
-            const currTask = group.tasks.find(task => task.id === draggableId)
-            group.tasks.splice(source.index, 1);
-            group.tasks.splice(destination.index, 0, currTask)
-            return dispatch(updateBoard(newBoard))
+            const currTask = group?.tasks?.find(task => task.id === draggableId)
+            group?.tasks?.splice(source.index, 1);
+            group?.tasks?.splice(destination.index, 0, currTask)
 
-        }
-
-        if (source.droppableId !== destination.droppableId) {
+        } else if (source.droppableId !== destination.droppableId) {
             const fromGroup = newBoard.groups.find(group => group.id === source.droppableId)
             const toGroup = newBoard.groups.find(group => group.id === destination.droppableId)
             const currTask = fromGroup.tasks.find(task => task.id === draggableId)
             fromGroup.tasks.splice(source.index, 1);
             toGroup.tasks.splice(destination.index, 0, currTask)
-            return dispatch(updateBoard(newBoard))
 
         }
+        return dispatch(updateBoard(newBoard))
     }
 
     if (!board) return <LoaderSkyllo />
@@ -84,7 +78,7 @@ export function BoardApp() {
 
         <div className="board-app" >
             <BoardHeader board={board} />
-            <Popover board={board}  />
+            <Popover board={board} />
             <DragDropContext onDragEnd={onDragEnd}>
 
                 <Droppable droppableId='all-groups' direction="horizontal" type="group">

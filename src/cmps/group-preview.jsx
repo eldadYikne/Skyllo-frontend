@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
 import { ReactComponent as MoreOptions } from '../assets/img/more-options-icon.svg'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { saveTask, updateBoard } from '../store/board.actions'
 import { Droppable } from 'react-beautiful-dnd'
 
@@ -11,6 +11,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isShowOptions, setIsShowOptions] = useState(false)
   const [title, setTitle] = useState('')
+  const user = useSelector(state => state.userModule.user)
 
   const dispatch = useDispatch()
 
@@ -27,7 +28,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       title
     }
 
-    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId:group.id, user: 'usery' }))
+    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId:group.id, user: user }))
     ev.target[0].value = ''
     setIsAddingTask(false)
   }
@@ -87,14 +88,14 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       <div className='list-container'>
         <Droppable droppableId={group.id}>
           {(provided) => {
-            return (<li
+            return (<div
               {...provided.draggableProps}
               ref={provided.innerRef} >
 
               <TaskList group={group}>
                 {provided.placeholder}
               </TaskList>
-            </li>)
+            </div>)
           }}
 
         </Droppable>

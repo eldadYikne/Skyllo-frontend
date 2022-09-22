@@ -19,7 +19,8 @@
     & .popover-main-content {
         max-height: 80vh;
         overflow-y: auto;
-        padding: 14px 6px 14px 12px;    }
+        padding: 14px 6px 14px 12px;
+    }
 
     & .colors-header-popover {
 
@@ -151,10 +152,21 @@
             align-items: center;
             margin-bottom: 5px;
 
+            & .avatar-img-guest-popover {
+                background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+                border-radius: 25em;
+                cursor: pointer;
+                height: 35px;
+                width: 35px;
+                // margin-top: 3px;
+                margin-right: 8px;
+            }
+
             & .activity-info-time {
                 display: flex;
                 flex-direction: column;
-                & .time-ago  {
+
+                & .time-ago {
                     color: #5e6c84 !important;
                     font-size: 12px !important;
                     font-weight: 400;
@@ -188,7 +200,7 @@
 
             & .activity-info {
                 & span {
-                    margin-right: 5px;
+                    margin-right: 4px;
                     margin-bottom: 0;
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -204,7 +216,7 @@
                     font-size: 13px;
                 }
 
-              
+
             }
 
         }

@@ -18,7 +18,7 @@ export function TaskList({ group }) {
                             <Draggable draggableId={task.id} index={index}>
 
                                 {(provided) => {
-                                    return (<li key={index} index={index}
+                                    return (<div key={index} index={index}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         ref={provided.innerRef} >
@@ -28,7 +28,7 @@ export function TaskList({ group }) {
                                         >
                                         </TaskPreview>
 
-                                    </li>)
+                                    </div>)
                                 }}
                             </Draggable>
 

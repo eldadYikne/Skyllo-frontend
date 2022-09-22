@@ -135,7 +135,7 @@ const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,group
         id: utilService.makeId(),
         txt: text,
         createdAt: new Date() ,
-        byMember: { user },
+        byMember:  user ,
         groupId,
         task: {
             id: taskId,
@@ -439,20 +439,8 @@ function getBoard() {
                 }
             ],
             activities: [
-                {
-                    id: utilService.makeId(),
-                    txt: "Enter to board",
-                    createdAt: 154514,
-                    byMember: {
-                        _id: "u101",
-                        fullname: "Abi Abambi",
-                        imgUrl: "http://some-img"
-                    },
-                    task: {
-                        id: utilService.makeId(),
-                        title: ""
-                    }
-                }
+               
+                
             ],
             cmpsOrder: ["status-picker", "member-picker", "date-picker"]
         },
@@ -704,20 +692,7 @@ function getBoard() {
             }
         ],
         activities: [
-            {
-                id: utilService.makeId(),
-                txt: "Changed Color",
-                createdAt: 154514,
-                byMember: {
-                    _id: "u101",
-                    fullname: "Abi Abambi",
-                    imgUrl: "http://some-img"
-                },
-                task: {
-                    id: utilService.makeId(),
-                    title: "Replace Logo"
-                }
-            }
+            
         ],
         cmpsOrder: ["status-picker", "member-picker", "date-picker"]
     },

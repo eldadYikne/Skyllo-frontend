@@ -19,6 +19,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
     const [isEditLabel, setIsEditLabel] = useState(false)
     const [isCreateLabel, setIsCreateLabel] = useState(false)
     const [selectedLabel, setSelectedLabel] = useState('')
+    const user = useSelector(state => state.userModule.user)
 
     const onChooseLabel = (labelId, ev) => {
         ev.preventDefault()
@@ -29,7 +30,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
             console.log(taskToUpdate)
             setTask(taskToUpdate)
-            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id, groupId: group.id, user: 'usery' }))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
         }
 
         else {
