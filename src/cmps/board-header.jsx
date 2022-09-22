@@ -57,12 +57,12 @@ export function BoardHeader({ board }) {
         if (member.img) return `url(${member.img}) center center / cover`
         else return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
-    
+
     const getUserBackground = (user) => {
         if (user.imgUrl) return `url(${user.imgUrl}) center center / cover`
         else {
-            console.log('eeeeeeeeeeeeeeeeeee:',user )
-            
+            console.log('eeeeeeeeeeeeeeeeeee:', user)
+
             return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
         }
     }
@@ -79,7 +79,7 @@ export function BoardHeader({ board }) {
         const existMember = boardToUpdate.members.filter(member => {
             return member._id === currMember._id
         })
-        
+
         console.log('existMember:', existMember)
 
         if (existMember.length !== 0 && existMember) return
@@ -103,10 +103,10 @@ export function BoardHeader({ board }) {
                         </div>
                         <div className='board-header-members-container'>
                             {members && members.map(member => {
-                                return <div key={member._id} className='board-header-member-box'
-                                    style={{ background: getMemberBackground(member) }}
-
-                                ></div>
+                                {
+                                    return member.img ? <div className='board-header-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                                        <div className='avatar-img-guest-member-box' key={member._id}></div>
+                                }
                             })}
                         </div>
 
@@ -114,7 +114,7 @@ export function BoardHeader({ board }) {
                             <InviteMemberIcon />
                         </div>
 
-                        {!isMembersModalOpen &&
+                        {isMembersModalOpen &&
                             <section className='board-header-users-modal'>
 
                                 <div className='users-modal-header'>
@@ -128,9 +128,10 @@ export function BoardHeader({ board }) {
                                         {users && users.map(user => {
                                             return <div className='users-modal-user-preview'
                                                 onClick={() => onAddMemberToBoard(user)}
-                                                key={user._id}> 
-                                                {user.imgUrl? <div className='users-modal-user-box' style={{ background: getUserBackground(user)}}></div>: <div className='avatar-img-guest'></div>  }
-                                        
+                                                key={user._id}>
+                                                {user.imgUrl ? <div className='users-modal-user-box' key={user._id} style={{ background: getUserBackground(user) }}></div> :
+                                                    <div className='avatar-img-guest-user-box' key={user._id}></div>}
+
                                                 <span>{user.fullname}</span>
                                             </div>
                                         })}

@@ -75,12 +75,11 @@ export function LoginSignup() {
         } catch (err) {
             console.log(err);
         }
-
     }
+    
     return (
         <div className="login-sign-up-page">
             <div className='login-page-header'>
-
                 <img
                     className='logo-sign-up'
                     src={Logo}
@@ -138,8 +137,6 @@ export function LoginSignup() {
                         </div>
                     </section>
                     }
-
-
                     {/* <div className="signup-section"> */}
                     {isSignup && <section>
 
@@ -169,7 +166,7 @@ export function LoginSignup() {
                                 onChange={handleChange}
                                 required
                             />
-                            <div className="upload-source"><input className="input-computer-upload" type="file" onChange={onUploaded} />Upload Profile Image</div>
+                            <div className="upload-source-sign-up "><input className="input-computer-upload-sign-up" type="file" onChange={onUploaded} />Upload Profile Image</div>
 
                             <button onClick={onClickSignup} >Signup</button>
                         </form>

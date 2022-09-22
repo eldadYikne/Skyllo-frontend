@@ -52,7 +52,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
     }
 
     const labelExistIcon = (labelId) => {
-        const exist = task.labelIds.find(id => {
+        const exist = task?.labelIds.find(id => {
             return labelId === id
         })
         if (exist) return <LabelExistIcon className='label-exist-icon' />

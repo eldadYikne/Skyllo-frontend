@@ -57,6 +57,9 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
     }, [])
     
     const handleChangeLabelText = (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        
         const text = ev.target.value
         setEditInputText(text)
     }

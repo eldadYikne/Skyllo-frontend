@@ -58,26 +58,23 @@
       }
     }
 
-
-
     & .user-modal-details {
       display: flex;
       flex-direction: column;
       justify-content: center;
       border-bottom: 1px solid #091e4221;
       margin: 0 12px;
-
     }
 
     & .user-details {
       display: flex;
       align-items: center;
       margin-top: 10px;
+      margin-bottom: 10px;
 
       & span {
         margin-left: 12px;
       }
-
     }
 
     &-header {
@@ -153,6 +150,44 @@
 
 }
 
+.avatar-img-guest-user-box{
+  background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  object-fit: cover;
+  width: 30px;
+  margin-right: 10px;
+}
+
+
+.avatar-img-guest-member-box{
+  background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  object-fit: cover;
+  width: 30px;
+  margin: 0 0 0 -10px;
+  &-task-preview{
+    background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    object-fit: cover;
+    width: 30px;
+    margin-left: 1px;
+  }
+}
 .avatar-img-guest {
   background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
   border-radius: 25em;
