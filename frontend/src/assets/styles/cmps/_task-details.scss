@@ -74,7 +74,7 @@
 
 
     & .task-details-member-box-plus-member{
-      font-size: 14px
+      font-size: 14px;
     }
 
     & .due-date-checkbox {
@@ -343,6 +343,7 @@
 
     & .details-side-actions {
       @include for-normal-layout {
+        padding: 0 4px 8px 8px;
         display: block;
         flex-wrap: nowrap;
         max-width: 240px;
@@ -412,8 +413,8 @@
     border: none;
     color: #42526e;
     display: flex;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     justify-content: center;
     margin: 4px;
     padding: 4px;
@@ -422,7 +423,7 @@
     top: 0;
     z-index: 5;
     cursor: pointer;
-
+    color: #42526e;
     &:hover {
       border-radius: 50%;
       background-color: #1c1c1c29;

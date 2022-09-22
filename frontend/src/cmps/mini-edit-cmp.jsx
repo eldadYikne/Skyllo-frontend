@@ -82,14 +82,14 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         ev.stopPropagation()
         if (!title) return
         const taskToUpdate = { ...task, title: title }
-        dispatch(saveTask(board._id, group.id, taskToUpdate,{ text: 'update task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
+        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'update task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
+        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
@@ -107,8 +107,8 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
     const heightImg = task.cover?.color?.length > 9 ? '135px' : '32px'
 
-    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y + 40, left: mouseLocation.x - 230 }} >
-        <div >
+    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y, left: mouseLocation.x - 230 }} >
+        <div className='mini-edit-main-content'>
             <div className='mini-edit-cover'>
             </div>
 
@@ -119,19 +119,22 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
             <div className="mini-edit-main-card">
                 {taskLabels &&
-                    <div className="task-preview-labels-list">
-                        {taskLabels.map(label => {
-                            return <div
-                                onClick={onToggleLabels}
-                                key={label.color}
-                                className={labelsClass}
-                                style={{ backgroundColor: label.color }}>
-                                {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
-                                {labelsOpen &&
-                                    <span>{label.title}</span>}
-                            </div>
-                        })}
-                    </div>
+                  
+
+                        <div className="mini-edit-labels-list">
+                            {taskLabels.map(label => {
+                                return <div
+                                    onClick={onToggleLabels}
+                                    key={label.color}
+                                    className={labelsClass}
+                                    style={{ backgroundColor: label.color }}>
+                                    {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
+                                    {labelsOpen &&
+                                        <span>{label.title}</span>}
+                                </div>
+                            })}
+                        </div>
+              
                 }
 
                 <div className="mini-edit-textarea-container">
@@ -146,8 +149,10 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
                     <div className='mini-edit-members-container'>
                         {taskMembers && taskMembers.map(member => {
-                            { return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
-                             <div className='avatar-img-guest-member-box' key={member._id}></div> }
+                            {
+                                return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                                    <div className='avatar-img-guest-member-box' key={member._id}></div>
+                            }
                         })}
                     </div>
 
@@ -189,6 +194,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
         {dynamicType &&
             <DynamicCmp
+                comeFromMiniEdit={true}
                 group={group}
                 task={task}
                 setTask={setTask}

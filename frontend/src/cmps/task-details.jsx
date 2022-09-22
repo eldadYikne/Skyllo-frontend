@@ -217,6 +217,7 @@ export function TaskDetails() {
                 name='description'
                 id='description-textarea-basic'
                 value={task.description ? task.description : ''}
+                placeholder={task.description? '':'Add more details description'}
               ></textarea>
               {isDescription &&
                 <div className='description-edit'>

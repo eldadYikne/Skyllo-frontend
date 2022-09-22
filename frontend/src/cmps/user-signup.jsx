@@ -39,7 +39,7 @@ export function LoginSignup() {
         if (ev) ev.preventDefault()
         if (!credentials.username) return
         dispatch(onLogin(credentials))
-        navigate(-1)
+        navigate('/workspace')
         clearState()
     }
 
@@ -54,11 +54,9 @@ export function LoginSignup() {
             }, 10000)
         } else {
             dispatch(onSignup(credentials))
-            navigate(-1)
+            navigate('/workspace')
             clearState()
         }
-
-
     }
 
     const toggleSignup = () => {

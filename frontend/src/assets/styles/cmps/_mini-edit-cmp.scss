@@ -7,14 +7,16 @@
     left: 21px;
     z-index: 100;
 
-
+    & .mini-edit-main-content {
+        width: 272px;
+    }
 
     & .mini-edit-footer {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
 
-        & .task-preview-pin{
+        & .task-preview-pin {
             display: flex;
             align-items: center;
         }
@@ -25,11 +27,12 @@
             padding: 1px;
         }
 
-        & .attachment-pin-div{
-            & span{
+        & .attachment-pin-div {
+            & span {
                 font-size: 1em;
             }
-            & .attachment-pin{
+
+            & .attachment-pin {
                 height: 14px;
             }
         }
@@ -63,6 +66,55 @@
         position: relative;
         min-height: 200px;
         min-width: 230px;
+
+        & .mini-edit-labels-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 4px 8px 0px 0px;
+            margin-bottom: 4px;
+
+            & .mini-edit-labels-list {
+                padding: 0;
+            }
+
+            & .labels-task-preview-mini-color {
+                top: 4px;
+                bottom: 4px;
+                // left: 4px;
+                border-radius: 50%;
+                margin-right: 3px;
+                margin-left: 0;
+                width: 10px;
+                height: 10px;
+            }
+
+            & .task-preview-label-preview-open {
+                display: flex;
+                align-items: center;
+                border-radius: 4px;
+                height: 16px;
+                padding: 0 6px;
+                font-size: 12px;
+                min-height: 16px;
+                font-weight: 400;
+                transition: height .5s, padding .3s;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+                // color: rgb(255, 255, 255);
+            }
+
+            & .task-preview-label-preview {
+                align-content: center;
+                border-radius: 4px;
+                font-size: 12px;
+                height: 8px;
+                // padding: 4px;
+                position: relative;
+                transition: height .5s, padding .3s;
+                width: 40px;
+            }
+        }
+
     }
 
 

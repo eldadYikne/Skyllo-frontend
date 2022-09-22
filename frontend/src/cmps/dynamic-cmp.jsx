@@ -9,7 +9,7 @@ import { MembersCmp } from './dynamic-cmps/members-cmp'
 import { TaskDate } from './dynamic-cmps/task-date'
 
 
-export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board }) {
+export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board,comeFromMiniEdit }) {
 
     const [hideHeader, setHideHeader] = useState(true)
 
@@ -42,7 +42,9 @@ export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsCh
                     group={group}
                     setHideHeader={setHideHeader}
                     setDynamicType={setDynamicType}
-                    setTask={setTask} />
+                    setTask={setTask}
+                    comeFromMiniEdit={comeFromMiniEdit}
+                    />
             case 'checklist':
                 return <ChecklistCmp
                     task={task}

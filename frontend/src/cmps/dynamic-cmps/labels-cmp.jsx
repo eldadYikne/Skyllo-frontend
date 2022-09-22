@@ -10,7 +10,7 @@ import { EditLabel } from './edit-label-cmp'
 
 
 
-export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader }) => {
+export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader, comeFromMiniEdit }) => {
 
     const dispatch = useDispatch()
 
@@ -91,17 +91,18 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
                                     {label.title ? label.title : ''}
                                     {labelExistIcon(label.id)}
                                 </div>
-                                <button className='edit-label-btn'>
+
+                                {!comeFromMiniEdit && <button className='edit-label-btn'>
                                     <EditIcon onClick={(ev) => onChooseLabelToEdit(label, ev)} />
-                                </button>
+                                </button>}
                             </div>
                         )
                     })}
                 </div>
 
-                <button onClick={(ev) => onChooseCreateLabel(ev)} className='create-new-label-btn'>
+                {!comeFromMiniEdit && <button onClick={(ev) => onChooseCreateLabel(ev)} className='create-new-label-btn'>
                     Create a new label
-                </button>
+                </button>}
             </section>
         </div>}
 
@@ -123,7 +124,9 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
                 setHideHeader={setHideHeader}
                 setIsCreateLabel={setIsCreateLabel}
                 setDynamicType={setDynamicType}
-                setTask={setTask} />
+                setTask={setTask}
+
+            />
         }
     </section>
 }

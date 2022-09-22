@@ -67,7 +67,7 @@ export function TaskPreview({ task, group }) {
         })
         return setTaskLabels(taskLabel)
     }
-    
+
     const loadMembers = () => {
         if (!task) return
         const membersIds = task.memberIds
@@ -100,7 +100,12 @@ export function TaskPreview({ task, group }) {
         ev.stopPropagation()
 
         const mouseClickLocation = ev.target.getClientRects()
-        setMouseClickLocation(mouseClickLocation[0])
+        console.log('mouseClickLocation:', mouseClickLocation)
+        if (mouseClickLocation[0].y > 575) { setMouseClickLocation(mouseClickLocation[0]-200)}
+
+        else {
+            setMouseClickLocation(mouseClickLocation[0])
+        }
         setIsMiniEditShown(!isMiniEditShown)
     }
 
@@ -144,30 +149,31 @@ export function TaskPreview({ task, group }) {
                             key={label.color}
                             className={labelsClass}
                             style={{ backgroundColor: label.color }}>
-                            {labelsOpen &&<div className='labels-task-preview-mini-color'style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20)}}></div>}    
+                            {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
                             {labelsOpen && <span>{label.title}</span>}
                         </div>
                     })}
                 </div>
             }
 
-            <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
-            {!task.cover?.isFullCover &&  <div className="task-preview-Characters">
+            <div className="task-preview-title">
+                <p style={{ color: textColor }} className={taskTitlePos}>{task.title}</p>
+            </div>
+            {!task.cover?.isFullCover && <div className="task-preview-Characters">
                 <div className="task-preview-pins">
 
-                   {task.dueDate&&
-                    <div className={task.dueDate.date < Date.now()? 'task-preview-date-container overdue' : 'task-preview-date-container'} >
-                        
-                        <div className="task-preview-date-pin">
-                        <DueDate/>
+                    {task.dueDate &&
+                        <div className={task.dueDate.date < Date.now() ? 'task-preview-date-container overdue' : 'task-preview-date-container'} >
+
+                            <div className="task-preview-date-pin">
+                                {/* <DueDate/> */}
+                            </div>
+                            <div className="task-preview-date-due">
+                                <span>{task.dueDate.dateToDisplay}</span>
+                            </div>
                         </div>
-                        <div className="task-preview-date-due">
-                        <p>{task.dueDate.dateToDisplay}</p>
-                        
-                        </div>  
-                    </div>
                     }
-                    {task.description && <div className="task-preview-pin "><DescriptionIcon /></div>}
+                    {task.description && <div className="task-preview-pin description-pin-preview "><DescriptionIcon /></div>}
                     {task.attachments && <div className="task-preview-pin "><AttachmentIcon /> <span>{task.attachments.length}</span> </div>}
                     {task.checklists && <div className="task-preview-pin checklists-pin"><ChecklistIcon /> <span>{task.checklists.length}</span></div>}
                     <div className="task-preview-pin activities-pin"></div>
@@ -175,7 +181,7 @@ export function TaskPreview({ task, group }) {
 
                 <div className="task-preview-members-container">
                     {taskMembers && taskMembers.map(member => {
-                         {return member.img? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member)}}></div>: <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div>  }
+                        { return member.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                 </div>
             </div>}
