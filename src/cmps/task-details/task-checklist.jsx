@@ -33,8 +33,8 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
         setTodoTxt('')
         setIsFocus(!isFocus)
     }
-    const onEditTodo = () => {
-        setEditMode(true)
+    const onEditTodo = (todoId) => {
+        setEditMode(todoId)
     }
 
     const onAddTodo = () => {
@@ -122,7 +122,7 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
                                 <div className={classIsChecked} onClick={() => onToggleDone(todo.id)} >
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
-                                <div className={classIsDone} onClick={onEditTodo} key={todo.id}>{todo.txt}</div>
+                                <div className={classIsDone} onClick={() => onEditTodo(todo.id)} key={todo.id}>{todo.txt}</div>
                                 <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
                                 <MoreOptions />
                                 </button>

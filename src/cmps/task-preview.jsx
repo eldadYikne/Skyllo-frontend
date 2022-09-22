@@ -158,12 +158,14 @@ export function TaskPreview({ task, group }) {
                 <div className="task-preview-pins">
 
                    {task.dueDate&&
-                    <div className="task-preview-date-container">
+                    <div className={task.dueDate.date < Date.now()? 'task-preview-date-container overdue' : 'task-preview-date-container'} >
+                        
                         <div className="task-preview-date-pin">
                         <DueDate/>
                         </div>
                         <div className="task-preview-date-due">
-                        Date
+                        <p>{task.dueDate.dateToDisplay}</p>
+                        
                         </div>  
                     </div>
                     }

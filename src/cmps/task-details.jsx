@@ -88,6 +88,7 @@ export function TaskDetails() {
     dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
     navigate(-1)
   }
+
   const onRemoveChecklist = (ev, checklistId) => {
     ev.preventDefault()
     const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId)
@@ -119,6 +120,11 @@ export function TaskDetails() {
 
   const onLeaveHoverLabel = (ev, color) => {
     ev.target.style.background = color
+  }
+
+  const isOverDue = (date) => {
+    if(date < Date.now()) return 'overdue'
+    return 'ontime' 
   }
 
 
@@ -183,15 +189,7 @@ export function TaskDetails() {
                 </div>
               </div>
 
-              <div className='actions-type'>
-                <h4>Due date</h4>
-                <div className='action-type-content'>
-                  <div className='task-details-date-container'>
-                    yaara
-                  </div>
-                </div>
-              </div>
-              </div>
+              
               {task.dueDate &&
               <div className='actions-type' onClick={() => setDynamicType('dates')}>
                 <h4>Due date</h4>
@@ -199,6 +197,7 @@ export function TaskDetails() {
                   <div className='due-date-checkbox'></div>
                   <div className='task-details-date-container'>
                    <p>{task.dueDate.dateToDisplay}</p>
+                   <div className={task.dueDate.date < Date.now()? 'overdue' : 'ontime'}>{isOverDue(task.dueDate.date)}</div>
                   </div>
                 </div>
               </div>

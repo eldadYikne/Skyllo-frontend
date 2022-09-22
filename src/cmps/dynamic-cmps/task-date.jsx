@@ -45,7 +45,7 @@ export function TaskDate({ board, group, task, setDynamicType }) {
       onChange={(date) =>handleDateChange(date)}
        variant="static"
        disableToolbar
-       disablePast={true}
+      //  disablePast={true}
       />
       <button className='set-date-btn' onClick={ (ev) => onSetDate(ev) }>Save</button>
       <button className='remove-date-btn' onClick={ (ev) => onRemoveDate(ev) }>Remove</button>

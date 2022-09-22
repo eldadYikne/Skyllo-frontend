@@ -96,9 +96,18 @@
       margin: 0 4px 0 4px;
       min-width: 32px;
       padding: 2px 12px;
+      gap:0.3em;
 
       p {
         padding: 0;
+      }
+
+      .ontime {
+        background-color: #61bd4f;
+      }
+
+      .overdue {
+        background-color: #ec9488;
       }
       
 

@@ -145,7 +145,7 @@
 
             & .task-preview-date-container{
                 display: flex;
-                background-color: #ec9488;
+                background-color: #61bd4f;
                 border-radius: 3px;
                 color: #fff;
                 padding-left: 2px;
@@ -163,7 +163,14 @@
                 & .task-preview-date-due{
                     display: flex;
                     align-items: center;
-                    font-size: 15px;
+                    p {
+                        font-size: 10px;
+                        padding: 0;
+                    }
+                      
+                }
+                &.overdue {
+                   background-color: #ec9488;     
                 }
             }
 

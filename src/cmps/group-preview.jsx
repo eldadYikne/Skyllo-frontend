@@ -32,7 +32,6 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
   }
 
   const handleChangeTitle = (ev) => {
-    // ev.preventDefault()
     const title = ev.target.value
     setTitle(title)
   }
