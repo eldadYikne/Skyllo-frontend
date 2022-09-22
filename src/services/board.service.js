@@ -459,7 +459,7 @@ function getBoard() {
         {
         toggleLabels: false,
         _id: "b102",
-        title: "Medicine trials",
+        title: "Start Up",
         archivedAt: '',
         createdAt: 1589983468418,
         createdBy: {
@@ -540,12 +540,12 @@ function getBoard() {
         groups: [
             {
                 id: utilService.makeId(),
-                title: "PHASE 1- in vitro",
+                title: "General",
                 archivedAt: '',
                 tasks: [
                     {
                         id: utilService.makeId(),
-                        title: "Get the lab for trials",
+                        title: "Target Product Launch Date: November 1, 2022",
                         description: "Call the company and schedule",
                         memberIds: [],
                         labelIds: [],
@@ -553,8 +553,8 @@ function getBoard() {
                     },
                     {
                         id: utilService.makeId(),
-                        title: "DNA replication",
-                        description: "get to 1M cells",
+                        title: "UX/UI",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
@@ -566,7 +566,13 @@ function getBoard() {
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Following cell development",
+                        title: "Launch Timeline ",
+                        memberIds: [],
+                        labelIds: [],
+                    },
+                    {
+                        id: utilService.makeId(),
+                        title: "Get nice pictures ",
                         memberIds: [],
                         labelIds: [],
                     },
@@ -575,19 +581,19 @@ function getBoard() {
             },
             {
                 id: utilService.makeId(),
-                title: "PHASE 2- In vivo",
+                title: "Frontend",
                 tasks: [
                     {
                         id: utilService.makeId(),
-                        title: "Injet medicine to trial group",
+                        title: "Create Homepage",
                         description: "Group 1 only",
                         memberIds: [],
                         labelIds: [],
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Following the influences ",
-                        description: "Note Side effects, Healings and deaths",
+                        title: "Supprot Drag&Drop",
+                        description: "",
                         comments: [
                             {
                                 id: utilService.makeId(),
@@ -629,22 +635,15 @@ function getBoard() {
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Meet Health Ministry for Phase 3 approval",
-                        description: "Build medication file",
-                        memberIds: [],
-                        labelIds: [],
-                    },
-                    {
-                        id: utilService.makeId(),
-                        title: "Calculate success rate in vivo",
+                        title: "Login and SignUp page",
                         description: "",
                         memberIds: [],
                         labelIds: [],
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Apply for Ethic review board",
-                        description: "in order to get approval for phase 3",
+                        title: "Plane components tree",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
@@ -655,47 +654,26 @@ function getBoard() {
             {
                 toggleLabels: false,
                 id: utilService.makeId(),
-                title: "PHASE 3 - Clinical trials",
+                title: "Backend",
                 archivedAt: '',
                 tasks: [
                     {
                         id: utilService.makeId(),
-                        title: "Get patients agreement for trials",
-                        description: "Make a patients conference",
+                        title: "Applying server",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Get all health file records",
-                        description: "discuss every patient's physician",
+                        title: "Support filtration",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Randomize a Placebo group",
-                        memberIds: [],
-                        labelIds: [],
-                    },
-                    {
-                        id: utilService.makeId(),
-                        title: "Prescribe the medicine to trial group",
-                        description: "Give the Phycians the following plan",
-                        memberIds: [],
-                        labelIds: [],
-                    },
-                    {
-                        id: utilService.makeId(),
-                        title: "Follow disease remission",
-                        description: "Calculate the success rate, side effects and their rates",
-                        memberIds: [],
-                        labelIds: [],
-                    },
-                    {
-                        id: utilService.makeId(),
-                        title: "Build clinical trial file",
-                        description: "set the file according to demands",
+                        title: "Planing the JSON file",
                         memberIds: [],
                         labelIds: [],
                     },
@@ -704,26 +682,20 @@ function getBoard() {
             },
             {
                 id: utilService.makeId(),
-                title: "Get Approval",
+                title: "QA",
                 archivedAt: '',
                 tasks: [
                     {
                         id: utilService.makeId(),
-                        title: "Get FDA approval",
-                        description: "Send the file to FDA",
+                        title: "Meeting with head manager for planning the code progress",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
                     {
                         id: utilService.makeId(),
-                        title: "Get Health Minister's approval",
-                        description: "Send the file to Ministry of Health",
-                        memberIds: [],
-                        labelIds: [],
-                    },
-                    {
-                        id: utilService.makeId(),
-                        title: "Organize company vacation",
+                        title: "fixing Bugs",
+                        description: "",
                         memberIds: [],
                         labelIds: [],
                     },
