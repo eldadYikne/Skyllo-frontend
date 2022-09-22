@@ -1,0 +1,95 @@
+.board-preview {
+
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 96px;
+    padding: 8px;
+    width: 192px;
+    margin-bottom: 15px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 21px;
+    &.create-board {
+        position: relative;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #091e420a;
+        padding: 0;
+        font-weight: 400;
+        color: #172b4d;
+        font-size: 14px;
+
+    }
+
+    & .star-icon {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        right: 10px;
+        bottom: 15px;
+    }
+}
+
+.board-previwe-container {
+    position: relative;
+
+    & .board-previw-title {
+        position: relative;
+    }
+
+    & .remove-board {
+        position: absolute;
+        top: -2px;
+        right: 20px;
+        opacity: 0;
+        cursor: pointer;
+
+    }
+
+    & .darken-board-preview {
+        background-color: #00000026;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        &:hover{
+            background-color:  #00000059;
+
+        }
+    }
+
+    &:hover .remove-board {
+        opacity: 1;
+        transition: 0.3s;
+        color: white
+    }
+
+    &:hover .star-board-preview {
+        opacity: 1;
+        transition: 0.3s;
+        
+
+    }
+
+    & .star-board-preview {
+        position: absolute;
+        right: 12px;
+        opacity: 1;
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        bottom: 30px;
+        color: white;
+
+        &.stared {
+            opacity: 1;
+
+        }
+    }
+}
