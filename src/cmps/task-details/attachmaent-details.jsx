@@ -5,6 +5,7 @@ import { updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-form.svg'
 import { useState } from 'react'
 import { utilService } from '../../services/util.service'
+import moment from 'moment'
 
 
 export const AttachmentDetails = ({ task, setTask }) => {
@@ -57,13 +58,13 @@ export const AttachmentDetails = ({ task, setTask }) => {
                 return <div key={attachment.id} className='attachment-container'>
                     <div className='img-attachment' >
                         <a href={attachment.url} className='img-url' style={{ background: `url(${attachment.url}) ` }} src={attachment.url} >
-                        </a>
+                        </a> <a className='img-url no-img'   > <img src={ `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663759814/sprint%204%20/icons8-attachment-32_ppkh9l.png`}/></a>
                     </div>
 
                     <div className='attachment-detalis'>
                         <p> {attachment.title}</p>
                         <div className='time-line-attachment'>
-                            <span>{getDateString(attachment.createdAt)} </span>
+                            <span>{moment(attachment.createdAt).fromNow()} </span>
                             <span>-</span>
                             <sapn onClick={() => onRemoveAttachment(attachment.id)} className="delete-span">Delete</sapn>
                             <span>-</span>

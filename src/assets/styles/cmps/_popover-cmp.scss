@@ -16,6 +16,12 @@
     width: 340px;
     z-index: 30;
 
+    & .popover-main-content {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding: 12px 6px 12px 12px;
+    }
+
     & .colors-header-popover {
 
 
@@ -30,15 +36,18 @@
         gap: 8px;
         padding: 10px;
         overflow: auto;
+        font-size: 14px;
+
         & .color-container {
             height: 100px;
             border-radius: 3px;
             cursor: pointer;
             background-size: cover;
             background-position: center;
-            
+
         }
-        & .image-category-container{
+
+        & .image-category-container {
             text-align: center;
             color: #172b4d;
         }
@@ -82,11 +91,12 @@
         display: flex;
         margin-top: 8px;
         height: 100px;
+        margin-bottom: 25px;
 
         & .colors-popover,
         .imgs-popover {
             height: 100%;
-            width: 100%;
+            width: 48%;
             border-radius: 3px;
             margin: 8px;
             display: flex;
@@ -96,13 +106,106 @@
             cursor: pointer;
             font-size: 14px;
 
+
+
             & img {
                 border-radius: 3px;
                 width: 100%;
                 height: 100%;
+
             }
         }
 
     }
 
+    & .activity-popover {
+        background-color: transparent;
+        background-color: initial;
+        border: none;
+        border-radius: 3px;
+        color: #172b4d;
+        line-height: 20px;
+        padding: 6px 6px 6px 28px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        width: 100%;
+        font-size: 14px;
+
+        & svg {
+            font-size: 20px;
+            height: 20px;
+            left: 0;
+            line-height: 20px;
+            position: absolute;
+            top: 6px;
+            width: 20px;
+        }
+    }
+
+    & .activities-container {
+        & .activity-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 5px;
+
+            & .activity-info-time {
+                display: flex;
+                flex-direction: column;
+                & .time-ago  {
+                    color: #5e6c84 !important;
+                    font-size: 12px !important;
+                    font-weight: 400;
+                    line-height: 20px;
+                    margin: 0;
+
+                }
+            }
+
+            & .img-user-activity {
+                width: 35px;
+                height: 35px;
+                margin-right: 8px;
+            }
+
+            & img {
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+
+            }
+
+            & .user-name {
+                color: #172b4d;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 20px;
+            }
+
+            & .activity-task-name {}
+
+            & .activity-info {
+                & span {
+                    margin-right: 5px;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+                & a {
+                    color: #172b4d;
+                    border-bottom: #172b4d .5px solid;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+              
+            }
+
+        }
+    }
 }

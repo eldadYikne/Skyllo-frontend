@@ -1,4 +1,5 @@
 import { boardService } from "./board.service"
+import { userService } from "./user.service"
 
 export const storageService = {
     query,
@@ -11,16 +12,23 @@ export const storageService = {
 
 function query(entityType, delay = 600) {
     var entities = JSON.parse(localStorage.getItem(entityType))
-    if(!entities){
-        entities = boardService.getBoard() 
+    if (!entities && entityType === 'board') {
+        entities = boardService.getBoard()
         _save(entityType, entities)
-    } 
-    
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
+    }
+
+    if (!entities && entityType === 'user') {
+        
+        // entities = userService.getUsers()
+        entities = boardService.getGUsers()
+        _save(entityType, entities)
+    }
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
             // reject('OOOOPs')
             resolve(entities)
-        }, delay)   
+        }, delay)
     })
     // return Promise.resolve(entities)
 }
@@ -29,10 +37,13 @@ function get(entityType, entityId) {
     return query(entityType)
         .then(entities => entities.find(entity => entity._id === entityId))
 }
+
 function post(entityType, newEntity) {
     newEntity._id = _makeId()
     return query(entityType)
         .then(entities => {
+            console.log('entitiesssssssss:', entities)
+
             entities.push(newEntity)
             _save(entityType, entities)
             return newEntity
@@ -74,7 +85,7 @@ function _makeId(length = 5) {
 function postMany(entityType, newEntities) {
     return query(entityType)
         .then(entities => {
-            newEntities = newEntities.map(entity => ({...entity, _id: _makeId()}))
+            newEntities = newEntities.map(entity => ({ ...entity, _id: _makeId() }))
             entities.push(...newEntities)
             _save(entityType, entities)
             return entities

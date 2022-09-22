@@ -42,9 +42,7 @@ export function TaskDetails() {
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
-
   const [mouseLocation, setMouseLocation] = useState(null)
-
 
   const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
   const [taskLabels, setTaskLabels] = useState(null)
@@ -78,14 +76,14 @@ export function TaskDetails() {
   }, [task])
 
   const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, 'user updated task'))
+    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, 'user deleted a task'))
+    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
     navigate(-1)
   }
 
@@ -168,7 +166,6 @@ export function TaskDetails() {
                         style={{ background: getMemberBackground(member) }}></div>
                     })}
                     <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
-
                   </div>
                 </div>
 
@@ -189,7 +186,7 @@ export function TaskDetails() {
                 </div>
               </div>
 
-              
+           
               {task.dueDate &&
               <div className='actions-type' onClick={() => setDynamicType('dates')}>
                 <h4>Due date</h4>

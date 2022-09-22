@@ -30,6 +30,7 @@ export const boardService = {
     removeTask,
     getLabelsById,
     getMembersById,
+    getGUsers,
 }
 window.cs = boardService
 
@@ -92,7 +93,7 @@ async function addGroup(boardId, groupTitle, activity) {
     }
     board.groups.push(group)
     if (!board.activities) board.activities = []
-    board.activities.unshift(activity)
+    // board.activities.unshift(activity)
     return save(board)
 }
 
@@ -100,7 +101,7 @@ async function removeGroup(boardId, groupId, activity) {
     const board = await getById(boardId)
     const groupIdx = board.groups.findIndex((group) => group.id === groupId)
     board.groups.splice(groupIdx, 1)
-    board.activities.unshift(activity)
+    // board.activities.unshift(activity)
     return save(board)
 }
 
@@ -109,12 +110,15 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
+        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()
+        console.log(task);
+        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
         group.tasks.push(task)
     }
-    board.activities.unshift(activity)
+
     return save(board)
 }
 
@@ -123,10 +127,23 @@ async function removeTask(boardId, groupId, taskId, activity) {
     const group = board.groups.find((group) => group.id === groupId)
     const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
     group.tasks.splice(taskIdx, 1)
-    board.activities.unshift(activity)
+    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user,activity.groupId))
     return save(board)
 }
+const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,groupId='') => {
+    return {
+        id: utilService.makeId(),
+        txt: text,
+        createdAt: new Date() ,
+        byMember: { user },
+        groupId,
+        task: {
+            id: taskId,
+            title: taskTilte
+        }
+    }
 
+}
 function getLabelsById(board, labelId) {
     const labels = board.labels.find(label => {
         return label.id === labelId
@@ -140,51 +157,6 @@ function getMembersById(board, memberId) {
     return members
 }
 
-
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
-
-
-
-
-// const activity = {
-//     id: utilService.makeId(),
-//     txt: "Changed Color",
-//     createdAt: Date.now(),
-//     byMember: userService.getLoggedinUser(),
-//     task: 'task'
-// }
-
-// // Store - saveTask
-// function storeSaveTask(task, activity) {
-
-//     board = boardService.saveTask(boardId, groupId, task, activity)
-//     commit(board)
-// }
-
-// // boardService
-// function saveTask(boardId, groupId, task, activity) {
-//     const board = getById(boardId)
-//     // PUT /api/board/b123/task/t678
-
-//     // TODO: find the task, and update
-//     board.activities.unshift(activity)
-//     saveBoard(board)
-//     // return board
-//     // return task
-// }
-
-// function saveTask(boardId, groupId, task, activity) {
-//     const board = getById(boardId)
-// PUT /api/board/b123/task/t678
-
-// TODO: find the task, and update
-// board.tasks.unshift(task)
-
-// saveBoard(board)
-// return board
-// return task
-// }
 
 
 function getBoard() {
@@ -469,7 +441,7 @@ function getBoard() {
             activities: [
                 {
                     id: utilService.makeId(),
-                    txt: "Changed Color",
+                    txt: "Enter to board",
                     createdAt: 154514,
                     byMember: {
                         _id: "u101",
@@ -478,7 +450,7 @@ function getBoard() {
                     },
                     task: {
                         id: utilService.makeId(),
-                        title: "Replace Logo"
+                        title: ""
                     }
                 }
             ],
@@ -988,15 +960,63 @@ function getBoard() {
         ]
     return gBoards
 }
-const user = {
-    _id: "u101",
-    fullname: "Abi Abambi",
-    username: "abi@ababmi.com",
-    password: "aBambi123",
-    imgUrl: "http://some-img.jpg",
-    mentions: [{
-        id: utilService.makeId(),
-        boardId: "m101",
-        taskId: "t101"
-    }]
+
+
+function getGUsers (){
+
+    return [
+        {
+            _id: "1014",
+            fullname: "Roi Yotvat",
+            username: "Roi Yotvat",
+            password: "roi1010",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583580/sprint%204%20/T03E3RZ2KHV-U03HE9ZJTA6-79c26a7781c8-512_m1ydbz.png
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: "1013",
+            fullname: 'Yaara Yehuda',
+            username: "yaara yehuda",
+            password: "yaara123",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583460/sprint%204%20/T03E3RZ2KHV-U03KVHTDXAR-77f29bd19fdf-512_vqrj3l.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: "1012",
+            fullname: "Dekel Ido",
+            username: "dekelido",
+            password: "dekel1010",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583549/sprint%204%20/T03E3RZ2KHV-U03KC7A8R6F-97b018241b8a-512_ougkz6.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+        {
+            _id: '1011',
+            fullname: "Eldad Yikne",
+            username: 'eldad',
+            password: "aBambi123",
+            imgUrl: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
+    `,
+            mentions: [{
+                id: utilService.makeId(),
+                boardId: "m101",
+                taskId: "t101"
+            }]
+        },
+    ]
+
 }

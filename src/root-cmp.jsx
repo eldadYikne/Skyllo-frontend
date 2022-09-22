@@ -7,12 +7,11 @@ import { Routes, Route } from 'react-router'
 import { AppHeader } from './cmps/app-header'
 import { HomePage } from './pages/home-page'
 import { WorkSpace } from './pages/workspace'
-import { LoginSignup } from './cmps/login-signup'
+import {  LoginSignup, Signup } from './cmps/user-signup'
 import { TaskDetails } from './cmps/task-details'
 import { BoardApp } from './pages/board-app'
 import { useSelector } from 'react-redux'
 import { HomePageHeader } from './cmps/header-home-page'
-
 
 
 export const RootCmp = () => {
@@ -33,6 +32,7 @@ export const RootCmp = () => {
                     <Routes>
                         <Route path='/' element={<HomePage />} />
                         <Route path='login' element={<LoginSignup />} />
+                        {/* <Route path='login' element={<UserLogin />} /> */}
                         <Route path='workspace' element={<WorkSpace />} />
                         <Route path="workspace/board/:boardId" element={<BoardApp />} >
                             <Route path=":groupId/:taskId" element={<TaskDetails />} />

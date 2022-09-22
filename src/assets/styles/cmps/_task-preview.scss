@@ -7,6 +7,9 @@
     color: lighten(#172b4d, 10%);
     position: relative;
 
+    & p{
+        font-size: 14px;
+    }
     .edit-task-preview-icon {
         align-items: center;
         background-color: #ebecf0;

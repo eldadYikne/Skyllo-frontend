@@ -12,22 +12,24 @@ import { utilService } from '../../services/util.service'
 import { useEffect } from 'react'
 
 
-export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHideHeader,board }) => {
+export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHideHeader,board,group }) => {
     const params = useParams()
     const taskId = params.taskId
     const groupId = params.groupId
 
-    const group = board.groups.find(group => group.id === groupId)
     const task = group.tasks.find(task => task.id === taskId)
 
     const [editInputText, setEditInputText] = useState('')
-    const [selectedEditColor, setSelectedEditColor] = useState('green')
+    const [selectedEditColor, setSelectedEditColor] = useState('')
 
     const dispatch = useDispatch()
 
     const onLabelSave = (ev) => {
+        
         ev.preventDefault()
         ev.stopPropagation()
+
+        if (!selectedEditColor) return
         const labelToSave = {
             id: utilService.makeId(),
             title: editInputText,
@@ -59,7 +61,10 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
         setEditInputText(text)
     }
 
-    const handleChangeLabelColor = (color) => {
+    const handleChangeLabelColor = (color,ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+
         setSelectedEditColor(color)
     }
 
@@ -70,6 +75,13 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
 
     const selectedColorIcon = (color) => {
         if (color === selectedEditColor) return <ChosenColorIcon className='color-chosen-icon' />
+    }
+    const onHoverLabel = (ev, color) => {
+        ev.target.style.background = utilService.lightenDarkenColor(color, -10);
+    }
+
+    const onLeaveHoverLabel = (ev, color) => {
+        ev.target.style.background = color
     }
 
     return <section className="edit-label-cmp">
@@ -89,8 +101,11 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>
                     {labelsColors.map(color => {
+
                         return <div className='label-edit-color-box'
-                            onClick={() => handleChangeLabelColor(color)}
+                        onMouseEnter={(ev) => onHoverLabel(ev, color)}
+                        onMouseLeave={(ev) => onLeaveHoverLabel(ev, color)}
+                        onClick={(ev) => handleChangeLabelColor(color,ev)}
                             key={color}
                             style={{ backgroundColor: color }}>
                                 {selectedColorIcon(color)}

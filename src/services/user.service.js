@@ -19,12 +19,11 @@ export const userService = {
     remove,
     update,
     changeScore,
-
+    getUsers,
     getMembers
 }
 
 window.userService = userService
-
 
 function getUsers() {
     return storageService.query('user')
@@ -72,8 +71,7 @@ async function login(userCred) {
 
 async function signup(userCred) {
     console.log('userCred service:', userCred)
-    
-    userCred.score = 10000;
+
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)
@@ -103,7 +101,6 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
-
 // ;(async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'user1', password:'123',score: 10000, isAdmin: false})
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
@@ -112,12 +109,13 @@ function getLoggedinUser() {
 function getMembers() {
     return gUsers
 }
+
 const gUsers = [
     {
         _id: '1011',
         fullname: 'Eldad Yikne',
         img: `https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663583512/sprint%204%20/T03E3RZ2KHV-U03GZ4S8P7C-0dcebbbdbc4f-512_tlntp4.jpg
-        ` 
+        `
     },
     {
         _id: '1012',

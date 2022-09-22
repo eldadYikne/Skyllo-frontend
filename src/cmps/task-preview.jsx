@@ -29,7 +29,6 @@ export function TaskPreview({ task, group }) {
     const [taskAttachments, setTaskAttachments] = useState()
     const [taskChecklists, setTaskChecklists] = useState()
     const dispatch = useDispatch()
-
     //task-cover
     const [coverTask, setCoverTask] = useState('')
     const [coverTaskUpper, setCoverTaskUpper] = useState('')
@@ -138,7 +137,6 @@ export function TaskPreview({ task, group }) {
                 </div>
             }
 
-            {/* {bgColor && <div style={{ [backgroundStyle]: bgColor, height: heightImg }} className="task-cover-background"> </div>} */}
             {taskLabels && !task.cover?.isFullCover &&
                 <div className="task-preview-labels-list">
                     {taskLabels.map(label => {

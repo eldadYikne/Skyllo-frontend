@@ -7,39 +7,92 @@ import { updateBoard } from '../store/board.actions';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 import { ReactComponent as InviteMemberIcon } from '../assets/img/invite-member-icon.svg';
 import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg';
+import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { userService } from '../services/user.service';
 
 export function BoardHeader({ board }) {
-    const dispacth = useDispatch()
+    const dispatch = useDispatch()
     const members = board.members
+    const [isMembersModalOpen, setIsMembersModalOpen] = useState(false)
+    const [users, setUsers] = useState(null)
+
+
+
     if (!board.isPopoverShown) board.isPopoverShown = false
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
             const boadToUpdate = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
-            dispacth(updateBoard(boadToUpdate))
+            dispatch(updateBoard(boadToUpdate))
         } catch (err) {
             console.log(err);
         }
     }
     const onShownPopover = () => {
-        board.isPopoverShown=!board.isPopoverShown
-        const boardToUpdate={...board}
-        dispacth(updateBoard(boardToUpdate))
+        board.isPopoverShown = !board.isPopoverShown
+        const boardToUpdate = { ...board }
+        dispatch(updateBoard(boardToUpdate))
 
     }
 
+    const loadUsers = async () => {
+        const users = await userService.getUsers()
+        try {
+            setUsers(users)
+            console.log('usssssssssssssssssssssssss', users)
+        }
+        catch {
+            console.log('cannot load users')
+        }
+    }
+
+    useEffect(() => {
+        loadUsers()
+    }, [])
 
 
     const getMemberBackground = (member) => {
         if (member.img) return `url(${member.img}) center center / cover`
         else return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
     }
+    
+    const getUserBackground = (user) => {
+        if (user.imgUrl) return `url(${user.imgUrl}) center center / cover`
+        else {
+            console.log('eeeeeeeeeeeeeeeeeee:',user )
+            
+            return `url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
+        }
+    }
 
+    const onAddMemberToBoard = (user) => {
+        const boardToUpdate = structuredClone(board)
+        console.log('userrrrrrrrrrrrrrrrrr:', user)
+        const currMember = {
+            _id: user._id,
+            fullname: user.fullname,
+            img: user.imgUrl
+        }
+
+        const existMember = boardToUpdate.members.filter(member => {
+            return member._id === currMember._id
+        })
+        
+        console.log('existMember:', existMember)
+
+        if (existMember.length !== 0 && existMember) return
+
+        boardToUpdate.members.push(currMember)
+        dispatch(updateBoard(boardToUpdate))
+
+    }
 
 
     return (
         <section className="board-header ">
-            
+
             <nav className="board-header main-container">
                 <div className="nav-left">
                     <h1>{board.title}</h1>
@@ -50,11 +103,44 @@ export function BoardHeader({ board }) {
                         </div>
                         <div className='board-header-members-container'>
                             {members && members.map(member => {
-                                return <div key={member._id} className='board-header-member-box' style={{ background: getMemberBackground(member) }}></div>
+                                return <div key={member._id} className='board-header-member-box'
+                                    style={{ background: getMemberBackground(member) }}
+
+                                ></div>
                             })}
                         </div>
 
-                        <div className='invite-member-icon'><InviteMemberIcon /></div></div>
+                        <div className='invite-member-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)}>
+                            <InviteMemberIcon />
+                        </div>
+
+                        {!isMembersModalOpen &&
+                            <section className='board-header-users-modal'>
+
+                                <div className='users-modal-header'>
+                                    <span>Invite users to board</span>
+                                    <CloseUsersModalIcon className='close-users-modal-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)} />
+                                </div>
+                                <div className='users-modal-content'>
+
+                                    <div className='users-modal-users-list'>
+
+                                        {users && users.map(user => {
+                                            return <div className='users-modal-user-preview'
+                                                onClick={() => onAddMemberToBoard(user)}
+                                                key={user._id}> 
+                                                {user.imgUrl? <div className='users-modal-user-box' style={{ background: getUserBackground(user)}}></div>: <div className='avatar-img-guest'></div>  }
+                                        
+                                                <span>{user.fullname}</span>
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
+
+                            </section>
+                        }
+
+                    </div>
                 </div>
 
                 <div className="nav-right">

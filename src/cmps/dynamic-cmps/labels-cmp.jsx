@@ -29,7 +29,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
             console.log(taskToUpdate)
             setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
         }
 
         else {
@@ -37,7 +37,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
             const taskToUpdate = { ...task, labelIds: newLabelIds }
             setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'user addad task'))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, 'deleted task'))
         }
     }
 
@@ -58,13 +58,20 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
         if (exist) return <LabelExistIcon className='label-exist-icon' />
     }
 
-    const onHoverLabel = (ev,color) => {        
-        ev.target.style.background = utilService.lightenDarkenColor(color, -10);
-      }
+    const onChooseCreateLabel = (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
 
-      const onLeaveHoverLabel =(ev,color)=>{
+        setIsCreateLabel(!isCreateLabel)
+    }
+
+    const onHoverLabel = (ev, color) => {
+        ev.target.style.background = utilService.lightenDarkenColor(color, -10);
+    }
+
+    const onLeaveHoverLabel = (ev, color) => {
         ev.target.style.background = color
-      }
+    }
 
     return <section>
         {!isEditLabel && !isCreateLabel && <div>
@@ -73,13 +80,13 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
                 <div className="labels-list">
                     {board.labels.map(label => {
                         return (
-                            <div  className="label-container">
-                                <div  style={{ backgroundColor: label.color }}
-                                     key={label.id}
-                                    onMouseEnter={(ev)=>onHoverLabel(ev,label.color)}
-                                    onMouseLeave={(ev)=>onLeaveHoverLabel(ev,label.color)}
+                            <div className="label-container">
+                                <div style={{ backgroundColor: label.color }}
+                                    key={label.id}
+                                    onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
+                                    onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
                                     className='label-color-box' onClick={(ev) => onChooseLabel(label.id, ev)}>
-                                    <div className='labels-details-mini-color'  style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -25) }}></div>
+                                    <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -25) }}></div>
                                     {label.title ? label.title : ''}
                                     {labelExistIcon(label.id)}
                                 </div>
@@ -91,7 +98,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
                     })}
                 </div>
 
-                <button onClick={() => setIsCreateLabel(!isCreateLabel)} className='create-new-label-btn'>
+                <button onClick={(ev) => onChooseCreateLabel(ev)} className='create-new-label-btn'>
                     Create a new label
                 </button>
             </section>
@@ -110,6 +117,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
 
         {isCreateLabel &&
             <CreateLabel
+                group={group}
                 board={board}
                 setHideHeader={setHideHeader}
                 setIsCreateLabel={setIsCreateLabel}

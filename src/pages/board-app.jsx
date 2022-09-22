@@ -24,9 +24,7 @@ export function BoardApp() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         dispatch(getCurrBoard(params.boardId))
-        userService.signup({ username: 'dekel', password: '123' })
     }, [])
 
     const board = useSelector(state => state.boardModule.board)

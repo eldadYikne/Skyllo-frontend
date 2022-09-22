@@ -16,7 +16,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
 
   useEffect(() => {
     setTitle(group.title)
-    
+
   }, [group.title])
 
   const onAddTask = ev => {
@@ -26,7 +26,8 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
     const task = {
       title
     }
-    dispatch(saveTask(boardId, group.id, task, 'user addad task'))
+
+    dispatch(saveTask(boardId, group.id, task, { text: 'added task', taskTilte: task.title, groupId:group.id, user: 'usery' }))
     ev.target[0].value = ''
     setIsAddingTask(false)
   }
@@ -75,7 +76,7 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
 
             <button
               className='delete-group-btn'
-              onClick={ev => onRemoveGroup(ev, group.id)}
+              onClick={ev => onRemoveGroup(ev, group.id, group.title)}
             >
               Delete
             </button>
@@ -86,12 +87,12 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup }) {
       <div className='list-container'>
         <Droppable droppableId={group.id}>
           {(provided) => {
-            return (<li 
-              {...provided.draggableProps} 
+            return (<li
+              {...provided.draggableProps}
               ref={provided.innerRef} >
 
               <TaskList group={group}>
-              {provided.placeholder}
+                {provided.placeholder}
               </TaskList>
             </li>)
           }}
