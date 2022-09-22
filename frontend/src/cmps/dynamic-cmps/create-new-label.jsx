@@ -100,11 +100,10 @@ export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHide
         <section className='edit-labels-modal'>
             <h4>Name</h4>
             <form className='edit-label-form' onSubmit={onLabelSave}>
-                <input onChange={handleChangeLabelText} type='text' value={editInputText} id='' />
+                <input onChange={handleChangeLabelText} onFocus={console.log('eeeeeeeee')} type='text' value={editInputText} id='' />
                 <h4>Select a color</h4>
                 <section className='edit-labels-color-container'>
                     {labelsColors.map(color => {
-
                         return <div className='label-edit-color-box'
                         onMouseEnter={(ev) => onHoverLabel(ev, color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, color)}

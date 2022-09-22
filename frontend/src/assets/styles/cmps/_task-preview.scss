@@ -7,9 +7,19 @@
     color: lighten(#172b4d, 10%);
     position: relative;
 
-    & p{
-        font-size: 14px;
+    & .task-preview-title{
+        display: flex;
+        align-items: center;
     }
+
+    & p {
+        line-height: 1.15;
+        padding: 0 8px 4px 8px;
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: #172b4d;
+    }
+
     .edit-task-preview-icon {
         align-items: center;
         background-color: #ebecf0;
@@ -86,11 +96,14 @@
         display: flex;
         flex-wrap: wrap;
         gap: 4px;
-        padding: 4px;
-        margin-bottom: 5px;
-        padding: 4px 8px 4px 12px;
+        padding: 4px 8px 0px 8px;
+        margin-bottom: 4px;
 
-        & .labels-task-preview-mini-color{
+        & .mini-edit-labels-list{
+            padding: 0;
+        }
+
+        & .labels-task-preview-mini-color {
             top: 4px;
             bottom: 4px;
             // left: 4px;
@@ -127,12 +140,11 @@
         }
     }
 
-
     .task-preview-Characters {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 6px 8px 2px;
+        padding: 0px 8px 2px;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
 
@@ -146,34 +158,55 @@
             padding-bottom: 4px;
             align-items: center;
 
-            & .task-preview-date-container{
+            & .task-preview-date-container {
                 display: flex;
                 background-color: #61bd4f;
                 border-radius: 3px;
                 color: #fff;
-                padding-left: 2px;
+                padding: 2px;
                 padding-right: 5px;
                 align-items: center;
 
-                & .task-preview-date-pin{
+                &:hover .task-preview-date-pin {
+                    background: url("../../img/checkbox-1.svg") center center / cover;
+                }
+
+                &:hover {
+                    background-color: darken(#61bd4f, 5%);
+                }
+
+                & .task-preview-date-pin {
                     display: flex;
                     margin-right: 3px;
                     height: 14px;
                     width: 14px;
                     align-items: center;
+
+                    background: url("../../img/due-date-preview-icon.svg");
                 }
 
-                & .task-preview-date-due{
+                & .task-preview-date-due {
                     display: flex;
                     align-items: center;
-                    p {
+
+                    span {
+                        width: max-content;
                         font-size: 10px;
                         padding: 0;
                     }
-                      
+
                 }
+
                 &.overdue {
-                   background-color: #ec9488;     
+                    background-color: #ec9488;
+
+                    &:hover {
+                        background-color: darken(#ec9488, 5%);
+                    }
+
+                    &:hover .task-preview-date-pin {
+                        background: url("../../img/checkbox-1.svg") center center / cover;
+                    }
                 }
             }
 
@@ -182,9 +215,14 @@
                 border-radius: 3px;
                 font-size: 12px;
                 gap: 4px;
-                padding: 2px 5px;
+                margin: 0 4px;
                 display: flex;
                 align-items: center;
+            }
+
+            & .description-pin-preview {
+                font-size: 12px;
+                margin-left: 0;
             }
         }
 

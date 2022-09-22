@@ -107,8 +107,8 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
     const heightImg = task.cover?.color?.length > 9 ? '135px' : '32px'
 
-    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y + 40, left: mouseLocation.x - 230 }} >
-        <div >
+    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y, left: mouseLocation.x - 230 }} >
+        <div className='mini-edit-main-content'>
             <div className='mini-edit-cover'>
             </div>
 
@@ -119,7 +119,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
             <div className="mini-edit-main-card">
                 {taskLabels &&
-                    <div className="task-preview-labels-list">
+                    <div className="task-preview-labels-list mini-edit-labels-list">
                         {taskLabels.map(label => {
                             return <div
                                 onClick={onToggleLabels}
@@ -189,6 +189,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
         {dynamicType &&
             <DynamicCmp
+                comeFromMiniEdit={true}
                 group={group}
                 task={task}
                 setTask={setTask}
