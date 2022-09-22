@@ -16,16 +16,17 @@ export function GroupList() {
   const [labelsShown, setLabelsShown] = useState(board.labelsShown)
   const inputRef = useRef()
   const [isAddGroup, setIsAddGroup] = useState(false)
+  const user = useSelector(state => state.userModule.user)
 
   const onAddGroup = (ev) => {
     ev.preventDefault()
     const listTitle = ev.target[0].value
-    dispatch(addGroup(board._id, listTitle, { text: `added a group `, user: 'usery' }))
+    dispatch(addGroup(board._id, listTitle, { text: `added a group `, user: user }))
   }
 
   const onRemoveGroup = (ev, groupId) => {
     ev.preventDefault()
-    dispatch(removeGroup(board._id, groupId, { text: `added a group `, user: 'usery' }))
+    dispatch(removeGroup(board._id, groupId, { text: `added a group `, user: user }))
   }
   const isAddGroupShown = () => {
     if (isAddGroup) {
@@ -43,7 +44,7 @@ export function GroupList() {
 
           <Draggable draggableId={group.id} key={index} index={index}>
             {(provided) => {
-              return (<li className='list-move-group' index={index}
+              return (<div className='list-move-group' index={index}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef} >
@@ -56,7 +57,7 @@ export function GroupList() {
                 >
                   {provided.placeholder}
                 </GroupPreview>
-              </li>)
+              </div>)
             }}
           </Draggable>
         )

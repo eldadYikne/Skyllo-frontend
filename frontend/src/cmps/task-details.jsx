@@ -29,6 +29,7 @@ export function TaskDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const board = useSelector(state => state.boardModule.board)
+  const user = useSelector(state => state.userModule.user)
 
   const groupId = params.groupId
   const taskId = params.taskId
@@ -76,14 +77,14 @@ export function TaskDetails() {
   }, [task])
 
   const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
     navigate(-1)
   }
 

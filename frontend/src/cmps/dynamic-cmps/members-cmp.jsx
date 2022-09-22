@@ -9,6 +9,7 @@ export const MembersCmp = ({ task, setTask, group }) => {
     const board = useSelector(state => state.boardModule.board)
     const members = board.members
     const dispatch = useDispatch()
+    const user = useSelector(state => state.userModule.user)
 
     const onChooseMember = (memberId, ev) => {
         ev.preventDefault()
@@ -19,7 +20,7 @@ export const MembersCmp = ({ task, setTask, group }) => {
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
             
             setTask(taskToUpdate)
-            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose member', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose member', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
         }
         
         else {

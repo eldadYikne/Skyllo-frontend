@@ -12,7 +12,7 @@ import { ReactComponent as ChecklistIcon } from '../assets/img/checklist-icon.sv
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { removeTask, saveTask, updateBoard } from '../store/board.actions'
 import { useParams } from 'react-router-dom'
 import { DynamicCmp } from './dynamic-cmp'
@@ -27,6 +27,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const params = useParams()
     const groupId = params.groupId
     const [currTask, setTask] = useState(JSON.parse(JSON.stringify(task)))
+    const user = useSelector(state => state.userModule.user)
 
     const [dynamicType, setDynamicType] = useState('')
     const [title, setTitle] = useState('')
@@ -81,14 +82,14 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         ev.stopPropagation()
         if (!title) return
         const taskToUpdate = { ...task, title: title }
-        dispatch(saveTask(board._id, group.id, taskToUpdate,{ text: 'update task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+        dispatch(saveTask(board._id, group.id, taskToUpdate,{ text: 'update task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
