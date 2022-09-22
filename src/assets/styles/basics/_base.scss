@@ -89,16 +89,3 @@ button {
 
 }
 
-.page-loader{
-    height: 80vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    & .loader-gif{
-        background-color: rgb(196, 196, 196);
-        height: 200px;
-        width: 200px;
-    }
-}

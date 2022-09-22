@@ -41,7 +41,7 @@ export function BoardHeader({ board }) {
         const users = await userService.getUsers()
         try {
             setUsers(users)
-            console.log('usssssssssssssssssssssssss', users)
+            console.log('users', users)
         }
         catch {
             console.log('cannot load users')
@@ -114,7 +114,7 @@ export function BoardHeader({ board }) {
                             <InviteMemberIcon />
                         </div>
 
-                        {!isMembersModalOpen &&
+                        {isMembersModalOpen &&
                             <section className='board-header-users-modal'>
 
                                 <div className='users-modal-header'>
