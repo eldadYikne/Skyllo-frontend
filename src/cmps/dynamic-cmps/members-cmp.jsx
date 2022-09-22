@@ -13,8 +13,7 @@ export const MembersCmp = ({ task, setTask, group }) => {
     const onChooseMember = (memberId, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        console.log('memberId:', memberId)
-        
+        if(!task.memberIds) task.memberIds=[]
         if (!task.memberIds?.includes(memberId)) {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }

@@ -23,13 +23,13 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
     const onChooseLabel = (labelId, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
+        if (!task.labelIds) task.labelIds = []
         if (!task.labelIds?.includes(labelId)) {
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
             console.log(taskToUpdate)
             setTask(taskToUpdate)
-
-            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id,groupId:group.id, user: 'usery' }))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id, groupId: group.id, user: 'usery' }))
         }
 
         else {
@@ -52,7 +52,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader 
     }
 
     const labelExistIcon = (labelId) => {
-        const exist = task?.labelIds.find(id => {
+        const exist = task?.labelIds?.find(id => {
             return labelId === id
         })
         if (exist) return <LabelExistIcon className='label-exist-icon' />
