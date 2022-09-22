@@ -1,0 +1,224 @@
+.popover-container {
+    background-color: #f4f5f7;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    border-top-right-radius: 0;
+    box-shadow: 0 12px 24px -6px #091e4240, 0 0 0 1px #091e4214;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    position: fixed;
+    right: 0;
+    top: 85px;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    transition: all .5s;
+    width: 340px;
+    z-index: 30;
+
+    & .popover-main-content {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding: 14px 6px 14px 12px;
+    }
+
+    & .colors-header-popover {
+
+
+        & .go-back-popover {
+            left: 22px;
+            cursor: pointer;
+            position: absolute;
+        }
+    }
+
+    & .colors-container-popover {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 8px;
+        padding: 10px;
+        overflow: auto;
+        font-size: 14px;
+
+        & .color-container {
+            height: 100px;
+            border-radius: 3px;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        & .image-category-container {
+            text-align: center;
+            color: #172b4d;
+        }
+    }
+
+    &.open {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    & .popover-header {
+        color: #172b4d;
+        font-weight: 600;
+        line-height: 40px;
+        overflow: hidden;
+        padding: 14px 6px 14px 12px;
+        position: relative;
+        text-align: center;
+        text-overflow: ellipsis;
+
+        & span {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        & .close-btn-popover {
+            color: #172b4d;
+            font-size: 16px;
+            position: absolute;
+            right: 5px;
+            top: 20px;
+            background-color: inherit;
+            border: none;
+            font-size: .875rem;
+            padding: 4px 8px;
+        }
+    }
+
+    & .img-colors-popover {
+        align-items: center;
+        display: flex;
+        margin-top: 8px;
+        height: 100px;
+        margin-bottom: 25px;
+        justify-content: space-between;
+
+        & .colors-popover,
+        .imgs-popover {
+            height: 100%;
+            width: 48%;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: #172b4d;
+            cursor: pointer;
+            font-size: 14px;
+
+
+
+            & img {
+                border-radius: 3px;
+                width: 100%;
+                height: 100%;
+
+            }
+        }
+
+    }
+
+    & .activity-popover {
+        background-color: transparent;
+        background-color: initial;
+        border: none;
+        border-radius: 3px;
+        color: #172b4d;
+        line-height: 20px;
+        padding: 6px 6px 6px 28px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        width: 100%;
+        font-size: 14px;
+
+        & svg {
+            font-size: 20px;
+            height: 20px;
+            left: 0;
+            line-height: 20px;
+            position: absolute;
+            top: 6px;
+            width: 20px;
+        }
+    }
+
+    & .activities-container {
+        & .activity-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 5px;
+
+            & .avatar-img-guest-popover {
+                background: url(https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;
+                border-radius: 25em;
+                cursor: pointer;
+                height: 35px;
+                width: 35px;
+                // margin-top: 3px;
+                margin-right: 8px;
+            }
+
+            & .activity-info-time {
+                display: flex;
+                flex-direction: column;
+
+                & .time-ago {
+                    color: #5e6c84 !important;
+                    font-size: 12px !important;
+                    font-weight: 400;
+                    line-height: 20px;
+                    margin: 0;
+
+                }
+            }
+
+            & .img-user-activity {
+                width: 35px;
+                height: 35px;
+                margin-right: 8px;
+            }
+
+            & img {
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+
+            }
+
+            & .user-name {
+                color: #172b4d;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 20px;
+            }
+
+            & .activity-task-name {}
+
+            & .activity-info {
+                & span {
+                    margin-right: 4px;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+                & a {
+                    color: #172b4d;
+                    border-bottom: #172b4d .5px solid;
+                    margin-bottom: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-size: 13px;
+                }
+
+
+            }
+
+        }
+    }
+}

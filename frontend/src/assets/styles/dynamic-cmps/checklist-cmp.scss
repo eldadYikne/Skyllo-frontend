@@ -1,0 +1,14 @@
+.checklist-cmp {
+    label {
+        @include for-h3-dynamic-cmp
+    }
+
+    input {
+        @include for-dynamic-input
+    }
+
+    button {
+        @include for-add-action-button
+    }
+
+}
