@@ -15,6 +15,10 @@ import { userService } from '../services/user.service';
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()
     const members = board.members
+
+    const membersToDisplay = members.slice(0,4)
+    console.log('membersToDisplay:', membersToDisplay)
+    
     const [isMembersModalOpen, setIsMembersModalOpen] = useState(false)
     const [users, setUsers] = useState(null)
 
@@ -102,7 +106,7 @@ export function BoardHeader({ board }) {
                         <span className='board-header-border-left'></span>
 
                         <div className='board-header-members-container'>
-                            {members && members.map(member => {
+                            {members && membersToDisplay.map(member => {
                                 {
                                     return member.img ? <div className='board-header-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
                                         <div className='avatar-img-guest-member-box' key={member._id}></div>
