@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
 import { onLogout } from '../store/user.actions'
-import { ReactComponent as MenuSvg } from '../assets/img/menu-hedear.svg';
 
 
 export function AppHeader() {
@@ -25,8 +24,6 @@ export function AppHeader() {
   return (
     <header className='app-header'>
       <section className='logo-hedear-container'>
-
-        <MenuSvg />
 
         <div className='logo-container'>
           <Link to='/'>
