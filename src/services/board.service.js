@@ -143,12 +143,15 @@ const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,group
     }
 
 }
+
 function getLabelsById(board, labelId) {
+    
     const labels = board.labels.find(label => {
         return label.id === labelId
     })
     return labels
 }
+
 function getMembersById(board, memberId) {
     const members = board.members.find(member => {
         return member._id === memberId

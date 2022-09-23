@@ -15,7 +15,6 @@
   padding-bottom: 60px;
 
 
-
   & .details-bgColor {
     height: 170px;
     width: 48rem;
@@ -416,12 +415,15 @@
     height: 25px;
     width: 25px;
     justify-content: center;
-    margin: 4px;
-    padding: 4px;
+    // margin: 4px;
+    margin: 10px 10px 0 0;
+    padding: 6px;
     position: absolute;
     right: 0;
     top: 0;
     z-index: 5;
+    border-radius: 50%;
+    background-color: #00000014;
     cursor: pointer;
     color: #42526e;
     &:hover {

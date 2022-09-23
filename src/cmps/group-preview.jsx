@@ -41,9 +41,10 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
   const onSaveTitle = (ev) => {
     ev.preventDefault()
     const groupIdx = board.groups.findIndex(currGroup => currGroup.id === group.id)
+    const boardToUpdate = structuredClone(board)
     if (!title) return
-    board.groups[groupIdx].title = title
-    dispatch(updateBoard(board))
+    boardToUpdate.groups[groupIdx].title = title
+    dispatch(updateBoard(boardToUpdate))
   }
 
   const addingTaskShown = () => {
@@ -54,9 +55,8 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
     <section className='group-preview '>
       <div className='group-preview-header'>
         <form onSubmit={onSaveTitle}>
-          <input onChange={handleChangeTitle} type='text' value={title} id='' />
+          <input onChange={handleChangeTitle} type='text' value={title} id='' onBlur={onSaveTitle} />
         </form>
-
         <div
           onClick={() => setIsShowOptions(!isShowOptions)}
           className='group-more-options'
@@ -99,6 +99,9 @@ export function GroupPreview({ board, group, boardId, onRemoveGroup,index }) {
 
         </Droppable>
       </div>
+
+
+      
     </section>
   )
 }

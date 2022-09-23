@@ -21,7 +21,8 @@ export function TaskList({ group }) {
         const title = ev.target[0].value
         if (!title) return
         const task = {
-            title
+            title:title,
+            labelIds:[]
         }
 
         dispatch(saveTask(board._id, group.id, task, { text: 'added task', taskTilte: task.title, groupId: group.id, user: user }))
@@ -65,7 +66,6 @@ export function TaskList({ group }) {
             {!isAddingTask && (
                 <div onClick={() => setIsAddingTask(true)} className='add-task'>
                     <svg
-
                         stroke='#5e6c84'
                         fill='#5e6c84'
                         strokeWidth='0'
