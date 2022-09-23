@@ -14,6 +14,7 @@ import { userService } from '../services/user.service';
 
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()
+    if(!board.members)board.members=[]
     const members = board.members
 
     const membersToDisplay = members.slice(0,4)

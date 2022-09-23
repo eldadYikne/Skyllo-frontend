@@ -18,16 +18,15 @@ export const MembersCmp = ({ task, setTask, group }) => {
         if (!task.memberIds?.includes(memberId)) {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
-            
-            setTask(taskToUpdate)
+            // setTask(taskToUpdate)
             dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose member', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
         }
         
         else {
             const newMemberIds = task.memberIds.filter(currMemberId => currMemberId !== memberId)
             const taskToUpdate = { ...task, memberIds: newMemberIds }
-            setTask(taskToUpdate)
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'deleted task'))
+            // setTask(taskToUpdate)
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'deleted member', taskTilte: task.title, taskId: task.id,groupId:group.id, user: user }))
         }
     }
 

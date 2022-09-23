@@ -29,16 +29,21 @@ export function TaskDetails() {
   const params = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const board = useSelector(state => state.boardModule.board)
   const user = useSelector(state => state.userModule.user)
-
+  const board = useSelector(state => state.boardModule.board)
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
+  
   // ELDAD
-  const bgColor = initTask.cover?.color ? initTask.cover.color.length > 9 ? ' #80837f' : initTask.cover.color : ''
-
+  // const bgColor = initTask.cover?.color ? initTask.cover.color.length > 9 ? '#fffff' : initTask.cover.color : ''
+  console.log(initTask,' initTask.');
+  const bgColorDetailsHedear = initTask.cover?.color?.length > 9 ? initTask.cover.backgroundColor : initTask.cover?.color
+  const bgColor = initTask.cover?.color ? bgColorDetailsHedear : ''
+  console.log('bgColorDetailsHedear',bgColorDetailsHedear)
+  console.log('bgColor',bgColor)
+  
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
   const [isDescription, setIsDescription] = useState(false)
@@ -127,13 +132,28 @@ export function TaskDetails() {
     return 'ontime'
   }
 
+  const getBgColorOfImg = async (url,taskToUpdate) => {
+    console.log('getBgColorOfImg');
+    try {
+      const currTask = structuredClone(taskToUpdate)
+      if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
+      const fac = new FastAverageColor();
+      const color = await fac.getColorAsync(url)
+      taskToUpdate.cover.backgroundColor = color.rgb;
+      console.log('Average color', color);
+      console.log('Average currTask', taskToUpdate);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   // getBgColorOfImg('https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg')
 
   if (!task) return <LoaderSkyllo />
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
-        {bgColor && <div style={{ backgroundColor: bgColor }} className='details-bgColor'>
+        {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
           {initTask.cover?.color.length > 9 && <img src={initTask.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
@@ -229,7 +249,7 @@ export function TaskDetails() {
                   <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>}
             </div>
-            {task.attachments && <AttachmentDetails setTask={setTask} task={initTask} />}
+            {task.attachments && <AttachmentDetails getBgColorOfImg={getBgColorOfImg} setTask={setTask} task={initTask} />}
 
             <div className='activity-container'>
               <div className='container-title'>
@@ -303,6 +323,7 @@ export function TaskDetails() {
                 group={group}
                 setIsChecklist={setIsChecklist}
                 board={board}
+                getBgColorOfImg={getBgColorOfImg}
               />
 
             }

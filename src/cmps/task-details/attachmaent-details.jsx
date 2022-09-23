@@ -8,7 +8,7 @@ import { utilService } from '../../services/util.service'
 import moment from 'moment'
 
 
-export const AttachmentDetails = ({ task, setTask }) => {
+export const AttachmentDetails = ({ task, setTask ,getBgColorOfImg}) => {
 
     const [isEdit, setEdit] = useState(false)
     const [text, setText] = useState('')
@@ -22,6 +22,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
     }
     const onMakeCover = (attachmentUrl) => {
         const taskToUpadet = { ...task, cover: { ...task.cover, color: attachmentUrl } }
+        getBgColorOfImg(attachmentUrl,taskToUpadet)
         setTask(taskToUpadet)
     }
     const onHandelChange = (ev) => {
@@ -70,7 +71,7 @@ export const AttachmentDetails = ({ task, setTask }) => {
                             <span>-</span>
                             <span onClick={() => onEdit(attachment.id)} className="edit-span">Edit</span>
                         </div>
-                        <span onClick={() => onMakeCover(attachment.url)} className="make-cover-span"><MakeCover /> Make Cover</span>
+                        <span onClick={() => onMakeCover(attachment.url)} className="make-cover-span"><MakeCover /> Make cover</span>
                     </div>
                     {attachment.isEdit && <div className='edit-attachment-container'>
                         <section className="dynamic-cmp">

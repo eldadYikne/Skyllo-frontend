@@ -65,8 +65,6 @@ export function TaskPreview({ task, group }) {
 
         const labelIds = task.labelIds
         
-        console.log('labelIds:', labelIds)
-
         // const taskLabel = boardService.getLabelsById(board, labelIds)
 
         const taskLabel = labelIds?.map(id => {
