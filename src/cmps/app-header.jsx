@@ -23,6 +23,7 @@ export function AppHeader() {
 
   }
   useEffect(() => {
+    
     const newBgImg = board?.style?.bgImg
     console.log(newBgImg);
     const boardImg = newBgImg?.substring(4,newBgImg.length-1)
