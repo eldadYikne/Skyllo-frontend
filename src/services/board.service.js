@@ -109,27 +109,27 @@ async function saveTask(boardId, groupId, task, activity) {
     const group = board.groups.find(currGroup => currGroup.id === groupId)
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
-        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
+        board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()
         console.log(task);
-        board.activities.unshift(createactivity(activity.text, activity.taskTilte, task.id, activity.user,activity.groupId))
+        board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
         group.tasks.push(task)
     }
 
     return save(board)
 }
 
-async function removeTask(boardId, groupId, taskId, activity) {
+async function removeTask(boardId, groupId, task, activity) {
     const board = await getById(boardId)
     const group = board.groups.find((group) => group.id === groupId)
-    const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
+    const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
     group.tasks.splice(taskIdx, 1)
-    board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user,activity.groupId))
+    board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
     return save(board)
 }
-const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,groupId='') => {
+const createActivity = (text = '', taskTitle = '', taskId = '', user = '' ,groupId='') => {
     return {
         id: utilService.makeId(),
         txt: text,
@@ -138,7 +138,7 @@ const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,group
         groupId,
         task: {
             id: taskId,
-            title: taskTilte
+            title: taskTitle
         }
     }
 

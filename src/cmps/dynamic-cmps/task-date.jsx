@@ -16,11 +16,15 @@ export function TaskDate({ board, group, task, setDynamicType }) {
   const dispatch = useDispatch()
 
   const handleDateChange = (date) => {
+    // ev.preventDefault()
+    // ev.stopPropagation()
+    // console.log('evvvv',ev)
     setSelectedDate(date)
   }
 
   const onSetDate = (ev) => {
     ev.preventDefault()
+    ev.stopPropagation()
     const newDueDate = {
       date : Date.parse(selectedDate),
       dateToDisplay: utilService.getDateToDisplay( Date.parse(selectedDate) ),
@@ -28,21 +32,22 @@ export function TaskDate({ board, group, task, setDynamicType }) {
     }
     task.dueDate = newDueDate
     const newTask = {...task, dueDate: newDueDate}
-    dispatch(saveTask( board.id, group.id, newTask ))
+    dispatch(saveTask( board._id, group.id, newTask ))
     setDynamicType('')
   }
 
   const onRemoveDate = (ev) => {
     ev.preventDefault()
+    ev.stopPropagation()
     task.dueDate = null
-    dispatch(saveTask( board.id, group.id, task ))
+    dispatch(saveTask( board._id, group.id, task ))
     setDynamicType('')
   }
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <DatePicker value={selectedDate} 
-      onChange={(date) =>handleDateChange(date)}
+      <DatePicker value={selectedDate}
+      onChange={(ev, date) => handleDateChange(date)}
        variant="static"
        disableToolbar
       //  disablePast={true}

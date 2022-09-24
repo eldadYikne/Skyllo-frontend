@@ -1,15 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as AttachmentBigIcon } from '../../assets/img/attachmaent-iconbig.svg'
 import { ReactComponent as MakeCover } from '../../assets/img/attachment-makecover.svg'
-import { updateBoard } from '../../store/board.actions'
+import { saveTask, updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseDynamicCmp } from '../../assets/img/close-task-form.svg'
 import { useState } from 'react'
 import { utilService } from '../../services/util.service'
 import moment from 'moment'
 
 
-export const AttachmentDetails = ({ task, setTask ,getBgColorOfImg}) => {
+export const AttachmentDetails = ({group, task ,getBgColorOfImg}) => {
 
+    const board = useSelector(state => state.boardModule.board)
+    const user = useSelector(state => state.userModule.user)
+
+    const dispatch = useDispatch()
     const [isEdit, setEdit] = useState(false)
     const [text, setText] = useState('')
 
@@ -17,13 +21,14 @@ export const AttachmentDetails = ({ task, setTask ,getBgColorOfImg}) => {
     const onRemoveAttachment = (attachmentId) => {
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         console.log(newAttachments, 'newAttachments')
-        const taskToUpadet = { ...task, attachments: [...newAttachments] }
-        setTask(taskToUpadet)
+        task.attachments = newAttachments
+        const newTask = structuredClone(task) 
+        dispatch(saveTask(board._id, group.id, task, {text: 'removed attachment', user: user }))
     }
     const onMakeCover = (attachmentUrl) => {
         const taskToUpadet = { ...task, cover: { ...task.cover, color: attachmentUrl } }
         getBgColorOfImg(attachmentUrl,taskToUpadet)
-        setTask(taskToUpadet)
+        dispatch(saveTask(board._id, group.id, taskToUpadet, {text: 'changed cover', user: user } ))
     }
     const onHandelChange = (ev) => {
         ev.preventDefault()
@@ -34,19 +39,17 @@ export const AttachmentDetails = ({ task, setTask ,getBgColorOfImg}) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
         currAttachment.isEdit = !currAttachment.isEdit
         const newTask = { ...task }
-        setTask(newTask)
+        dispatch(saveTask(board._id, group.id, newTask, {text: 'edited attachment', user: user } ))
     }
     const onUpdetAttachment = (attachmentId) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
         const attachmentToUpdate = { ...currAttachment, title: text }
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         const taskToUpadet = { ...task, attachments: [...newAttachments, attachmentToUpdate] }
-        setTask(taskToUpadet)
+        dispatch(saveTask(board._id, group.id, taskToUpadet, {text: 'edited attachment', user: user } ))
         setEdit(true)
     }
-    const getDateString = (date) => {
-        return utilService.getDateToDisplay(date)
-    }
+
  
     return <div className='description-container'>
         <div className='container-title'>

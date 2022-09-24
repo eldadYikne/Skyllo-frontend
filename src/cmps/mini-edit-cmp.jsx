@@ -26,7 +26,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const dispatch = useDispatch()
     const params = useParams()
     const groupId = params.groupId
-    const [currTask, setTask] = useState(JSON.parse(JSON.stringify(task)))
+    
     const user = useSelector(state => state.userModule.user)
 
     const [mouseLocationTop,setMouseLocationTop] = useState(mouseLocation)
@@ -94,14 +94,14 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         ev.stopPropagation()
         if (!title) return
         const taskToUpdate = { ...task, title: title }
-        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'update task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
+        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'update task', taskTitle: task.title, taskId: task.id, groupId: group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
+        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTitle: task.title, taskId: task.id, groupId: group.id, user: user }))
         setIsMiniEditShown(false)
     }
 
@@ -207,10 +207,10 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
                 comeFromMiniEdit={true}
                 group={group}
                 task={task}
-                setTask={setTask}
                 type={dynamicType}
                 setDynamicType={setDynamicType}
                 mouseLocation={mouseLocationForDynamic}
+                board={board}
             // setSections={setSections}
             // group={group}
             />

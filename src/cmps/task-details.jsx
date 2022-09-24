@@ -34,13 +34,13 @@ export function TaskDetails() {
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
-  const initTask = group.tasks.find(task => task.id === taskId)
+  const task = group.tasks.find(task => task.id === taskId)
   
   // ELDAD
-  // const bgColor = initTask.cover?.color ? initTask.cover.color.length > 9 ? '#fffff' : initTask.cover.color : ''
-  console.log(initTask,' initTask.');
-  const bgColorDetailsHedear = initTask.cover?.color?.length > 9 ? initTask.cover.backgroundColor : initTask.cover?.color
-  const bgColor = initTask.cover?.color ? bgColorDetailsHedear : ''
+  // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
+
+  const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task.cover.backgroundColor : task.cover?.color
+  const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
   console.log('bgColorDetailsHedear',bgColorDetailsHedear)
   console.log('bgColor',bgColor)
   
@@ -51,9 +51,13 @@ export function TaskDetails() {
   const [dynamicType, setDynamicType] = useState('')
   const [mouseLocation, setMouseLocation] = useState(null)
 
-  const [task, setTask] = useState(JSON.parse(JSON.stringify(initTask)))
+  
   const [taskLabels, setTaskLabels] = useState(null)
   const [taskMembers, setTaskMembers] = useState(null)
+  const [taskTxt, setTaskTxt] = useState({
+    title: task.title,
+    description: task.description
+  })
 
   const loadLabels = () => {
     if (!task) return
@@ -74,38 +78,50 @@ export function TaskDetails() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
       loadLabels()
-    }, 500)
-
-    onSaveTask()
+    // onSaveTask()
     loadMembers()
   }, [task])
 
-  const onSaveTask = () => {
-    dispatch(saveTask(board._id, group.id, task, { text: 'saved task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
+  const onSaveTask = (activityTxt) => {
+    const text = activityTxt? activityTxt : 'saved task'
+    dispatch(saveTask(board._id, group.id, task, { text, user }))
     if (isDescription) setIsDescription(false)
   }
 
   const onRemoveTask = (ev) => {
     ev.preventDefault()
     setIsDescription(false)
-    dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
+    dispatch(removeTask(board._id, group.id, task, { text: 'deleted task', user }))
     navigate(-1)
   }
 
-  const onRemoveChecklist = (ev, checklistId) => {
+  const onRemoveChecklist = (ev, checklist) => {
     ev.preventDefault()
-    const checklistsToUpdate = task.checklists.filter(checklist => checklist.id !== checklistId)
+    const checklistsToUpdate = task.checklists.filter(currChecklist => currChecklist.id !== checklist.id)
     const taskToUpdate = { ...task, checklists: checklistsToUpdate }
-    setTask(taskToUpdate)
+    dispatch(saveTask(board._id, group.id, taskToUpdate, {text: `removed checklist ${checklist.title}`, user }))
+    
   }
 
   const handleChange = ({ target }) => {
     const field = target.name
-    const value = target.type === 'number' ? (+target.value || '') : target.value
-    setTask(prevTask => ({ ...prevTask, [field]: value }))
+    const value = target.value
+    console.log(target.value)
+    setTaskTxt({...taskTxt, [field]: value})
+    
+
+    // const text = field === 'title' ? 'updated task title' : 'updated task description'
   }
+  
+  const onSetTaskTxt = (text) => {
+    const newTask = {...task, title: taskTxt.title, description: taskTxt.description}
+    // const newTask = {...task}
+    dispatch(saveTask(board._id, group.id, newTask, {text, user}))
+
+  }
+
+  
 
   const getMemberBackground = (member) => {
     if (member.img) return `url(${member.img}) center center / cover`
@@ -135,9 +151,10 @@ export function TaskDetails() {
 
   const toggleIsTaskDone = (ev) => {
     ev.stopPropagation()
-    const newTask = structuredClone(task)
-    newTask.dueDate.isDone = !newTask.dueDate.isDone
-    setTask(newTask)
+    // const newTask = structuredClone(task)
+    task.dueDate.isDone = !task.dueDate.isDone
+    if(task.dueDate.isDone) onSaveTask('Marked task as complete')
+    else onSaveTask('Marked task as uncomplete')
   }
 
   const getBgColorOfImg = async (url,taskToUpdate) => {
@@ -162,7 +179,7 @@ export function TaskDetails() {
     <section className='task-details-view'>
       <div className='task-details-modal'>
         {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
-          {initTask.cover?.color.length > 9 && <img src={initTask.cover?.color} />}
+          {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
           </button>
@@ -171,7 +188,7 @@ export function TaskDetails() {
           <div className='close-details-modal-exit'>
             <CloseDetailsModal
               className='close-details-modal-icon'
-              onClick={() => onSaveTask(task)} />
+              onClick={onSaveTask} />
           </div>
         </Link>
 
@@ -181,7 +198,8 @@ export function TaskDetails() {
           <textarea onChange={handleChange}
             name='title'
             id='details-title'
-            value={task.title}
+            value={taskTxt.title}
+            onBlur={() => onSetTaskTxt('changed task title')}
           >
             {task.title}
           </textarea>
@@ -249,16 +267,16 @@ export function TaskDetails() {
                 onClick={() => setIsDescription(true)}
                 name='description'
                 id='description-textarea-basic'
-                value={task.description ? task.description : ''}
+                value={taskTxt.description ? taskTxt.description : ''}
                 placeholder={task.description ? '' : 'Add more details description'}
               ></textarea>
               {isDescription &&
                 <div className='description-edit'>
-                  <button className='save-description' onMouseDown={onSaveTask}>Save</button>
+                  <button className='save-description' onMouseDown={() => onSetTaskTxt('changed task description')}>Save</button>
                   <button className='close-description' onClick={() => setIsDescription(false)}>Cancel</button>
                 </div>}
             </div>
-            {task.attachments && <AttachmentDetails getBgColorOfImg={getBgColorOfImg} setTask={setTask} task={initTask} />}
+            {task.attachments && <AttachmentDetails getBgColorOfImg={getBgColorOfImg} task={task} group={group} />}
 
             <div className='activity-container'>
               <div className='container-title'>
@@ -278,9 +296,9 @@ export function TaskDetails() {
                   key={checklist.id}
                   task={task}
                   initChecklist={checklist}
-                  setTask={setTask}
                   checklistId={checklist.id}
                   board={board}
+                  group={group}
                   onRemoveChecklist={onRemoveChecklist}
 
                 />
@@ -326,7 +344,6 @@ export function TaskDetails() {
               <DynamicCmp
                 mouseLocation={mouseLocation}
                 task={task}
-                setTask={setTask}
                 type={dynamicType}
                 setDynamicType={setDynamicType}
                 group={group}

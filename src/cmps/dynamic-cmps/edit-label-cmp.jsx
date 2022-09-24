@@ -10,7 +10,7 @@ import { labelsColors } from '../../const/board-list-consts';
 import { utilService } from '../../services/util.service';
 import { saveTask, updateBoard } from '../../store/board.actions';
 
-export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTask, setHideHeader, group, user }) => {
+export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHideHeader, group, user }) => {
     const board = useSelector(state => state.boardModule.board)
 
     const params = useParams()

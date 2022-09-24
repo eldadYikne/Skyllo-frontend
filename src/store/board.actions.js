@@ -147,10 +147,10 @@ export function saveTask(boardId, groupId, task, activity) {
     }
 }
 
-export function removeTask(boardId, groupId, taskId, activity) {
+export function removeTask(boardId, groupId, task, activity) {
     return async (dispatch) => {
         try {
-            const board = await boardService.removeTask(boardId, groupId, taskId, activity)
+            const board = await boardService.removeTask(boardId, groupId, task, activity)
             dispatch(getActionUpdateBoard(board))
             showSuccessMsg('Task deleted')
         } catch (err) {
