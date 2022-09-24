@@ -85,7 +85,7 @@ export function TaskPreview({ task, group }) {
         })
 
         if(taskMembers){
-            const memberForDisplay = taskMembers.slice(0,4)
+            const memberForDisplay = taskMembers.slice(0,3)
             setMembersToDisplay(memberForDisplay)
         }
 
@@ -207,7 +207,7 @@ export function TaskPreview({ task, group }) {
                         { return member.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                    {membersToDisplay &&
-                    taskMembers.length > 4 && <div className='board-header-extra-member-box'>+{taskMembers.length - 4}</div>
+                    taskMembers.length > 3 && <div className='board-header-extra-member-box'>+{taskMembers.length - 3}</div>
                    }
                 </div>
             </div>}
