@@ -17,19 +17,12 @@ export const AttachmentCmp = ({ group, task }) => {
 
 
     const onChangehandel = () => {
-        // setText(text)
         const urlNotImg = text.includes()
         if (!task.attachments) task.attachments = []
         if (!textTitle) return
         task.attachments.push(createAttachment(textTitle, text))
         const taskToUpdate = structuredClone(task)
         dispatch(saveTask(board._id, group.id, task, {text: 'added an attachment', user}))
-
-        // const taskToUpdate = {
-        //     ...task, attachments: [...task.attachments, createAttachment(textTitle, text)]
-        // }
-        // if (!textTitle) return
-        // setTask(taskToUpdate)
     }
    
     const onUploadImg = async (ev) => {
