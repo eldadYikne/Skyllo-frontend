@@ -579,7 +579,6 @@ function getBoard() {
                         memberIds: [],
                         labelIds: [],
                         createdAt: 1590999730348,
-                        dueDate: 16156215211,
                         byMember: {
                             _id: "u101",
                             username: "Tal",
