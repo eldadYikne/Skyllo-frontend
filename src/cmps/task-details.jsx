@@ -127,9 +127,17 @@ export function TaskDetails() {
     ev.target.style.background = color
   }
 
-  const isOverDue = (date) => {
-    if (date < Date.now()) return 'overdue'
-    return 'ontime'
+  const getTaskStatus = (dueDate) => {
+    if (dueDate.isDone === true) return 'complete'
+    else if (dueDate.date < Date.now()) return 'overdue'
+    else return ''
+  }
+
+  const toggleIsTaskDone = (ev) => {
+    ev.stopPropagation()
+    const newTask = structuredClone(task)
+    newTask.dueDate.isDone = !newTask.dueDate.isDone
+    setTask(newTask)
   }
 
   const getBgColorOfImg = async (url,taskToUpdate) => {
@@ -217,10 +225,12 @@ export function TaskDetails() {
                 <div className='actions-type' onClick={() => setDynamicType('dates')}>
                   <h4>Due date</h4>
                   <div className='action-type-content'>
-                    <div className='due-date-checkbox'></div>
+                    <div className={task.dueDate.isDone? 'due-date-checkbox checked': 'due-date-checkbox' } onClick={toggleIsTaskDone}>
+                      {task.dueDate.isDone && <span className='checkbox-checked-content'></span>}
+                    </div>
                     <div className='task-details-date-container'>
-                      <p>{task.dueDate.dateToDisplay}</p>
-                      <div className={task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{isOverDue(task.dueDate.date)}</div>
+                      <p>{task.dueDate.dateToDisplay} at 08:47 AM</p>
+                      <div className={task.dueDate.isDone? 'complete' : task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{getTaskStatus(task.dueDate)}</div>
                     </div>
                   </div>
                 </div>
