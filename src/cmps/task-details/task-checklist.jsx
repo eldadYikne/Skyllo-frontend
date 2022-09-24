@@ -124,38 +124,38 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
                                 </div>
                                 <div className={classIsDone} onClick={() => onEditTodo(todo.id)} key={todo.id}>
                                     <textarea
-                                    className={classIsDone}
+                                        className={classIsDone}
                                         style={{ backgroundColor: todo.txt ? 'inherit' : '#091e420a' }}
                                         name='checklist'
                                         id='checklist-textarea-basic'
                                         value={todo.txt}
-                                        placeholder={todo.txt ? '' : ''}
+                                        placeholder={todo.txt ? todo.txt : ''}
                                     ></textarea>
                                 </div>
                                 <div className='remove-todo-container'>
 
-                                <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
-                                    <MoreOptions />
-                                </button>
-                                {isModalOpen === todo.id && (
-                                    <div className='options-modal-open'>
-                                        <section className='modal-actions'>
-                                            <p>Actions</p>
-                                            <CloseTask
-                                                className='close-modal-icon'
-                                                onClick={() => setIsModalOpen(null)}
+                                    <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
+                                        <MoreOptions />
+                                    </button>
+                                    {isModalOpen === todo.id && (
+                                        <div className='options-modal-open'>
+                                            <section className='modal-actions'>
+                                                <p>Actions</p>
+                                                <CloseTask
+                                                    className='close-modal-icon'
+                                                    onClick={() => setIsModalOpen(null)}
                                                 />
-                                        </section>
-                                        <button
-                                            className='delete-group-btn'
-                                            onClick={ev => onRemoveTodo(ev, todo.id)}
+                                            </section>
+                                            <button
+                                                className='delete-group-btn'
+                                                onClick={ev => onRemoveTodo(ev, todo.id)}
                                             >
-                                            Delete
-                                        </button>
-                                    </div>
-                                )
-                            }
-                            </div>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    )
+                                    }
+                                </div>
 
                             </div>
                         )
