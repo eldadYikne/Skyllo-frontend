@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as ChecklistIcon } from '../../assets/img/checklist-icon.svg'
 import { ReactComponent as MoreOptions } from '../../assets/img/more-options-icon.svg'
 import { utilService } from '../../services/util.service'
 import { saveTask, updateBoard } from '../../store/board.actions'
 import { ReactComponent as CloseTask } from '../../assets/img/close-task-form.svg'
 
-export function TaskChecklist({ task, group, initChecklist, setTask, board, onRemoveChecklist }) {
+export function TaskChecklist({ task, group, initChecklist, board, onRemoveChecklist }) {
 
     const dispatch = useDispatch()
+    const user = useSelector(state => state.userModule.user)
+
     const [isFocus, setIsFocus] = useState(initChecklist?.isFocus ? initChecklist.isFocus : true)
     const [checklist, setChecklist] = useState({ ...initChecklist })
     const [todoTxt, setTodoTxt] = useState('')
@@ -24,9 +26,9 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
     }, [task])
 
 
-    useEffect(() => {
-        dispatch(updateBoard(board))
-    }, [checklist])
+    // useEffect(() => {
+    //     dispatch(updateBoard(board))
+    // }, [checklist])
 
 
     const onToggleInput = () => {
@@ -54,7 +56,7 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
         newChecklists.push(newChecklist)
         const newTask = { ...task, checklists: newChecklists }
         console.log(newTask)
-        setTask(newTask)
+        dispatch(saveTask(board._id, group.id, newTask, { text: `added Todo to checklist ${newChecklist.title}`, user}))
         setTodoTxt('')
         setProgress(getProgress())
     }
@@ -64,25 +66,30 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
         const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todoId)
         checklist.todos.splice(todoIdx, 1)
         const newChecklist = { ...checklist }
-        updateChecklist(newChecklist)
+        updateChecklist(newChecklist, 'removed Todo')
         setIsModalOpen(null)
     }
 
     const onToggleDone = (todoId) => {
         const todo = checklist.todos.find(currTodo => currTodo.id === todoId)
         const newTodo = { ...todo, isDone: !todo.isDone }
-        updateTodo(newTodo)
+        const activityTxt = newTodo.isDone ? 'checked Todo as done' : 'marked Todo as uncomplete'
+        updateTodo(newTodo, activityTxt)
     }
 
     const updateTodo = (todoToUpdate) => {
         const todoIdx = checklist.todos.findIndex(currTodo => currTodo.id === todoToUpdate.id)
         const newChecklist = { ...checklist }
         newChecklist.todos.splice(todoIdx, 1, todoToUpdate)
-        updateChecklist(newChecklist)
+        updateChecklist(newChecklist, 'updated Todo')
     }
 
-    const updateChecklist = (newChecklist) => {
+    const updateChecklist = (newChecklist, text) => {
         setChecklist(newChecklist)
+        const checklistIdx = task.checklists.findIndex(currChecklist=> currChecklist.id === newChecklist.id)
+        task.checklists.splice(checklistIdx, 1, newChecklist)
+        const newTask = structuredClone(task)
+        dispatch(saveTask(board._id, group.id, newTask, {text, user}))
         const progress = getProgress()
         setProgress(progress)
         setComplete(progress === 100 ? 'green' : '')
@@ -111,7 +118,7 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
             <div className='container-checklist-title'>
                 <ChecklistIcon className='title-icon' />
                 <h5>{checklist.title}</h5>
-                <button className='delete-btn ' onClick={(ev) => onRemoveChecklist(ev, checklist.id)}>Delete</button>
+                <button className='delete-btn ' onClick={(ev) => onRemoveChecklist(ev, checklist)}>Delete</button>
             </div>
 
 

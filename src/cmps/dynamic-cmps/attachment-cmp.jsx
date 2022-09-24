@@ -1,24 +1,28 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { uploadService } from "../../services/upload.service"
 import { utilService } from "../../services/util.service"
+import { saveTask } from "../../store/board.actions"
 
 
-export const AttachmentCmp = ({ task, setTask }) => {
+export const AttachmentCmp = ({ group, task }) => {
 
+    const board = useSelector(state => state.boardModule.board)
+    const user = useSelector(state => state.userModule.user)
+
+    const dispatch = useDispatch()
     const [text, setText] = useState('')
     const [textTitle, setTitleUrl] = useState('')
 
 
     const onChangehandel = () => {
-        // setText(text)
-        const urlNotImg= text.includes()
+        const urlNotImg = text.includes()
         if (!task.attachments) task.attachments = []
-
-        const taskToUpdate = {
-            ...task, attachments: [...task.attachments, createAttachment(textTitle, text)]
-        }
         if (!textTitle) return
-        setTask(taskToUpdate)
+        task.attachments.push(createAttachment(textTitle, text))
+        const taskToUpdate = structuredClone(task)
+        dispatch(saveTask(board._id, group.id, task, {text: 'added an attachment', user}))
     }
    
     const onUploadImg = async (ev) => {
@@ -29,7 +33,7 @@ export const AttachmentCmp = ({ task, setTask }) => {
             const taskToUpdate = {
                 ...task, attachments: [...task.attachments, createAttachment(data.original_filename, data.secure_url)]
             }
-            setTask(taskToUpdate)
+            dispatch(saveTask(board._id, group.id, taskToUpdate, {text: 'uploaded image', user}))
         } catch (err) {
             console.log(err);
         }

@@ -1,6 +1,16 @@
+import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
 import { utilService } from "../../services/util.service"
+import { saveTask } from "../../store/board.actions"
 
-export const ChecklistCmp = ({task, setDynamicType, setTask})=> {
+export const ChecklistCmp = ({task, setDynamicType, group })=> {
+
+    const dispatch = useDispatch()
+    const params = useParams()
+    const board = useSelector(state => state.boardModule.board)
+    const user = useSelector(state => state.userModule.user)
+
+    const groupId = params.groupId
 
     const addChecklist = (ev) => {
         ev.preventDefault()
@@ -17,7 +27,7 @@ export const ChecklistCmp = ({task, setDynamicType, setTask})=> {
         } else {
             taskToUpdate = {...task, checklists: [newChecklist]}
         }
-        setTask(taskToUpdate)
+        dispatch(saveTask(board._id, groupId , taskToUpdate, {text: `added ${newChecklist.title} chacklist`, user}))
         setDynamicType('') 
     }
 

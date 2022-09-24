@@ -9,7 +9,7 @@ import { MembersCmp } from './dynamic-cmps/members-cmp'
 import { TaskDate } from './dynamic-cmps/task-date'
 
 
-export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board,comeFromMiniEdit ,getBgColorOfImg}) {
+export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, mouseLocation, board,comeFromMiniEdit ,getBgColorOfImg}) {
 
     const [hideHeader, setHideHeader] = useState(true)
 
@@ -27,32 +27,31 @@ export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsCh
                 return <MembersCmp
                     group={group}
                     task={task}
-                    setTask={setTask}
+                    
                 />
             case 'attachment':
                 return <AttachmentCmp
-                
+                    group={group}
                     task={task}
-                    setTask={setTask} />
+                    />
             case 'cover':
                 return <CoverCmp
-                    task={task}
-                    setTask={setTask}
-                    getBgColorOfImg={getBgColorOfImg} />
+                    getBgColorOfImg={getBgColorOfImg}
+                    task={task} />
             case 'labels':
                 return <LabelsCmp task={task}
                     group={group}
                     setHideHeader={setHideHeader}
                     setDynamicType={setDynamicType}
-                    setTask={setTask}
                     comeFromMiniEdit={comeFromMiniEdit}
                     />
             case 'checklist':
                 return <ChecklistCmp
                     task={task}
                     setDynamicType={setDynamicType}
-                    setTask={setTask}
-                    setIsChecklist={setIsChecklist} /> 
+                    setIsChecklist={setIsChecklist}
+                    group={group} 
+                    /> 
             case 'dates':
                 return <TaskDate 
                     board={board}

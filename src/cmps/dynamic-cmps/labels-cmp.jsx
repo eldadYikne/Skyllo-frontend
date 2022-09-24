@@ -27,16 +27,16 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
             console.log(taskToUpdate)
-            setTask(taskToUpdate)
-            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', taskTilte: task.title, taskId: task.id, groupId: group.id, user: user }))
+            // setTask(taskToUpdate)
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', user: user }))
         }
 
         else {
             const newLabelIds = task.labelIds.filter(currLabelId => currLabelId !== labelId)
             const taskToUpdate = { ...task, labelIds: newLabelIds }
-            setTask(taskToUpdate)
+            // setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, 'deleted task'))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'deleted task', user }))
         }
     }
 
@@ -112,7 +112,6 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
                 setIsEditLabel={setIsEditLabel}
                 selectedLabel={selectedLabel}
                 setDynamicType={setDynamicType}
-                setTask={setTask}
                 setHideHeader={setHideHeader} />
         }
 
@@ -124,7 +123,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
                 setHideHeader={setHideHeader}
                 setIsCreateLabel={setIsCreateLabel}
                 setDynamicType={setDynamicType}
-                setTask={setTask}
+                
 
             />
         }
