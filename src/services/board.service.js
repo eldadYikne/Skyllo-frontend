@@ -129,6 +129,7 @@ async function removeTask(boardId, groupId, taskId, activity) {
     board.activities.unshift(createactivity(activity.text, activity.taskTilte, activity.taskId, activity.user,activity.groupId))
     return save(board)
 }
+
 const createactivity = (text = '', taskTilte = '', taskId = '', user = '' ,groupId='') => {
     return {
         id: utilService.makeId(),

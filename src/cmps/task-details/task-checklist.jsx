@@ -33,8 +33,13 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
         setTodoTxt('')
         setIsFocus(!isFocus)
     }
-    const onEditTodo = (todoId) => {
-        setEditMode(todoId)
+
+    const onEditTodo = (todo,ev) => {
+        console.log('todoId:', todo)
+
+        console.log('algoooooooooooooo:',ev.target[0].value)
+        
+        setEditMode(null)
     }
 
     const onAddTodo = () => {
@@ -89,7 +94,6 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
         setTodoTxt(txt)
     }
 
-
     const getProgress = () => {
         console.log('hello progress')
         if (!checklist.todos || checklist.todos.length === 0) return 0
@@ -122,18 +126,28 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
                                 <div className={classIsChecked} onClick={() => onToggleDone(todo.id)} >
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
-                                <div className={classIsDone} onClick={() => onEditTodo(todo.id)} key={todo.id}>
+                                <div className={classIsDone} key={todo.id}>
                                     <textarea
                                         className={classIsDone}
                                         style={{ backgroundColor: todo.txt ? 'inherit' : '#091e420a' }}
                                         name='checklist'
                                         id='checklist-textarea-basic'
-                                        value={todo.txt}
+                                        defaultValue={todo.txt}
                                         placeholder={todo.txt ? todo.txt : ''}
+                                        onClick={()=>setEditMode(todo.id)}
                                     ></textarea>
+                                   {editMode === todo.id && 
+                                    <div className='edit-todo-container'>
+                                        <button className='save-todo-edit-btn' onClick={()=>onEditTodo(todo)} >Save</button>
+                                        <button className='close-todo-edit-btn'>
+                                            <CloseTask
+                                                className='close-modal-icon'
+                                                onClick={()=>setEditMode(null)}
+                                            />
+                                        </button>
+                                    </div>}
                                 </div>
                                 <div className='remove-todo-container'>
-
                                     <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
                                         <MoreOptions />
                                     </button>
@@ -153,8 +167,7 @@ export function TaskChecklist({ task, group, initChecklist, setTask, board, onRe
                                                 Delete
                                             </button>
                                         </div>
-                                    )
-                                    }
+                                    )}
                                 </div>
 
                             </div>

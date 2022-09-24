@@ -8,8 +8,6 @@ import { saveTask } from '../../store/board.actions'
 import { CreateLabel } from './create-new-label'
 import { EditLabel } from './edit-label-cmp'
 
-
-
 export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader, comeFromMiniEdit }) => {
 
     const dispatch = useDispatch()

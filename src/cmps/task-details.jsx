@@ -35,15 +35,15 @@ export function TaskDetails() {
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
   const initTask = group.tasks.find(task => task.id === taskId)
-  
+
   // ELDAD
   // const bgColor = initTask.cover?.color ? initTask.cover.color.length > 9 ? '#fffff' : initTask.cover.color : ''
-  console.log(initTask,' initTask.');
+  console.log(initTask, ' initTask.');
   const bgColorDetailsHedear = initTask.cover?.color?.length > 9 ? initTask.cover.backgroundColor : initTask.cover?.color
   const bgColor = initTask.cover?.color ? bgColorDetailsHedear : ''
-  console.log('bgColorDetailsHedear',bgColorDetailsHedear)
-  console.log('bgColor',bgColor)
-  
+  console.log('bgColorDetailsHedear', bgColorDetailsHedear)
+  console.log('bgColor', bgColor)
+
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
   const [isDescription, setIsDescription] = useState(false)
@@ -112,9 +112,13 @@ export function TaskDetails() {
     else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
   }
 
-  const onOpenDynamicCmp = (ev) => {
+  const onOpenDynamicCmp = (ev, actionType) => {
     const mouseClickLocation = ev.target.getClientRects()
     setMouseLocation(mouseClickLocation[0].y)
+    if (actionType) {
+      console.log('actionType:', actionType)
+      return setDynamicType(actionType)
+    }
     setDynamicType(ev.target.name)
     console.log('mouseLocation:', mouseLocation)
   }
@@ -140,7 +144,7 @@ export function TaskDetails() {
     setTask(newTask)
   }
 
-  const getBgColorOfImg = async (url,taskToUpdate) => {
+  const getBgColorOfImg = async (url, taskToUpdate) => {
     console.log('getBgColorOfImg');
     try {
       const currTask = structuredClone(taskToUpdate)
@@ -200,7 +204,7 @@ export function TaskDetails() {
                           <div key={member._id} className='avatar-img-guest-member-box'></div>
                       }
                     })}
-                    <div className='task-details-member-box-plus-member' onClick={() => setDynamicType('members')}>+</div>
+                    <div className='task-details-member-box-plus-member' onClick={(ev) => onOpenDynamicCmp(ev, 'members')}>+</div>
                   </div>
                 </div>
 
@@ -216,7 +220,7 @@ export function TaskDetails() {
                         {label.title ? label.title : ''}
                       </div>
                     })}
-                    <div className='task-details-label-box-plus-label' onClick={() => setDynamicType('labels')}>+</div>
+                    <div className='task-details-label-box-plus-label' onClick={(ev) => onOpenDynamicCmp(ev, 'labels')}>+</div>
                   </div>
                 </div>
               </div>
@@ -225,17 +229,16 @@ export function TaskDetails() {
                 <div className='actions-type' onClick={() => setDynamicType('dates')}>
                   <h4>Due date</h4>
                   <div className='action-type-content'>
-                    <div className={task.dueDate.isDone? 'due-date-checkbox checked': 'due-date-checkbox' } onClick={toggleIsTaskDone}>
+                    <div className={task.dueDate.isDone ? 'due-date-checkbox checked' : 'due-date-checkbox'} onClick={toggleIsTaskDone}>
                       {task.dueDate.isDone && <span className='checkbox-checked-content'></span>}
                     </div>
                     <div className='task-details-date-container'>
                       <p>{task.dueDate.dateToDisplay} at 08:47 AM</p>
-                      <div className={task.dueDate.isDone? 'complete' : task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{getTaskStatus(task.dueDate)}</div>
+                      <div className={task.dueDate.isDone ? 'complete' : task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{getTaskStatus(task.dueDate)}</div>
                     </div>
                   </div>
                 </div>
               }
-
             </section>
 
             <div className='description-container'>
