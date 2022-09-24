@@ -157,22 +157,23 @@
             align-items: center;
             padding-bottom: 4px;
             align-items: center;
+            
 
             & .task-preview-date-container {
                 display: flex;
-                background-color: #61bd4f;
+                color: #172b4d;
                 border-radius: 3px;
-                color: #fff;
                 padding: 2px;
                 padding-right: 5px;
                 align-items: center;
 
                 &:hover .task-preview-date-pin {
-                    background: url("../../img/checkbox-1.svg") center center / cover;
+                    background: url("../../img/checkbox-2.svg") center center / cover;
+                
                 }
 
                 &:hover {
-                    background-color: darken(#61bd4f, 5%);
+                    background-color: #ebecf0;
                 }
 
                 & .task-preview-date-pin {
@@ -181,8 +182,7 @@
                     height: 14px;
                     width: 14px;
                     align-items: center;
-
-                    background: url("../../img/due-date-preview-icon.svg");
+                    background: url("../../img/due-date-preview-icon2.svg");
                 }
 
                 & .task-preview-date-due {
@@ -199,6 +199,13 @@
 
                 &.overdue {
                     background-color: #ec9488;
+                    color: #ffffff;
+
+                    & .task-preview-date-pin {
+                        background: url("../../img/due-date-preview-icon.svg");
+                    }
+
+                    
 
                     &:hover {
                         background-color: darken(#ec9488, 5%);
@@ -206,6 +213,22 @@
 
                     &:hover .task-preview-date-pin {
                         background: url("../../img/checkbox-1.svg") center center / cover;
+                    }
+                }
+                &.complete {
+                    background-color: #61bd4f;
+                    color: #ffffff;
+
+                    & .task-preview-date-pin {
+                        background: url("../../img/due-date-preview-icon.svg");
+                    }
+
+                    &:hover {
+                        background-color: darken(#61bd4f, 5%);
+                    }
+
+                    &:hover .task-preview-date-pin {
+                        background: url("../../img/checkbox-positive.svg") center center / cover;
                     }
                 }
             }

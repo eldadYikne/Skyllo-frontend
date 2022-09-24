@@ -7,7 +7,7 @@ export const ChecklistCmp = ({task, setDynamicType, setTask})=> {
         ev.stopPropagation()
         const newChecklist = {
             id: utilService.makeId(),
-            title: ev.target[0].value,
+            title: ev.target[0].value? ev.target[0].value : 'Checklist',
             todos: [],
             isFocus: true
         }

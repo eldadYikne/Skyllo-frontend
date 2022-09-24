@@ -116,6 +116,15 @@ export function TaskPreview({ task, group }) {
         setIsMiniEditShown(!isMiniEditShown)
     }
 
+    const toggleIsDone = (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        task.dueDate.isDone = !task.dueDate.isDone
+        const newBoard = structuredClone(board)
+        dispatch(updateBoard(newBoard))
+
+    }
+
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
 
     return (
@@ -170,7 +179,10 @@ export function TaskPreview({ task, group }) {
                 <div className="task-preview-pins">
 
                     {task.dueDate &&
-                        <div className={task.dueDate.date < Date.now() ? 'task-preview-date-container overdue' : 'task-preview-date-container'} >
+                        <div className={task.dueDate.isDone ? 'task-preview-date-container complete' :
+                                         task.dueDate.date < Date.now() ? 'task-preview-date-container overdue' : 'task-preview-date-container'} 
+                                         onClick={toggleIsDone}
+                                        >
 
                             <div className="task-preview-date-pin">
                                 {/* <DueDate/> */}
