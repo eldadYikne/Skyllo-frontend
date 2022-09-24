@@ -12,7 +12,7 @@ import { utilService } from '../../services/util.service'
 import { useEffect } from 'react'
 
 
-export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setTask, setHideHeader,board,group }) => {
+export const CreateLabel = ({ setDynamicType, setIsCreateLabel, setHideHeader,board,group }) => {
     const params = useParams()
     const taskId = params.taskId
     const groupId = params.groupId

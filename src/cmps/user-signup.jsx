@@ -189,8 +189,6 @@ export function LoginSignup() {
                         <div className='sign-up-login-links-btn'>
 
                             <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
-
-
                             <Link to='/'>
                                 <p className="sign-up-login-btn-link">Home</p>
                             </Link>
@@ -200,10 +198,10 @@ export function LoginSignup() {
 
 
             </div>
-            <div className='images-login'> 
+            {/* <div className='images-login'> 
                 <LeftImageSvg/>  
                 <RightImageSvg/>
-            </div>
+            </div> */}
         </div>
     )
 }
