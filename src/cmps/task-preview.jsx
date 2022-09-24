@@ -21,12 +21,15 @@ export function TaskPreview({ task, group }) {
     const [mouseClickLocation, setMouseClickLocation] = useState(null)
 
     const board = useSelector(state => state.boardModule.board)
-    
+
     const labelsOpen = board.toggleLabels
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
 
     const [taskLabels, setTaskLabels] = useState()
     const [taskMembers, setTaskMembers] = useState()
+    const [membersToDisplay,setMembersToDisplay] = useState()
+
+    
     const [taskAttachments, setTaskAttachments] = useState()
     const [taskChecklists, setTaskChecklists] = useState()
     const dispatch = useDispatch()
@@ -38,7 +41,8 @@ export function TaskPreview({ task, group }) {
     const [heightImg, setHeightImg] = useState('')
     const [textColor, setTextColor] = useState('')
     const [taskTitlePos, setTaskTitlePos] = useState('task-title')
-
+    
+    
     const loadTaskCover = () => {
         setBackgroundStyle(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')
         if (task.cover?.color?.length > 9) {
@@ -64,8 +68,6 @@ export function TaskPreview({ task, group }) {
         if (!task.labelIds) return
 
         const labelIds = task.labelIds
-        
-        console.log('labelIds:', labelIds)
 
         // const taskLabel = boardService.getLabelsById(board, labelIds)
 
@@ -81,6 +83,12 @@ export function TaskPreview({ task, group }) {
         const taskMembers = membersIds?.map(id => {
             return boardService.getMembersById(board, id)
         })
+
+        if(taskMembers){
+            const memberForDisplay = taskMembers.slice(0,4)
+            setMembersToDisplay(memberForDisplay)
+        }
+
         return setTaskMembers(taskMembers)
     }
 
@@ -107,12 +115,8 @@ export function TaskPreview({ task, group }) {
         ev.stopPropagation()
 
         const mouseClickLocation = ev.target.getClientRects()
-        console.log('mouseClickLocation:', mouseClickLocation)
-        
+        setMouseClickLocation(mouseClickLocation[0])
 
-      
-            setMouseClickLocation(mouseClickLocation[0])
-        
         setIsMiniEditShown(!isMiniEditShown)
     }
 
@@ -199,9 +203,12 @@ export function TaskPreview({ task, group }) {
                 </div>
 
                 <div className="task-preview-members-container">
-                    {taskMembers && taskMembers.map(member => {
+                    {membersToDisplay && membersToDisplay.map(member => {
                         { return member.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
+                   {membersToDisplay &&
+                    taskMembers.length > 4 && <div className='board-header-extra-member-box'>+{taskMembers.length - 4}</div>
+                   }
                 </div>
             </div>}
         </section>

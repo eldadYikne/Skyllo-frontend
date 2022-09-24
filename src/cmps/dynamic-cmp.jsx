@@ -9,7 +9,7 @@ import { MembersCmp } from './dynamic-cmps/members-cmp'
 import { TaskDate } from './dynamic-cmps/task-date'
 
 
-export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board,comeFromMiniEdit }) {
+export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsChecklist, mouseLocation, board,comeFromMiniEdit ,getBgColorOfImg}) {
 
     const [hideHeader, setHideHeader] = useState(true)
 
@@ -31,12 +31,14 @@ export function DynamicCmp({ type, setDynamicType, task, group, setTask, setIsCh
                 />
             case 'attachment':
                 return <AttachmentCmp
+                
                     task={task}
                     setTask={setTask} />
             case 'cover':
                 return <CoverCmp
                     task={task}
-                    setTask={setTask} />
+                    setTask={setTask}
+                    getBgColorOfImg={getBgColorOfImg} />
             case 'labels':
                 return <LabelsCmp task={task}
                     group={group}

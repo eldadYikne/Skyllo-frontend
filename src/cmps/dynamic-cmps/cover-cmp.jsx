@@ -5,18 +5,22 @@ import { useParams } from "react-router-dom"
 import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
 import { saveTask } from "../../store/board.actions"
 
-export const CoverCmp = ({ task, setTask }) => {
+export const CoverCmp = ({ task, setTask,getBgColorOfImg }) => {
+    const params = useParams()
 
     const [bgColorExmpel, setBgColorExmpel] = useState(`url(${task.cover?.color})`)
     const [bgColorTextExmple, setBgColorTextExmple] = useState(`url(${task.cover?.color})`)
-    console.log('task.cover?.color', task.cover?.color);
     const [text, setText] = useState('')
     const [isFullCover, setFullCover] = useState(task.cover?.isFullCover)
     const [isDark, setIsDark] = useState(task.cover?.isDark)
     let backgroundStyle = bgColorExmpel?.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const classBtn = text ? 'btn-create-board filled ' : "btn-create-board"
     let coverChoice = isFullCover ? "coverd-choice choice" : "coverd-choice  "
+    const board = useSelector(state => state.boardModule.board)
+    const groupId = params.groupId
+    const user = useSelector(state => state.userModule.user)
     const dispatch = useDispatch()
+
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
@@ -25,9 +29,10 @@ export const CoverCmp = ({ task, setTask }) => {
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
+        getBgColorOfImg(color,taskToUpdate)
         // dispatch(saveTask(taskToUpdate))
-
         setTask(taskToUpdate)
+        // dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change color task', taskTilte: task.title, taskId: task.id, groupId: groupId, user: user }))
 
     }
 
@@ -36,14 +41,14 @@ export const CoverCmp = ({ task, setTask }) => {
         console.log('isCover', isCover)
         console.log('isFullCover', isFullCover)
         setFullCover(isCover)
-
         const taskToUpdate = { ...task, cover: { ...task.cover, isFullCover: isCover } }
         setTask(taskToUpdate)
+        // dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', taskTilte: task.title, taskId: task.id, groupId: groupId, user: user }))
+
     }
     const changeHandel = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-
         setText(ev.target.value)
         console.log(text, 'tetx')
     }
@@ -96,16 +101,19 @@ export const CoverCmp = ({ task, setTask }) => {
 
         {task.cover?.color && <button onClick={(ev) => onChangeColor('', ev)} className='remove-btn filled'>Remove Cover</button>}
 
-        {task.cover?.isFullCover && <div className="cover-size-action text">
-            <div onClick={() => onTasktCoverSelected(true)} className={task.cover.isDark ? "coverd-choice darken choice" : "coverd-choice darken"} style={{ background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),${bgColorExmpel}` }}>
-                <p>
-                    {task.title}
-                </p>
-            </div>
-            <div onClick={() => onTasktCoverSelected(false)} className={task.cover.isDark ? "coverd-choice bright" : "coverd-choice bright choice"} style={{ background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),${bgColorExmpel}` }}>
-                <p>
-                    {task.title}
-                </p>
+        {task.cover?.isFullCover && task.cover.color.length >9 && <div>
+            <span> Text color</span>
+            <div className="cover-size-action text">
+                <div onClick={() => onTasktCoverSelected(true)} className={task.cover.isDark ? "coverd-choice darken choice" : "coverd-choice darken"} style={{ background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),${bgColorExmpel}` }}>
+                    <p>
+                        {task.title}
+                    </p>
+                </div>
+                <div onClick={() => onTasktCoverSelected(false)} className={task.cover.isDark ? "coverd-choice bright" : "coverd-choice bright choice"} style={{ background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),${bgColorExmpel}` }}>
+                    <p>
+                        {task.title}
+                    </p>
+                </div>
             </div>
         </div>}
         <span>

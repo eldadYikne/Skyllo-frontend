@@ -626,10 +626,17 @@ image.png .green {
     margin-inline-start: 40px;
     gap: 7px;
     align-items: center;
-    position: relative;
+    // position: relative;
+    margin-bottom: 4px;
+    border-radius: 3px;
 
     .checkbox {
       @include for-checkbox;
+      margin-bottom: 32px;
+    }
+
+    .remove-todo-container{
+      position: relative;
     }
 
     .remove-todo-btn {
@@ -647,7 +654,8 @@ image.png .green {
       border: none;
       display: none;
       position: absolute;
-      right: 0;
+      right: 10px;
+      top: -20px;
     }
 
     &:hover .remove-todo-btn {
@@ -752,11 +760,16 @@ image.png .green {
   }
 
   .done {
+    height: 56px;
+    margin-bottom: 4px;
     text-decoration: line-through;
     list-style: none;
   }
 
   .active {
+    height: 56px;
+    margin-bottom: 4px;
+    width: 100%;
     text-decoration: none;
     list-style: none;
   }

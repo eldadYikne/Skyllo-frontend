@@ -14,18 +14,22 @@ import { userService } from '../services/user.service';
 
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()
+    if (!board.members) board.members = []
     const members = board.members
+
+    const membersToDisplay = members.slice(0, 4)
+
     const [isMembersModalOpen, setIsMembersModalOpen] = useState(false)
+    const [isExtraMembersModalOpen, setIsExtraMembersModalOpen] = useState(false)
+
     const [users, setUsers] = useState(null)
-
-
 
     if (!board.isPopoverShown) board.isPopoverShown = false
     const onSetIsStared = async (boardId) => {
         try {
             const board = await boardService.getById(boardId)
-            const boadToUpdate = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
-            dispatch(updateBoard(boadToUpdate))
+            const boardToUpdate = { ...board, style: { ...board.style, isStared: !board.style.isStared } }
+            dispatch(updateBoard(boardToUpdate))
         } catch (err) {
             console.log(err);
         }
@@ -41,7 +45,6 @@ export function BoardHeader({ board }) {
         const users = await userService.getUsers()
         try {
             setUsers(users)
-            console.log('users', users)
         }
         catch {
             console.log('cannot load users')
@@ -77,8 +80,6 @@ export function BoardHeader({ board }) {
             return member._id === currMember._id
         })
 
-        console.log('existMember:', existMember)
-
         if (existMember.length !== 0 && existMember) return
 
         boardToUpdate.members.push(currMember)
@@ -102,14 +103,41 @@ export function BoardHeader({ board }) {
                         <span className='board-header-border-left'></span>
 
                         <div className='board-header-members-container'>
-                            {members && members.map(member => {
+                            {members && membersToDisplay.map(member => {
                                 {
                                     return member.img ? <div className='board-header-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
                                         <div className='avatar-img-guest-member-box' key={member._id}></div>
                                 }
                             })}
-                            {members.length > 4 && <div className='board-header-extra-member-box'>+{members.length - 4}</div>}
+                            {members.length > 4 && <div className='board-header-extra-member-box'
+                            onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)}
+                            >+{members.length - 4}</div>}
                         </div>
+                        {isExtraMembersModalOpen &&
+                            <section className='board-header-users-modal'>
+                                <div className='users-modal-header'>
+                                    <span>Board members</span>
+                                    <CloseUsersModalIcon className='close-users-modal-icon' onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)} />
+                                </div>
+                                <div className='users-modal-content'>
+
+                                    <div className='users-modal-users-list'>
+
+                                        {members && members.map(member => {
+                                            return <div className='users-modal-user-preview'
+                                            
+                                                key={member._id}>
+                                                {member.img ? <div className='users-modal-user-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                                                    <div className='avatar-img-guest-user-box' key={member._id}></div>}
+
+                                                <span>{member.fullname}</span>
+                                            </div>
+                                        })}
+                                    </div>
+                                </div>
+
+                            </section>
+                        }
                         <span className='board-header-border-left'></span>
 
                         <div className='invite-member-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)}>
@@ -142,6 +170,7 @@ export function BoardHeader({ board }) {
 
                             </section>
                         }
+
 
                     </div>
                 </div>

@@ -6,8 +6,8 @@
     height: 100vh;
     padding: 0 15px;
     position: relative;
-
-    & .logo-sign-up{
+    overflow: auto;
+    & .logo-sign-up {
         margin-right: 7px;
         height: 40px;
         width: 40px;
@@ -36,7 +36,7 @@
         display: flex;
         justify-content: center;
         margin: 2.5rem 0;
-        margin-top: 126px;
+        margin-top: 30px;
         width: 100%;
     }
 
@@ -128,7 +128,7 @@
             text-align: center;
             width: 99%;
 
-            & p{
+            & p {
                 padding-top: 8px;
             }
 
@@ -170,5 +170,14 @@
         text-align: center;
         margin-top: 6px;
         margin-bottom: 6px
+    }
+
+    & .images-login {
+        height: 353px;
+        width: 100vw;
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        bottom: 60px;
     }
 }

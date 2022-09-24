@@ -4,6 +4,8 @@ import { ImgUploader } from './img-uploader'
 import { onLogin, onSignup } from '../store/user.actions'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../assets/img/trello-logo-Sign-up.png'
+import { ReactComponent as LeftImageSvg } from '../assets/img/left-img-login.svg';
+import { ReactComponent as RightImageSvg } from '../assets/img/right-img-login.svg';
 
 
 import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
@@ -187,8 +189,6 @@ export function LoginSignup() {
                         <div className='sign-up-login-links-btn'>
 
                             <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
-
-
                             <Link to='/'>
                                 <p className="sign-up-login-btn-link">Home</p>
                             </Link>
@@ -198,6 +198,10 @@ export function LoginSignup() {
 
 
             </div>
+            {/* <div className='images-login'> 
+                <LeftImageSvg/>  
+                <RightImageSvg/>
+            </div> */}
         </div>
     )
 }
