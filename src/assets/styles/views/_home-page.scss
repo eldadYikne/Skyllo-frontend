@@ -1,9 +1,13 @@
 .home-page-container {
-  padding: 8rem 1rem 1rem;
+  // padding: 8rem 1rem 1rem;
+  padding: 50px;
+
   background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
   height: 40vh;
   text-align: center;
   color: #091e42;
+
+
   & h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
@@ -54,14 +58,16 @@
     }
   }
 
-  @include for-normal-layout {
-  }
-
-  @include for-wide-layout {
+  // @include for-normal-layout {
+    // }
+    
+    @include for-wide-layout {
     display: flex;
     flex-direction: row-reverse;
     margin: auto;
     text-align: left;
+      padding: 8rem 1rem 1rem;
+
     & .home-page-content {
       height: 2vh;
       max-width: 33.33%;
@@ -79,7 +85,6 @@
     & .home-page-img {
       max-width: 465px;
       margin-left: 0;
-
     }
   }
 }

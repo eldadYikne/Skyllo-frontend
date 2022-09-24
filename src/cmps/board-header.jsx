@@ -93,7 +93,9 @@ export function BoardHeader({ board }) {
 
             <nav className="board-header main-container board-header-main-nav">
                 <div className="nav-left">
-                    <h1>{board.title}</h1>
+                    <div className='board-title-board-header'>
+                    <h3>{board.title}</h3>
+                    </div>
                     <div className="board-header-nav-left-actions">
                         <div className="board-header-favorite-icon action-board-header">
                             {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />

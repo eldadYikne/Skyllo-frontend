@@ -629,10 +629,17 @@ image.png .green {
     // position: relative;
     margin-bottom: 4px;
     border-radius: 3px;
+    height: 82px;
+
+    // & #checklist-textarea-basic{
+    //   &:focus .checklist-todo{
+    //     height: 90px
+    //   }
+    // }
 
     .checkbox {
       @include for-checkbox;
-      margin-bottom: 32px;
+      margin-bottom: 25px;
     }
 
     .remove-todo-container{
@@ -761,6 +768,7 @@ image.png .green {
     text-decoration: line-through;
     list-style: none;
     border-radius: 3px;
+    margin-bottom: -9px;
     &:hover {
       background-color: #ebecf0;
     }
@@ -772,6 +780,7 @@ image.png .green {
     text-decoration: none;
     list-style: none;
     border-radius: 3px;
+    margin-bottom: -9px;
     &:hover {
       background-color: #ebecf0;
     }
