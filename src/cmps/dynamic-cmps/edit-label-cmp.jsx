@@ -67,6 +67,17 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
         // })
         // console.log('tasksWithLabelToDelete:', tasksWithLabelToDelete)
 
+        const groups = boardToUpdate.groups
+
+       const updatedGroups = groups.map(group=>{
+            group.tasks.map(task=>{
+                return task.labelIds.filter(labelId => labelId !== selectedLabel.id)
+            })
+        })
+
+        console.log('updatedGroups:', updatedGroups)
+        
+
         const newLabelIds = currTask.labelIds.filter(labelId => labelId !== selectedLabel.id)
         console.log('newLabelIds:', newLabelIds)
 
@@ -81,6 +92,8 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setTa
 
         boardToUpdate.labels = boardToUpdate.labels.filter(label => label.id !== selectedLabel.id)
         console.log('boardToUpdateeee:', boardToUpdate)
+
+
 
         // setTask(updatedTask)
         dispatch(updateBoard(boardToUpdate))

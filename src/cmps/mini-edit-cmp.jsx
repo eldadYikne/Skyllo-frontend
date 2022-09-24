@@ -37,6 +37,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const [dynamicType, setDynamicType] = useState('')
     const [title, setTitle] = useState('')
     const [taskMembers, setTaskMembers] = useState(null)
+   
     const [taskLabels, setTaskLabels] = useState(null)
     // const [bgColor, setBgColor] = useState(task.cover?.color ? `url(${task.cover.color})` : '')
     const [backgroundStyle, setBackgroundStyle] = useState(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')

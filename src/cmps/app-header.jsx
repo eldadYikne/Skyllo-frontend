@@ -32,7 +32,6 @@ export function AppHeader() {
 
   }, [])
 
-
   const getBgColorOfImg = async (url, board) => {
     console.log('getBgColorOfImg');
     console.log('board', board);

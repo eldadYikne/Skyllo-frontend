@@ -213,7 +213,6 @@ export function TaskDetails() {
                 </div>
               </div>
 
-
               {task.dueDate &&
                 <div className='actions-type' onClick={() => setDynamicType('dates')}>
                   <h4>Due date</h4>
