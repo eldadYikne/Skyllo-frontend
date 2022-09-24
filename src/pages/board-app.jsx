@@ -74,7 +74,7 @@ export function BoardApp() {
     return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
 
 
-        <div style={{ overflow: 'auto' }} className="board-app" >
+        <div  className="board-app" >
             <BoardHeader board={board} />
             <Popover board={board} />
             <DragDropContext onDragEnd={onDragEnd}>
@@ -82,7 +82,7 @@ export function BoardApp() {
                 <Droppable droppableId='all-groups' direction="horizontal" type="group">
                     {(provided) => {
                         return <li className='list-move-group'
-                            style={{ maxHeight: `calc(100vh - ${pageHeigth})` }}
+                            // style={{ maxHeight: `calc(100vh - ${pageHeigth})` }}
                             {...provided.draggableProps}
                             ref={provided.innerRef} >
 

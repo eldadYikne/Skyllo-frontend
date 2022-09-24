@@ -649,9 +649,6 @@ image.png .green {
       display: block;
     }
 
-    &:hover {
-      background-color: #ebecf0;
-    }
 
     .options-modal-open {
       // top: 118px;
@@ -751,16 +748,22 @@ image.png .green {
 
   .done {
     height: 56px;
-    margin-bottom: 4px;
     text-decoration: line-through;
     list-style: none;
+    border-radius: 3px;
+    &:hover {
+      background-color: #ebecf0;
+    }
   }
-
+  
   .active {
     height: 56px;
-    margin-bottom: 4px;
     width: 100%;
     text-decoration: none;
     list-style: none;
+    border-radius: 3px;
+    &:hover {
+      background-color: #ebecf0;
+    }
   }
 }
