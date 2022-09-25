@@ -178,9 +178,9 @@ export function BoardHeader({ board }) {
                 </div>
 
                 <div className="nav-right">
-                    <div className='board-header-menu-btn'>
+                    <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p onClick={onShownPopover}>Show Menu</p>
+                        <p >Show Menu</p>
                     </div>
                 </div>
 

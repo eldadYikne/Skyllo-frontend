@@ -53,30 +53,68 @@ export function BoardList({ boards, loadBoards }) {
 
     const onChangeHeaderColor = (board) => {
         const newBgImg = board?.style?.bgImg
-        console.log('newBgImgnewBgImg',newBgImg);
+        console.log('newBgImgnewBgImg', newBgImg);
         const boardImg = newBgImg?.substring(4, newBgImg.length - 1)
         console.log(boardImg);
         getBgColorOfImg(boardImg, board)
 
     }
     const getBgColorOfImg = async (url, board) => {
-        const newBoard=structuredClone(board)
+        const newBoard = structuredClone(board)
         console.log('getBgColorOfImg');
         console.log('board', board);
         try {
             if (!newBoard.style.backgroundColor) newBoard.style.backgroundColor = ''
             const fac = new FastAverageColor();
-            const color = await fac.getColorAsync(url)
-            newBoard.style.backgroundColor = color.rgb;
-            console.log('Average color', color);
-        
+            if (newBoard.style?.bgImg > 9) {
+                const color = await fac.getColorAsync(url)
+                newBoard.style.backgroundColor = color.rgb;
+                console.log('Average color', color);
+            } else if (newBoard.style?.bgImg) {
+                const color = hexToRgb(newBoard.style?.bgImg)
+                console.log(color, 'color');
+                newBoard.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
+            }
+
             dispatch(updateBoard(newBoard))
         } catch (err) {
             console.log(err);
-            
+
         }
     }
+    // const getBgColorOfImg = async (url, board) => {
+    //     const newBoard = structuredClone(board)
+    //     console.log('getBgColorOfImg');
+    //     console.log('board', board);
+    //     try {
+    //         if (!newBoard.style.backgroundColor) newBoard.style.backgroundColor = ''
+    //         const fac = new FastAverageColor();
+    //         if (newBoard.style?.bgImg > 9) {
+    //             const color = await fac.getColorAsync(url)
+    //             newBoard.style.backgroundColor = color.rgb;
+    //             console.log('Average color', color);
+    //         } else if (newBoard.style?.bgImg) {
+    //            const color= hexToRgb(newBoard.style?.bgImg)
+    //            console.log(color,'color');
+    //             newBoard.style.backgroundColor= ` rgba(${color.r},${color.g},${color.b},.45)`
 
+
+    //         }
+
+    //         dispatch(updateBoard(newBoard))
+    //     } catch (err) {
+    //         console.log(err);
+
+    //     }
+    // }
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
     return <div className='workspace'>
 
         <span className='title-workspace'>

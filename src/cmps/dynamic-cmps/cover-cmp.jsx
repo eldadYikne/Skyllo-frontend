@@ -5,14 +5,8 @@ import { useParams } from "react-router-dom"
 import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
 import { saveTask } from "../../store/board.actions"
 
-export const CoverCmp = ({ task, getBgColorOfImg }) => {
+export const CoverCmp = ({ task,getBgColorOfImg }) => {
     const params = useParams()
-    const board = useSelector(state => state.boardModule.board)
-    const user = useSelector(state => state.userModule.user)
-    const dispatch = useDispatch()
-    const groupId = params.groupId
-
-
     const [bgColorExmpel, setBgColorExmpel] = useState(`url(${task.cover?.color})`)
     const [bgColorTextExmple, setBgColorTextExmple] = useState(`url(${task.cover?.color})`)
     const [text, setText] = useState('')
@@ -21,6 +15,10 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
     let backgroundStyle = bgColorExmpel?.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const classBtn = text ? 'btn-create-board filled ' : "btn-create-board"
     let coverChoice = isFullCover ? "coverd-choice choice" : "coverd-choice  "
+    const board = useSelector(state => state.boardModule.board)
+    const groupId = params.groupId
+    const user = useSelector(state => state.userModule.user)
+    const dispatch = useDispatch()
 
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
@@ -29,11 +27,10 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)
-        const taskToUpdate = { ...task, cover: { ...task.cover, color: newColor } }
+        const taskToUpdate = { ...task, cover: { ...task.cover, color } }
         getBgColorOfImg(color,taskToUpdate)
-        // dispatch(saveTask(taskToUpdate))
-        // setTask(taskToUpdate)
-        dispatch(saveTask(board._id,groupId, taskToUpdate, { text: 'change color task', user }))
+
+        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change color task', user }))
 
     }
 
@@ -43,8 +40,7 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         console.log('isFullCover', isFullCover)
         setFullCover(isCover)
         const taskToUpdate = { ...task, cover: { ...task.cover, isFullCover: isCover } }
-        // setTask(taskToUpdate)
-        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', user }))
+        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change cover task', user }))
 
     }
     const changeHandel = (ev) => {
@@ -62,8 +58,8 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         }
         console.log('isCover', isDarked)
         const taskToUpdate = { ...task, cover: { ...task.cover, isDark: isDarked } }
-        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', user }))
-        // setTask(taskToUpdate)
+        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change cover task', user }))
+
     }
 
     return <section className="cover-cmp">

@@ -6,25 +6,23 @@ import Logo from '../assets/img/logo.gif'
 import { onLogout } from '../store/user.actions'
 
 
-export function AppHeader({board}) {
-
+export function AppHeader({ board }) {
   const [imgSrc, setImgSrc] = useState(Logo)
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
-  // const board = useSelector(state => state.boardModule.board)
+
   const dispatch = useDispatch()
 
   const onClickLogout = () => {
     dispatch(onLogout())
   }
 
-  
 
 
 
 
   return (
-    <header style={{ backgroundColor: board?.style?.backgroundColor  }} className='app-header'>
+    <header style={{ backgroundColor: board?.style?.backgroundColor }} className='app-header'>
       <section className='logo-hedear-container'>
 
         <div className='logo-container'>
