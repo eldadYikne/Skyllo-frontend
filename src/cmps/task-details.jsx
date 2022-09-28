@@ -17,7 +17,7 @@ import { ReactComponent as DescriptionIcon } from '../assets/img/description-ico
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
 import { removeTask, saveTask } from '../store/board.actions'
-import { boardService } from '../services/board.service'
+import { boardService } from '../services/board.new.service'
 import { AttachmentDetails } from './task-details/attachmaent-details'
 import { TaskChecklist } from './task-details/task-checklist'
 import { utilService } from '../services/util.service'
@@ -31,6 +31,7 @@ export function TaskDetails() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
   const board = useSelector(state => state.boardModule.board)
+  console.log(board)
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
@@ -79,11 +80,13 @@ export function TaskDetails() {
 
   useEffect(() => {
       loadLabels()
+      console.log(board)
     // onSaveTask()
     loadMembers()
-  }, [task])
+  }, [task, board])
 
   const onSaveTask = (activityTxt) => {
+    console.log('task details board:', board)
     const text = activityTxt? activityTxt : 'saved task'
     dispatch(saveTask(board._id, group.id, task, { text, user }))
     if (isDescription) setIsDescription(false)
@@ -234,7 +237,7 @@ export function TaskDetails() {
                         onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
                         style={{ backgroundColor: label?.color }}>
-                        <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>
+                        <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label?.color, -20) }}></div>
                         {label.title ? label.title : ''}
                       </div>
                     })}

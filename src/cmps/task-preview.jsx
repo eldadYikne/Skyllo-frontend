@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { boardService } from "../services/board.service";
+import { boardService } from "../services/board.new.service";
 import { updateBoard } from "../store/board.actions";
 import { TaskDetails } from "./task-details";
 
@@ -162,15 +162,15 @@ export function TaskPreview({ task, group }) {
                 </div>
             }
 
-            {taskLabels && !task.cover?.isFullCover &&
+            {taskLabels && !task.cover?.isFullCover && task.labelIds.length &&
                 <div className="task-preview-labels-list">
-                    {taskLabels.map(label => {
+                    {taskLabels.map((label, idx) => {
                         return <div onClick={onToggleLabels}
-                            key={label.color}
+                            key={label?.color + idx}
                             className={labelsClass}
-                            style={{ backgroundColor: label.color }}>
-                            {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
-                            {labelsOpen && <span>{label.title}</span>}
+                            style={{ backgroundColor: label?.color }}>
+                            {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label?.color, -20) }}></div>}
+                            {labelsOpen && <span>{label?.title}</span>}
                         </div>
                     })}
                 </div>
@@ -203,8 +203,8 @@ export function TaskPreview({ task, group }) {
                 </div>
 
                 <div className="task-preview-members-container">
-                    {membersToDisplay && membersToDisplay.map(member => {
-                        { return member.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
+                    {membersToDisplay && membersToDisplay.length && membersToDisplay.map(member => {
+                        { return member?.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                    {membersToDisplay &&
                     taskMembers.length > 3 && <div className='board-header-extra-member-box'>+{taskMembers.length - 3}</div>

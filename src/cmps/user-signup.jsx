@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { userService } from '../services/user.service'
+import { userService } from '../services/user.new.service'
 import { ImgUploader } from './img-uploader'
 import { onLogin, onSignup } from '../store/user.actions'
 import { Link, useNavigate } from 'react-router-dom'

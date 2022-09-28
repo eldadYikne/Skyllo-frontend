@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeTask, saveTask, updateBoard } from '../store/board.actions'
 import { useParams } from 'react-router-dom'
 import { DynamicCmp } from './dynamic-cmp'
-import { boardService } from '../services/board.service'
+import { boardService } from '../services/board.new.service'
 import { utilService } from '../services/util.service'
 
 export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels, bgColor }) => {

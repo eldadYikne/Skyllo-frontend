@@ -1,6 +1,6 @@
 import { showSuccessMsg } from '../services/event-bus.service'
 import { reviewService } from '../services/review.service'
-import { userService } from '../services/user.service'
+import { userService } from '../services/user.new.service'
 
 // Action Creators
 export function getActionRemoveReview(reviewId) {

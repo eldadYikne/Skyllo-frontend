@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { boardService } from "../services/board.service";
+import { boardService } from "../services/board.new.service";
 import { TaskDetails } from "./task-details";
 import { TaskPreview } from "./task-preview";
 import { ReactComponent as CloseTask } from '../assets/img/close-task-form.svg'
@@ -49,9 +49,10 @@ export function TaskList({ group }) {
                                         <TaskPreview
                                             task={task}
                                             group={group}
+                                            key={task.id}
                                             
                                         >
-                                        </TaskPreview>
+                                        </TaskPreview >
                                         
                                     </div>)
                                 }}

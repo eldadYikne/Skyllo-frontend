@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { boardService } from '../services/board.service'
+import { boardService } from '../services/board.new.service'
 import { removeGroup, storeAddGroup, updateBoard } from '../store/board.actions'
 import { GroupPreview } from './group-preview'
 import { addGroup } from "../store/board.actions";

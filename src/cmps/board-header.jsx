@@ -1,6 +1,6 @@
 
 import { useDispatch } from 'react-redux';
-import { boardService } from '../services/board.service';
+import { boardService } from '../services/board.new.service';
 import { updateBoard } from '../store/board.actions';
 
 //icons
@@ -10,7 +10,7 @@ import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg'
 import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { userService } from '../services/user.service';
+import { userService } from '../services/user.new.service';
 
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()

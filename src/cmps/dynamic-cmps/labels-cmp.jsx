@@ -27,6 +27,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
             const newLabelsToTask = [...task.labelIds, labelId]
             const taskToUpdate = { ...task, labelIds: newLabelsToTask }
             console.log(taskToUpdate)
+            console.log('label cmp board:', board._id)
             // setTask(taskToUpdate)
             dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose label', user: user }))
         }

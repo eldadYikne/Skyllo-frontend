@@ -1,4 +1,5 @@
-import { userService } from "../services/user.service.js";
+import { userService } from "../services/user.new.service";
+import { authService } from "../services/auth.new.service";
 import { showErrorMsg } from '../services/event-bus.service.js'
 
 
@@ -32,7 +33,7 @@ export function onLogin(credentials) {
     
     return async (dispatch) => {
         try {
-            const user = await userService.login(credentials)
+            const user = await authService.login(credentials)
             dispatch({
                 type: 'SET_USER',
                 user
@@ -49,7 +50,7 @@ export function onSignup(credentials) {
     
     return async (dispatch) => {
         try {
-            const user = await userService.signup(credentials)
+            const user = await authService.signup(credentials)
             dispatch({
                 type: 'SET_USER',
                 user
@@ -65,7 +66,7 @@ export function onSignup(credentials) {
 export function onLogout() {
     return async (dispatch) => {
         try {
-            await userService.logout()
+            await authService.logout()
             dispatch({
                 type: 'SET_USER',
                 user: null

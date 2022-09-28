@@ -49,6 +49,7 @@ function delay(ms = 1500) {
 
 function lightenDarkenColor(color, clarityPercent) {
     let usePound = false;
+    if(!color) return
     if (color[0] == "#") {
       color = color.slice(1);
       usePound = true;

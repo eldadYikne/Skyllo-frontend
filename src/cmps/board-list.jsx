@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { boardService } from '../services/board.service';
+import { boardService } from '../services/board.new.service';
 import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
@@ -66,9 +66,9 @@ export function BoardList({ boards, loadBoards }) {
 
             {boards.map(board => {
                 const bgImg = board.style?.bgImg
-                let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
+                let backgroundStyle = bgImg?.length > 9 ? 'backgroundImage' : 'backgroundColor'
                 {
-                    return board.style.isStared && <div key={board._id} className='board-previwe-container'>
+                    return board.style?.isStared && <div key={board._id} className='board-previwe-container'>
                         <Link to={`board/${board._id}`} >
                             <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
                                 <div className='darken-board-preview'>
@@ -97,9 +97,10 @@ export function BoardList({ boards, loadBoards }) {
         <section className="board-list">
             {boards.map(board => {
                 const bgImg = board.style?.bgImg
-                let backgroundStyle = bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
+
+                let backgroundStyle = bgImg?.length > 9 ? 'backgroundImage' : 'backgroundColor'
                 {
-                    return !board.style.isStared && <div key={board._id} className='board-previwe-container'>
+                    return !board.style?.isStared && <div key={board._id} className='board-previwe-container'>
                         <Link to={`board/${board._id}`} >
                             <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
                                 <div className='darken-board-preview'>
