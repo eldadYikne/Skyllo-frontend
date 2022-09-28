@@ -2,11 +2,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 350px;
   padding: 15px;
   background-color: $clr2;
-  left: 185px;
-  top: 76;
   text-align: center;
   user-select: none;
   background-color: #fff;
@@ -15,6 +12,15 @@
   min-height: 50px;
   position: fixed;
   z-index: 35;
+  top: 59px;
+  height: 60%;
+  
+  @include for-normal-layout{
+    top: 76;
+    left: 185px;
+    width: 350px;
+    height: 50%;
+  }
 
   & .title-create-board {
     display: flex;

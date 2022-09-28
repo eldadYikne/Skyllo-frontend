@@ -62,7 +62,7 @@
     flex-direction: column;
   }
 
-  & .members-details-content{
+  & .members-details-content {
     width: max-content;
   }
 
@@ -72,15 +72,16 @@
     align-items: center;
 
 
-    & .task-details-member-box-plus-member{
+    & .task-details-member-box-plus-member {
       font-size: 14px;
     }
 
     & .due-date-checkbox {
       @include for-checkbox;
-        .checkbox-checked-content {
-          @include for-checkbox-checked-content;
-        }
+
+      .checkbox-checked-content {
+        @include for-checkbox-checked-content;
+      }
 
 
     }
@@ -110,7 +111,7 @@
         padding: 0 4px;
         border-radius: 2px;
         margin: auto 0 auto 8px;
-        
+
       }
 
       .ontime {
@@ -361,6 +362,7 @@
         max-width: 240px;
         min-width: 200px;
         position: relative;
+        margin-left: 0;
 
         & h5 {
           display: block;
@@ -375,12 +377,16 @@
       flex-wrap: wrap;
       height: 100%;
       min-width: 50%;
+      margin-left: 53px;
 
       & .details-actions {
         display: flex;
         flex-direction: column;
         margin-left: 0;
         line-height: 20px;
+        // & h5{
+        //   display: none;
+        // }
 
         &:last-child {
           margin-bottom: 24px;
@@ -439,6 +445,7 @@
     background-color: #00000014;
     cursor: pointer;
     color: #42526e;
+
     &:hover {
       border-radius: 50%;
       background-color: #1c1c1c29;
@@ -500,17 +507,22 @@ progress {
   clear: both;
   height: 8px;
   overflow: hidden;
-  width: 92%;
   background: #5ba4cf;
+  width: 88.5%;
 
-  .green & {
+  @include for-normal-layout {
+    width: 92%;
+
+  }
+
+  .green {
     background: green !important;
   }
 
   &::-moz-progress-bar {
     background: #5ba4cf;
 
-    .green & {
+    .green {
       background: green !important;
     }
   }
@@ -519,7 +531,7 @@ progress {
   &::-webkit-progress-value {
     background: #5ba4cf;
 
-    .green & {
+    .green &::-webkit-progress-value {
       background: green !important;
     }
 
@@ -642,7 +654,7 @@ image.png .green {
       margin-bottom: 25px;
     }
 
-    .remove-todo-container{
+    .remove-todo-container {
       position: relative;
     }
 
@@ -730,7 +742,7 @@ image.png .green {
     }
 
     .checkbox-checked-content {
-     @include for-checkbox-checked-content;
+      @include for-checkbox-checked-content;
     }
 
 
@@ -768,19 +780,21 @@ image.png .green {
     text-decoration: line-through;
     list-style: none;
     border-radius: 3px;
-    margin-bottom: -9px;
+    margin-bottom: -5px;
+
     &:hover {
       background-color: #ebecf0;
     }
   }
-  
+
   .active {
     height: 56px;
     width: 100%;
     text-decoration: none;
     list-style: none;
     border-radius: 3px;
-    margin-bottom: -9px;
+    margin-bottom: -5px;
+
     &:hover {
       background-color: #ebecf0;
     }

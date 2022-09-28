@@ -18,21 +18,17 @@ import { utilService } from "../services/util.service";
 
 export function TaskPreview({ task, group }) {
 
-    const [mouseClickLocation, setMouseClickLocation] = useState(null)
-
+    
     const board = useSelector(state => state.boardModule.board)
-
     const labelsOpen = board.toggleLabels
+    
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
-
+    const [mouseClickLocation, setMouseClickLocation] = useState(null)
     const [taskLabels, setTaskLabels] = useState()
     const [taskMembers, setTaskMembers] = useState()
     const [membersToDisplay,setMembersToDisplay] = useState()
-
-    
-    const [taskAttachments, setTaskAttachments] = useState()
-    const [taskChecklists, setTaskChecklists] = useState()
     const dispatch = useDispatch()
+
     //task-cover
     const [coverTask, setCoverTask] = useState('')
     const [coverTaskUpper, setCoverTaskUpper] = useState('')
@@ -66,11 +62,7 @@ export function TaskPreview({ task, group }) {
     const loadLabels = () => {
         if (!task) return
         if (!task.labelIds) return
-
         const labelIds = task.labelIds
-
-        // const taskLabel = boardService.getLabelsById(board, labelIds)
-
         const taskLabel = labelIds?.map(id => {
             return boardService.getLabelsById(board, id)
         })
@@ -204,7 +196,8 @@ export function TaskPreview({ task, group }) {
 
                 <div className="task-preview-members-container">
                     {membersToDisplay && membersToDisplay.map(member => {
-                        { return member.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
+                        
+                        { return member?.img ? <div className='task-preview-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member?._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                    {membersToDisplay &&
                     taskMembers.length > 3 && <div className='board-header-extra-member-box'>+{taskMembers.length - 3}</div>

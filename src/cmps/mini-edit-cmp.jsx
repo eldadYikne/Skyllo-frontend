@@ -119,7 +119,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
     const heightImg = task.cover?.color?.length > 9 ? '135px' : '32px'
 
-    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y, left: mouseLocation.x - 230 }} >
+    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y-10, left: mouseLocation.x - 230 }} >
         <div className='mini-edit-main-content'>
             <div className='mini-edit-cover'>
             </div>

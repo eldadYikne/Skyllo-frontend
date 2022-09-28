@@ -76,11 +76,16 @@ button {
     flex-direction: column;
     overflow-x: auto;
 }
-.main-app{
-   height: 100vh;
-   overflow: hidden;
 
-
+.main-app {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    @include for-normal-layout {
+        overflow: hidden;
+    }
+    
 }
 
 .main {
@@ -90,4 +95,3 @@ button {
     height: 100%;
 
 }
-

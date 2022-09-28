@@ -4,23 +4,23 @@ import { ImgUploader } from './img-uploader'
 import { onLogin, onSignup } from '../store/user.actions'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../assets/img/trello-logo-Sign-up.png'
-import { ReactComponent as LeftImageSvg } from '../assets/img/left-img-login.svg';
-import { ReactComponent as RightImageSvg } from '../assets/img/right-img-login.svg';
-
-
-import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
-import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
 import { useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service'
+
+//icons
+import { ReactComponent as LeftImageSvg } from '../assets/img/left-img-login.svg';
+import { ReactComponent as RightImageSvg } from '../assets/img/right-img-login.svg';
+import { ReactComponent as UploadIcon } from '../assets/img/upload-img-icon.svg';
+import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
+import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', imgUrl: '' })
     const [isSignup, setIsSignup] = useState(true)
     const [users, setUsers] = useState([])
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+
 
     useEffect(async () => {
         const users = await userService.getUsers()
@@ -52,9 +52,9 @@ export function LoginSignup() {
         if (!credentials.imgUrl) {
             setTimeout(() => {
                 dispatch(onSignup(credentials))
-                navigate(-1)
                 clearState()
-            }, 10000)
+                navigate('/workspace')
+            }, 6000)
         } else {
             dispatch(onSignup(credentials))
             navigate('/workspace')
@@ -77,7 +77,7 @@ export function LoginSignup() {
             console.log(err);
         }
     }
-    
+
     return (
         <div className="login-sign-up-page">
             <div className='login-page-header'>
@@ -167,7 +167,14 @@ export function LoginSignup() {
                                 onChange={handleChange}
                                 required
                             />
-                            <div className="upload-source-sign-up "><input className="input-computer-upload-sign-up" type="file" onChange={onUploaded} />Upload Profile Image</div>
+                            <div className="upload-source-sign-up ">
+                                <label htmlFor="sign-up-upload"><UploadIcon className='camera-icon'/></label>
+                                <input className="input-computer-upload-sign-up"
+                                    id='sign-up-upload'
+                                    type="file"
+                                    onChange={onUploaded} />
+                           
+                            </div>
 
                             <button onClick={onClickSignup} >Signup</button>
                         </form>

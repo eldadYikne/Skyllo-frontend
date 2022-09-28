@@ -1,56 +1,59 @@
+.members-cmp {
+    & .member-exist-icon-member-cmp {
+        position: absolute;
+        right: 5px;
+        top: 14px;
+        font-size: 13px;
+    }
 
+    & h3 {
+        @include for-h3-dynamic-cmp
+    }
 
-.members-cmp{
+    & .members-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-& h3{
-    @include for-h3-dynamic-cmp
-}
+    }
 
-
-& .members-list{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-}
-
-& .avatar-img-members-cmp{
-    align-items: center;
-    border-radius: 25em;
-    cursor: pointer;
-    display: flex;
-    font-weight: 600;
-    height: 30px;
-    justify-content: center;
-    object-fit: cover;
-    width: 30px;
-    margin-right: 10px;
-}
-
-
-& .member-preview{
-    align-items: center;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    min-height: 32px;
-    line-height: 32px;
-    margin-bottom: 2px;
-    overflow: hidden;
-    padding: 4px;
-    position: relative;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    & p{
-        font-size: 16px;
+    & .avatar-img-members-cmp {
+        align-items: center;
+        border-radius: 25em;
+        cursor: pointer;
+        display: flex;
         font-weight: 600;
+        height: 30px;
+        justify-content: center;
+        object-fit: cover;
+        width: 30px;
+        margin-right: 10px;
+    }
+
+
+    & .member-preview {
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        min-height: 32px;
         line-height: 32px;
+        margin-bottom: 2px;
+        overflow: hidden;
+        padding: 4px;
+        position: relative;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        & p {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 32px;
+        }
+
+        &:hover {
+            background-color: #091e420a;
+        }
     }
-    &:hover{
-        background-color: #091e420a;
-    }
-}
 }
 
 .task-details-member-box {
@@ -62,7 +65,8 @@
     justify-content: center;
     object-fit: cover;
     width: 30px;
-    &-plus-member{
+
+    &-plus-member {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -75,12 +79,14 @@
         cursor: pointer;
         height: 30px;
         width: 30px;
-        &:hover{
+
+        &:hover {
             background-color: #d9dadd;
         }
     }
+
     // margin-right: 10px;
-    &:not(:first-child){
+    &:not(:first-child) {
         margin: 0 0 0 -10px;
     }
 }

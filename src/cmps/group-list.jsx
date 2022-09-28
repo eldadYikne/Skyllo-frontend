@@ -21,6 +21,7 @@ export function GroupList() {
   const onAddGroup = (ev) => {
     ev.preventDefault()
     const listTitle = ev.target[0].value
+    if(!listTitle)return
     dispatch(addGroup(board._id, listTitle, { text: `added a group `, user: user }))
   }
 

@@ -76,7 +76,47 @@ function createBoard(title, bgImg) {
         style: {
             bgImg,
         },
-        groups: []
+        groups: [],
+        labels: [
+            {
+                //light purple
+                id: 'la201',
+                title: "Done",
+                color: "#B7DDB0"
+            },
+            {
+                //light blue
+                id: 'la202',
+                title: "Progress",
+                color: "#F5EA92"
+            },
+            {
+                //green
+                id: 'la203',
+                title: "Free time",
+
+                color: "#FAD29C"
+            },
+            {
+                //red
+                id: 'la204',
+                title: "Urgent",
+                color: "#EFB3AB"
+            },
+            {
+                //yellow
+                id: 'la205',
+                title: "Can wait",
+                color: "#DFC0EB"
+            },
+            {
+                //orange
+                id: 'la206',
+                title: "Priority",
+                color: "#8BBDD9"
+            }
+        ]
+        ,
 
     }
 }

@@ -1,12 +1,11 @@
 .edit-label-cmp {
 
-    & h4{
+    & h4 {
         @include for-h3-dynamic-cmp
     }
 
-    & input{
-            @include for-dynamic-input
-        
+    & input {
+        @include for-dynamic-input
     }
 
     & .edit-labels-color-container {
@@ -15,13 +14,19 @@
         gap: 8px;
         padding: 8px;
         grid-template-columns: repeat(auto-fit, 48px);
+        padding-left: 32px;
+
+        @include for-normal-layout {
+            padding-left: 8px;
+        }
     }
 
-    & .edit-label-btns{
+    & .edit-label-btns {
         margin-top: 3px;
         display: flex;
         justify-content: space-between;
-        & .create-new-label-btn{
+
+        & .create-new-label-btn {
             background-color: #0079bf;
             border: none;
             border-radius: 3px;
@@ -30,8 +35,8 @@
             margin-right: 4px;
             padding: 6px 12px;
         }
-        
-        & .delete-label-btn{
+
+        & .delete-label-btn {
             background-color: #b04632;
             border: none;
             border-radius: 3px;
@@ -45,13 +50,14 @@
 
 
 
-& .close-edit-label-modal{
-    border: none;
-    background-color: unset;
-    position: absolute;
-    right: 8px;
-}
-    & .go-back-label-edit{
+    & .close-edit-label-modal {
+        border: none;
+        background-color: unset;
+        position: absolute;
+        right: 8px;
+    }
+
+    & .go-back-label-edit {
         border: none;
         background-color: unset;
         position: absolute;
@@ -65,7 +71,8 @@
         height: 32px;
         position: relative;
         display: flex;
-        & .color-chosen-icon{
+
+        & .color-chosen-icon {
             margin: auto;
         }
     }

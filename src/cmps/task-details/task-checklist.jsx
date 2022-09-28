@@ -15,6 +15,7 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
     const [isFocus, setIsFocus] = useState(initChecklist?.isFocus ? initChecklist.isFocus : true)
     const [checklist, setChecklist] = useState({ ...initChecklist })
     const [todoTxt, setTodoTxt] = useState('')
+    const [editTodoTxt, setEditTodoTxt] = useState('')
     const [progress, setProgress] = useState(0)
     const [complete, setComplete] = useState()
     const [editMode, setEditMode] = useState(false)
@@ -36,12 +37,11 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
         setIsFocus(!isFocus)
     }
 
-    const onEditTodo = (todo,ev) => {
-        console.log('todoId:', todo)
-
-        console.log('algoooooooooooooo:',ev.target[0].value)
-        
-        setEditMode(null)
+    const onEditTodo = (todo, ev) => {
+        const todoToUpdate = todo
+        todoToUpdate.txt = editTodoTxt
+        updateTodo(todoToUpdate)
+        setEditMode('')
     }
 
     const onAddTodo = () => {
@@ -56,7 +56,7 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
         newChecklists.push(newChecklist)
         const newTask = { ...task, checklists: newChecklists }
         console.log(newTask)
-        dispatch(saveTask(board._id, group.id, newTask, { text: `added Todo to checklist ${newChecklist.title}`, user}))
+        dispatch(saveTask(board._id, group.id, newTask, { text: `added Todo to checklist ${newChecklist.title}`, user }))
         setTodoTxt('')
         setProgress(getProgress())
     }
@@ -86,10 +86,10 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
 
     const updateChecklist = (newChecklist, text) => {
         setChecklist(newChecklist)
-        const checklistIdx = task.checklists.findIndex(currChecklist=> currChecklist.id === newChecklist.id)
+        const checklistIdx = task.checklists.findIndex(currChecklist => currChecklist.id === newChecklist.id)
         task.checklists.splice(checklistIdx, 1, newChecklist)
         const newTask = structuredClone(task)
-        dispatch(saveTask(board._id, group.id, newTask, {text, user}))
+        dispatch(saveTask(board._id, group.id, newTask, { text, user }))
         const progress = getProgress()
         setProgress(progress)
         setComplete(progress === 100 ? 'green' : '')
@@ -99,6 +99,10 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
         console.log(target.value)
         const txt = target.value
         setTodoTxt(txt)
+    }
+
+    const handleChangeTodoTxt = (ev, todo) => {
+        setEditTodoTxt(ev.target.value)
     }
 
     const getProgress = () => {
@@ -141,18 +145,19 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
                                         id='checklist-textarea-basic'
                                         defaultValue={todo.txt}
                                         placeholder={todo.txt ? todo.txt : ''}
-                                        onClick={()=>setEditMode(todo.id)}
+                                        onChange={(ev) => handleChangeTodoTxt(ev, todo)}
+                                        onClick={() => setEditMode(todo.id)}
                                     ></textarea>
-                                   {editMode === todo.id && 
-                                    <div className='edit-todo-container'>
-                                        <button className='save-todo-edit-btn' onClick={()=>onEditTodo(todo)} >Save</button>
-                                        <button className='close-todo-edit-btn'>
-                                            <CloseTask
-                                                className='close-modal-icon'
-                                                onClick={()=>setEditMode(null)}
-                                            />
-                                        </button>
-                                    </div>}
+                                    {editMode === todo.id &&
+                                        <div className='edit-todo-container'>
+                                            <button className='save-todo-edit-btn' onClick={() => onEditTodo(todo)} >Save</button>
+                                            <button className='close-todo-edit-btn'>
+                                                <CloseTask
+                                                    className='close-modal-icon'
+                                                    onClick={() => setEditMode(null)}
+                                                />
+                                            </button>
+                                        </div>}
                                 </div>
                                 <div className='remove-todo-container'>
                                     <button className='remove-todo-btn' onClick={() => setIsModalOpen(todo.id)}>
