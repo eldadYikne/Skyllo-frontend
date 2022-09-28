@@ -24,7 +24,7 @@ export function TaskPreview({ task, group }) {
     
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
     const [mouseClickLocation, setMouseClickLocation] = useState(null)
-    const [taskLabels, setTaskLabels] = useState()
+    const [taskLabels, setTaskLabels] = useState([])
     const [taskMembers, setTaskMembers] = useState()
     const [membersToDisplay,setMembersToDisplay] = useState()
     const dispatch = useDispatch()
@@ -154,9 +154,10 @@ export function TaskPreview({ task, group }) {
                 </div>
             }
 
-            {taskLabels && !task.cover?.isFullCover && task.labelIds.length &&
+            {taskLabels && !task.cover?.isFullCover && 
                 <div className="task-preview-labels-list">
                     {taskLabels.map((label, idx) => {
+                        if(!label) return <div className={labelsClass}> </div>
                         return <div onClick={onToggleLabels}
                             key={label?.color + idx}
                             className={labelsClass}
@@ -195,7 +196,7 @@ export function TaskPreview({ task, group }) {
                 </div>
 
                 <div className="task-preview-members-container">
-                    {membersToDisplay && membersToDisplay.length && membersToDisplay.map(member => {
+                    {membersToDisplay  && membersToDisplay.map(member => {
                         { return member?.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                    {membersToDisplay &&

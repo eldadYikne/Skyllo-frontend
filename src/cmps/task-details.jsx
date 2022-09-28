@@ -63,6 +63,9 @@ export function TaskDetails() {
   const loadLabels = () => {
     if (!task) return
     const labelIds = task.labelIds
+    if(!labelIds){
+      return setTaskLabels([])
+    }
     const taskLabel = labelIds?.map(id => {
       return boardService.getLabelsById(board, id)
     })
@@ -230,12 +233,13 @@ export function TaskDetails() {
                   <h4>Labels</h4>
                   <div className='action-type-content'>
                     {taskLabels && taskLabels.map(label => {
+                      if(!label)return
                       return <div key={label.id} className='task-details-label-box'
                         onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
                         style={{ backgroundColor: label?.color }}>
                         <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label?.color, -20) }}></div>
-                        {label.title ? label.title : ''}
+                        {label?.title ? label.title : ''}
                       </div>
                     })}
                     <div className='task-details-label-box-plus-label' onClick={(ev) => onOpenDynamicCmp(ev, 'labels')}>+</div>
