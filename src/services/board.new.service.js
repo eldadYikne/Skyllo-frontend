@@ -19,7 +19,7 @@ const boardChannel = new BroadcastChannel('boardChannel')
             console.log('GOT from socket', board)
             store.dispatch(getActionUpdateBoard(board))
         })
-        
+
     })()
 
 //     const reviewChannel = new BroadcastChannel('reviewChannel')
@@ -36,7 +36,7 @@ const boardChannel = new BroadcastChannel('boardChannel')
 
 export const boardService = {
     query,
-    getById, 
+    getById,
     remove,
     save,
     createBoard,
@@ -54,7 +54,7 @@ async function query(filterBy = {}) {
     try {
         const boards = await httpService.get(BASE_URL, { params: filterBy })
         return boards
-    } catch(err) {
+    } catch (err) {
         console.log('Oops,', err)
         throw err
     }
@@ -65,7 +65,7 @@ async function getById(boardId) {
         const board = await httpService.get(BASE_URL + boardId)
         // boardChannel.postMessage(getCurrBoard(board))
         return board
-    } catch(err) {
+    } catch (err) {
         console.log('Oops,', err)
         throw err
     }
@@ -75,20 +75,20 @@ async function remove(boardId) {
     try {
         await httpService.delete(BASE_URL + boardId)
         // boardChannel.postMessage(getActionRemoveBoard(boardId))
-    } catch(err){
+    } catch (err) {
         console.log('Oops,', err)
         throw err
     }
 }
 
-async function save(board){
-    if(board._id){
-        try{
+async function save(board) {
+    if (board._id) {
+        try {
             const boardToUpdate = await httpService.put(BASE_URL + board._id, board)
             console.log('board service', board)
             // boardChannel.postMessage(getActionAddBoard(boardToUpdate))
             return boardToUpdate
-        } catch(err) {
+        } catch (err) {
             console.log('Oops,', err)
             throw err
         }
@@ -97,7 +97,7 @@ async function save(board){
             const boardToAdd = await httpService.post(BASE_URL, board)
             // boardChannel.postMessage(getActionUpdateBoard(boardToAdd))
             return boardToAdd
-        } catch(err) {
+        } catch (err) {
             console.log('Oops,', err)
             throw err
         }
@@ -113,7 +113,46 @@ function createBoard(title, bgImg) {
         style: {
             bgImg,
         },
-        groups: []
+        groups: [],
+        labels: [
+            {
+                //light purple
+                id: 'la201',
+                title: "Done",
+                color: "#B7DDB0"
+            },
+            {
+                //light blue
+                id: 'la202',
+                title: "Progress",
+                color: "#F5EA92"
+            },
+            {
+                //green
+                id: 'la203',
+                title: "Free time",
+
+                color: "#FAD29C"
+            },
+            {
+                //red
+                id: 'la204',
+                title: "Urgent",
+                color: "#EFB3AB"
+            },
+            {
+                //yellow
+                id: 'la205',
+                title: "Can wait",
+                color: "#DFC0EB"
+            },
+            {
+                //orange
+                id: 'la206',
+                title: "Priority",
+                color: "#8BBDD9"
+            }
+        ]
 
     }
 }
@@ -166,12 +205,12 @@ async function removeTask(boardId, groupId, task, activity) {
     board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
     return save(board)
 }
-const createActivity = (text = '', taskTitle = '', taskId = '', user = '' ,groupId='') => {
+const createActivity = (text = '', taskTitle = '', taskId = '', user = '', groupId = '') => {
     return {
         id: utilService.makeId(),
         txt: text,
-        createdAt: new Date() ,
-        byMember:  user ,
+        createdAt: new Date(),
+        byMember: user,
         groupId,
         task: {
             id: taskId,
@@ -182,7 +221,7 @@ const createActivity = (text = '', taskTitle = '', taskId = '', user = '' ,group
 }
 
 function getLabelsById(board, labelId) {
-    
+
     const labels = board.labels.find(label => {
         return label.id === labelId
     })

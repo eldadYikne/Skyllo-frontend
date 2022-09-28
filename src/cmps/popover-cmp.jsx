@@ -109,7 +109,7 @@ export const Popover = ({ board }) => {
                             <div className="activity-info">
                                 <span className="user-name">{activity?.byMember?.username}</span>
                                 <span className="activity-task-name">{activity.txt}</span>
-                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
+                                {activity.txt !== 'deleted task'  ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>
                         </div>
