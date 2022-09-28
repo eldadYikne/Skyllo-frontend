@@ -6,7 +6,9 @@
     height: 100vh;
     padding: 0 15px;
     position: relative;
-    overflow: auto;
+    // overflow: auto;
+
+
     & .logo-sign-up {
         margin-right: 7px;
         height: 40px;
@@ -61,6 +63,8 @@
         min-width: 350px;
         padding: 25px 40px;
         position: relative;
+        margin-bottom: 20px;
+        z-index: 1;
 
         & h2 {
             color: #5e6c84;
@@ -93,6 +97,42 @@
                 width: 100%;
             }
 
+            // & .upload-img-icon-sign-up{
+
+
+                & .camera-icon{
+                    height: 50px;
+                    width: 50px;
+                }
+                & label{
+                    // width: 100%;
+                    background-color: #fafbfc;
+                    border: 2px solid #dfe1e6;
+                    border-radius: 3px;
+                    width: 100%;
+                    margin-bottom: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    height: 44px;
+                }
+            // }
+
+            & .upload-source-sign-up{
+                position: relative;
+
+                & .input-computer-upload-sign-up{
+                    cursor: pointer;
+                    display: none;
+                    // opacity: 0;
+                    // background-color: #4b993c;
+                    & button{
+                        opacity: 0;
+                    }
+                }
+                
+            }
             & button {
                 border: 0;
                 border-radius: 0.3em;

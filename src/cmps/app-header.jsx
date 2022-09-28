@@ -1,53 +1,28 @@
-import { FastAverageColor } from 'fast-average-color'
 import React, { useState } from 'react'
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
 import { onLogout } from '../store/user.actions'
 
 
-export function AppHeader() {
-
+export function AppHeader({ board }) {
   const [imgSrc, setImgSrc] = useState(Logo)
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
-  const board = useSelector(state => state.boardModule.board)
 
   const dispatch = useDispatch()
 
   const onClickLogout = () => {
-
     dispatch(onLogout())
-
   }
-  useEffect(() => {
-    
-    const newBgImg = board?.style?.bgImg
-    console.log(newBgImg);
-    const boardImg = newBgImg?.substring(4,newBgImg.length-1)
-    console.log(boardImg);
-    getBgColorOfImg(boardImg, board)
 
-  }, [])
 
-  const getBgColorOfImg = async (url, board) => {
-    console.log('getBgColorOfImg');
-    console.log('board', board);
-    try {
-      if (!board.style.backgroundColor) board.style.backgroundColor = ''
-      const fac = new FastAverageColor();
-      const color = await fac.getColorAsync(url)
-      board.style.backgroundColor = color.rgb;
-      console.log('Average color', color);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+
+
 
   return (
-    <header style={{ background: board?.style?.backgroundColor }} className='app-header'>
+    <header style={{ backgroundColor: board?.style?.backgroundColor }} className='app-header'>
       <section className='logo-hedear-container'>
 
         <div className='logo-container'>

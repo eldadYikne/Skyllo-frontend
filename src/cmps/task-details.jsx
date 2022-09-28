@@ -36,15 +36,15 @@ export function TaskDetails() {
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
   const task = group.tasks.find(task => task.id === taskId)
-  
+
   // ELDAD
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
 
   const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task.cover.backgroundColor : task.cover?.color
   const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
-  console.log('bgColorDetailsHedear',bgColorDetailsHedear)
-  console.log('bgColor',bgColor)
-  
+  console.log('bgColorDetailsHedear', bgColorDetailsHedear)
+  console.log('bgColor', bgColor)
+
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
   const [isDescription, setIsDescription] = useState(false)
@@ -52,7 +52,7 @@ export function TaskDetails() {
   const [dynamicType, setDynamicType] = useState('')
   const [mouseLocation, setMouseLocation] = useState(null)
 
-  
+
   const [taskLabels, setTaskLabels] = useState(null)
   const [taskMembers, setTaskMembers] = useState(null)
   const [taskTxt, setTaskTxt] = useState({
@@ -79,15 +79,13 @@ export function TaskDetails() {
   }
 
   useEffect(() => {
-      loadLabels()
-      console.log(board)
+    loadLabels()
     // onSaveTask()
     loadMembers()
   }, [task, board])
 
   const onSaveTask = (activityTxt) => {
-    console.log('task details board:', board)
-    const text = activityTxt? activityTxt : 'saved task'
+    const text = activityTxt ? activityTxt : 'saved task'
     dispatch(saveTask(board._id, group.id, task, { text, user }))
     if (isDescription) setIsDescription(false)
   }
@@ -103,28 +101,28 @@ export function TaskDetails() {
     ev.preventDefault()
     const checklistsToUpdate = task.checklists.filter(currChecklist => currChecklist.id !== checklist.id)
     const taskToUpdate = { ...task, checklists: checklistsToUpdate }
-    dispatch(saveTask(board._id, group.id, taskToUpdate, {text: `removed checklist ${checklist.title}`, user }))
-    
+    dispatch(saveTask(board._id, group.id, taskToUpdate, { text: `removed checklist ${checklist.title}`, user }))
+
   }
 
   const handleChange = ({ target }) => {
     const field = target.name
     const value = target.value
     console.log(target.value)
-    setTaskTxt({...taskTxt, [field]: value})
-    
+    setTaskTxt({ ...taskTxt, [field]: value })
+
 
     // const text = field === 'title' ? 'updated task title' : 'updated task description'
   }
-  
+
   const onSetTaskTxt = (text) => {
-    const newTask = {...task, title: taskTxt.title, description: taskTxt.description}
+    const newTask = { ...task, title: taskTxt.title, description: taskTxt.description }
     // const newTask = {...task}
-    dispatch(saveTask(board._id, group.id, newTask, {text, user}))
+    dispatch(saveTask(board._id, group.id, newTask, { text, user }))
 
   }
 
-  
+
 
   const getMemberBackground = (member) => {
     if (member.img) return `url(${member.img}) center center / cover`
@@ -160,7 +158,7 @@ export function TaskDetails() {
     ev.stopPropagation()
     // const newTask = structuredClone(task)
     task.dueDate.isDone = !task.dueDate.isDone
-    if(task.dueDate.isDone) onSaveTask('Marked task as complete')
+    if (task.dueDate.isDone) onSaveTask('Marked task as complete')
     else onSaveTask('Marked task as uncomplete')
   }
 
@@ -179,7 +177,6 @@ export function TaskDetails() {
     }
   }
 
-  // getBgColorOfImg('https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg')
 
   if (!task) return <LoaderSkyllo />
   return (
@@ -339,26 +336,25 @@ export function TaskDetails() {
                 </button>
               </div>
             </div>
+            {dynamicType &&
+                <DynamicCmp
+                  mouseLocation={mouseLocation}
+                  task={task}
+                  type={dynamicType}
+                  setDynamicType={setDynamicType}
+                  group={group}
+                  setIsChecklist={setIsChecklist}
+                  board={board}
+                  getBgColorOfImg={getBgColorOfImg}
+                />
 
+              }
             <div className='details-actions'>
               <h5>Actions</h5>
               <button onClick={onRemoveTask}>
                 <ArchiveIcon /> Archive
               </button>
             </div>
-            {dynamicType &&
-              <DynamicCmp
-                mouseLocation={mouseLocation}
-                task={task}
-                type={dynamicType}
-                setDynamicType={setDynamicType}
-                group={group}
-                setIsChecklist={setIsChecklist}
-                board={board}
-                getBgColorOfImg={getBgColorOfImg}
-              />
-
-            }
           </section>
         </section>
       </div>

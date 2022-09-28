@@ -1,9 +1,20 @@
 .workspace {
     position: relative;
-    min-width: 1033px;
     margin: auto;
     margin-top: 30px;
     max-width: 1000px;
+    overflow-y: auto;
 
+
+    & .board-list{
+        & .board-preview{
+            margin: auto;
+        }
+    }
+    
+    @include for-wide-layout{
+        min-width: 1033px;
+
+    }
 
 }

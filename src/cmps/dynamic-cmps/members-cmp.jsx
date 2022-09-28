@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { userService } from "../../services/user.new.service"
 import { saveTask } from "../../store/board.actions"
+import { ReactComponent as MemberExistIcon } from '../../assets/img/member-exist-icon.svg'
 
 
 export const MembersCmp = ({ task, group }) => {
@@ -14,18 +15,29 @@ export const MembersCmp = ({ task, group }) => {
     const onChooseMember = (memberId, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        if(!task.memberIds) task.memberIds=[]
+        if (!task.memberIds) task.memberIds = []
         if (!task.memberIds?.includes(memberId)) {
             const newMembersToTask = [...task.memberIds, memberId]
             const taskToUpdate = { ...task, memberIds: newMembersToTask }
             dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'choose member', user: user }))
         }
-        
+
         else {
             const newMemberIds = task.memberIds.filter(currMemberId => currMemberId !== memberId)
             const taskToUpdate = { ...task, memberIds: newMemberIds }
             dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'deleted member', user: user }))
         }
+    }
+
+
+    const memberExistIcon = (memberId) => {
+        console.log('memberId:', memberId)
+        
+        const exist = task?.memberIds?.find(id => {
+            return memberId === id})
+            console.log('task.memberIds:', task.memberIds)
+            
+        if (exist) return <MemberExistIcon className='member-exist-icon-member-cmp' />
     }
 
     const getMemberBackground = (member) => {
@@ -46,6 +58,7 @@ export const MembersCmp = ({ task, group }) => {
                         >
                         </div>
                         <p>{member.fullname}</p>
+                        {memberExistIcon(member._id)}
                     </div>
 
                 )

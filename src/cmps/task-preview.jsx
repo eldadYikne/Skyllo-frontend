@@ -18,21 +18,17 @@ import { utilService } from "../services/util.service";
 
 export function TaskPreview({ task, group }) {
 
-    const [mouseClickLocation, setMouseClickLocation] = useState(null)
-
+    
     const board = useSelector(state => state.boardModule.board)
-
     const labelsOpen = board.toggleLabels
+    
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
-
+    const [mouseClickLocation, setMouseClickLocation] = useState(null)
     const [taskLabels, setTaskLabels] = useState()
     const [taskMembers, setTaskMembers] = useState()
     const [membersToDisplay,setMembersToDisplay] = useState()
-
-    
-    const [taskAttachments, setTaskAttachments] = useState()
-    const [taskChecklists, setTaskChecklists] = useState()
     const dispatch = useDispatch()
+
     //task-cover
     const [coverTask, setCoverTask] = useState('')
     const [coverTaskUpper, setCoverTaskUpper] = useState('')
@@ -66,11 +62,7 @@ export function TaskPreview({ task, group }) {
     const loadLabels = () => {
         if (!task) return
         if (!task.labelIds) return
-
         const labelIds = task.labelIds
-
-        // const taskLabel = boardService.getLabelsById(board, labelIds)
-
         const taskLabel = labelIds?.map(id => {
             return boardService.getLabelsById(board, id)
         })

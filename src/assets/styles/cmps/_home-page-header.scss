@@ -5,14 +5,17 @@
     justify-content: space-between;
     background-color: rgb(255, 255, 255);
     cursor: default;
-   
-
-
-
     top: 0px;
     transition: background-color 0.5s ease 0s, box-shadow 0.5s ease 0s;
     width: 100vw;
     z-index: 100;
+
+    @include for-normal-layout {
+        & .home-page-signup {
+            padding: 0.5rem 1.5rem;
+            text-align: center;
+        }
+    }
 
     &:hover {
         background-color: rgb(255, 255, 255);
@@ -40,12 +43,17 @@
         display: flex;
         font-size: 1.2rem;
         height: 100%;
-        padding: 0.5rem 1.5rem;
+        padding: 0 8px;
         text-decoration: none;
         background-color: rgb(0, 101, 255);
         color: rgb(255, 255, 255);
         font-weight: 500;
-        font-size: 19px;
+        text-align: center;
+        font-size: 14px;
+
+        @include for-normal-layout {
+            font-size: 19px;
+        }
     }
 
 

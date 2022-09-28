@@ -78,7 +78,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
             <section className="labels-cmp">
                 <h4>Labels</h4>
                 <div className="labels-list">
-                    {board.labels.map(label => {
+                    {board.labels?.map(label => {
                         return (
                             <div className="label-container">
                                 <div style={{ backgroundColor: label.color }}
