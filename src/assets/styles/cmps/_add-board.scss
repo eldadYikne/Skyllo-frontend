@@ -16,10 +16,11 @@
   height: 60%;
   
   @include for-normal-layout{
-    top: 76;
+    top: 8px;
     left: 185px;
     width: 350px;
-    height: 50%;
+    min-height: 79%;
+    position: absolute;
   }
 
   & .title-create-board {

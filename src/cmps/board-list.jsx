@@ -173,13 +173,13 @@ export function BoardList({ boards, loadBoards }) {
                                 <span className="board-previw-title">{board.title}</span>
                             </div>
                         </Link>
-                        {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
+                        <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
                         <SvgStar strokeWidth="6%" onClick={() => onSetIsStared(board)} className='star-board-preview' />
                     </div>
                 }
             })}
             <div onClick={() => setIsShown(!createIsShown)} className='board-preview create-board'>
-                Creat new board
+                Create new board
             </div>
 
         </section>
