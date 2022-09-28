@@ -23,7 +23,6 @@ export const CoverCmp = ({ task,getBgColorOfImg }) => {
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        ev.preventDefault()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)

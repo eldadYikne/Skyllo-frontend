@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { DynamicCmp } from './dynamic-cmp'
 import { boardService } from '../services/board.new.service'
 import { utilService } from '../services/util.service'
+import { FastAverageColor } from 'fast-average-color'
 
 export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBackground, mouseLocation, onToggleLabels, bgColor }) => {
 
@@ -30,7 +31,6 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const user = useSelector(state => state.userModule.user)
 
     const [mouseLocationTop,setMouseLocationTop] = useState(mouseLocation)
-    console.log('mouseLocationTop:', mouseLocationTop)
  
 
 
@@ -66,6 +66,19 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         })
         return setTaskLabels(taskLabel)
     }
+
+    const getBgColorOfImg = async (url, taskToUpdate) => {
+        try {
+          const currTask = structuredClone(taskToUpdate)
+          if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
+          const fac = new FastAverageColor();
+          const color = await fac.getColorAsync(url)
+          taskToUpdate.cover.backgroundColor = color.rgb;
+    
+        } catch (err) {
+          console.log(err);
+        }
+      }
    
     // useEffect(()=>{
     //     console.log('mouseLocationnnnnnnnnn:', mouseLocation)
@@ -77,7 +90,6 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         setTitle(task.title)
         loadMembers()
         loadLabels()
-
     }, [task.title, task])
 
     const handleChangeTitle = (ev) => {
@@ -211,6 +223,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
                 setDynamicType={setDynamicType}
                 mouseLocation={mouseLocationForDynamic}
                 board={board}
+                getBgColorOfImg={getBgColorOfImg}
             // setSections={setSections}
             // group={group}
             />

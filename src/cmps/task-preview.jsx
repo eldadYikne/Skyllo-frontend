@@ -196,8 +196,8 @@ export function TaskPreview({ task, group }) {
                 </div>
 
                 <div className="task-preview-members-container">
-                    {membersToDisplay  && membersToDisplay.map(member => {
-                        { return member?.img ? <div className='task-preview-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member._id} className='avatar-img-guest-member-box-task-preview'></div> }
+                    {membersToDisplay && membersToDisplay.map(member => {
+                        { return member?.img ? <div className='task-preview-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> : <div key={member?._id} className='avatar-img-guest-member-box-task-preview'></div> }
                     })}
                    {membersToDisplay &&
                     taskMembers.length > 3 && <div className='board-header-extra-member-box'>+{taskMembers.length - 3}</div>
