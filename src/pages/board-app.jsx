@@ -15,6 +15,8 @@ import { userService } from "../services/user.new.service";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Popover } from "../cmps/popover-cmp";
 import { LoaderSkyllo } from "../cmps/loader-cmp";
+import { FastAverageColor } from "fast-average-color";
+import { hexToRgb } from "@material-ui/core";
 
 // import { boardService } from '../services/board.service.js'
 
@@ -22,12 +24,15 @@ export function BoardApp() {
 
     const params = useParams()
     const dispatch = useDispatch()
+    const board = useSelector(state => state.boardModule.board)
 
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
+        onChangeHeaderColor(board)
+        return () => { dispatch(updateBoard(null)) }
+
     }, [])
 
-    const board = useSelector(state => state.boardModule.board)
     const user = useSelector(state => state.userModule.user)
 
 
@@ -38,10 +43,6 @@ export function BoardApp() {
         if (!destination) {
             return;
         }
-
-
-
-        console.log('group', result)
         // DRABBALE GROUP
         console.log(source.droppableId === destination.droppableId, source.droppableId, destination.droppableId)
         if (source.droppableId === destination.droppableId && type === "group") {
@@ -68,13 +69,53 @@ export function BoardApp() {
         dispatch(updateBoard(newBoard))
     }
 
+
+    const onChangeHeaderColor = (board) => {
+        const newBgImg = board?.style?.bgImg
+        console.log('newBgImgnewBgImg', newBgImg);
+        const boardImg = newBgImg?.substring(4, newBgImg.length - 1)
+        console.log(boardImg);
+        getBgColorOfImg(boardImg, board)
+
+    }
+    const getBgColorOfImg = async (url, board) => {
+        console.log('url',url)
+        
+        try {
+            if (!board.style.backgroundColor) board.style.backgroundColor = ''
+            if (board.style?.bgImg.length > 9) {
+                const fac = new FastAverageColor();
+                console.log(url, 'urlllllllllllllll');
+                const color = await fac.getColorAsync(url)
+                console.log('Average color', color);
+                board.style.backgroundColor = color.rgb;
+            } else if (board.style?.bgImg) {
+                const color = hexToRgb(board.style?.bgImg)
+                console.log(color, 'color');
+                board.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
+            }
+            const newBoard = structuredClone(board)
+            dispatch(updateBoard(newBoard))
+        } catch (err) {
+            console.log(err);
+            console.log('getBgColorOfImg Error');
+
+        }
+    }
+
+
+
+    console.log('params', params);
+
+
     if (!board) return <LoaderSkyllo />
+    // if (!board.style.backgroundColor) return <LoaderSkyllo />
     let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const pageHeigth = user ? '124px' : '140px'
     return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
 
 
-        <div  className="board-app" >
+        <div className="board-app" >
             <BoardHeader board={board} />
             <Popover board={board} />
             <DragDropContext onDragEnd={onDragEnd}>

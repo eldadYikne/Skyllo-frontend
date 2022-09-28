@@ -121,7 +121,7 @@ export function BoardHeader({ board }) {
                     </div>
                     <div className="board-header-nav-left-actions">
                         <div className="board-header-favorite-icon action-board-header">
-                            {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />
+                            {board.style?.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />
                                 : <SvgStar onClick={() => onSetIsStared(board._id)} className='star-board-preview' />}
                         </div>
 
