@@ -1,6 +1,6 @@
 
 import { useDispatch } from 'react-redux';
-import { boardService } from '../services/board.new.service';
+import { boardService } from '../services/board.service';
 import { updateBoard } from '../store/board.actions';
 
 //icons
@@ -8,17 +8,17 @@ import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 import { ReactComponent as InviteMemberIcon } from '../assets/img/invite-member-icon.svg';
 import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg';
 import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg'
-import { ReactComponent as MemberExistIcon } from '../assets/img/member-exist-icon.svg'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { userService } from '../services/user.new.service';
-
+import { userService } from '../services/user.service';
 
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()
     if (!board.members) board.members = []
     const members = board.members
-    const membersToDisplay = members.slice(0, 3)
+
+    const membersToDisplay = members.slice(0, 4)
+
     const [isMembersModalOpen, setIsMembersModalOpen] = useState(false)
     const [isExtraMembersModalOpen, setIsExtraMembersModalOpen] = useState(false)
 
@@ -38,11 +38,12 @@ export function BoardHeader({ board }) {
         board.isPopoverShown = !board.isPopoverShown
         const boardToUpdate = { ...board }
         dispatch(updateBoard(boardToUpdate))
+
     }
 
     const loadUsers = async () => {
-        const users = await userService.getUsers()
         try {
+            const users = await userService.getUsers()
             setUsers(users)
         }
         catch {
@@ -54,12 +55,6 @@ export function BoardHeader({ board }) {
         loadUsers()
     }, [])
 
-    const memberExistIcon = (memberId) => {
-        const exist = board?.members?.find(member => {
-            return memberId === member._id
-        })
-        if (exist) return <MemberExistIcon className='member-exist-icon' />
-    }
 
     const getMemberBackground = (member) => {
         if (member.img) return `url(${member.img}) center center / cover`
@@ -103,18 +98,20 @@ export function BoardHeader({ board }) {
             return dispatch(updateBoard(boardToUpdate))
         }
         if (existMember.length !== 0 && existMember) return
+
         boardToUpdate.members.push(currMember)
         dispatch(updateBoard(boardToUpdate))
+
     }
 
 
     return (
-        <section className="board-header " >
+        <section className="board-header ">
 
             <nav className="board-header main-container board-header-main-nav">
                 <div className="nav-left">
                     <div className='board-title-board-header'>
-                        <h3>{board.title}</h3>
+                    <h3>{board.title}</h3>
                     </div>
                     <div className="board-header-nav-left-actions">
                         <div className="board-header-favorite-icon action-board-header">
@@ -131,9 +128,9 @@ export function BoardHeader({ board }) {
                                         <div className='avatar-img-guest-member-box' key={member._id}></div>
                                 }
                             })}
-                            {members.length > 3 && <div className='board-header-extra-member-box'
-                                onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)}
-                            >+{members.length - 3}</div>}
+                            {members.length > 4 && <div className='board-header-extra-member-box'
+                            onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)}
+                            >+{members.length - 4}</div>}
                         </div>
                         {isExtraMembersModalOpen &&
                             <section className='board-header-users-modal'>
@@ -147,7 +144,7 @@ export function BoardHeader({ board }) {
 
                                         {members && members.map(member => {
                                             return <div className='users-modal-user-preview'
-
+                                            
                                                 key={member._id}>
                                                 {member.img ? <div className='users-modal-user-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
                                                     <div className='avatar-img-guest-user-box' key={member._id}></div>}
@@ -174,28 +171,33 @@ export function BoardHeader({ board }) {
                                     <CloseUsersModalIcon className='close-users-modal-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)} />
                                 </div>
                                 <div className='users-modal-content'>
+
                                     <div className='users-modal-users-list'>
+
                                         {users && users.map(user => {
                                             return <div className='users-modal-user-preview'
                                                 onClick={() => onAddMemberToBoard(user)}
                                                 key={user._id}>
                                                 {user.imgUrl ? <div className='users-modal-user-box' key={user._id} style={{ background: getUserBackground(user) }}></div> :
                                                     <div className='avatar-img-guest-user-box' key={user._id}></div>}
+
                                                 <span>{user.fullname}</span>
-                                                {memberExistIcon(user._id)}
                                             </div>
                                         })}
                                     </div>
                                 </div>
+
                             </section>
                         }
+
+
                     </div>
                 </div>
 
                 <div className="nav-right">
-                    <div className='board-header-menu-btn' onClick={onShownPopover}>
+                    <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p>Show Menu</p>
+                        <p >Show Menu</p>
                     </div>
                 </div>
 
