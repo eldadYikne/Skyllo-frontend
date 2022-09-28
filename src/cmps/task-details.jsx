@@ -16,9 +16,11 @@ import { ReactComponent as ArchiveIcon } from '../assets/img/archive-icon.svg'
 import { ReactComponent as DescriptionIcon } from '../assets/img/description-icon.svg'
 import { ReactComponent as ActivityIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as AttachmentBigIcon } from '../assets/img/attachmaent-iconbig.svg'
+import { ReactComponent as PlusIcon } from '../assets/img/plus-icon-details.svg'
+
+import { AttachmentDetails } from './task-details/attachmaent-details'
 import { removeTask, saveTask } from '../store/board.actions'
 import { boardService } from '../services/board.new.service'
-import { AttachmentDetails } from './task-details/attachmaent-details'
 import { TaskChecklist } from './task-details/task-checklist'
 import { utilService } from '../services/util.service'
 import { LoaderSkyllo } from './loader-cmp'
@@ -166,15 +168,13 @@ export function TaskDetails() {
   }
 
   const getBgColorOfImg = async (url, taskToUpdate) => {
-    console.log('getBgColorOfImg');
     try {
       const currTask = structuredClone(taskToUpdate)
       if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
       const fac = new FastAverageColor();
       const color = await fac.getColorAsync(url)
       taskToUpdate.cover.backgroundColor = color.rgb;
-      console.log('Average color', color);
-      console.log('Average currTask', taskToUpdate);
+
     } catch (err) {
       console.log(err);
     }
@@ -225,7 +225,10 @@ export function TaskDetails() {
                           <div key={member._id} className='avatar-img-guest-member-box'></div>
                       }
                     })}
-                    <div className='task-details-member-box-plus-member' onClick={(ev) => onOpenDynamicCmp(ev, 'members')}>+</div>
+                    <div className='task-details-member-box-plus-member'
+                     onClick={(ev) => onOpenDynamicCmp(ev, 'members')}>
+                      <PlusIcon className='plus-icon'/>
+                      </div>
                   </div>
                 </div>
 
@@ -242,7 +245,9 @@ export function TaskDetails() {
                         {label?.title ? label.title : ''}
                       </div>
                     })}
-                    <div className='task-details-label-box-plus-label' onClick={(ev) => onOpenDynamicCmp(ev, 'labels')}>+</div>
+                    <div className='task-details-label-box-plus-label' onClick={(ev) => onOpenDynamicCmp(ev, 'labels')}>
+                    <PlusIcon className='plus-icon'/>
+                      </div>
                   </div>
                 </div>
               </div>

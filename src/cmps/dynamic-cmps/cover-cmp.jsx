@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom"
 import { detailsColorsConsts, detailsImgConsts, workspaceImgConsts } from "../../const/board-list-consts"
 import { saveTask } from "../../store/board.actions"
 
-export const CoverCmp = ({ task,getBgColorOfImg }) => {
+export const CoverCmp = ({ task, getBgColorOfImg }) => {
     const params = useParams()
     const [bgColorExmpel, setBgColorExmpel] = useState(`url(${task.cover?.color})`)
     const [bgColorTextExmple, setBgColorTextExmple] = useState(`url(${task.cover?.color})`)
@@ -23,24 +23,26 @@ export const CoverCmp = ({ task,getBgColorOfImg }) => {
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        ev.preventDefault()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor)
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
-        getBgColorOfImg(color,taskToUpdate)
-
-        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change color task', user }))
-
+        
+        if (!color) {
+            console.log('logloglogloglogloglgolgolglgolgogl');
+            const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
+            return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
+        }
+        getBgColorOfImg(color, taskToUpdate)
+        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change color task', user }))
     }
 
 
     const onCoverSelected = (isCover) => {
-        console.log('isCover', isCover)
-        console.log('isFullCover', isFullCover)
         setFullCover(isCover)
         const taskToUpdate = { ...task, cover: { ...task.cover, isFullCover: isCover } }
-        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change cover task', user }))
+        // if(!task.style?.bgImg||!task.style?.backgroundColor)return 
+        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', user }))
 
     }
     const changeHandel = (ev) => {
@@ -58,7 +60,7 @@ export const CoverCmp = ({ task,getBgColorOfImg }) => {
         }
         console.log('isCover', isDarked)
         const taskToUpdate = { ...task, cover: { ...task.cover, isDark: isDarked } }
-        dispatch(saveTask(board._id,groupId,taskToUpdate,{ text: 'change cover task', user }))
+        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', user }))
 
     }
 
@@ -98,7 +100,7 @@ export const CoverCmp = ({ task,getBgColorOfImg }) => {
 
         {task.cover?.color && <button onClick={(ev) => onChangeColor('', ev)} className='remove-btn filled'>Remove Cover</button>}
 
-        {task.cover?.isFullCover && task.cover?.color?.length >9 && <div>
+        {task.cover?.isFullCover && task.cover?.color?.length > 9 && <div>
             <span> Text color</span>
             <div className="cover-size-action text">
                 <div onClick={() => onTasktCoverSelected(true)} className={task.cover.isDark ? "coverd-choice darken choice" : "coverd-choice darken"} style={{ background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),${bgColorExmpel}` }}>

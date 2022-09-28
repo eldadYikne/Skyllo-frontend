@@ -6,7 +6,7 @@ import { updateBoard } from '../store/board.actions';
 //icons
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 import { ReactComponent as InviteMemberIcon } from '../assets/img/invite-member-icon.svg';
-import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg';
+import { ReactComponent as MenuIcon } from '../assets/img/more-options2-icon.svg';
 import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg';
 import { ReactComponent as MemberExistIcon } from '../assets/img/member-exist-icon.svg'
 import { useState } from 'react';
@@ -17,12 +17,10 @@ export function BoardHeader({ board }) {
     const dispatch = useDispatch()
     if (!board.members) board.members = []
     const members = board.members
-
     const membersToDisplay = members.slice(0, 4)
 
     const [isMembersModalOpen, setIsMembersModalOpen] = useState(false)
     const [isExtraMembersModalOpen, setIsExtraMembersModalOpen] = useState(false)
-
     const [users, setUsers] = useState(null)
 
     if (!board.isPopoverShown) board.isPopoverShown = false
@@ -105,8 +103,8 @@ export function BoardHeader({ board }) {
             })
             return dispatch(updateBoard(boardToUpdate))
         }
-        if (existMember.length !== 0 && existMember) return
 
+        if (existMember.length !== 0 && existMember) return
         boardToUpdate.members.push(currMember)
         dispatch(updateBoard(boardToUpdate))
 
@@ -123,17 +121,20 @@ export function BoardHeader({ board }) {
                     </div>
                     <div className="board-header-nav-left-actions">
                         <div className="board-header-favorite-icon action-board-header">
-                            {board.style.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />
+                            {board.style?.isStared ? <img onClick={() => onSetIsStared(board._id)} className='star-app-header' src={require('../assets/img/star.png')} />
                                 : <SvgStar onClick={() => onSetIsStared(board._id)} className='star-board-preview' />}
                         </div>
 
-                        <span className='board-header-border-left'></span>
-
+                        {board.members.length!==0 &&<span className='board-header-border-left'></span>}
                         <div className='board-header-members-container'>
                             {members && membersToDisplay.map(member => {
+                                
                                 {
                                     return member.img ? <div className='board-header-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
-                                        <div className='avatar-img-guest-member-box' key={member._id}></div>
+                                        <div className='avatar-img-guest-member-box' key={member._id}>
+                                            
+                                        </div>
+                                        
                                 }
                             })}
                             {members.length > 4 && <div className='board-header-extra-member-box'

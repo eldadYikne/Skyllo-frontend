@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Link, NavLink, useParams } from 'react-router-dom'
@@ -7,18 +8,29 @@ import { onLogout } from '../store/user.actions'
 
 
 export function AppHeader({ board }) {
-  const [imgSrc, setImgSrc] = useState(Logo)
+
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
-
   const dispatch = useDispatch()
+
+  console.log('board', board)
+  let bgHeaderColor = board ? board.style?.backgroundColor : '#0065ff'
+
+  useEffect(() => {
+    if (board === null) {
+      bgHeaderColor = '#0065ff'
+    }
+  }, [board])
+
+  console.log(bgHeaderColor);
 
   const onClickLogout = () => {
     dispatch(onLogout())
   }
 
+
   return (
-    <header style={{ backgroundColor: board?.style?.backgroundColor }} className='app-header'>
+    <header style={{ backgroundColor: bgHeaderColor }} className='app-header'>
       <section className='logo-hedear-container'>
 
         <div className='logo-container'>
