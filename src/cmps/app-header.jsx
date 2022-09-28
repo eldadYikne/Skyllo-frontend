@@ -17,10 +17,6 @@ export function AppHeader({ board }) {
     dispatch(onLogout())
   }
 
-
-
-
-
   return (
     <header style={{ backgroundColor: board?.style?.backgroundColor }} className='app-header'>
       <section className='logo-hedear-container'>

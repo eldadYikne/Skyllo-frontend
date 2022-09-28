@@ -7,7 +7,8 @@ import { updateBoard } from '../store/board.actions';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 import { ReactComponent as InviteMemberIcon } from '../assets/img/invite-member-icon.svg';
 import { ReactComponent as MenuIcon } from '../assets/img/more-options-icon.svg';
-import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg'
+import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg';
+import { ReactComponent as MemberExistIcon } from '../assets/img/member-exist-icon.svg'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { userService } from '../services/user.new.service';
@@ -68,6 +69,13 @@ export function BoardHeader({ board }) {
         }
     }
 
+    const memberExistIcon = (userlId) => {
+        const exist = board?.members?.find(member => {
+            return userlId === member._id
+        })
+        if (exist) return <MemberExistIcon className='member-exist-icon' />
+    }
+
     const onAddMemberToBoard = (user) => {
         const boardToUpdate = structuredClone(board)
         const currMember = {
@@ -80,6 +88,23 @@ export function BoardHeader({ board }) {
             return member._id === currMember._id
         })
 
+        const exist = board?.members?.find(member => {
+            return user._id === member._id
+        })
+
+        if (exist) {
+            boardToUpdate.groups.forEach(group => {
+                group.tasks?.forEach(task => {
+                    task.memberIds = task.memberIds?.filter(memberId => {
+                        return memberId !== exist._id
+                    })
+                })
+            })
+            boardToUpdate.members = boardToUpdate.members.filter(member => {
+                return member._id !== exist._id
+            })
+            return dispatch(updateBoard(boardToUpdate))
+        }
         if (existMember.length !== 0 && existMember) return
 
         boardToUpdate.members.push(currMember)
@@ -94,7 +119,7 @@ export function BoardHeader({ board }) {
             <nav className="board-header main-container board-header-main-nav">
                 <div className="nav-left">
                     <div className='board-title-board-header'>
-                    <h3>{board.title}</h3>
+                        <h3>{board.title}</h3>
                     </div>
                     <div className="board-header-nav-left-actions">
                         <div className="board-header-favorite-icon action-board-header">
@@ -112,7 +137,7 @@ export function BoardHeader({ board }) {
                                 }
                             })}
                             {members.length > 4 && <div className='board-header-extra-member-box'
-                            onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)}
+                                onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)}
                             >+{members.length - 4}</div>}
                         </div>
                         {isExtraMembersModalOpen &&
@@ -122,16 +147,14 @@ export function BoardHeader({ board }) {
                                     <CloseUsersModalIcon className='close-users-modal-icon' onClick={() => setIsExtraMembersModalOpen(!isExtraMembersModalOpen)} />
                                 </div>
                                 <div className='users-modal-content'>
-
                                     <div className='users-modal-users-list'>
 
                                         {members && members.map(member => {
                                             return <div className='users-modal-user-preview'
-                                            
+
                                                 key={member._id}>
                                                 {member.img ? <div className='users-modal-user-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
                                                     <div className='avatar-img-guest-user-box' key={member._id}></div>}
-
                                                 <span>{member.fullname}</span>
                                             </div>
                                         })}
@@ -141,7 +164,6 @@ export function BoardHeader({ board }) {
                             </section>
                         }
                         <span className='board-header-border-left'></span>
-
                         <div className='invite-member-icon' onClick={() => setIsMembersModalOpen(!isMembersModalOpen)}>
                             <InviteMemberIcon />
                         </div>
@@ -163,8 +185,8 @@ export function BoardHeader({ board }) {
                                                 key={user._id}>
                                                 {user.imgUrl ? <div className='users-modal-user-box' key={user._id} style={{ background: getUserBackground(user) }}></div> :
                                                     <div className='avatar-img-guest-user-box' key={user._id}></div>}
-
                                                 <span>{user.fullname}</span>
+                                                {memberExistIcon(user._id)}
                                             </div>
                                         })}
                                     </div>

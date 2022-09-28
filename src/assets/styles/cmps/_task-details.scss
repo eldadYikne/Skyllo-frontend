@@ -14,10 +14,10 @@
   overflow-y: auto;
   padding-bottom: 60px;
 
-
   & .details-bgColor {
     height: 170px;
-    width: 48rem;
+    // width: 48rem;
+    width: 100%;
     position: relative;
 
     & button {
