@@ -91,8 +91,8 @@ export function BoardHeader({ board }) {
 
         if (exist) {
             boardToUpdate.groups.forEach(group => {
-                group.tasks.forEach(task => {
-                    task.memberIds = task.memberIds.filter(memberId => {
+                group.tasks?.forEach(task => {
+                    task.memberIds = task.memberIds?.filter(memberId => {
                         return memberId !== exist._id
                     })
                 })
