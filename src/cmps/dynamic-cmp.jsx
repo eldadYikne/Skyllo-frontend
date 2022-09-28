@@ -54,6 +54,7 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
                     /> 
             case 'dates':
                 return <TaskDate 
+                    
                     board={board}
                     group={group}
                     task={task}
@@ -64,7 +65,6 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
 
     return (
         <section style={{ top: mouseLocation + 40 }} className="dynamic-cmp"
-            onClick={ev=>ev.preventDefault()}
         >
             {hideHeader && <section className="dynamic-cmp-header">{type}
                 <button className='dynamic-cmp-close'>

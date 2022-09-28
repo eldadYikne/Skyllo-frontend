@@ -18,6 +18,7 @@ export function BoardList({ boards, loadBoards }) {
     useEffect(() => {
         dispatch(loadBoards())
     }, [])
+
     const onChangeColor = (info) => {
         setColorCreate(info)
     }
@@ -119,9 +120,8 @@ export function BoardList({ boards, loadBoards }) {
                                 <span className="board-previw-title">{board.title}</span>
                             </div>
                         </Link>
-                        {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
+                        <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
                         <img onClick={() => onSetIsStared(board)} className='star-board-preview stared' src={require('../assets/img/star.png')} />
-
                     </div>
                 }
 
