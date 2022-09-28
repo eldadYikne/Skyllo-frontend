@@ -124,6 +124,7 @@ export function removeGroup(boardId, groupId, activity) {
 export function saveTask(boardId, groupId, task, activity) {
     console.log('action board', boardId)
     return async (dispatch) => {
+        
         try {
             const board = await boardService.saveTask(boardId, groupId, task, activity)
             dispatch(getActionUpdateBoard(board))

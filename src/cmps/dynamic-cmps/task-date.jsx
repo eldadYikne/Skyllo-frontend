@@ -26,13 +26,13 @@ export function TaskDate({ board, group, task, setDynamicType }) {
     ev.preventDefault()
     ev.stopPropagation()
     const newDueDate = {
-      date : Date.parse(selectedDate),
-      dateToDisplay: utilService.getDateToDisplay( Date.parse(selectedDate) ),
+      date: Date.parse(selectedDate),
+      dateToDisplay: utilService.getDateToDisplay(Date.parse(selectedDate)),
       isDone: false
     }
     task.dueDate = newDueDate
-    const newTask = {...task, dueDate: newDueDate}
-    dispatch(saveTask( board._id, group.id, newTask ))
+    const newTask = { ...task, dueDate: newDueDate }
+    dispatch(saveTask(board._id, group.id, newTask))
     setDynamicType('')
   }
 
@@ -40,20 +40,21 @@ export function TaskDate({ board, group, task, setDynamicType }) {
     ev.preventDefault()
     ev.stopPropagation()
     task.dueDate = null
-    dispatch(saveTask( board._id, group.id, task ))
+    dispatch(saveTask(board._id, group.id, task))
     setDynamicType('')
   }
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider
+      utils={DateFnsUtils}>
       <DatePicker value={selectedDate}
-      onChange={(date) => handleDateChange(date)}
-       variant="static"
-       disableToolbar
+        onChange={(date) => handleDateChange(date)}
+        variant="static"
+        disableToolbar
       //  disablePast={true}
       />
-      <button className='set-date-btn' onClick={ (ev) => onSetDate(ev) }>Save</button>
-      <button className='remove-date-btn' onClick={ (ev) => onRemoveDate(ev) }>Remove</button>
+      <button className='set-date-btn' onClick={(ev) => onSetDate(ev)}>Save</button>
+      <button className='remove-date-btn' onClick={(ev) => onRemoveDate(ev)}>Remove</button>
 
     </MuiPickersUtilsProvider>
   )

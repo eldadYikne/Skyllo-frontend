@@ -61,10 +61,10 @@
     border-radius: 50%;
     cursor: pointer;
     display: flex;
-    height: 30px;
+    height: 32px;
     justify-content: center;
     object-fit: cover;
-    width: 30px;
+    width: 32px;
 
     &-plus-member {
         display: flex;
@@ -74,11 +74,19 @@
         border-radius: 50%;
         background-color: #eaecf0;
         color: #42526e;
-        font-size: 16px;
-        font-weight: 700;
+        // font-size: 1.5rem;
+        // font-weight: 700;
+        margin-bottom: 3px;
         cursor: pointer;
-        height: 30px;
-        width: 30px;
+        height: 32px;
+        width: 32px;
+
+        & .plus-icon{
+            color: #42526e;
+            height: 22px;
+            width: 22px;
+        }
+
 
         &:hover {
             background-color: #d9dadd;
@@ -90,3 +98,4 @@
         margin: 0 0 0 -10px;
     }
 }
+

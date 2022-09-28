@@ -23,14 +23,12 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
     const onChangeColor = (color, ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        ev.preventDefault()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
         setBgColorTextExmple(newColor) 
 
         
         if (!color) {
-            console.log('logloglogloglogloglgolgolglgolgogl');
             const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
             return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
         }

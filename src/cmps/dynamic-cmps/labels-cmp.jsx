@@ -86,11 +86,11 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
                                     onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                                     onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
                                     className='label-color-box' onClick={(ev) => onChooseLabel(label.id, ev)}>
-                                    <div className='labels-details-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -25) }}></div>
+                                    <div className='labels-details-mini-color'
+                                    style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -25) }}></div>
                                     {label.title ? label.title : ''}
                                     {labelExistIcon(label.id)}
                                 </div>
-
                                 {!comeFromMiniEdit && <button className='edit-label-btn'>
                                     <EditIcon onClick={(ev) => onChooseLabelToEdit(label, ev)} />
                                 </button>}
@@ -124,8 +124,6 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
                 setHideHeader={setHideHeader}
                 setIsCreateLabel={setIsCreateLabel}
                 setDynamicType={setDynamicType}
-                
-
             />
         }
     </section>

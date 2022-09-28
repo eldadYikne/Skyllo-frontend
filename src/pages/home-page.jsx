@@ -13,11 +13,9 @@ export const HomePage = () => {
       </div>
 
       <div className='home-page-content main-container'>
-        <h1>Skyllo helps teams move work forward.</h1>
+        <h1>The project management tool teams actually want to use</h1>
         <p>
-          Collaborate, manage projects, and reach new productivity peaks. From
-          high rises to the home office, the way your team works is
-          unique accomplish it all with Skyllo.
+        Let Skyllo keep your tasks, projects, and due dates together, so your team can focus on the substance of doing.
         </p>
 
         <Link className='get-started-btn' to='workspace'>
