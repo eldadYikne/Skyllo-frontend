@@ -1,6 +1,6 @@
 
 import { useDispatch } from 'react-redux';
-import { boardService } from '../services/board.service';
+import { boardService } from '../services/board.new.service';
 import { updateBoard } from '../store/board.actions';
 
 //icons

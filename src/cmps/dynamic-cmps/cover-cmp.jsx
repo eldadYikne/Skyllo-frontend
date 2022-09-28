@@ -98,7 +98,7 @@ export const CoverCmp = ({ task,getBgColorOfImg }) => {
 
         {task.cover?.color && <button onClick={(ev) => onChangeColor('', ev)} className='remove-btn filled'>Remove Cover</button>}
 
-        {task.cover?.isFullCover && task.cover.color.length >9 && <div>
+        {task.cover?.isFullCover && task.cover?.color?.length >9 && <div>
             <span> Text color</span>
             <div className="cover-size-action text">
                 <div onClick={() => onTasktCoverSelected(true)} className={task.cover.isDark ? "coverd-choice darken choice" : "coverd-choice darken"} style={{ background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),${bgColorExmpel}` }}>
