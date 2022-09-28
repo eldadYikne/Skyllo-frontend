@@ -22,7 +22,7 @@ export const RootCmp = () => {
     return (
         <div className='root-cmp'>
             {!user && <HomePageHeader />}
-            {user && <AppHeader />}
+            {user && <AppHeader board={board} />}
 
             {/* <div className='black-screen'></div> */}
 

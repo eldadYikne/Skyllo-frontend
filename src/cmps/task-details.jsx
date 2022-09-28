@@ -176,7 +176,6 @@ export function TaskDetails() {
     }
   }
 
-  // getBgColorOfImg('https://res.cloudinary.com/dwdpgwxqv/image/upload/v1663489502/sprint%204%20/Japanese-Cherry-beautiful-tree_mrdihy.jpg')
 
   if (!task) return <LoaderSkyllo />
   return (
