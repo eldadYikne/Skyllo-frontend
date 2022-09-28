@@ -45,12 +45,10 @@ export function TaskDate({ board, group, task, setDynamicType }) {
   }
 
   return (
-
     <MuiPickersUtilsProvider
       utils={DateFnsUtils}>
       <DatePicker value={selectedDate}
         onChange={(date) => handleDateChange(date)}
-        
         variant="static"
         disableToolbar
       //  disablePast={true}

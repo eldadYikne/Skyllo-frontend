@@ -15,7 +15,8 @@ export const ChecklistCmp = ({task, setDynamicType, group })=> {
     const addChecklist = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        console.log('ggggggggggggggggggggg')
+        console.log('ev:eeeeeeeeeeeeeee')
+        
         const newChecklist = {
             id: utilService.makeId(),
             title: ev.target[0].value? ev.target[0].value : 'Checklist',
@@ -28,7 +29,7 @@ export const ChecklistCmp = ({task, setDynamicType, group })=> {
         } else {
             taskToUpdate = {...task, checklists: [newChecklist]}
         }
-        dispatch(saveTask(board._id, groupId , taskToUpdate, {text: `added ${newChecklist.title} chacklist`, user}))
+        dispatch(saveTask(board._id, groupId , taskToUpdate, {text: `added ${newChecklist.title} checklist`, user}))
         setDynamicType('') 
     }
 
