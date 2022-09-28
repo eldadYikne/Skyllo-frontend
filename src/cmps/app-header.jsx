@@ -22,7 +22,6 @@ export function AppHeader({ board }) {
     }
   }, [board])
 
-  console.log(bgHeaderColor);
 
   const onClickLogout = () => {
     dispatch(onLogout())

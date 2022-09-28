@@ -24,7 +24,6 @@ export const Popover = ({ board }) => {
         const validTasksIds=board.groups.some(group=>{
             return group.tasks.some(task=>task.id===taskId)
         })
-        console.log('validTasksIds',validTasksIds)
         
         return validTasksIds
     }

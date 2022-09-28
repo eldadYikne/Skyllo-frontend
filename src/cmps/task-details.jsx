@@ -37,13 +37,14 @@ export function TaskDetails() {
   const group = board.groups.find(group => group.id === groupId)
   const task = group.tasks.find(task => task.id === taskId)
 
-  // ELDAD
+ 
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
 
   const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task.cover.backgroundColor : task.cover?.color
   const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
   console.log('bgColorDetailsHedear', bgColorDetailsHedear)
   console.log('bgColor', bgColor)
+  console.log('task', task)
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
@@ -83,7 +84,6 @@ export function TaskDetails() {
 
   useEffect(() => {
     loadLabels()
-    // onSaveTask()
     loadMembers()
   }, [task, board])
 
@@ -111,7 +111,6 @@ export function TaskDetails() {
   const handleChange = ({ target }) => {
     const field = target.name
     const value = target.value
-    console.log(target.value)
     setTaskTxt({ ...taskTxt, [field]: value })
 
 
@@ -136,11 +135,9 @@ export function TaskDetails() {
     const mouseClickLocation = ev.target.getClientRects()
     setMouseLocation(mouseClickLocation[0].y)
     if (actionType) {
-      console.log('actionType:', actionType)
       return setDynamicType(actionType)
     }
     setDynamicType(ev.target.name)
-    console.log('mouseLocation:', mouseLocation)
   }
 
   const onHoverLabel = (ev, color) => {
@@ -166,16 +163,18 @@ export function TaskDetails() {
   }
 
   const getBgColorOfImg = async (url, taskToUpdate) => {
-    console.log('getBgColorOfImg');
+    console.log('url',url);
+
     try {
       const currTask = structuredClone(taskToUpdate)
       if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
       const fac = new FastAverageColor();
       const color = await fac.getColorAsync(url)
       taskToUpdate.cover.backgroundColor = color.rgb;
-      console.log('Average color', color);
-      console.log('Average currTask', taskToUpdate);
+      // dispatch(saveTask(board._id, group.id, task, { text: 'change task image', user: user }))
+      return color.rgb
     } catch (err) {
+     
       console.log(err);
     }
   }
@@ -221,7 +220,7 @@ export function TaskDetails() {
                   <div className='action-type-content members-details-content'>
                     {taskMembers && taskMembers.map(member => {
                       {
-                        return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                        return member?.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
                           <div key={member._id} className='avatar-img-guest-member-box'></div>
                       }
                     })}

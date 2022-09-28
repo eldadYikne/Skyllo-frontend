@@ -44,9 +44,7 @@ export function BoardApp() {
             return;
         }
         // DRABBALE GROUP
-        console.log(source.droppableId === destination.droppableId, source.droppableId, destination.droppableId)
         if (source.droppableId === destination.droppableId && type === "group") {
-            console.log(source, 'sourcesourcesourcesourcesource');
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
@@ -72,14 +70,11 @@ export function BoardApp() {
 
     const onChangeHeaderColor = (board) => {
         const newBgImg = board?.style?.bgImg
-        console.log('newBgImgnewBgImg', newBgImg);
         const boardImg = newBgImg?.substring(4, newBgImg.length - 1)
-        console.log(boardImg);
         getBgColorOfImg(boardImg, board)
 
     }
     const getBgColorOfImg = async (url, board) => {
-        console.log('url',url)
         
         try {
             if (!board.style.backgroundColor) board.style.backgroundColor = ''
@@ -87,25 +82,21 @@ export function BoardApp() {
                 const fac = new FastAverageColor();
                 console.log(url, 'urlllllllllllllll');
                 const color = await fac.getColorAsync(url)
-                console.log('Average color', color);
                 board.style.backgroundColor = color.rgb;
             } else if (board.style?.bgImg) {
                 const color = hexToRgb(board.style?.bgImg)
-                console.log(color, 'color');
                 board.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
             }
             const newBoard = structuredClone(board)
             dispatch(updateBoard(newBoard))
         } catch (err) {
             console.log(err);
-            console.log('getBgColorOfImg Error');
 
         }
     }
 
 
 
-    console.log('params', params);
 
 
     if (!board) return <LoaderSkyllo />
