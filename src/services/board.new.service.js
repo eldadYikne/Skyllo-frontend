@@ -82,6 +82,7 @@ async function remove(boardId) {
 }
 
 async function save(board) {
+    if(board===null)return 
     if (board._id) {
         try {
             const boardToUpdate = await httpService.put(BASE_URL + board._id, board)

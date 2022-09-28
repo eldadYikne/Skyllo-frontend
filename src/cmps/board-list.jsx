@@ -51,61 +51,39 @@ export function BoardList({ boards, loadBoards }) {
     }
 
     const onChangeHeaderColor = (board) => {
-        const newBgImg = board?.style?.bgImg
-        console.log('newBgImgnewBgImg', newBgImg);
-        const boardImg = newBgImg?.substring(4, newBgImg.length - 1)
-        console.log(boardImg);
-        getBgColorOfImg(boardImg, board)
+    //     const newBgImg = board?.style?.bgImg
+    //     console.log('newBgImgnewBgImg', newBgImg);
+    //     const boardImg = newBgImg?.substring(4, newBgImg.length - 1)
+    //     console.log(boardImg);
+    //     getBgColorOfImg(boardImg, board)
 
-    }
-    const getBgColorOfImg = async (url, board) => {
-        const newBoard = structuredClone(board)
-        console.log('getBgColorOfImg');
-        console.log('board', board);
-        try {
-            if (!newBoard.style.backgroundColor) newBoard.style.backgroundColor = ''
-            const fac = new FastAverageColor();
-            if (newBoard.style?.bgImg > 9) {
-                const color = await fac.getColorAsync(url)
-                newBoard.style.backgroundColor = color.rgb;
-                console.log('Average color', color);
-            } else if (newBoard.style?.bgImg) {
-                const color = hexToRgb(newBoard.style?.bgImg)
-                console.log(color, 'color');
-                newBoard.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
-            }
-
-            dispatch(updateBoard(newBoard))
-        } catch (err) {
-            console.log(err);
-
-        }
     }
     // const getBgColorOfImg = async (url, board) => {
     //     const newBoard = structuredClone(board)
-    //     console.log('getBgColorOfImg');
-    //     console.log('board', board);
     //     try {
     //         if (!newBoard.style.backgroundColor) newBoard.style.backgroundColor = ''
-    //         const fac = new FastAverageColor();
-    //         if (newBoard.style?.bgImg > 9) {
+    //         if (newBoard.style?.bgImg.length > 9) {
+    //             const fac = new FastAverageColor();
+    //             // console.log(fac);
+    //             console.log(url,'urlllllllllllllll');
     //             const color = await fac.getColorAsync(url)
-    //             newBoard.style.backgroundColor = color.rgb;
     //             console.log('Average color', color);
+    //             newBoard.style.backgroundColor = color.rgb;
     //         } else if (newBoard.style?.bgImg) {
-    //            const color= hexToRgb(newBoard.style?.bgImg)
-    //            console.log(color,'color');
-    //             newBoard.style.backgroundColor= ` rgba(${color.r},${color.g},${color.b},.45)`
-
-
+    //             const color = hexToRgb(newBoard.style?.bgImg)
+    //             console.log(color, 'color');
+    //             newBoard.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
     //         }
 
     //         dispatch(updateBoard(newBoard))
     //     } catch (err) {
     //         console.log(err);
+    //         console.log('getBgColorOfImg Error');
 
     //     }
     // }
+
+
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -173,7 +151,7 @@ export function BoardList({ boards, loadBoards }) {
                                 <span className="board-previw-title">{board.title}</span>
                             </div>
                         </Link>
-                        <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span>
+                        {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
                         <SvgStar strokeWidth="6%" onClick={() => onSetIsStared(board)} className='star-board-preview' />
                     </div>
                 }
