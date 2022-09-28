@@ -46,7 +46,7 @@
         position: absolute;
         top: -2px;
         right: 20px;
-        opacity: 0;
+        opacity: 1;
         cursor: pointer;
 
     }
@@ -80,11 +80,13 @@
     & .star-board-preview {
         position: absolute;
         right: 12px;
-        opacity: 1;
+        opacity: 0;
+        transition: 0.3s;
+
         cursor: pointer;
         height: 15px;
         width: 15px;
-        bottom: 30px;
+        bottom: 14px;
         color: white;
 
         &.stared {

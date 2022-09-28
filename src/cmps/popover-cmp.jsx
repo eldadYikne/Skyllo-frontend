@@ -21,6 +21,11 @@ export const Popover = ({ board }) => {
 
     const classPopover = board.isPopoverShown ? "popover-container open" : "popover-container"
 
+    const getvalidTaks = () => {
+        // const validTasksIds=board.groups.map(group=>{
+
+        // })
+    }
     const onShownPopover = () => {
         board.isPopoverShown = !board.isPopoverShown
         const boardToUpdate = { ...board }
@@ -30,6 +35,7 @@ export const Popover = ({ board }) => {
     const onChangeColor = (color) => {
         const newBoard = structuredClone(board)
         newBoard.style.bgImg = color
+        newBoard.isPopoverShown = !newBoard.isPopoverShown
         dispacth(updateBoard(newBoard))
     }
     const onGoBack = () => {
@@ -102,21 +108,21 @@ export const Popover = ({ board }) => {
 
                 {board?.activities?.map(activity => {
                     return <div key={activity.id} className="activity-container">
-                      {activity?.byMember?.imgUrl?  <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
-                       <div  className='avatar-img-guest-popover'></div>}
+                        {activity?.byMember?.imgUrl ? <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
+                            <div className='avatar-img-guest-popover'></div>}
                         <div className="activity-info-time">
 
                             <div className="activity-info">
-                                <span className="user-name">{activity?.byMember?.username}</span>
+                                {activity?.byMember?.username? <span className="user-name">{activity?.byMember?.username}</span>:<span className="user-name">Guest</span> }
                                 <span className="activity-task-name">{activity.txt}</span>
-                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> {activity.task.title}  </Link> : <span>{activity.task.title}</span>}
+                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> <p>{activity.task.title}</p>   </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>
                         </div>
                     </div>
                 })}
             </section>}
-            
+
 
 
         </div>
