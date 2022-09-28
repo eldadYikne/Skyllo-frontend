@@ -20,12 +20,15 @@ export const Popover = ({ board }) => {
 
 
     const classPopover = board.isPopoverShown ? "popover-container open" : "popover-container"
-
-    const getvalidTaks = () => {
-        // const validTasksIds=board.groups.map(group=>{
-
-        // })
+    const getValidTaks = (taskId) => {
+        const validTasksIds=board.groups.some(group=>{
+            return group.tasks.some(task=>task.id===taskId)
+        })
+        console.log('validTasksIds',validTasksIds)
+        
+        return validTasksIds
     }
+  
     const onShownPopover = () => {
         board.isPopoverShown = !board.isPopoverShown
         const boardToUpdate = { ...board }
@@ -115,7 +118,7 @@ export const Popover = ({ board }) => {
                             <div className="activity-info">
                                 {activity?.byMember?.username? <span className="user-name">{activity?.byMember?.username}</span>:<span className="user-name">Guest</span> }
                                 <span className="activity-task-name">{activity.txt}</span>
-                                {activity.txt !== 'deleted task' ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> <p>{activity.task.title}</p>   </Link> : <span>{activity.task.title}</span>}
+                                {activity.txt !== 'deleted task' && getValidTaks(activity.task.id) ? <Link to={`${activity.groupId}/${activity.task.id}`} key={activity.task.id}> <span>{activity.task.title}</span>   </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>
                         </div>
