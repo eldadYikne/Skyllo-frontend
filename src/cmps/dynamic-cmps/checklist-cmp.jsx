@@ -15,6 +15,7 @@ export const ChecklistCmp = ({task, setDynamicType, group })=> {
     const addChecklist = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
+        console.log('ggggggggggggggggggggg')
         const newChecklist = {
             id: utilService.makeId(),
             title: ev.target[0].value? ev.target[0].value : 'Checklist',
@@ -36,7 +37,7 @@ export const ChecklistCmp = ({task, setDynamicType, group })=> {
         <form onSubmit={addChecklist}>
             <label htmlFor="title-checklist" className="checklist-title">Title</label>
             <input type="text" id="title-checklist" placeholder="Checklist"/>
-            <button>Add</button>
+            <button type="submit">Add</button>
         </form>
 
     </section>

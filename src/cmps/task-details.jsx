@@ -42,8 +42,8 @@ export function TaskDetails() {
   // ELDAD
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
 
-  const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task.cover.backgroundColor : task.cover?.color
-  const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
+  const bgColorDetailsHedear = task?.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task?.cover?.color
+  const bgColor = task?.cover?.color ? bgColorDetailsHedear : ''
   console.log('bgColorDetailsHedear', bgColorDetailsHedear)
   console.log('bgColor', bgColor)
 
@@ -221,7 +221,7 @@ export function TaskDetails() {
                   <div className='action-type-content members-details-content'>
                     {taskMembers && taskMembers.map(member => {
                       {
-                        return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
+                        return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
                           <div key={member._id} className='avatar-img-guest-member-box'></div>
                       }
                     })}
@@ -260,7 +260,7 @@ export function TaskDetails() {
                       {task.dueDate.isDone && <span className='checkbox-checked-content'></span>}
                     </div>
                     <div className='task-details-date-container'>
-                      <p>{task.dueDate.dateToDisplay} at 08:47 AM</p>
+                      <p>{task.dueDate.dateToDisplay} at 07:00 PM</p>
                       <div className={task.dueDate.isDone ? 'complete' : task.dueDate.date < Date.now() ? 'overdue' : 'ontime'}>{getTaskStatus(task.dueDate)}</div>
                     </div>
                   </div>

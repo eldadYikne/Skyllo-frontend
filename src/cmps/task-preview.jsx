@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { boardService } from "../services/board.new.service";
-import { updateBoard } from "../store/board.actions";
+import { saveTask, updateBoard } from "../store/board.actions";
 import { TaskDetails } from "./task-details";
 
 
@@ -20,6 +20,7 @@ export function TaskPreview({ task, group }) {
 
     
     const board = useSelector(state => state.boardModule.board)
+    const user = useSelector(state => state.userModule.user)
     const labelsOpen = board.toggleLabels
     
     const [isMiniEditShown, setIsMiniEditShown] = useState(false)
@@ -116,8 +117,16 @@ export function TaskPreview({ task, group }) {
         ev.preventDefault()
         ev.stopPropagation()
         task.dueDate.isDone = !task.dueDate.isDone
+        // const newTask = {...task, dueDate: {...task.dueDate, isDone: !task.dueDate.isDone}}
         const newBoard = structuredClone(board)
         dispatch(updateBoard(newBoard))
+        // if(newTask.dueDate.isDone){
+        //     var text = 'marked task as complete'
+        // } else {
+        //     text = 'marked task as uncomplete'
+        // }
+        // console.log((board._id, group.id, newTask, {text, user}))
+        // dispatch(saveTask(board._id, group.id, newTask, {text, user}))
 
     }
 
