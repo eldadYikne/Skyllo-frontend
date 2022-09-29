@@ -12,6 +12,7 @@ import { TaskDetails } from './cmps/task-details'
 import { BoardApp } from './pages/board-app'
 import { useSelector } from 'react-redux'
 import { HomePageHeader } from './cmps/header-home-page'
+import { Chart } from './cmps/chart-app'
 
 
 export const RootCmp = () => {
@@ -32,6 +33,7 @@ export const RootCmp = () => {
                     <Route path='login' element={<LoginSignup />} />
                     {/* <Route path='login' element={<UserLogin />} /> */}
                     <Route path='workspace' element={<WorkSpace />} />
+                    <Route path='workspace/board/:boardId/chart' element={<Chart />} />
                     <Route path="workspace/board/:boardId" element={<BoardApp />} >
                         <Route path=":groupId/:taskId" element={<TaskDetails />} />
                     </Route>

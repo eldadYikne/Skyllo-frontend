@@ -99,7 +99,7 @@ export function LoginSignup() {
                 </h1>
             </div>
             <div className='login-sign-up-main-container'>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <div className="g-signin2" data-onsuccess="onSignIn"></div>
                 <div className='sign-up-login-content'>
                     {!isSignup && <section>
 

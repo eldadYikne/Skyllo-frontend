@@ -5,8 +5,6 @@ import { store } from '../store/store'
 import { socketService, SOCKET_EVENT_BOARD_ADDED, SOCKET_EVENT_BOARD_UPDATED } from "./socket.service";
 
 const boardChannel = new BroadcastChannel('boardChannel')
-
-
     ; (() => {
         boardChannel.addEventListener('message', (ev) => {
             store.dispatch(ev.data)
@@ -19,20 +17,11 @@ const boardChannel = new BroadcastChannel('boardChannel')
             console.log('GOT from socket', board)
             store.dispatch(getActionUpdateBoard(board))
         })
+        console.log('soceeekt');
 
     })()
 
-//     const reviewChannel = new BroadcastChannel('reviewChannel')
 
-// ;(() => {
-//   reviewChannel.addEventListener('message', (ev) => {
-//     store.dispatch(ev.data)
-//   })
-
-//   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-//     showSuccessMsg(`New review about me ${review.txt}`)
-//   })
-// })()
 
 export const boardService = {
     query,

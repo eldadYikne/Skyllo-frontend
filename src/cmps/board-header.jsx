@@ -12,6 +12,7 @@ import { ReactComponent as MemberExistIcon } from '../assets/img/member-exist-ic
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { userService } from '../services/user.new.service';
+import { Link } from 'react-router-dom';
 
 export function BoardHeader({ board }) {
     const dispatch = useDispatch()
@@ -200,7 +201,15 @@ export function BoardHeader({ board }) {
                     </div>
                 </div>
 
+                
                 <div className="nav-right">
+                <Link to={`chart`} >
+                    <div className='board-header-menu-btn'>
+                        <MenuIcon />
+                        <p >DashBoard</p>
+                    </div>
+                    </Link>
+                
                     <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
                         <p >Show Menu</p>
