@@ -19,6 +19,7 @@ export class ImgUploader extends Component {
     if (imgUrl) return 'Upload Another?'
     return isUploading ? 'Uploading....' : 'Upload Image'
   }
+  
   render() {
     const { imgUrl} = this.state
 

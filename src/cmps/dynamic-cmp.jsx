@@ -54,7 +54,6 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
                     /> 
             case 'dates':
                 return <TaskDate 
-                    
                     board={board}
                     group={group}
                     task={task}

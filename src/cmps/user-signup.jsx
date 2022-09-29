@@ -77,6 +77,13 @@ export function LoginSignup() {
             console.log(err);
         }
     }
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
 
     return (
         <div className="login-sign-up-page">
@@ -92,6 +99,7 @@ export function LoginSignup() {
                 </h1>
             </div>
             <div className='login-sign-up-main-container'>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 <div className='sign-up-login-content'>
                     {!isSignup && <section>
 
@@ -119,7 +127,7 @@ export function LoginSignup() {
                         <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-guest-login'></div>
-                                <p>Continue as guest</p>
+                                <Link to='/workspace'><p>Continue as guest</p></Link> 
                             </div>
                         </button>
 
@@ -168,12 +176,12 @@ export function LoginSignup() {
                                 required
                             />
                             <div className="upload-source-sign-up ">
-                                <label htmlFor="sign-up-upload"><UploadIcon className='camera-icon'/></label>
+                                <label htmlFor="sign-up-upload"><UploadIcon className='camera-icon' /></label>
                                 <input className="input-computer-upload-sign-up"
                                     id='sign-up-upload'
                                     type="file"
                                     onChange={onUploaded} />
-                           
+
                             </div>
 
                             <button onClick={onClickSignup} >Signup</button>
@@ -182,7 +190,7 @@ export function LoginSignup() {
                         <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-guest-login'></div>
-                                <p>Continue as guest</p>
+                                <Link to='/workspace'><p>Continue as guest</p></Link> 
                             </div>
                         </button>
 

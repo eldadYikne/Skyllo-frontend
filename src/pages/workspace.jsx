@@ -14,7 +14,6 @@ export function WorkSpace() {
 
   return (
     <section className='workspace'>
-      
       <BoardList loadBoards={loadBoards} boards={boards} />
     </section>
   )
