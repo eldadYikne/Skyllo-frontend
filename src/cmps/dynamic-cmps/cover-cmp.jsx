@@ -32,6 +32,8 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
             const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
             return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
         }
+        if(!task.cover)task.cover={}
+        if(!task.cover.backgroundColor)task.cover.backgroundColor=''
         task.cover.backgroundColor = getBgColorOfImg(color, task)
         console.log('taskkkkkkkkkkkkk',task)
         

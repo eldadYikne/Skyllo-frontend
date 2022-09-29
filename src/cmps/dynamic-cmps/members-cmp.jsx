@@ -31,17 +31,14 @@ export const MembersCmp = ({ task, group }) => {
 
 
     const memberExistIcon = (memberId) => {
-        console.log('memberId:', memberId)
         
         const exist = task?.memberIds?.find(id => {
             return memberId === id})
-            console.log('task.memberIds:', task.memberIds)
             
         if (exist) return <MemberExistIcon className='member-exist-icon-member-cmp' />
     }
 
     const getMemberBackground = (member) => {
-        // console.log('member:', member)
         if (member.img) return `url(${member.img}) center center / cover`
     }
 

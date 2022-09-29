@@ -16,8 +16,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Popover } from "../cmps/popover-cmp";
 import { LoaderSkyllo } from "../cmps/loader-cmp";
 import { FastAverageColor } from "fast-average-color";
-import { hexToRgb } from "@material-ui/core";
-
 // import { boardService } from '../services/board.service.js'
 
 export function BoardApp() {
@@ -80,7 +78,6 @@ export function BoardApp() {
             if (!board.style.backgroundColor) board.style.backgroundColor = ''
             if (board.style?.bgImg.length > 9) {
                 const fac = new FastAverageColor();
-                console.log(url, 'urlllllllllllllll');
                 const color = await fac.getColorAsync(url)
                 board.style.backgroundColor = color.rgb;
             } else if (board.style?.bgImg) {
@@ -94,8 +91,14 @@ export function BoardApp() {
 
         }
     }
-
-
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
 
 
 

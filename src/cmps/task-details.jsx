@@ -33,7 +33,6 @@ export function TaskDetails() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
   const board = useSelector(state => state.boardModule.board)
-  console.log(board)
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
@@ -41,12 +40,9 @@ export function TaskDetails() {
 
  
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
-
-  const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task.cover.backgroundColor : task.cover?.color
+  const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task.cover?.color
   const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
-  console.log('bgColorDetailsHedear', bgColorDetailsHedear)
-  console.log('bgColor', bgColor)
-  console.log('task', task)
+ 
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
@@ -165,8 +161,6 @@ export function TaskDetails() {
   }
 
   const getBgColorOfImg = async (url, taskToUpdate) => {
-    console.log('url',url);
-
     try {
       const currTask = structuredClone(taskToUpdate)
       if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
@@ -176,7 +170,8 @@ export function TaskDetails() {
       // dispatch(saveTask(board._id, group.id, task, { text: 'change task image', user: user }))
       return color.rgb
     } catch (err) {
-     
+      return '#fffff'
+
       console.log(err);
     }
   }
@@ -222,8 +217,8 @@ export function TaskDetails() {
                   <div className='action-type-content members-details-content'>
                     {taskMembers && taskMembers.map(member => {
                       {
-                        return member.img ? <div className='task-details-member-box' key={member._id} style={{ background: getMemberBackground(member) }}></div> :
-                          <div key={member._id} className='avatar-img-guest-member-box'></div>
+                        return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                          <div key={member?._id} className='avatar-img-guest-member-box'></div>
                       }
                     })}
                     <div className='task-details-member-box-plus-member'

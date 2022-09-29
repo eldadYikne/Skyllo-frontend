@@ -87,6 +87,7 @@ async function save(board) {
         try {
             const boardToUpdate = await httpService.put(BASE_URL + board._id, board)
             console.log('board service', board)
+            // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
             // boardChannel.postMessage(getActionAddBoard(boardToUpdate))
             return boardToUpdate
         } catch (err) {

@@ -22,7 +22,8 @@ export function TaskList({ group }) {
         if (!title) return
         const task = {
             title:title,
-            labelIds:[]
+            labelIds:[],
+            cover:{}
         }
 
         dispatch(saveTask(board._id, group.id, task, { text: 'added task', user: user }))

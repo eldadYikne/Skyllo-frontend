@@ -13,7 +13,6 @@ export function AppHeader({ board }) {
   const [userModalOpen, setUserModalOpen] = useState(false)
   const dispatch = useDispatch()
 
-  console.log('board', board)
   let bgHeaderColor = board ? board.style?.backgroundColor : '#0065ff'
 
   useEffect(() => {
