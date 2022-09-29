@@ -8,7 +8,7 @@ import { utilService } from '../../services/util.service'
 import moment from 'moment'
 
 
-export const AttachmentDetails = ({group, task ,getBgColorOfImg}) => {
+export const AttachmentDetails = ({ group, task, getBgColorOfImg }) => {
 
     const board = useSelector(state => state.boardModule.board)
     const user = useSelector(state => state.userModule.user)
@@ -22,13 +22,19 @@ export const AttachmentDetails = ({group, task ,getBgColorOfImg}) => {
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         console.log(newAttachments, 'newAttachments')
         task.attachments = newAttachments
-        const newTask = structuredClone(task) 
-        dispatch(saveTask(board._id, group.id, task, {text: 'removed attachment', user: user }))
+        const newTask = structuredClone(task)
+        dispatch(saveTask(board._id, group.id, newTask, { text: 'removed attachment', user: user }))
     }
     const onMakeCover = (attachmentUrl) => {
+        console.log(' task.cover.backgroundColor', task)
+        if (!task.cover) task.cover={}
+        if (!task.cover.backgroundColor) task.cover.backgroundColor = ''
+        console.log(' task.cover.backgroundColor', task.cover.backgroundColor)
+        task.cover.backgroundColor = getBgColorOfImg(attachmentUrl, task)
+        
         const taskToUpadet = { ...task, cover: { ...task.cover, color: attachmentUrl } }
-        getBgColorOfImg(attachmentUrl,taskToUpadet)
-        dispatch(saveTask(board._id, group.id, taskToUpadet, {text: 'changed cover', user: user } ))
+
+        dispatch(saveTask(board._id, group.id, taskToUpadet, { text: 'changed cover', user: user }))
     }
     const onHandelChange = (ev) => {
         ev.preventDefault()
@@ -39,18 +45,18 @@ export const AttachmentDetails = ({group, task ,getBgColorOfImg}) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
         currAttachment.isEdit = !currAttachment.isEdit
         const newTask = { ...task }
-        dispatch(saveTask(board._id, group.id, newTask, {text: 'edited attachment', user: user } ))
+        dispatch(saveTask(board._id, group.id, newTask, { text: 'edited attachment', user: user }))
     }
     const onUpdetAttachment = (attachmentId) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
         const attachmentToUpdate = { ...currAttachment, title: text }
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
         const taskToUpadet = { ...task, attachments: [...newAttachments, attachmentToUpdate] }
-        dispatch(saveTask(board._id, group.id, taskToUpadet, {text: 'edited attachment', user: user } ))
+        dispatch(saveTask(board._id, group.id, taskToUpadet, { text: 'edited attachment', user: user }))
         setEdit(true)
     }
 
- 
+
     return <div className='description-container'>
         <div className='container-title'>
             <AttachmentBigIcon className='title-icon' />
