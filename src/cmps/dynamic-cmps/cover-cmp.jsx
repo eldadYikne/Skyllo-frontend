@@ -25,14 +25,19 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         ev.stopPropagation()
         const newColor = color.length > 9 ? `url(${color})` : color
         setBgColorExmpel(newColor)
-        setBgColorTextExmple(newColor)
-        const taskToUpdate = { ...task, cover: { ...task.cover, color } }
+        setBgColorTextExmple(newColor) 
+
         
         if (!color) {
             const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
             return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
         }
-        getBgColorOfImg(color, taskToUpdate)
+        if(!task.cover)task.cover={}
+        if(!task.cover.backgroundColor)task.cover.backgroundColor=''
+        task.cover.backgroundColor = getBgColorOfImg(color, task)
+        console.log('taskkkkkkkkkkkkk',task)
+        
+        const taskToUpdate = { ...task, cover: { ...task.cover, color } }
         dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change color task', user }))
     }
 

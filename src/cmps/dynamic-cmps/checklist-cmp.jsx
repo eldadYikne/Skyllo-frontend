@@ -38,7 +38,7 @@ export const ChecklistCmp = ({task, setDynamicType, group })=> {
         <form onSubmit={addChecklist}>
             <label htmlFor="title-checklist" className="checklist-title">Title</label>
             <input type="text" id="title-checklist" placeholder="Checklist"/>
-            <button>Add</button>
+            <button type="submit">Add</button>
         </form>
 
     </section>
