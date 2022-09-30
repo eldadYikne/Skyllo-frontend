@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { boardService } from '../services/board.new.service';
 import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
-import { ReactComponent as SvgStar } from '../assets/img/star.svg';
-import { ReactComponent as SvgStarHover } from '../assets/img/star-hover.svg';
+import { ReactComponent as SvgStar } from '../assets/img/star-workspace.svg';
 import { ReactComponent as SvgClock } from '../assets/img/clock.svg';
 import { LoaderSkyllo } from './loader-cmp';
 import { FastAverageColor } from 'fast-average-color';
