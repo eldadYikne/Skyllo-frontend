@@ -12,14 +12,11 @@ import { TaskDate } from './dynamic-cmps/task-date'
 export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, mouseLocation, board,comeFromMiniEdit ,getBgColorOfImg}) {
 
     const [hideHeader, setHideHeader] = useState(true)
-
     const onCloseDynamicCmp = (ev) => {
         ev.preventDefault()
-        ev.stopPropagation()
-        
+        ev.stopPropagation()    
         setDynamicType('')
     }
-
 
     const dynamicCmpToRender = (type) => {
         switch (type) {
@@ -27,7 +24,6 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
                 return <MembersCmp
                     group={group}
                     task={task}
-                    
                 />
             case 'attachment':
                 return <AttachmentCmp
@@ -63,8 +59,7 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
     }
 
     return (
-        <section style={{ top: mouseLocation + 40 }} className="dynamic-cmp"
-        >
+        <section style={{ top: mouseLocation + 40 }} className="dynamic-cmp">
             {hideHeader && <section className="dynamic-cmp-header">{type}
                 <button className='dynamic-cmp-close'>
                     <CloseDynamicCmp onClick={onCloseDynamicCmp} />

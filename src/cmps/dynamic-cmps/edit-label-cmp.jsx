@@ -48,7 +48,6 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHi
 
     const onDeleteLabel = (ev) => {
         ev.preventDefault()
-        console.log('selectedLabel:', selectedLabel)
                 board.groups.forEach(group => {
                     group.tasks.forEach(task =>{
                         task.labelIds = task.labelIds.filter(labelId => labelId !== selectedLabel.id)
@@ -57,10 +56,12 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHi
         board.labels = board.labels.filter(label => label.id !== selectedLabel.id)      
         const boardToUpdate = structuredClone(board)
         dispatch(updateBoard(boardToUpdate))
-        console.log(boardToUpdate)
         setIsEditLabel(false)
         setHideHeader(true)
     }
+
+
+
 
     const handleChangeLabelText = (ev) => {
         const text = ev.target.value

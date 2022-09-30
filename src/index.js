@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import { store } from './store/store'
 import { RootCmp } from './root-cmp'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import './assets/styles/main.scss'
 
 
@@ -15,10 +16,15 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 
 ReactDOM.render(
+
   <React.StrictMode>
       <Provider store={store}>
         <Router>
+
+<GoogleOAuthProvider clientId="827098261859-v6v47a9sa4k29e97ucd6tmjf4la569oj.apps.googleusercontent.com">
           <RootCmp />
+</GoogleOAuthProvider>
+          {/* //להקיף */}
         </Router>
       </Provider>
   </React.StrictMode>,

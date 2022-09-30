@@ -28,7 +28,7 @@ export function removeUser(userId) {
     }
 }
 
-export function onLogin(credentials) {
+export function onLogin(credentials,isGoogleLogin) {
     console.log('credentials:', credentials)
     
     return async (dispatch) => {
@@ -45,9 +45,7 @@ export function onLogin(credentials) {
     }
 }
 
-export function onSignup(credentials) {
-    console.log('credentialsactionnnnn:', credentials)
-    
+export function onSignup(credentials) {    
     return async (dispatch) => {
         try {
             const user = await authService.signup(credentials)
@@ -59,7 +57,6 @@ export function onSignup(credentials) {
             showErrorMsg('Cannot signup')
             console.log('Cannot signup', err)
         }
-
     }
 }
 

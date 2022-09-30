@@ -7,12 +7,18 @@ import Logo from '../assets/img/trello-logo-Sign-up.png'
 import { useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service'
 
+
+import { GoogleLogin } from '@react-oauth/google'
+import jwt_decode from "jwt-decode"
+// 827098261859-v6v47a9sa4k29e97ucd6tmjf4la569oj.apps.googleusercontent.com
+
 //icons
 import { ReactComponent as LeftImageSvg } from '../assets/img/left-img-login.svg';
 import { ReactComponent as RightImageSvg } from '../assets/img/right-img-login.svg';
 import { ReactComponent as UploadIcon } from '../assets/img/upload-img-icon.svg';
 import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
+import { utilService } from '../services/util.service'
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', imgUrl: '' })
@@ -20,7 +26,6 @@ export function LoginSignup() {
     const [users, setUsers] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
 
     useEffect(async () => {
         const users = await userService.getUsers()
@@ -66,7 +71,6 @@ export function LoginSignup() {
         setIsSignup(!isSignup)
     }
 
-
     const onUploaded = async (ev) => {
         try {
             const data = await uploadService.uploadImg(ev)
@@ -77,13 +81,37 @@ export function LoginSignup() {
             console.log(err);
         }
     }
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    const handleGoogleSignup = (credentialResponse) => {
+        var decoded = jwt_decode(credentialResponse.credential)
+
+        const username = decoded.name
+        const img = decoded.picture
+
+        const userCred = { username: decoded.name, password: utilService.makeId(), fullname: decoded.name, imgUrl: decoded.picture }
+
+        dispatch(onSignup(userCred))
+        console.log('decodeddddddddd:', username, img)
+
+        // console.log('decodeAAAAAAA:', credentialResponse
+        // )
+
+        navigate('/workspace')
+
     }
+    const handleGoogleLogin = (credentialResponse) => {
+        var decoded = jwt_decode(credentialResponse.credential)
+
+        const username = decoded.name
+        const img = decoded.picture
+        const userCred = { username: decoded.name, isGoogleLogin: true, fullname: decoded.name, imgUrl: decoded.picture }
+
+        dispatch(onLogin(userCred))
+
+        navigate('/workspace')
+
+    }
+
 
     return (
         <div className="login-sign-up-page">
@@ -127,19 +155,39 @@ export function LoginSignup() {
                         <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-guest-login'></div>
-                                <Link to='/workspace'><p>Continue as guest</p></Link> 
+                                <Link to='/workspace'><p>Continue as guest</p></Link>
                             </div>
                         </button>
+                        {/* <div className='continue-as-guest'>
+                            <div className='continue-as-guest-content'>
+                                <div className='avatar-img-google-login'><GoogleIcon /></div>
+                                <p>Continue with google</p>
+                            </div>
+                        </div> */}
+                        <GoogleLogin
+                            // className='continue-as-guest'
+                            style={{ backgroundColor: 'blue' }}
+                            onSuccess={credentialResponse => {
+                                handleGoogleLogin(credentialResponse)
+                            }}
+                            onError={() => {
+                                console.log('Login Failed')
+                            }}
+                        />
 
+
+
+                        {/* 
                         <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-google-login'><GoogleIcon /></div>
                                 <p>Continue with google</p>
                             </div>
-                        </button>
+                        </button> */}
                         {/* </div> */}
                         <div className='sign-up-login-links-btn'>
                             <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
+                            <span className='span-border'></span>
                             <Link to='/'>
                                 <p className="sign-up-login-btn-link">Home</p>
                             </Link>
@@ -190,28 +238,42 @@ export function LoginSignup() {
                         <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-guest-login'></div>
-                                <Link to='/workspace'><p>Continue as guest</p></Link> 
+                                <Link to='/workspace'><p>Continue as guest</p></Link>
                             </div>
                         </button>
-
-                        <button className='continue-as-guest'>
+                        {/* <div className='continue-as-guest'> */}
+                            
+                            {/* <div className='continue-as-guest-content'>
+                                <div className='avatar-img-google-login'><GoogleIcon /></div>
+                                <p>Continue with google</p>
+                            </div> */}
+                        <GoogleLogin
+                            onSuccess={credentialResponse => {
+                                handleGoogleSignup(credentialResponse);
+                            }}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                            />
+                            {/* </div> */}
+                        {/* <button className='continue-as-guest'>
                             <div className='continue-as-guest-content'>
                                 <div className='avatar-img-google-login'><GoogleIcon /></div>
                                 <p>Continue with google</p>
                             </div>
-                        </button>
+                        </button> */}
                         {/* </div> */}
                         <div className='sign-up-login-links-btn'>
 
                             <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
+                            <span className='span-border'></span>
+
                             <Link to='/'>
                                 <p className="sign-up-login-btn-link">Home</p>
                             </Link>
                         </div>
                     </section>}
                 </div>
-
-
             </div>
             {/* <div className='images-login'> 
                 <LeftImageSvg/>  

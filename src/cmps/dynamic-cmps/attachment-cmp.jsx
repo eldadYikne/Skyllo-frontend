@@ -37,7 +37,6 @@ export const AttachmentCmp = ({ group, task }) => {
         } catch (err) {
             console.log(err);
         }
-
     }
     const createAttachment = (title, url) => {
         return {

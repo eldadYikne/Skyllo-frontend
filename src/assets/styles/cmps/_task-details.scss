@@ -147,18 +147,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color:#42526e ;
+      color: #42526e;
       margin: 0 4px 4px 0;
       min-width: 32px;
       height: 32px;
       padding: 0 6px;
       font-weight: 600;
-      
-      & .plus-icon{
+
+      & .plus-icon {
         color: #42526e;
         height: 20px;
         width: 20px;
-    }
+      }
 
       &:hover {
         background-color: #d9dadd;
@@ -461,9 +461,20 @@
 
   & .details-header {
     background-color: inherit;
-    margin: 12px 40px 8px 56px;
+    margin: 12px 40px 15px 56px;
     min-height: 32px;
     position: relative;
+
+    & .task-details-group-title {
+      font-size: 14px;
+      font-weight: 400;
+      color: #5e6c84;
+
+      & .task-details-group-name {
+        text-decoration: underline;
+      }
+    }
+
   }
 
   & .calender-icon {
@@ -485,7 +496,7 @@
     border: none;
     border-radius: 3px;
     box-shadow: none;
-    color: #172b4d;
+    color: lighten(#172b4d, 7%);
     cursor: pointer;
     height: 2.05rem;
     display: block;
@@ -576,6 +587,16 @@ image.png .green {
 
 .checklist-container {
 
+
+  & .progress-bar-percent {
+    position: absolute;
+    font-size: 11px;
+    margin-top: 5px;
+    margin-left: 4px;
+    color: #5e6c84;
+    text-align: center
+  }
+
   input {
     @include for-dynamic-input;
     margin: 12px 0 10px;
@@ -642,27 +663,31 @@ image.png .green {
 
   .checklist-todo {
     display: flex;
+    flex-direction: column;
     margin-inline-start: 40px;
     gap: 7px;
     align-items: center;
     // position: relative;
     margin-bottom: 4px;
     border-radius: 3px;
-    height: 82px;
+    // height: 82px;
 
     // & #checklist-textarea-basic{
     //   &:focus .checklist-todo{
     //     height: 90px
     //   }
     // }
+    position: relative;
 
     .checkbox {
       @include for-checkbox;
       margin-bottom: 25px;
+      position: absolute;
+      left: -36px;
     }
 
     .remove-todo-container {
-      position: relative;
+      // position: relative;
     }
 
     .remove-todo-btn {
@@ -681,7 +706,9 @@ image.png .green {
       display: none;
       position: absolute;
       right: 10px;
-      top: -20px;
+      top: 10px;
+      // top: 12px;
+      // top: -30px;
     }
 
     &:hover .remove-todo-btn {
@@ -783,11 +810,11 @@ image.png .green {
   }
 
   .done {
-    height: 56px;
+    // height: 56px;
     text-decoration: line-through;
     list-style: none;
     border-radius: 3px;
-    margin-bottom: -5px;
+    // margin-bottom: -5px;
 
     &:hover {
       background-color: #ebecf0;
@@ -795,12 +822,12 @@ image.png .green {
   }
 
   .active {
-    height: 56px;
+    // height: 56px;
     width: 100%;
     text-decoration: none;
     list-style: none;
     border-radius: 3px;
-    margin-bottom: -5px;
+    // margin-bottom: -5px;
 
     &:hover {
       background-color: #ebecf0;

@@ -38,11 +38,10 @@ export function TaskDetails() {
   const group = board.groups.find(group => group.id === groupId)
   const task = group.tasks.find(task => task.id === taskId)
 
- 
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
   const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task.cover?.color
   const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
- 
+
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
 
@@ -62,7 +61,7 @@ export function TaskDetails() {
   const loadLabels = () => {
     if (!task) return
     const labelIds = task.labelIds
-    if(!labelIds){
+    if (!labelIds) {
       return setTaskLabels([])
     }
     const taskLabel = labelIds?.map(id => {
@@ -206,6 +205,9 @@ export function TaskDetails() {
           >
             {task.title}
           </textarea>
+          <span className='task-details-group-title'>
+            in list <span className='task-details-group-name'>{group.title}</span>
+          </span>
         </section>
         <section className='details-content'>
           <section className='details-main-content'>
@@ -222,9 +224,9 @@ export function TaskDetails() {
                       }
                     })}
                     <div className='task-details-member-box-plus-member'
-                     onClick={(ev) => onOpenDynamicCmp(ev, 'members')}>
-                      <PlusIcon className='plus-icon'/>
-                      </div>
+                      onClick={(ev) => onOpenDynamicCmp(ev, 'members')}>
+                      <PlusIcon className='plus-icon' />
+                    </div>
                   </div>
                 </div>
 
@@ -232,7 +234,7 @@ export function TaskDetails() {
                   <h4>Labels</h4>
                   <div className='action-type-content'>
                     {taskLabels && taskLabels.map(label => {
-                      if(!label)return
+                      if (!label) return
                       return <div key={label.id} className='task-details-label-box'
                         onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
                         onMouseLeave={(ev) => onLeaveHoverLabel(ev, label.color)}
@@ -242,8 +244,8 @@ export function TaskDetails() {
                       </div>
                     })}
                     <div className='task-details-label-box-plus-label' onClick={(ev) => onOpenDynamicCmp(ev, 'labels')}>
-                    <PlusIcon className='plus-icon'/>
-                      </div>
+                      <PlusIcon className='plus-icon' />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -342,18 +344,18 @@ export function TaskDetails() {
               </div>
             </div>
             {dynamicType &&
-                <DynamicCmp
-                  mouseLocation={mouseLocation}
-                  task={task}
-                  type={dynamicType}
-                  setDynamicType={setDynamicType}
-                  group={group}
-                  setIsChecklist={setIsChecklist}
-                  board={board}
-                  getBgColorOfImg={getBgColorOfImg}
-                />
+              <DynamicCmp
+                mouseLocation={mouseLocation}
+                task={task}
+                type={dynamicType}
+                setDynamicType={setDynamicType}
+                group={group}
+                setIsChecklist={setIsChecklist}
+                board={board}
+                getBgColorOfImg={getBgColorOfImg}
+              />
 
-              }
+            }
             <div className='details-actions'>
               <h5>Actions</h5>
               <button onClick={onRemoveTask}>

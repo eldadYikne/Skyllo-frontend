@@ -6,8 +6,7 @@ import { socketService, SOCKET_EVENT_BOARD_ADDED, SOCKET_EVENT_BOARD_UPDATED } f
 
 const boardChannel = new BroadcastChannel('boardChannel')
 
-
-    ; (() => {
+; (() => {
         boardChannel.addEventListener('message', (ev) => {
             store.dispatch(ev.data)
         })

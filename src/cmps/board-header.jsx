@@ -161,7 +161,6 @@ export function BoardHeader({ board }) {
                                         })}
                                     </div>
                                 </div>
-
                             </section>
                         }
                         <span className='board-header-border-left'></span>

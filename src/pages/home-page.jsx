@@ -19,7 +19,7 @@ export const HomePage = () => {
         </p>
 
         <Link className='get-started-btn' to='workspace'>
-          Try our demo 
+          Start demo
         </Link>
       </div>
 

@@ -156,6 +156,19 @@
             }
         }
 
+        & .continue-as-guest-google{
+            background: #fff;
+            border-color: transparent;
+            border-radius: 3px;
+            box-shadow: 1px 1px 5px 0;
+            color: rgba(0, 0, 0, .54);
+            height: 39px;
+            // margin-bottom: 12px;
+            padding-top: 0;
+            text-align: center;
+            width: 99%;
+        }
+
         & .continue-as-guest {
             background: #fff;
             border-color: transparent;
@@ -166,7 +179,8 @@
             margin-bottom: 12px;
             padding-top: 0;
             text-align: center;
-            width: 99%;
+            // width: 99%;
+            width: 198px;
 
             & p {
                 padding-top: 8px;
@@ -180,7 +194,7 @@
         & .continue-as-guest-content {
             align-items: center;
             display: flex;
-            margin-left: 48px;
+            margin-left: 22px;
         }
 
         & .sign-up-login-links-btn {
@@ -188,6 +202,12 @@
             display: flex;
             justify-content: center;
             width: 100%;
+            margin-top: 12px;
+
+            & .span-border{
+                border-left: 1px #5e98ba solid;
+                font-size: 14px;
+            }
 
             & p {
                 cursor: pointer;
@@ -195,11 +215,12 @@
                 font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
                 font-size: 14px;
                 text-align: center;
+                padding: 0 9px 0 9px;
 
             }
 
             & p:first-child {
-                margin-right: 20px;
+                // margin-right: 20px;
             }
         }
 
@@ -220,4 +241,13 @@
         justify-content: space-between;
         bottom: 60px;
     }
+}
+
+.S9gUrf-YoZ4jf{
+    padding-left: 36px !important;
+    
+}
+
+.qJTHM{
+    opacity: 0 !important;
 }

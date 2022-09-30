@@ -15,6 +15,9 @@ export const Popover = ({ board }) => {
     const [isCategory, setCategory] = useState('')
     const user = useSelector(state => state.userModule.user)
     const classPopover = board.isPopoverShown ? "popover-container open" : "popover-container"
+
+
+
     const getValidTaks = (taskId) => {
         const validTasksIds = board.groups.some(group => {
             return group.tasks.some(task => task.id === taskId)
@@ -28,6 +31,8 @@ export const Popover = ({ board }) => {
     if(!currGroup) return null
         return currGroup.id
     }
+
+    
     const onShownPopover = () => {
         board.isPopoverShown = !board.isPopoverShown
         const boardToUpdate = { ...board }
