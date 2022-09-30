@@ -14,7 +14,7 @@ const boardChannel = new BroadcastChannel('boardChannel')
             store.dispatch(getActionAddBoard(board))
         })
         socketService.on(SOCKET_EVENT_BOARD_UPDATED, (board) => {
-            console.log('GOT from socket', board)
+            // console.log('GOT from socket', board)
             store.dispatch(getActionUpdateBoard(board))
         })
         console.log('soceeekt');
@@ -70,13 +70,19 @@ async function remove(boardId) {
     }
 }
 
-async function save(board) {
-    if(board===null)return 
+async function save(board, activity = '') {
+    if (board === null) return
     if (board._id) {
         try {
             const boardToUpdate = await httpService.put(BASE_URL + board._id, board)
             console.log('board service', board)
-            // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+            if (activity) {
+                board.activities.unshift(createActivity(activity.text, activity.title, activity.taskId, activity.user, activity.groupId))
+                // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+
+                console.log('activity', activity)
+
+            }
             // boardChannel.postMessage(getActionAddBoard(boardToUpdate))
             return boardToUpdate
         } catch (err) {
@@ -85,8 +91,12 @@ async function save(board) {
         }
     } else {
         try {
+            console.log('boardddddd',board)
+            
             const boardToAdd = await httpService.post(BASE_URL, board)
             // boardChannel.postMessage(getActionUpdateBoard(boardToAdd))
+            console.log('boardToAdd',boardToAdd)
+            
             return boardToAdd
         } catch (err) {
             console.log('Oops,', err)
@@ -103,6 +113,7 @@ function createBoard(title, bgImg) {
         createdBy: {},
         style: {
             bgImg,
+            backgroundColor:''
         },
         groups: [],
         labels: [

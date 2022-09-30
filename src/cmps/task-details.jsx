@@ -41,7 +41,7 @@ export function TaskDetails() {
  
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
   const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task.cover?.color
-  const bgColor = task.cover?.color ? bgColorDetailsHedear : ''
+  let bgColor = task.cover?.color ? bgColorDetailsHedear : ''
  
 
   let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
@@ -87,6 +87,7 @@ export function TaskDetails() {
 
   const onSaveTask = (activityTxt) => {
     const text = activityTxt ? activityTxt : 'saved task'
+    
     dispatch(saveTask(board._id, group.id, task, { text, user }))
     if (isDescription) setIsDescription(false)
   }
@@ -162,12 +163,14 @@ export function TaskDetails() {
 
   const getBgColorOfImg = async (url, taskToUpdate) => {
     try {
+      
       const currTask = structuredClone(taskToUpdate)
       if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
       const fac = new FastAverageColor();
       const color = await fac.getColorAsync(url)
       taskToUpdate.cover.backgroundColor = color.rgb;
       // dispatch(saveTask(board._id, group.id, task, { text: 'change task image', user: user }))
+      bgColor=color.rgb
       return color.rgb
     } catch (err) {
       return '#fffff'
@@ -181,7 +184,7 @@ export function TaskDetails() {
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
-        {bgColor && <div style={{ background: bgColor }} className='details-bgColor'>
+        {task.cover.color && <div style={{ background: bgColor }} className='details-bgColor'>
           {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
@@ -191,7 +194,7 @@ export function TaskDetails() {
           <div className='close-details-modal-exit'>
             <CloseDetailsModal
               className='close-details-modal-icon'
-              onClick={onSaveTask} />
+              onClick={()=>onSaveTask()} />
           </div>
         </Link>
 

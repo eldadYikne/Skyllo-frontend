@@ -29,6 +29,8 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
 
         
         if (!color) {
+            console.log('color',color)
+            
             const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
             return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
         }
@@ -38,7 +40,13 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         console.log('taskkkkkkkkkkkkk',task)
         
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
-        dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change color task', user }))
+        if(color.length>9){
+            console.log('change image task');
+            dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change image task', user }))
+        }else {
+            console.log('change color task');
+            dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change color task', user }))
+        }
     }
 
 
