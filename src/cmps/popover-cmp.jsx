@@ -28,7 +28,7 @@ export const Popover = ({ board }) => {
         const currGroup = board.groups.find(group => {
             return group.tasks.some(task => task.id === taskId)
         })
-    if(!currGroup) return null
+        if (!currGroup) return null
         return currGroup.id
     }
 
@@ -98,7 +98,7 @@ export const Popover = ({ board }) => {
             {!isCategory && !isImages && !isColors && <div className="activity-popover"> <ActivityIcon /> Activities</div>}
             {!isCategory && !isImages && !isColors && <section className="activities-container">
                 {board?.activities?.map(activity => {
-                let currGroup=findGroup(activity.task.id)
+                    let currGroup = findGroup(activity.task.id)
                     return <div key={activity.id} className="activity-container">
                         {activity?.byMember?.imgUrl ? <div ><img className="img-user-activity" src={`${activity?.byMember?.imgUrl}`} /></div> :
                             <div className='avatar-img-guest-popover'></div>}
@@ -106,6 +106,7 @@ export const Popover = ({ board }) => {
                             <div className="activity-info">
                                 {activity?.byMember?.username ? <span className="user-name">{activity?.byMember?.username}</span> : <span className="user-name">Guest</span>}
                                 <span className="activity-task-name">{activity.txt}</span>
+                                
                                 {activity.txt !== 'deleted task' && getValidTaks(activity.task.id) ? <Link to={`${currGroup}/${activity.task.id}`} key={activity.task.id} onClick={onShownPopover}> <span>{activity.task.title}</span>   </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>

@@ -5,8 +5,7 @@ import { store } from '../store/store'
 import { socketService, SOCKET_EVENT_BOARD_ADDED, SOCKET_EVENT_BOARD_UPDATED } from "./socket.service";
 
 const boardChannel = new BroadcastChannel('boardChannel')
-
-; (() => {
+    ; (() => {
         boardChannel.addEventListener('message', (ev) => {
             store.dispatch(ev.data)
         })
@@ -15,23 +14,15 @@ const boardChannel = new BroadcastChannel('boardChannel')
             store.dispatch(getActionAddBoard(board))
         })
         socketService.on(SOCKET_EVENT_BOARD_UPDATED, (board) => {
-            console.log('GOT from socket', board)
+            // console.log('GOT from socket', board)
             store.dispatch(getActionUpdateBoard(board))
         })
+        console.log('soceeekt');
 
     })()
 
 //     const reviewChannel = new BroadcastChannel('reviewChannel')
 
-// ;(() => {
-//   reviewChannel.addEventListener('message', (ev) => {
-//     store.dispatch(ev.data)
-//   })
-
-//   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-//     showSuccessMsg(`New review about me ${review.txt}`)
-//   })
-// })()
 
 export const boardService = {
     query,
@@ -80,13 +71,19 @@ async function remove(boardId) {
     }
 }
 
-async function save(board) {
-    if(board===null)return 
+async function save(board, activity = '') {
+    if (board === null) return
     if (board._id) {
         try {
             const boardToUpdate = await httpService.put(BASE_URL + board._id, board)
             console.log('board service', board)
-            // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+            if (activity) {
+                board.activities.unshift(createActivity(activity.text, activity.title, activity.taskId, activity.user, activity.groupId))
+                // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+
+                console.log('activity', activity)
+
+            }
             // boardChannel.postMessage(getActionAddBoard(boardToUpdate))
             return boardToUpdate
         } catch (err) {
@@ -97,6 +94,8 @@ async function save(board) {
         try {
             const boardToAdd = await httpService.post(BASE_URL, board)
             // boardChannel.postMessage(getActionUpdateBoard(boardToAdd))
+            console.log('boardToAdd',boardToAdd)
+            
             return boardToAdd
         } catch (err) {
             console.log('Oops,', err)
@@ -113,6 +112,7 @@ function createBoard(title, bgImg) {
         createdBy: {},
         style: {
             bgImg,
+            backgroundColor:''
         },
         groups: [],
         labels: [

@@ -78,12 +78,12 @@ export function addBoard(board) {
 }
 
 
-export function updateBoard(board) {
+export function updateBoard(board,activity) {
     return async (dispatch, getState) => {
         const prevBoard = getState().boardModule.board
         dispatch(getActionUpdateBoard({ ...board }))
         try {
-            const savedBoard = await boardService.save(board)
+            const savedBoard = await boardService.save(board,activity)
             showSuccessMsg('Board updated')
         } catch (err) {
             showErrorMsg('Cannot update board')
@@ -122,7 +122,6 @@ export function removeGroup(boardId, groupId, activity) {
 }
 
 export function saveTask(boardId, groupId, task, activity) {
-    console.log('action board', boardId)
     return async (dispatch) => {
         
         try {

@@ -52,14 +52,14 @@
     }
 
     & .darken-board-preview {
-        background-color: #00000026;
+        background-color: #00000060;
         bottom: 0;
         left: 0;
         position: absolute;
         right: 0;
         top: 0;
         &:hover{
-            background-color:  #00000059;
+            background-color:  #00000089;
 
         }
     }
@@ -73,16 +73,22 @@
     &:hover .star-board-preview {
         opacity: 1;
         transition: 0.3s;
-        
+        background: url("../../img/star.svg")center center / cover;
 
+        &:hover{
+            height: 18px;
+            width: 18px;
+            background: url("../../img/star-hover.svg")center center / cover;
+            right: 14px;
+            bottom: 12px;
+        }
     }
 
     & .star-board-preview {
         position: absolute;
-        right: 12px;
+        right: 16px;
         opacity: 0;
         transition: 0.3s;
-
         cursor: pointer;
         height: 15px;
         width: 15px;

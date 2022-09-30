@@ -5,6 +5,7 @@ import { boardService } from '../services/board.new.service';
 import { addBoard, loadBoards, removeBoard, updateBoard } from '../store/board.actions';
 import { AddBoard } from './add-board';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
+import { ReactComponent as SvgStarHover } from '../assets/img/star-hover.svg';
 import { ReactComponent as SvgClock } from '../assets/img/clock.svg';
 import { LoaderSkyllo } from './loader-cmp';
 import { FastAverageColor } from 'fast-average-color';
@@ -33,12 +34,12 @@ export function BoardList({ boards, loadBoards }) {
             console.log(err);
         }
     }
-    const onSetIsStared = (board) => {
-        console.log('board', board);
+    const onSetIsStared = (board, ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
         let boadrToUpdate = structuredClone(board)
         boadrToUpdate = { ...board, style: { ...board.style, isStared: !boadrToUpdate.style.isStared } }
         dispatch(updateBoard(boadrToUpdate))
-        console.log(boadrToUpdate);
         setTimeout(() => {
             dispatch(loadBoards())
         }, 1000);
@@ -50,7 +51,7 @@ export function BoardList({ boards, loadBoards }) {
         console.log(boardId);
         dispatch(removeBoard(boardId))
     }
-  
+
     return <div className='workspace'>
 
         <span className='title-workspace'>
@@ -72,14 +73,14 @@ export function BoardList({ boards, loadBoards }) {
                 {
                     return board.style?.isStared && <div key={board._id} className='board-previwe-container'>
                         <Link to={`board/${board._id}`} >
-                            <div  style={{ [backgroundStyle]: bgImg }} className='board-preview'>
+                            <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
                                 <div className='darken-board-preview'>
+                                    <img onClick={(ev) => onSetIsStared(board, ev)} className='star-board-preview stared' src={require('../assets/img/star.png')} />
                                 </div>
                                 <span className="board-previw-title">{board.title}</span>
                             </div>
                         </Link>
                         {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
-                        <img onClick={() => onSetIsStared(board)} className='star-board-preview stared' src={require('../assets/img/star.png')} />
                     </div>
                 }
 
@@ -105,12 +106,13 @@ export function BoardList({ boards, loadBoards }) {
                         <Link to={`board/${board._id}`} >
                             <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
                                 <div className='darken-board-preview'>
+                                    <span  onClick={(ev) => onSetIsStared(board, ev)} className='star-board-preview' ></span>
+                     
                                 </div>
                                 <span className="board-previw-title">{board.title}</span>
                             </div>
                         </Link>
                         {/* <span onClick={() => onRemoveBoard(board._id)} className='remove-board'> x </span> */}
-                        <SvgStar strokeWidth="6%" onClick={() => onSetIsStared(board)} className='star-board-preview' />
                     </div>
                 }
             })}

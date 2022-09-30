@@ -26,9 +26,7 @@ export function BoardApp() {
 
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
-        onChangeHeaderColor(board)
         return () => { dispatch(updateBoard(null)) }
-
     }, [])
 
     const user = useSelector(state => state.userModule.user)
@@ -37,32 +35,36 @@ export function BoardApp() {
     const onDragEnd = result => {
         const { destination, source, draggableId, type } = result;
         const newBoard = structuredClone(board)
-
         if (!destination) {
             return;
         }
-        // DRABBALE GROUP
         if (source.droppableId === destination.droppableId && type === "group") {
+            // DRABBALE GROUP
             const currGroup = newBoard.groups.find(group => group.id === draggableId)
             newBoard.groups.splice(source.index, 1)
             newBoard.groups.splice(destination.index, 0, currGroup)
 
-            // GRABBALE TASK IN SAME GROUP
         } else if (source.droppableId === destination.droppableId) {
+            // GRABBALE TASK IN SAME GROUP
             const group = newBoard.groups.find(group => group.id === source.droppableId)
             const currTask = group?.tasks?.find(task => task.id === draggableId)
             group?.tasks?.splice(source.index, 1);
             group?.tasks?.splice(destination.index, 0, currTask)
-            // GRABBALE TASK 
+
         } else if (source.droppableId !== destination.droppableId) {
+            // GRABBALE TASK 
+
             const fromGroup = newBoard.groups.find(group => group.id === source.droppableId)
             const toGroup = newBoard.groups.find(group => group.id === destination.droppableId)
             const currTask = fromGroup.tasks.find(task => task.id === draggableId)
             fromGroup.tasks.splice(source.index, 1);
             toGroup.tasks.splice(destination.index, 0, currTask)
 
+            return dispatch(updateBoard(newBoard, { text: `moved from ${fromGroup.title} to ${toGroup.title}`, title: currTask.title, taskId: currTask.id, user: user, groupId: fromGroup.id }))
         }
+
         dispatch(updateBoard(newBoard))
+
     }
 
 
@@ -73,9 +75,9 @@ export function BoardApp() {
 
     }
     const getBgColorOfImg = async (url, board) => {
-        
+       
         try {
-            if (!board.style.backgroundColor) board.style.backgroundColor = ''
+            board.style.backgroundColor = ''
             if (board.style?.bgImg.length > 9) {
                 const fac = new FastAverageColor();
                 const color = await fac.getColorAsync(url)
@@ -85,12 +87,14 @@ export function BoardApp() {
                 board.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
             }
             const newBoard = structuredClone(board)
-            dispatch(updateBoard(newBoard))
+            // dispatch(updateBoard(newBoard))
         } catch (err) {
             console.log(err);
 
         }
     }
+
+    onChangeHeaderColor(board)
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
