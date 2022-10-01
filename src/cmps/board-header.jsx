@@ -206,7 +206,7 @@ export function BoardHeader({ board }) {
                 <Link to={`chart`} >
                     <div className='board-header-menu-btn'>
                         <ChartIcon />
-                        <p >DashBoard</p>
+                        <p >Dashboard</p>
                     </div>
                     </Link>
                 
@@ -215,7 +215,6 @@ export function BoardHeader({ board }) {
                         <p >Show menu</p>
                     </div>
                 </div>
-
             </nav>
         </section>
     )

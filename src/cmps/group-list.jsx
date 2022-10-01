@@ -99,7 +99,7 @@ const pageHeigth= user? '160px': '140px'
       {isAddGroup && (
         <div className='add-group-form'>
           <form className='add-group' onSubmit={onAddGroup}>
-            <input ref={inputRef} type='text' onChange={handleTxtChange} placeholder={groupTitleTxt? groupTitleTxt:'Enter list title'} />
+            <input ref={inputRef} type='text' onChange={handleTxtChange} value={groupTitleTxt} placeholder={groupTitleTxt? groupTitleTxt:'Enter list title'} />
             <div className='add-group-actions'>
               <button className='add-group-btn'>Add list</button>
               <CloseAddGroup

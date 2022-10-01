@@ -1,14 +1,17 @@
 import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend,CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { useParams } from 'react-router-dom';
+import { ReactComponent as CloseChart } from '../assets/img/close-chart.svg'
+import { Link, useParams } from 'react-router-dom';
 import { boardService } from '../services/board.new.service';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Diagram } from './chart-diagram';
+import { useSelector } from 'react-redux';
 
 export function Chart() {
     const params = useParams()
+    const board = useSelector(state => state.boardModule.board)
     const [labelsBoardTitle, setlabelsBoardTitle] = useState()
     const [labelsBoardColors, setlabelsBoardColors] = useState()
     const [labelsBoardTimeRemember, setLabelsBoardTimeRemember] = useState()
@@ -19,7 +22,7 @@ export function Chart() {
 
     const getLabels = async () => {
         try {
-            const board = await boardService.getById(params.boardId)
+            // const board = await boardService.getById(params.boardId)
             const validLabelIds = board.groups.map(group => {
                 return group.tasks.map(task => task.labelIds)
             })
@@ -58,6 +61,97 @@ export function Chart() {
             console.log(err);
         }
     }
+
+    const getMemberBackground = (member) => {
+        if (member.img) return `url(${member.img}) center center / cover`
+        else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
+    }
+
+    const countTasks = () => {
+        
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.length
+            return acc
+        },0)
+        return sum
+        
+    }
+
+    const countDoneTasks = () => {
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.reduce((accumolator, task) => {
+                if(task.dueDate?.isDone) accumolator ++
+                return accumolator
+            },0)
+            return acc
+        },0)
+        return sum 
+    }
+
+    const countLateTasks = () => {
+        const today = Date.now()
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.reduce((accumolator, task) => {
+                if(!task.dueDate?.isDone && task.dueDate?.date < today) accumolator ++
+                return accumolator
+            },0)
+            return acc
+        },0)
+        return sum 
+    }
+    
+    const countTodos = () => {
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.reduce((accumolator, task) => {
+                if(task.checklists) {
+                    accumolator += task.checklists.reduce((a, checklist) => {
+                        if(checklist.todos) a += checklist.todos.length
+                        return a
+                    },0)
+                } 
+                return accumolator
+            },0)
+            return acc
+        },0)
+        return sum 
+    }
+
+    const countDoneTodos = () => {
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.reduce((accumolator, task) => {
+                if(task.checklists) {
+                    accumolator += task.checklists.reduce((a, checklist) => {
+                        if(checklist.todos){
+                            a += checklist.todos.reduce((accu, todo)=> {
+                                if(todo.isDone) accu ++
+                                return accu
+                            },0)
+                        }
+                        return a
+                    },0)
+                } 
+                return accumolator
+            },0)
+            return acc
+        },0)
+        return sum 
+    }
+
+    const countChecklists = () => {
+        const sum =  board.groups.reduce((acc, group) => {
+            acc += group.tasks.reduce((accumolator, task) => {
+                if(task.checklists) {
+                  accumolator += task.checklists.length
+                } 
+                return accumolator
+            },0)
+            return acc
+        },0)
+        return sum 
+
+    }
+
+
     ChartJS.register(ArcElement, Tooltip, Legend);
     ChartJS.register(
         CategoryScale,
@@ -76,24 +170,73 @@ export function Chart() {
                 label: '# of Votes',
                 data: labelsBoardTimeRemember,
                 backgroundColor: labelsBoardColors,
-                borderColor: labelsBoardColors,
+                borderColor: '#ffffff',
                 borderWidth: 1,
+                color: '#ffffff'
             },
         ],
     }
-    
-  
 
 
-    return <div className='charts-container'>
-        <div className='doughnut-container'>
-        <Doughnut data={dataDoughnut} /> 
-        </div>
-        <div className='diagram-container'>
-        <Diagram />
-        </div>
-    </div>
+    return (
+        <section className='chart-view'>
+            <h1 className='chart-view-header'>{board.title}</h1>
+            <p>Created by Yaara Yehuda</p>
+            <section className='data-main-container'>
+                <div className='data-box number-of-members'>
+                    <div className='data-box-content'>
+                        <h1>{board.members.length}</h1>
+                        <p>Members</p>
+                    </div>
+                    <div className='image-container'>
+                        {board.members && 
+                        board.members.map(member =>{
+                            return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                          <div key={member?._id} className='avatar-img-guest-member-box'></div>
 
+                        })}
+                    </div>
+
+                </div>
+                <div className='data-box number-of-tasks'>
+                    <div className='data-box-content'>
+                    <h1>{countTasks()}</h1>
+                    <p>Tasks</p>
+                    </div>
+                    <div className='extra-content-box'>
+                        <p><span>{countDoneTasks()}</span> marked as done</p>
+                        <p><span>{countLateTasks()}</span> after due date</p>
+                    </div>
+                </div>
+                <div className='data-box number-of-todos'>
+                <div className='data-box-content'>
+                    <h1>{countTodos()}</h1>
+                    <p>Todos</p>
+                    </div>
+                    <div className='extra-content-box'>
+                        <p><span>{ countDoneTodos()}</span> marked as done</p>
+                        <p><span>{countChecklists()}</span> checklists overall</p>
+                    </div>
+                </div>
+            </section>
+            <Link key={board._id} to={`/workspace/board/${board._id}`}>
+                <div className='close-chart-modal'>
+                    <CloseChart
+                        className='close-chart-modal-icon'
+                    />
+                </div>
+            </Link>
+            <div className='charts-container'>
+                <div className='doughnut-container'>
+                    <Doughnut data={dataDoughnut} />
+                </div>
+                <div className='diagram-container'>
+                    <Diagram />
+                </div>
+            </div>
+        </section>
+
+    )
 
 }
 

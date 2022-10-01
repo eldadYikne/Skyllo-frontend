@@ -85,6 +85,7 @@ const [boardActivities,setBoardActivities]=useState()
                 label: 'Activity',
                 data: boardUsersActivities,
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                color: '#ffffff'
             },
         ],
     };
