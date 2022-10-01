@@ -23,15 +23,13 @@ export const HomePageHeader = () => {
         </section>
         <section className="home-page-login-signup">
 
-            <Link className="home-page-login" to='/login' >
+            <Link className="home-page-login" to= {`/login/login`} >
                 Login
             </Link>
 
-            <Link className="home-page-signup" to='/login' >
+            <Link className="home-page-signup" to= {`/login/signup`} >
                 Get Skyllo for free
             </Link>
-
-
         </section>
 
     </section>
