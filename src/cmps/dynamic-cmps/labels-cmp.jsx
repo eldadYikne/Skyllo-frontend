@@ -80,7 +80,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
                 <div className="labels-list">
                     {board.labels?.map(label => {
                         return (
-                            <div className="label-container">
+                            <div className="label-container" key={label.id}>
                                 <div style={{ backgroundColor: label.color }}
                                     key={label.id}
                                     onMouseEnter={(ev) => onHoverLabel(ev, label.color)}
