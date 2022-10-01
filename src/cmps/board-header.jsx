@@ -205,16 +205,15 @@ export function BoardHeader({ board }) {
                 <Link to={`chart`} >
                     <div className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p >DashBoard</p>
+                        <p >Dashboard</p>
                     </div>
                     </Link>
                 
                     <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p >Show Menu</p>
+                        <p >Show menu</p>
                     </div>
                 </div>
-
             </nav>
         </section>
     )
