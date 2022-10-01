@@ -36,7 +36,7 @@ export function TaskDetails() {
   const groupId = params.groupId
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
-  const task = group.tasks.find(task => task.id === taskId)
+  const task = group.tasks?.find(task => task.id === taskId)
 
   // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
   const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task.cover?.color
@@ -183,7 +183,7 @@ export function TaskDetails() {
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
-        {task.cover?.coor && <div style={{ background: bgColor }} className='details-bgColor'>
+        {task.cover?.color && <div style={{ background: bgColor }} className='details-bgColor'>
           {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover
