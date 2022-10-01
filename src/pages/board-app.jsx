@@ -75,9 +75,11 @@ export function BoardApp() {
 
     }
     const getBgColorOfImg = async (url, board) => {
-       
+        console.log('board', board)
+        if (!board) return
         try {
-            board.style.backgroundColor = ''
+
+            // if(!board.style.backgroundColor)board.style.backgroundColor = ''
             if (board.style?.bgImg.length > 9) {
                 const fac = new FastAverageColor();
                 const color = await fac.getColorAsync(url)

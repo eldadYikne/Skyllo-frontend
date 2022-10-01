@@ -132,7 +132,7 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
                         const classIsDone = todo?.isDone ? 'done ' : 'active '
                         const classIsChecked = todo?.isDone ? 'checkbox checked ' : 'checkbox '
                         return (
-                            <div className='checklist-todo '>
+                            <div className='checklist-todo ' key={todo.id}>
                                 <div className={classIsChecked} onClick={() => onToggleDone(todo.id)} >
                                     {todo.isDone && <span className='checkbox-checked-content'></span>}
                                 </div>
