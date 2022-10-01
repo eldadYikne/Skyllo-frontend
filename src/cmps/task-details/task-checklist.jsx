@@ -56,7 +56,6 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
         const newChecklists = task.checklists.filter(currChecklist => currChecklist.id !== checklist.id)
         newChecklists.push(newChecklist)
         const newTask = { ...task, checklists: newChecklists }
-        console.log(newTask)
         dispatch(saveTask(board._id, group.id, newTask, { text: `added Todo to checklist ${newChecklist.title}`, user }))
         setTodoTxt('')
         setProgress(getProgress())
@@ -97,7 +96,6 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
     }
 
     const handleChangeTxt = ({ target }) => {
-        console.log(target.value)
         const txt = target.value
         setTodoTxt(txt)
     }
@@ -107,7 +105,6 @@ export function TaskChecklist({ task, group, initChecklist, board, onRemoveCheck
     }
 
     const getProgress = () => {
-        console.log('hello progress')
         if (!checklist.todos || checklist.todos.length === 0) return 0
         const doneCount = checklist.todos.reduce((acc, todo) => {
             if (todo.isDone) acc++

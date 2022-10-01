@@ -183,10 +183,10 @@ export function TaskDetails() {
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
-          {task.cover.color && <div style={{ background: bgColor }} className='details-bgColor'>
-            {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
-            <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
-              <CoverIcon /> Cover
+        {task.cover?.coor && <div style={{ background: bgColor }} className='details-bgColor'>
+          {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
+          <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
+            <CoverIcon /> Cover
           </button>
         </div>}
         <Link key={board._id} to={`/workspace/board/${board._id}`}>

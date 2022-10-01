@@ -1,0 +1,17 @@
+.charts-container {
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+
+    & .doughnut-container {
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    & .diagram-container {
+        max-width: 400px;
+        max-height: 400px;
+    }
+}

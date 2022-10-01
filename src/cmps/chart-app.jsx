@@ -1,13 +1,11 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend,CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { boardService } from '../services/board.new.service';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
-// import * as faker from '@faker-js/faker';
+import { Diagram } from './chart-diagram';
 
 export function Chart() {
     const params = useParams()
@@ -17,6 +15,8 @@ export function Chart() {
     useEffect(() => {
         getLabels()
     }, [])
+
+
     const getLabels = async () => {
         try {
             const board = await boardService.getById(params.boardId)
@@ -82,41 +82,16 @@ export function Chart() {
         ],
     }
     
-    // const optionsBar = {
-    //     responsive: true,
-    //     plugins: {
-    //         legend: {
-    //             position: 'top' ,
-    //         },
-    //         title: {
-    //             display: true,
-    //             text: 'Chart.js Bar Chart',
-    //         },
-    //     },
-    // };
-
-    // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-    // const dataBar = {
-    //     labels,
-    //     datasets: [
-    //         {
-    //             label: 'Dataset 1',
-    //             data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-    //             backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    //         },
-    //         {
-    //             label: 'Dataset 2',
-    //             data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-    //             backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    //         },
-    //     ],
-    // };
+  
 
 
-    return <div>
-        <Doughnut data={dataDoughnut} />
-        {/* <Bar options={optionsBar} data={dataBar} />; */}
+    return <div className='charts-container'>
+        <div className='doughnut-container'>
+        <Doughnut data={dataDoughnut} /> 
+        </div>
+        <div className='diagram-container'>
+        <Diagram />
+        </div>
     </div>
 
 

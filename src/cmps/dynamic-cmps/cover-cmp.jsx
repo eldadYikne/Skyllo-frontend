@@ -29,7 +29,6 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
 
         
         if (!color) {
-            console.log('color',color)
             
             const newTaskToUpdate = { ...task, cover: { ...task.cover, color, isFullCover: false } }
             return dispatch(saveTask(board._id, groupId, newTaskToUpdate, { text: 'change color task', user }))
@@ -37,14 +36,11 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         if(!task.cover)task.cover={}
         if(!task.cover.backgroundColor)task.cover.backgroundColor=''
         task.cover.backgroundColor = getBgColorOfImg(color, task)
-        console.log('taskkkkkkkkkkkkk',task)
         
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
         if(color.length>9){
-            console.log('change image task');
             dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change image task', user }))
         }else {
-            console.log('change color task');
             dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change color task', user }))
         }
     }
@@ -61,7 +57,6 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         ev.preventDefault()
         ev.stopPropagation()
         setText(ev.target.value)
-        console.log(text, 'tetx')
     }
 
     const onTasktCoverSelected = (isDarked) => {
@@ -70,7 +65,6 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         } else if (!isDarked) {
             setBgColorTextExmple(`linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),${bgColorExmpel}`)
         }
-        console.log('isCover', isDarked)
         const taskToUpdate = { ...task, cover: { ...task.cover, isDark: isDarked } }
         dispatch(saveTask(board._id, groupId, taskToUpdate, { text: 'change cover task', user }))
 
