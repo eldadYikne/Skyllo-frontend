@@ -8,6 +8,9 @@
     position: relative;
     // overflow: auto;
 
+    & .login-sign-up-main-container{
+        margin-bottom: 40px;
+    }
 
     & .logo-sign-up {
         margin-right: 7px;
@@ -181,7 +184,7 @@
             text-align: center;
             // width: 99%;
             width: 198px;
-
+            margin-left: 38px;
             & p {
                 padding-top: 8px;
             }

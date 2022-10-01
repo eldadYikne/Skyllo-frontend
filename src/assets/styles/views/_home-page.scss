@@ -3,7 +3,8 @@
   padding: 50px;
 
   background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
-  height: 40vh;
+  // height: 40vh;
+  height: 100vh;
   text-align: center;
   color: #091e42;
 
@@ -73,6 +74,8 @@
     margin: auto;
     text-align: left;
     padding: 8rem 1rem 1rem;
+    height: 40vh;
+
 
     & h1 {
       font-size: 3rem;

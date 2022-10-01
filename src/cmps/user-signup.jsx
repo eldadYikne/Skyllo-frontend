@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { userService } from '../services/user.new.service'
 import { ImgUploader } from './img-uploader'
 import { onLogin, onSignup } from '../store/user.actions'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Logo from '../assets/img/trello-logo-Sign-up.png'
 import { useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service'
@@ -19,22 +19,28 @@ import { ReactComponent as UploadIcon } from '../assets/img/upload-img-icon.svg'
 import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
 import { utilService } from '../services/util.service'
+import { LoaderSkyllo } from './loader-cmp'
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', imgUrl: '' })
-    const [isSignup, setIsSignup] = useState(true)
+    // const [isSignup, setIsSignup] = useState('')
     const [users, setUsers] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const params = useParams()
+    const [isSignup, setIsSignup]  =  useState(null)
+    // console.log('isSignuppppp:', isSignup)
+    
     useEffect(async () => {
         const users = await userService.getUsers()
         setUsers(users)
-    }, [])
+        console.log('isSignupeeeeeeeeeeeeee:', params.isSignup)
+        setIsSignup(params.isSignup)
+    }, [params])
 
     const clearState = () => {
         setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
-        setIsSignup(false)
+        // setIsSignup(false)
     }
 
     const handleChange = ev => {
@@ -68,7 +74,7 @@ export function LoginSignup() {
     }
 
     const toggleSignup = () => {
-        setIsSignup(!isSignup)
+        // setIsSignup(!isSignup)
     }
 
     const onUploaded = async (ev) => {
@@ -91,7 +97,6 @@ export function LoginSignup() {
         const userCred = { username: decoded.name, password: utilService.makeId(), fullname: decoded.name, imgUrl: decoded.picture }
 
         dispatch(onSignup(userCred))
-        console.log('decodeddddddddd:', username, img)
 
         // console.log('decodeAAAAAAA:', credentialResponse
         // )
@@ -112,6 +117,7 @@ export function LoginSignup() {
 
     }
 
+    if (isSignup === null) return <LoaderSkyllo/>
 
     return (
         <div className="login-sign-up-page">
@@ -129,8 +135,8 @@ export function LoginSignup() {
             <div className='login-sign-up-main-container'>
                 <div className="g-signin2" data-onsuccess="onSignIn"></div>
                 <div className='sign-up-login-content'>
-                    {!isSignup && <section>
-
+                    {params.isSignup === 'login' && <section>
+        
                         <form className="login-form" onSubmit={onClickLogin}>
                             <h2 >Login to Skyllo</h2>
                             <input
@@ -186,7 +192,9 @@ export function LoginSignup() {
                         </button> */}
                         {/* </div> */}
                         <div className='sign-up-login-links-btn'>
-                            <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
+                            <Link to= {`/login/signup`}>
+                            <p className="sign-up-login-btn-link">Signup</p>
+                            </Link>
                             <span className='span-border'></span>
                             <Link to='/'>
                                 <p className="sign-up-login-btn-link">Home</p>
@@ -195,7 +203,7 @@ export function LoginSignup() {
                     </section>
                     }
                     {/* <div className="signup-section"> */}
-                    {isSignup && <section>
+                    {params.isSignup === 'signup'&& <section>
 
                         <form className="signup-form" onSubmit={onClickSignup}>
                             <h2>Sign up to Skyllo</h2>
@@ -264,8 +272,9 @@ export function LoginSignup() {
                         </button> */}
                         {/* </div> */}
                         <div className='sign-up-login-links-btn'>
-
-                            <p className="sign-up-login-btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</p>
+                        <Link to= {`/login/login`}>
+                            <p className="sign-up-login-btn-link">Login</p>
+                            </Link>
                             <span className='span-border'></span>
 
                             <Link to='/'>
