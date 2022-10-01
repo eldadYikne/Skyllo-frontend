@@ -7,6 +7,7 @@ import { updateBoard } from '../store/board.actions';
 import { ReactComponent as SvgStar } from '../assets/img/star.svg';
 import { ReactComponent as InviteMemberIcon } from '../assets/img/invite-member-icon.svg';
 import { ReactComponent as MenuIcon } from '../assets/img/more-options2-icon.svg';
+import { ReactComponent as ChartIcon } from '../assets/img/chart-icon.svg';
 import { ReactComponent as CloseUsersModalIcon } from '../assets/img/close-task-form.svg';
 import { ReactComponent as MemberExistIcon } from '../assets/img/member-exist-icon.svg'
 import { useState } from 'react';
@@ -204,14 +205,14 @@ export function BoardHeader({ board }) {
                 <div className="nav-right">
                 <Link to={`chart`} >
                     <div className='board-header-menu-btn'>
-                        <MenuIcon />
+                        <ChartIcon />
                         <p >DashBoard</p>
                     </div>
                     </Link>
                 
                     <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p >Show Menu</p>
+                        <p >Show menu</p>
                     </div>
                 </div>
 

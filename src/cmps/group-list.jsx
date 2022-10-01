@@ -18,29 +18,43 @@ export function GroupList() {
   const [isAddGroup, setIsAddGroup] = useState(false)
   const user = useSelector(state => state.userModule.user)
 
+  const [groupTitleTxt,setGroupTitleTxt] = useState('') 
+
   const onAddGroup = (ev) => {
     ev.preventDefault()
     const listTitle = ev.target[0].value
     if(!listTitle)return
     dispatch(addGroup(board._id, listTitle, { text: `added a group `, user: user }))
+    setGroupTitleTxt('')
+  }
+
+  const handleTxtChange = (ev)=>{
+
+    const listTitle = ev.target.value
+    console.log('listTitle:', listTitle)
+    
+    setGroupTitleTxt(listTitle)
+
   }
 
   const onRemoveGroup = (ev, groupId) => {
     ev.preventDefault()
     dispatch(removeGroup(board._id, groupId, { text: `added a group `, user: user }))
   }
+
   const isAddGroupShown = () => {
     if (isAddGroup) {
       inputRef.current.focus()
     }
     setIsAddGroup(!isAddGroup)
   }
+
   const onShownPopover = () => {
     board.isPopoverShown = false
     const boardToUpdate = { ...board }
     dispatch(updateBoard(boardToUpdate))
-
 }
+
 const pageHeigth= user? '160px': '140px'
 
   if (!board) return <LoaderSkyllo />
@@ -71,7 +85,6 @@ const pageHeigth= user? '160px': '140px'
         )
       })}
 
-
       {!isAddGroup && (
         <div
           className='add-group-view'
@@ -86,7 +99,7 @@ const pageHeigth= user? '160px': '140px'
       {isAddGroup && (
         <div className='add-group-form'>
           <form className='add-group' onSubmit={onAddGroup}>
-            <input ref={inputRef} type='text' placeholder='Enter list title' />
+            <input ref={inputRef} type='text' onChange={handleTxtChange} placeholder={groupTitleTxt? groupTitleTxt:'Enter list title'} />
             <div className='add-group-actions'>
               <button className='add-group-btn'>Add list</button>
               <CloseAddGroup

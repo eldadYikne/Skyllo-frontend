@@ -31,7 +31,6 @@ export const RootCmp = () => {
                 <Routes>
                     <Route path='/' element={<HomePage />} />
                     <Route path='login/:isSignup' element={<LoginSignup />} />
-                    {/* <Route path='login' element={<UserLogin />} /> */}
                     <Route path='workspace' element={<WorkSpace />} />
                     <Route path='workspace/board/:boardId/chart' element={<Chart />} />
                     <Route path="workspace/board/:boardId" element={<BoardApp  />} >
