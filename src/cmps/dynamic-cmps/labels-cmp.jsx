@@ -37,7 +37,7 @@ export const LabelsCmp = ({ task, group, setDynamicType, setTask, setHideHeader,
             const taskToUpdate = { ...task, labelIds: newLabelIds }
             // setTask(taskToUpdate)
 
-            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'deleted task', user }))
+            dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'deleted label', user }))
         }
     }
 

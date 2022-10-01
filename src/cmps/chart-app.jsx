@@ -68,86 +68,86 @@ export function Chart() {
     }
 
     const countTasks = () => {
-        
-        const sum =  board.groups.reduce((acc, group) => {
+
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.length
             return acc
-        },0)
+        }, 0)
         return sum
-        
+
     }
 
     const countDoneTasks = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.dueDate?.isDone) accumolator ++
+                if (task.dueDate?.isDone) accumolator++
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countLateTasks = () => {
         const today = Date.now()
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(!task.dueDate?.isDone && task.dueDate?.date < today) accumolator ++
+                if (!task.dueDate?.isDone && task.dueDate?.date < today) accumolator++
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
-    
+
     const countTodos = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
+                if (task.checklists) {
                     accumolator += task.checklists.reduce((a, checklist) => {
-                        if(checklist.todos) a += checklist.todos.length
+                        if (checklist.todos) a += checklist.todos.length
                         return a
-                    },0)
-                } 
+                    }, 0)
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countDoneTodos = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
+                if (task.checklists) {
                     accumolator += task.checklists.reduce((a, checklist) => {
-                        if(checklist.todos){
-                            a += checklist.todos.reduce((accu, todo)=> {
-                                if(todo.isDone) accu ++
+                        if (checklist.todos) {
+                            a += checklist.todos.reduce((accu, todo) => {
+                                if (todo.isDone) accu++
                                 return accu
-                            },0)
+                            }, 0)
                         }
                         return a
-                    },0)
-                } 
+                    }, 0)
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countChecklists = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
-                  accumolator += task.checklists.length
-                } 
+                if (task.checklists) {
+                    accumolator += task.checklists.length
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
 
     }
 
@@ -164,17 +164,20 @@ export function Chart() {
 
 
     const dataDoughnut = {
+        color: '#ffffff'
+        ,
         labels: labelsBoardTitle,
-        datasets: [
-            {
-                label: '# of Votes',
-                data: labelsBoardTimeRemember,
-                backgroundColor: labelsBoardColors,
-                borderColor: '#ffffff',
-                borderWidth: 1,
-                color: '#ffffff'
-            },
+        datasets: [{
+            label: '# of Votes',
+            data: labelsBoardTimeRemember,
+            backgroundColor: labelsBoardColors,
+            borderColor: '#ffffff',
+            borderWidth: 1,
+            color: '#ffffff'
+
+        },
         ],
+
     }
 
 
@@ -189,19 +192,19 @@ export function Chart() {
                         <p>Members</p>
                     </div>
                     <div className='image-container'>
-                        {board.members && 
-                        board.members.map(member =>{
-                            return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
-                          <div key={member?._id} className='avatar-img-guest-member-box'></div>
+                        {board.members &&
+                            board.members.map(member => {
+                                return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                                    <div key={member?._id} className='avatar-img-guest-member-box'></div>
 
-                        })}
+                            })}
                     </div>
 
                 </div>
                 <div className='data-box number-of-tasks'>
                     <div className='data-box-content'>
-                    <h1>{countTasks()}</h1>
-                    <p>Tasks</p>
+                        <h1>{countTasks()}</h1>
+                        <p>Tasks</p>
                     </div>
                     <div className='extra-content-box'>
                         <p><span>{countDoneTasks()}</span> marked as done</p>
@@ -209,12 +212,12 @@ export function Chart() {
                     </div>
                 </div>
                 <div className='data-box number-of-todos'>
-                <div className='data-box-content'>
-                    <h1>{countTodos()}</h1>
-                    <p>Todos</p>
+                    <div className='data-box-content'>
+                        <h1>{countTodos()}</h1>
+                        <p>Todos</p>
                     </div>
                     <div className='extra-content-box'>
-                        <p><span>{ countDoneTodos()}</span> marked as done</p>
+                        <p><span>{countDoneTodos()}</span> marked as done</p>
                         <p><span>{countChecklists()}</span> checklists overall</p>
                     </div>
                 </div>

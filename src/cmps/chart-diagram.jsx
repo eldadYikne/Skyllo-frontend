@@ -28,6 +28,7 @@ const [boardActivities,setBoardActivities]=useState()
             const board = await boardService.getById(params.boardId)
             console.log(board);
             const usersBoard = board.activities.map(activity => {
+                if(activity.byMember===null) return 'Guest'
                 if (activity.byMember?.fullname) return activity.byMember.fullname
             })
             const activities = board.activities.map(activity => {
@@ -79,6 +80,7 @@ const [boardActivities,setBoardActivities]=useState()
     const labels = boardUsers;
 
     const data = {
+
         labels,
         datasets: [
             {
@@ -86,6 +88,7 @@ const [boardActivities,setBoardActivities]=useState()
                 data: boardUsersActivities,
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 color: '#ffffff'
+                
             },
         ],
     };

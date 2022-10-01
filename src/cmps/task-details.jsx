@@ -85,9 +85,12 @@ export function TaskDetails() {
   }, [task, board])
 
   const onSaveTask = (activityTxt) => {
-    const text = activityTxt ? activityTxt : 'saved task'
-
-    dispatch(saveTask(board._id, group.id, task, { text, user }))
+    const text = activityTxt ? activityTxt : ''
+    if (!text) {
+      dispatch(saveTask(board._id, group.id, task))
+    } else {
+      dispatch(saveTask(board._id, group.id, task, { text, user }))
+    }
     if (isDescription) setIsDescription(false)
   }
 
