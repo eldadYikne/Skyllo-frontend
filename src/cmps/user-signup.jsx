@@ -204,7 +204,6 @@ export function LoginSignup() {
                     }
                     {/* <div className="signup-section"> */}
                     {params.isSignup === 'signup'&& <section>
-
                         <form className="signup-form" onSubmit={onClickSignup}>
                             <h2>Sign up to Skyllo</h2>
                             <input
