@@ -136,7 +136,13 @@ export function TaskPreview({ task, group }) {
         task.dueDate.isDone = !task.dueDate.isDone
         // const newTask = {...task, dueDate: {...task.dueDate, isDone: !task.dueDate.isDone}}
         const newBoard = structuredClone(board)
-        dispatch(updateBoard(newBoard))
+        const text = task.dueDate.isDone? `marked task as complete` :`marked task as uncomplete`
+            dispatch(updateBoard(newBoard, { text: text, title: task.title, taskId: task.id, user: user }))
+        
+
+        
+        // dispatch(saveTask(board._id, group.id, task, { text: 'added task', user: user }))
+
         // if(newTask.dueDate.isDone){
         //     var text = 'marked task as complete'
         // } else {

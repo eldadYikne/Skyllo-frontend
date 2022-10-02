@@ -20,57 +20,84 @@ export function LineChart() {
     );
 
     const params = useParams()
-    const [tasksInGroups, setTaskInGroups] = useState()
-    
+    const [groupTitle, setGroupTitle] = useState()
+    const [groupCountTasks, setGroupCountTasks] = useState()
+
     useEffect(() => {
-       getTasks()
+        getTasks()
     }, [])
-    
+
     const getTasks = async () => {
 
         try {
-            const groupCountTasks = {}
+            const groupTitle = []
+            const groupCountTasks = []
             const board = await boardService.getById(params.boardId)
             console.log(board);
             board.groups.forEach(group => {
-                
-                return groupCountTasks[group.title] = group.tasks.length
-
+                groupTitle.push(group.title)
+                groupCountTasks.push(group.tasks.length)
             })
-            console.log('groupsTasks', groupCountTasks)
-            setTaskInGroups(groupCountTasks)
-            
+            console.log('groupsTasks', groupTitle)
+            setGroupTitle(groupTitle)
+            setGroupCountTasks(groupCountTasks)
+
 
         } catch (err) {
             console.log(err);
         }
     }
-    console.log('tasksInGroups',tasksInGroups)
+    console.log('tasksInGroups', groupTitle)
 
     const options = {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                labels: {
+                    font: {
+                        size: 0,
+
+                    }
+                },
             },
             title: {
                 display: true,
-                text: 'Chart.js Line Chart',
+                text: 'Tasks in group',
+                color: "white"
+
             },
         },
+        scales: {
+            y: {
+                ticks: {
+                    color: "white", 
+                    beginAtZero: true
+                }
+            },
+            x: {
+                ticks: {
+                    color: "white",  
+                    beginAtZero: true
+                }
+            }
+        }
+
+
+
     };
 
-    // const labels =[Object.keys(tasksInGroups)]
+    const labels = groupTitle
 
     const data = {
-        // labels,
+        labels,
+
         datasets: [
             {
-                label: 'Dataset 1',
-                data: '',
+                data: groupCountTasks,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
+
 
         ],
     };
