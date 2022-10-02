@@ -46,11 +46,11 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHi
         setHideHeader(true)
     }
 
-    const onDeleteLabel = (ev) => {
+    const onRemoveLabel = (ev) => {
         ev.preventDefault()
         const boardToUpdate = structuredClone(board)
         boardToUpdate.groups.forEach(group => {
-                    group.tasks.forEach(task =>{
+                    group.tasks.forEach(task => {
                         task.labelIds = task.labelIds.filter(labelId => labelId !== selectedLabel.id)
                     })
                 })
@@ -123,7 +123,7 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHi
                     <button className='create-new-label-btn'>
                         Save label
                     </button>
-                    <span onClick={onDeleteLabel} className='delete-label-btn'>
+                    <span onClick={onRemoveLabel} className='delete-label-btn'>
                         Delete
                     </span>
                 </section>

@@ -98,6 +98,23 @@ export function TaskPreview({ task, group }) {
         dispatch(updateBoard(newBoard))
     }
 
+    const getTodosChecked = () => {
+        return task.checklists.reduce((acc, checklist) => {
+            acc += checklist.todos.reduce((a, todo )=> {
+                if(todo.isDone) a++
+                return a
+            },0)
+            return acc
+        },0)
+    }
+
+    const getTodosCount = () => { 
+        return task.checklists.reduce((acc, checklist) => {
+            acc += checklist.todos.length
+            return acc
+        },0)
+    }
+
     const getMemberBackground = (member) => {
         if (member.img) return `url(${member.img}) center center / cover`
         else return `https://res.cloudinary.com/skello-dev-learning/image/upload/v1643564751/dl6faof1ecyjnfnknkla.svg) center center / cover;`
@@ -127,7 +144,6 @@ export function TaskPreview({ task, group }) {
         // }
         // console.log((board._id, group.id, newTask, {text, user}))
         // dispatch(saveTask(board._id, group.id, newTask, {text, user}))
-
     }
 
     const labelsClass = labelsOpen ? 'task-preview-label-preview-open' : 'task-preview-label-preview'
@@ -200,7 +216,7 @@ export function TaskPreview({ task, group }) {
                     }
                     {task.description && <div className="task-preview-pin description-pin-preview "><DescriptionIcon /></div>}
                     {task.attachments && <div className="task-preview-pin "><AttachmentIcon /> <span>{task.attachments.length}</span> </div>}
-                    {task.checklists && <div className="task-preview-pin checklists-pin"><ChecklistIcon /> <span>{task.checklists.length}</span></div>}
+                    {task.checklists && <div className="task-preview-pin checklists-pin"><ChecklistIcon /> <span>{getTodosChecked()}/{getTodosCount()}</span></div>}
                     <div className="task-preview-pin activities-pin"></div>
                 </div>
 
