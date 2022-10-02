@@ -1,3 +1,59 @@
+.home-page-main-container {
+  overflow: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  // font-family: 'Charlie',sans-serif;
+  .home-page-underline{
+    border-bottom: 1px rgb(176, 174, 174) solid;
+    margin-top: 10rem;
+    width: 600px;
+  }
+
+   .home-page-middle-container{
+
+    display: none;
+    margin: auto;
+    margin-top: 14rem;
+    margin-bottom: 5rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px rgb(176, 174, 174) solid;
+    // border-bottom: 1px rgb(176, 174, 174) solid;
+    height: 350px;
+    .home-page-box-icon{
+      width: 94px;
+      margin-right: 10px;
+    }
+
+    .middle-box{
+      display: flex;
+      width: 340px;
+      height: 180px;
+      margin-right: 5px;
+      // padding: 5px;
+
+      span {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+      }
+
+      p { 
+        padding: 0;
+        margin-block-start: 7px;
+      }
+
+    }
+   }
+   @include for-wide-layout{
+    
+    .home-page-middle-container{
+      display: flex; 
+    }
+   }
+}
+
 .home-page-container {
   // padding: 8rem 1rem 1rem;
   padding: 50px;
@@ -59,6 +115,7 @@
   & .home-page-img {
     width: 53.33%;
     margin: auto;
+    max-width: 400px;
 
     & img {
       max-width: 100%;
@@ -71,14 +128,14 @@
   @include for-wide-layout {
     display: flex;
     flex-direction: row-reverse;
-    margin: auto;
+    // margin: auto;
     text-align: left;
-    padding: 8rem 1rem 1rem;
-    height: 40vh;
-
+    padding: 6rem 1rem 1rem;
+    height: 50vh;
 
     & h1 {
       font-size: 3rem;
+      margin-top: -70px;
     }
 
     & .home-page-content {
@@ -98,7 +155,7 @@
     }
 
     & .home-page-img {
-      max-width: 465px;
+      max-width: 400px;
       margin-left: 0;
     }
   }
