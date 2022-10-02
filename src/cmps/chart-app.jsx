@@ -165,6 +165,15 @@ export function Chart() {
 
     const dataDoughnut = {
         labels: labelsBoardTitle,
+        options: {
+            scales: {
+                y: {
+                    ticks: {
+                        color: '#ffffff'
+                        }
+                    }
+                }
+            }, 
         datasets: [
             {
                 label: '# of Votes',
@@ -176,7 +185,6 @@ export function Chart() {
             },
         ],
     }
-
 
     return (
         <section className='chart-view'>
@@ -204,8 +212,8 @@ export function Chart() {
                     <p>Tasks</p>
                     </div>
                     <div className='extra-content-box'>
-                        <p><span>{countDoneTasks()}</span> marked as done</p>
-                        <p><span>{countLateTasks()}</span> after due date</p>
+                        <p><span>{countDoneTasks()}</span> done</p>
+                        <p><span>{countLateTasks()}</span> after due</p>
                     </div>
                 </div>
                 <div className='data-box number-of-todos'>
@@ -214,8 +222,8 @@ export function Chart() {
                     <p>Todos</p>
                     </div>
                     <div className='extra-content-box'>
-                        <p><span>{ countDoneTodos()}</span> marked as done</p>
-                        <p><span>{countChecklists()}</span> checklists overall</p>
+                        <p><span>{ countDoneTodos()}</span> done</p>
+                        <p><span>{countChecklists()}</span> checklists</p>
                     </div>
                 </div>
             </section>
