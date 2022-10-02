@@ -212,7 +212,7 @@ export function BoardHeader({ board }) {
                 
                     <div onClick={onShownPopover} className='board-header-menu-btn'>
                         <MenuIcon />
-                        <p >Show menu</p>
+                        <p>Show menu</p>
                     </div>
                 </div>
             </nav>
