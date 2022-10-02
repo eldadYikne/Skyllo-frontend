@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Diagram } from './chart-diagram';
 import { useSelector } from 'react-redux';
+import { LineChart } from './line-chart';
 
 export function Chart() {
     const params = useParams()
@@ -164,6 +165,7 @@ export function Chart() {
 
 
     const dataDoughnut = {
+        
         color: '#ffffff'
         ,
         labels: labelsBoardTitle,
@@ -173,7 +175,7 @@ export function Chart() {
             backgroundColor: labelsBoardColors,
             borderColor: '#ffffff',
             borderWidth: 1,
-            color: '#ffffff'
+            fontColor: '#ffffff'
 
         },
         ],
@@ -234,8 +236,9 @@ export function Chart() {
                     <Doughnut data={dataDoughnut} />
                 </div>
                 <div className='diagram-container'>
-                    <Diagram />
+                    <Diagram labelsBoardColors={labelsBoardColors} />
                 </div>
+                {/* <div><LineChart/></div> */}
             </div>
         </section>
 

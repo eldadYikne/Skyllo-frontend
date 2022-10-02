@@ -29,11 +29,13 @@ export function DynamicCmp({ type, setDynamicType, task, group, setIsChecklist, 
                 return <AttachmentCmp
                     group={group}
                     task={task}
+                    setDynamicType={setDynamicType}
                     />
             case 'cover':
                 return <CoverCmp
                     getBgColorOfImg={getBgColorOfImg}
-                    task={task} />
+                    task={task}
+                    setDynamicType={setDynamicType} />
             case 'labels':
                 return <LabelsCmp task={task}
                     group={group}

@@ -14,7 +14,7 @@ import { boardService } from '../services/board.new.service';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export function Diagram() {
+export function Diagram({labelsBoardColors}) {
 
     useEffect(() => {
         getActivity()
@@ -86,7 +86,7 @@ const [boardActivities,setBoardActivities]=useState()
             {
                 label: 'Activity',
                 data: boardUsersActivities,
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                backgroundColor: labelsBoardColors,
                 color: '#ffffff'
                 
             },
