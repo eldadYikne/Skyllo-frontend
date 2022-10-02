@@ -234,9 +234,11 @@ export function Chart() {
             <div className='charts-all-container'>
                 <div className='charts-container'>
 
-                    <div className='diagram-container'>
-                        <Diagram labelsBoardColors={labelsBoardColors} />
+
+                    <div className='line-container'>
+                        <LineChart />
                     </div>
+
                     <div className='data-precent-box'>
 
                         <div style={{ width: 150, height: 100, position: 'relative' }}>
@@ -289,8 +291,8 @@ export function Chart() {
 
                     </div>
 
-                    <div className='line-container'>
-                        <LineChart />
+                    <div className='diagram-container'>
+                        <Diagram labelsBoardColors={labelsBoardColors} />
                     </div>
 
                 </section>
