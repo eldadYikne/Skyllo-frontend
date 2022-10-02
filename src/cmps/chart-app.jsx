@@ -221,7 +221,7 @@ export function Chart() {
                     <div className='data-precent-box'>
 
                         <div style={{ width: 300, height: 100, }}>
-                            <CircularProgressbar text={66 + '%' + 'Tasks'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={66} />
+                            <CircularProgressbar text={66 + '%' } styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={66} />
                         </div>
                         <div style={{ width: 300, height: 100 }}>
                             <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={66} />
