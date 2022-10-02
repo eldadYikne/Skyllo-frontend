@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { Diagram } from './chart-diagram';
 import { useSelector } from 'react-redux';
 import { LineChart } from './line-chart';
+import { utilService } from '../services/util.service';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 export function Chart() {
@@ -55,7 +56,9 @@ export function Chart() {
             })
             console.log('labelObjInBoard', labelObjInBoard)
             const labelsTitels = labelObjInBoard.map(label => label.title)
-            const labelsColors = labelObjInBoard.map(label => label.color)
+            const labelsColors = labelObjInBoard.map(label => utilService.lightenDarkenColor(label.color,-10))
+            console.log('labelsColors:', labelsColors)
+            
             console.log(labelsTitels);
             setlabelsBoardTitle(labelsTitels)
             setlabelsBoardColors(labelsColors)

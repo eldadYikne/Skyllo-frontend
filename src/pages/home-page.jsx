@@ -47,7 +47,8 @@ export const HomePage = () => {
 
         <div className='middle-box'>
           <div className='home-page-box-icon'>
-            <CompassIcon />
+            {/* <CompassIcon /> */}
+            <img className="compass-icon" src="https://images.ctfassets.net/rz1oowkt5gyp/6rRWTcHzPKupQ3ZDqBaxu6/aecd045f4b31a92288a85bdb4a9dfe2c/compass.svg" alt="" />
           </div>
           <div>
 
