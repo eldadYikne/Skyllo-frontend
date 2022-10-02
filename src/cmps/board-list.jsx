@@ -8,11 +8,13 @@ import { ReactComponent as SvgStar } from '../assets/img/star-workspace.svg';
 import { ReactComponent as SvgClock } from '../assets/img/clock.svg';
 import { LoaderSkyllo } from './loader-cmp';
 import { FastAverageColor } from 'fast-average-color';
+import { useSelector } from 'react-redux';
 
 export function BoardList({ boards, loadBoards }) {
 
     const [bgColorCreate, setColorCreate] = useState('#39CCCC')
     const [createIsShown, setIsShown] = useState(false)
+    const user = useSelector(state => state.userModule.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -27,6 +29,7 @@ export function BoardList({ boards, loadBoards }) {
         try {
             if (!text) return
             const board = await boardService.createBoard(text, bgColorCreate)
+            if (user) board.createdBy.fullname = user
             dispatch(addBoard(board))
             setIsShown(false)
         } catch (err) {
@@ -105,8 +108,8 @@ export function BoardList({ boards, loadBoards }) {
                         <Link to={`board/${board._id}`} >
                             <div style={{ [backgroundStyle]: bgImg }} className='board-preview'>
                                 <div className='darken-board-preview'>
-                                    <span  onClick={(ev) => onSetIsStared(board, ev)} className='star-board-preview' ></span>
-                     
+                                    <span onClick={(ev) => onSetIsStared(board, ev)} className='star-board-preview' ></span>
+
                                 </div>
                                 <span className="board-previw-title">{board.title}</span>
                             </div>

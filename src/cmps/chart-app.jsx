@@ -166,7 +166,7 @@ export function Chart() {
         plugins: {
             legend: {
                 position: 'bottom',
-                
+
                 labels: {
                     color: 'white',
                     font: {
@@ -177,7 +177,7 @@ export function Chart() {
             }
         }
     }
-    
+
 
     const dataDoughnut = {
 
@@ -189,7 +189,7 @@ export function Chart() {
             borderColor: '#ffffff',
             borderWidth: 3,
             fontColor: "red"
-          
+
         },
         ],
 
@@ -201,6 +201,7 @@ export function Chart() {
         <section className='chart-view'>
             <h1 className='chart-view-header'>{board.title}</h1>
             <p>Created by Yaara Yehuda</p>
+           {/* {board.createdBy.fullname ? <p>Created by {board.createdBy?.fullname}</p>: <p>Created by Guest</p>} */}
             <Link key={board._id} to={`/workspace/board/${board._id}`}>
                 <div className='close-chart-modal'>
                     <CloseChart
@@ -213,9 +214,9 @@ export function Chart() {
                 <div className='charts-container'>
 
                     <div className='diagram-container'>
-                        <Diagram  labelsBoardColors={labelsBoardColors} />
+                        <Diagram labelsBoardColors={labelsBoardColors} />
                     </div>
-                    <div className='line-container'><LineChart  /></div>
+                    <div className='line-container'><LineChart /></div>
                 </div>
                 <div className='doughnut-container'>
                     <Doughnut options={optionsDoughnut} data={dataDoughnut} />
@@ -253,7 +254,7 @@ export function Chart() {
                         </div>
                         <div className='extra-content-box'>
                             <p><span>{countDoneTodos()}</span> done</p>
-                            <p><span  className='checklists-count'>{countChecklists()}</span> checklists</p>
+                            <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
                         </div>
                     </div>
                 </section>
