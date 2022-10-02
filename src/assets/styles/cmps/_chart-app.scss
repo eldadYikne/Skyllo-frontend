@@ -73,6 +73,7 @@
             border: 2px solid white;
             border-radius: 3px;
             padding: 12px;
+            padding-left: 20px;
 
             .data-box-content {
                 display: flex;
@@ -100,7 +101,8 @@
                 padding: 12px;
 
                 >* {
-                    margin: auto;
+                    margin-right: 6px;
+                    margin-left: 0;
                     // margin-left: 0;
                 }
             }
@@ -109,13 +111,15 @@
                 display: flex;
                 flex-direction: column;
                 text-align: center;
-
-
+                margin-top: 15px;
 
                 p {
                     font-size: 0.8em;
                     margin-top: 0;
                     margin-inline-start: 1em;
+                    margin-block-end: 0;
+                    
+
 
                     span {
                         color: #8ae37a;
