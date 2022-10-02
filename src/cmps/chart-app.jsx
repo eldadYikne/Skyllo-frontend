@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { Diagram } from './chart-diagram';
 import { useSelector } from 'react-redux';
 import { LineChart } from './line-chart';
+import { utilService } from '../services/util.service';
 
 export function Chart() {
     const params = useParams()
@@ -52,7 +53,9 @@ export function Chart() {
             })
             console.log('labelObjInBoard', labelObjInBoard)
             const labelsTitels = labelObjInBoard.map(label => label.title)
-            const labelsColors = labelObjInBoard.map(label => label.color)
+            const labelsColors = labelObjInBoard.map(label => utilService.lightenDarkenColor(label.color,-10))
+            console.log('labelsColors:', labelsColors)
+            
             console.log(labelsTitels);
             setlabelsBoardTitle(labelsTitels)
             setlabelsBoardColors(labelsColors)
@@ -189,7 +192,6 @@ export function Chart() {
             borderColor: '#ffffff',
             borderWidth: 3,
             fontColor: "red"
-          
         },
         ],
 
@@ -231,7 +233,6 @@ export function Chart() {
                                 board.members.map(member => {
                                     return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
                                         <div key={member?._id} className='avatar-img-guest-member-box'></div>
-
                                 })}
                         </div>
 

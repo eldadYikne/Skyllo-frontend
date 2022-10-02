@@ -21,9 +21,15 @@
     border-top: 1px rgb(176, 174, 174) solid;
     // border-bottom: 1px rgb(176, 174, 174) solid;
     height: 350px;
+
     .home-page-box-icon{
       width: 94px;
-      margin-right: 10px;
+      margin-right: 25px;
+      
+      & .compass-icon{
+        width: 78px;
+        height: 80px;
+      }
     }
 
     .middle-box{
@@ -31,6 +37,7 @@
       width: 340px;
       height: 180px;
       margin-right: 5px;
+      margin-top: 48px;
       // padding: 5px;
 
       span {
