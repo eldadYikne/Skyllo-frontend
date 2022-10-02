@@ -58,11 +58,31 @@
         justify-content: center;
         gap: 1em;
         flex-direction: column;
-        padding-right: 30px;
+        margin-top: 3rem;
 
         @include for-normal-layout {
             flex-direction: column;
 
+        }
+
+        & .data-upper-container {
+            display: flex;
+            flex-direction: row;
+            gap: 4rem;
+            margin: auto;
+            align-self: flex-start;
+        }
+
+        & .line-container {
+            display: flex;
+            justify-content: center;
+            max-height: 500px;
+            height: 250px;
+            width: 600px;
+
+            & canvas {
+                margin-top: 2em;
+            }
         }
 
         .data-box {
@@ -73,6 +93,7 @@
             border: 2px solid white;
             border-radius: 3px;
             padding: 12px;
+            padding-left: 20px;
 
             .data-box-content {
                 display: flex;
@@ -100,7 +121,8 @@
                 padding: 12px;
 
                 >* {
-                    margin: auto;
+                    margin-right: 6px;
+                    margin-left: 0;
                     // margin-left: 0;
                 }
             }
@@ -109,13 +131,15 @@
                 display: flex;
                 flex-direction: column;
                 text-align: center;
-
-
+                margin-top: 15px;
 
                 p {
                     font-size: 0.8em;
                     margin-top: 0;
                     margin-inline-start: 1em;
+                    margin-block-end: 0;
+
+
 
                     span {
                         color: #8ae37a;
@@ -145,11 +169,7 @@
         flex-direction: row;
         justify-content: center;
         margin-top: 3rem;
-        gap: 5rem;
-        border: gray 1px solid;
         align-items: center;
-        border-radius: 5px;
-        background-color: #00000059;
         max-width: 1300px;
         margin: auto;
         min-height: 600px;
@@ -160,20 +180,20 @@
             justify-content: center;
             max-width: 500px;
             max-height: 500px;
-            height: 400px;
-            width: 400px;
+            height: 300px;
+            width: 300px;
         }
 
     }
 
 }
 
-.number-of-tasks {
-    .extra-content-box {
-        margin-top: -7px;
-    }
+// .number-of-tasks {
+//     .extra-content-box {
+//         margin-top: -7px;
+//     }
 
-}
+// }
 
 .charts-container {
     min-height: max-content;
@@ -184,8 +204,14 @@
     align-items: center;
     gap: 3em;
     display: none;
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding: 0;
+
+    & .data-precent-box {
+        display: flex;
+        gap: 2em;
+        flex-direction: column;
+    }
 
     @include for-normal-layout {
         display: flex;
@@ -193,14 +219,7 @@
 
 
 
-    & .line-container {
-        display: flex;
-        justify-content: center;
-        max-width: 500px;
-        max-height: 500px;
-        height: 250px;
-        width: 500px;
-    }
+
 
     & .diagram-container {
         display: flex;

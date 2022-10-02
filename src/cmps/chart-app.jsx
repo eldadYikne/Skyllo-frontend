@@ -10,7 +10,8 @@ import { Diagram } from './chart-diagram';
 import { useSelector } from 'react-redux';
 import { LineChart } from './line-chart';
 import { utilService } from '../services/util.service';
-
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 export function Chart() {
     const params = useParams()
     const board = useSelector(state => state.boardModule.board)
@@ -18,12 +19,14 @@ export function Chart() {
     const [labelsBoardColors, setlabelsBoardColors] = useState()
     const [labelsBoardTimeRemember, setLabelsBoardTimeRemember] = useState()
     useEffect(() => {
+
         getLabels()
     }, [])
 
 
     const getLabels = async () => {
         try {
+            if (!board) return
             // const board = await boardService.getById(params.boardId)
             const validLabelIds = board.groups.map(group => {
                 return group.tasks.map(task => task.labelIds)
@@ -169,7 +172,7 @@ export function Chart() {
         plugins: {
             legend: {
                 position: 'bottom',
-                
+
                 labels: {
                     color: 'white',
                     font: {
@@ -180,7 +183,7 @@ export function Chart() {
             }
         }
     }
-    
+
 
     const dataDoughnut = {
 
@@ -192,17 +195,18 @@ export function Chart() {
             borderColor: '#ffffff',
             borderWidth: 3,
             fontColor: "red"
+
         },
         ],
 
 
     }
 
-
     return (
         <section className='chart-view'>
             <h1 className='chart-view-header'>{board.title}</h1>
             <p>Created by Yaara Yehuda</p>
+            {/* {board.createdBy.fullname ? <p>Created by {board.createdBy?.fullname}</p>: <p>Created by Guest</p>} */}
             <Link key={board._id} to={`/workspace/board/${board._id}`}>
                 <div className='close-chart-modal'>
                     <CloseChart
@@ -215,36 +219,45 @@ export function Chart() {
                 <div className='charts-container'>
 
                     <div className='diagram-container'>
-                        <Diagram  labelsBoardColors={labelsBoardColors} />
+                        <Diagram labelsBoardColors={labelsBoardColors} />
                     </div>
-                    <div className='line-container'><LineChart  /></div>
-                </div>
-                <div className='doughnut-container'>
-                    <Doughnut options={optionsDoughnut} data={dataDoughnut} />
-                </div>
-                <section className='data-main-container'>
-                    <div className='data-box number-of-members'>
-                        <div className='data-box-content'>
-                            <h1>{board.members.length}</h1>
-                            <p>Members</p>
-                        </div>
-                        <div className='image-container'>
-                            {board.members &&
-                                board.members.map(member => {
-                                    return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
-                                        <div key={member?._id} className='avatar-img-guest-member-box'></div>
-                                })}
-                        </div>
+                    <div className='data-precent-box'>
 
-                    </div>
-                    <div className='data-box number-of-tasks'>
-                        <div className='data-box-content'>
-                            <h1>{countTasks()}</h1>
-                            <p>Tasks</p>
+                        <div style={{ width: 100, height: 100, }}>
+                            <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={66} />
                         </div>
-                        <div className='extra-content-box'>
-                            <p><span>{countDoneTasks()}</span> done</p>
-                            <p><span className='after-due'>{countLateTasks()}</span> after due</p>
+                        <div style={{ width: 100, height: 100 }}>
+                            <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={66} />
+                        </div>
+                    </div>
+                </div>
+
+                <section className='data-main-container'>
+                    <div className='data-upper-container'>
+                        <div className='data-box number-of-members'>
+                            <div className='data-box-content'>
+                                <h1>{board.members.length}</h1>
+                                <p>Members</p>
+                            </div>
+                            <div className='image-container'>
+                                {board.members &&
+                                    board.members.map(member => {
+                                        return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                                            <div key={member?._id} className='avatar-img-guest-member-box'></div>
+
+                                    })}
+                            </div>
+
+                        </div>
+                        <div className='data-box number-of-tasks'>
+                            <div className='data-box-content'>
+                                <h1>{countTasks()}</h1>
+                                <p>Tasks</p>
+                            </div>
+                            <div className='extra-content-box'>
+                                <p><span>{countDoneTasks()}</span> done</p>
+                                <p><span className='after-due'>{countLateTasks()}</span> after due</p>
+                            </div>
                         </div>
                     </div>
                     <div className='data-box number-of-todos'>
@@ -254,10 +267,18 @@ export function Chart() {
                         </div>
                         <div className='extra-content-box'>
                             <p><span>{countDoneTodos()}</span> done</p>
-                            <p><span  className='checklists-count'>{countChecklists()}</span> checklists</p>
+                            <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
                         </div>
                     </div>
+                    <div className='line-container'>
+                        <LineChart />
+                    </div>
+
                 </section>
+
+                <div className='doughnut-container'>
+                    <Doughnut options={optionsDoughnut} data={dataDoughnut} />
+                </div>
 
             </div>
 
