@@ -60,7 +60,6 @@ export const EditLabel = ({ setDynamicType, setIsEditLabel, selectedLabel, setHi
         setHideHeader(true)
     }
 
-
     const handleChangeLabelText = (ev) => {
         const text = ev.target.value
         setEditInputText(text)

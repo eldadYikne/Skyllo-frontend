@@ -8,6 +8,8 @@ import { ReactComponent as GoBackIcon } from '../assets/img/go-back-label-icon.s
 import { Link } from "react-router-dom"
 import { utilService } from "../services/util.service"
 import moment from "moment/moment"
+import { useEffect } from "react"
+
 export const Popover = ({ board }) => {
     const dispacth = useDispatch()
     const [isColors, setIsColors] = useState(false)
@@ -16,8 +18,7 @@ export const Popover = ({ board }) => {
     const user = useSelector(state => state.userModule.user)
     const classPopover = board.isPopoverShown ? "popover-container open" : "popover-container"
 
-
-
+   
     const getValidTaks = (taskId) => {
         const validTasksIds = board.groups.some(group => {
             return group.tasks.some(task => task.id === taskId)
@@ -32,7 +33,7 @@ export const Popover = ({ board }) => {
         return currGroup.id
     }
 
-    
+
     const onShownPopover = () => {
         board.isPopoverShown = !board.isPopoverShown
         const boardToUpdate = { ...board }
@@ -106,7 +107,7 @@ export const Popover = ({ board }) => {
                             <div className="activity-info">
                                 {activity?.byMember?.username ? <span className="user-name">{activity?.byMember?.username}</span> : <span className="user-name">Guest</span>}
                                 <span className="activity-task-name">{activity.txt}</span>
-                                
+
                                 {activity.txt !== 'deleted task' && getValidTaks(activity.task.id) ? <Link to={`${currGroup}/${activity.task.id}`} key={activity.task.id} onClick={onShownPopover}> <span>{activity.task.title}</span>   </Link> : <span>{activity.task.title}</span>}
                             </div>
                             <span className="time-ago">{moment(activity.createdAt).fromNow()} </span>

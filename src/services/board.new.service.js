@@ -79,6 +79,9 @@ async function save(board, activity = '') {
             console.log('board service', board)
             if (activity) {
                 board.activities.unshift(createActivity(activity.text, activity.title, activity.taskId, activity.user, activity.groupId))
+                if (board.activities?.length > 120) {
+                    board.activities.splice(100, 20)
+                }
                 // board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
 
                 console.log('activity', activity)
@@ -94,8 +97,8 @@ async function save(board, activity = '') {
         try {
             const boardToAdd = await httpService.post(BASE_URL, board)
             // boardChannel.postMessage(getActionUpdateBoard(boardToAdd))
-            console.log('boardToAdd',boardToAdd)
-            
+            console.log('boardToAdd', boardToAdd)
+
             return boardToAdd
         } catch (err) {
             console.log('Oops,', err)
@@ -112,7 +115,7 @@ function createBoard(title, bgImg) {
         createdBy: {},
         style: {
             bgImg,
-            backgroundColor:''
+            backgroundColor: ''
         },
         groups: [],
         labels: [
@@ -187,11 +190,17 @@ async function saveTask(boardId, groupId, task, activity) {
     if (task.id) {
         const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
         board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+        if (board.activities?.length > 120) {
+            board.activities.splice(100, 20)
+        }
         group.tasks.splice(taskIdx, 1, task)
     } else {
         task.id = utilService.makeId()
         console.log(task);
         board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+        if (board.activities?.length > 120) {
+            board.activities.splice(100, 20)
+        }
         group.tasks.push(task)
     }
 
@@ -204,6 +213,9 @@ async function removeTask(boardId, groupId, task, activity) {
     const taskIdx = group.tasks.findIndex((currTask) => currTask.id === task.id)
     group.tasks.splice(taskIdx, 1)
     board.activities.unshift(createActivity(activity.text, task.title, task.id, activity.user, groupId))
+    if (board.activities?.length > 120) {
+        board.activities.splice(100, 20)
+    }
     return save(board)
 }
 const createActivity = (text = '', taskTitle = '', taskId = '', user = '', groupId = '') => {
