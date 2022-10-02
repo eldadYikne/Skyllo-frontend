@@ -247,7 +247,28 @@ export function Chart() {
 
                 <section className='data-main-container'>
                     <div className='data-upper-container'>
-                        <div className='data-box number-of-members'>
+                    <div className='data-box number-of-todos'>
+                        <div className='data-box-content'>
+                            <h1>{countTodos()}</h1>
+                            <p>Todos</p>
+                        </div>
+                        <div className='extra-content-box'>
+                            <p><span>{countDoneTodos()}</span> done</p>
+                            <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
+                        </div>
+                    </div>
+                        <div className='data-box number-of-tasks'>
+                            <div className='data-box-content'>
+                                <h1>{countTasks()}</h1>
+                                <p>Tasks</p>
+                            </div>
+                            <div className='extra-content-box'>
+                                <p><span>{countDoneTasks()}</span> done</p>
+                                <p><span className='after-due'>{countLateTasks()}</span> after due</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='data-box number-of-members'>
                             <div className='data-box-content'>
                                 <h1>{board.members.length}</h1>
                                 <p>Members</p>
@@ -262,27 +283,7 @@ export function Chart() {
                             </div>
 
                         </div>
-                        <div className='data-box number-of-tasks'>
-                            <div className='data-box-content'>
-                                <h1>{countTasks()}</h1>
-                                <p>Tasks</p>
-                            </div>
-                            <div className='extra-content-box'>
-                                <p><span>{countDoneTasks()}</span> done</p>
-                                <p><span className='after-due'>{countLateTasks()}</span> after due</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='data-box number-of-todos'>
-                        <div className='data-box-content'>
-                            <h1>{countTodos()}</h1>
-                            <p>Todos</p>
-                        </div>
-                        <div className='extra-content-box'>
-                            <p><span>{countDoneTodos()}</span> done</p>
-                            <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
-                        </div>
-                    </div>
+                 
                     <div className='line-container'>
                         <LineChart />
                     </div>
