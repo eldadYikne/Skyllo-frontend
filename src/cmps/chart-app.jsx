@@ -147,14 +147,14 @@ export function Chart() {
     const getDoneTodosRatio = () => {
         const todosCount = countTodos()
         const doneTodos = countDoneTodos()
-        const res =  (doneTodos / todosCount)*100
+        const res = (doneTodos / todosCount) * 100
         return res.toFixed(0)
     }
 
     const getDoneTasksRatio = () => {
         const tasksCount = countTasks()
         const tasksDone = countDoneTasks()
-        const res = (tasksDone / tasksCount)*100
+        const res = (tasksDone / tasksCount) * 100
         return res.toFixed(0)
     }
     const countChecklists = () => {
@@ -239,13 +239,13 @@ export function Chart() {
                     </div>
                     <div className='data-precent-box'>
 
-                        <div style={{ width: 150, height: 100,position:'relative'}}>
+                        <div style={{ width: 150, height: 100, position: 'relative' }}>
                             <span>Tasks are done</span>
-                            <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={66} />
+                            <CircularProgressbar text={getDoneTasksRatio() + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={getDoneTasksRatio()} />
                         </div>
-                        <div style={{ width: 150, height: 100 ,position:'relative'}}>
-                        <span>Todos are done</span>
-                            <CircularProgressbar text={86 + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={86} />
+                        <div style={{ width: 150, height: 100, position: 'relative' }}>
+                            <span>Todos are done</span>
+                            <CircularProgressbar text={getDoneTodosRatio() + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={getDoneTodosRatio()} />
                         </div>
                     </div>
                 </div>
