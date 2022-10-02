@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Diagram } from './chart-diagram';
 import { useSelector } from 'react-redux';
+import { LineChart } from './line-chart';
 
 export function Chart() {
     const params = useParams()
@@ -68,86 +69,86 @@ export function Chart() {
     }
 
     const countTasks = () => {
-        
-        const sum =  board.groups.reduce((acc, group) => {
+
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.length
             return acc
-        },0)
+        }, 0)
         return sum
-        
+
     }
 
     const countDoneTasks = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.dueDate?.isDone) accumolator ++
+                if (task.dueDate?.isDone) accumolator++
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countLateTasks = () => {
         const today = Date.now()
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(!task.dueDate?.isDone && task.dueDate?.date < today) accumolator ++
+                if (!task.dueDate?.isDone && task.dueDate?.date < today) accumolator++
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
-    
+
     const countTodos = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
+                if (task.checklists) {
                     accumolator += task.checklists.reduce((a, checklist) => {
-                        if(checklist.todos) a += checklist.todos.length
+                        if (checklist.todos) a += checklist.todos.length
                         return a
-                    },0)
-                } 
+                    }, 0)
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countDoneTodos = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
+                if (task.checklists) {
                     accumolator += task.checklists.reduce((a, checklist) => {
-                        if(checklist.todos){
-                            a += checklist.todos.reduce((accu, todo)=> {
-                                if(todo.isDone) accu ++
+                        if (checklist.todos) {
+                            a += checklist.todos.reduce((accu, todo) => {
+                                if (todo.isDone) accu++
                                 return accu
-                            },0)
+                            }, 0)
                         }
                         return a
-                    },0)
-                } 
+                    }, 0)
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
     }
 
     const countChecklists = () => {
-        const sum =  board.groups.reduce((acc, group) => {
+        const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
-                if(task.checklists) {
-                  accumolator += task.checklists.length
-                } 
+                if (task.checklists) {
+                    accumolator += task.checklists.length
+                }
                 return accumolator
-            },0)
+            }, 0)
             return acc
-        },0)
-        return sum 
+        }, 0)
+        return sum
 
     }
 
@@ -161,72 +162,44 @@ export function Chart() {
         Tooltip,
         Legend
     );
+    const optionsDoughnut = {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                
+                labels: {
+                    color: 'white',
+                    font: {
+                        size: 14,
 
-
-    const dataDoughnut = {
-        labels: labelsBoardTitle,
-        options: {
-            scales: {
-                y: {
-                    ticks: {
-                        color: '#ffffff'
-                        }
                     }
                 }
-            }, 
-        datasets: [
-            {
-                label: '# of Votes',
-                data: labelsBoardTimeRemember,
-                backgroundColor: labelsBoardColors,
-                borderColor: '#ffffff',
-                borderWidth: 1,
-                color: '#ffffff'
-            },
+            }
+        }
+    }
+    
+
+    const dataDoughnut = {
+
+        labels: labelsBoardTitle,
+        datasets: [{
+            label: '# of Votes',
+            data: labelsBoardTimeRemember,
+            backgroundColor: labelsBoardColors,
+            borderColor: '#ffffff',
+            borderWidth: 3,
+            fontColor: "red"
+          
+        },
         ],
+
+
     }
 
     return (
         <section className='chart-view'>
             <h1 className='chart-view-header'>{board.title}</h1>
             <p>Created by Yaara Yehuda</p>
-            <section className='data-main-container'>
-                <div className='data-box number-of-members'>
-                    <div className='data-box-content'>
-                        <h1>{board.members.length}</h1>
-                        <p>Members</p>
-                    </div>
-                    <div className='image-container'>
-                        {board.members && 
-                        board.members.map(member =>{
-                            return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
-                          <div key={member?._id} className='avatar-img-guest-member-box'></div>
-
-                        })}
-                    </div>
-
-                </div>
-                <div className='data-box number-of-tasks'>
-                    <div className='data-box-content'>
-                    <h1>{countTasks()}</h1>
-                    <p>Tasks</p>
-                    </div>
-                    <div className='extra-content-box'>
-                        <p><span>{countDoneTasks()}</span> done</p>
-                        <p><span>{countLateTasks()}</span> after due</p>
-                    </div>
-                </div>
-                <div className='data-box number-of-todos'>
-                <div className='data-box-content'>
-                    <h1>{countTodos()}</h1>
-                    <p>Todos</p>
-                    </div>
-                    <div className='extra-content-box'>
-                        <p><span>{ countDoneTodos()}</span> done</p>
-                        <p><span>{countChecklists()}</span> checklists</p>
-                    </div>
-                </div>
-            </section>
             <Link key={board._id} to={`/workspace/board/${board._id}`}>
                 <div className='close-chart-modal'>
                     <CloseChart
@@ -234,14 +207,58 @@ export function Chart() {
                     />
                 </div>
             </Link>
-            <div className='charts-container'>
+
+            <div className='charts-all-container'>
+                <div className='charts-container'>
+
+                    <div className='diagram-container'>
+                        <Diagram  labelsBoardColors={labelsBoardColors} />
+                    </div>
+                    <div className='line-container'><LineChart  /></div>
+                </div>
                 <div className='doughnut-container'>
-                    <Doughnut data={dataDoughnut} />
+                    <Doughnut options={optionsDoughnut} data={dataDoughnut} />
                 </div>
-                <div className='diagram-container'>
-                    <Diagram />
-                </div>
+                <section className='data-main-container'>
+                    <div className='data-box number-of-members'>
+                        <div className='data-box-content'>
+                            <h1>{board.members.length}</h1>
+                            <p>Members</p>
+                        </div>
+                        <div className='image-container'>
+                            {board.members &&
+                                board.members.map(member => {
+                                    return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                                        <div key={member?._id} className='avatar-img-guest-member-box'></div>
+
+                                })}
+                        </div>
+
+                    </div>
+                    <div className='data-box number-of-tasks'>
+                        <div className='data-box-content'>
+                            <h1>{countTasks()}</h1>
+                            <p>Tasks</p>
+                        </div>
+                        <div className='extra-content-box'>
+                            <p><span>{countDoneTasks()}</span> done</p>
+                            <p><span className='after-due'>{countLateTasks()}</span> after due</p>
+                        </div>
+                    </div>
+                    <div className='data-box number-of-todos'>
+                        <div className='data-box-content'>
+                            <h1>{countTodos()}</h1>
+                            <p>Todos</p>
+                        </div>
+                        <div className='extra-content-box'>
+                            <p><span>{countDoneTodos()}</span> done</p>
+                            <p><span  className='checklists-count'>{countChecklists()}</span> checklists</p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
+
         </section>
 
     )

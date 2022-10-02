@@ -6,7 +6,7 @@ import { utilService } from "../../services/util.service"
 import { saveTask } from "../../store/board.actions"
 
 
-export const AttachmentCmp = ({ group, task }) => {
+export const AttachmentCmp = ({ group, task,setDynamicType }) => {
 
     const board = useSelector(state => state.boardModule.board)
     const user = useSelector(state => state.userModule.user)
@@ -17,12 +17,14 @@ export const AttachmentCmp = ({ group, task }) => {
 
 
     const onChangehandel = () => {
+        
         const urlNotImg = text.includes()
         if (!task.attachments) task.attachments = []
         if (!textTitle) return
         task.attachments.push(createAttachment(textTitle, text))
         const taskToUpdate = structuredClone(task)
         dispatch(saveTask(board._id, group.id, task, {text: 'added an attachment', user}))
+        setDynamicType('')
     }
    
     const onUploadImg = async (ev) => {
@@ -34,6 +36,8 @@ export const AttachmentCmp = ({ group, task }) => {
                 ...task, attachments: [...task.attachments, createAttachment(data.original_filename, data.secure_url)]
             }
             dispatch(saveTask(board._id, group.id, taskToUpdate, {text: 'uploaded image', user}))
+            setDynamicType('')
+
         } catch (err) {
             console.log(err);
         }

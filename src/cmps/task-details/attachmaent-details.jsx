@@ -20,16 +20,13 @@ export const AttachmentDetails = ({ group, task, getBgColorOfImg }) => {
 
     const onRemoveAttachment = (attachmentId) => {
         const newAttachments = task.attachments.filter(attachment => attachment.id !== attachmentId)
-        console.log(newAttachments, 'newAttachments')
         task.attachments = newAttachments
         const newTask = structuredClone(task)
         dispatch(saveTask(board._id, group.id, newTask, { text: 'removed attachment', user: user }))
     }
     const onMakeCover = (attachmentUrl) => {
-        console.log(' task.cover.backgroundColor', task)
         if (!task.cover) task.cover={}
         if (!task.cover.backgroundColor) task.cover.backgroundColor = ''
-        console.log(' task.cover.backgroundColor', task.cover.backgroundColor)
         task.cover.backgroundColor = getBgColorOfImg(attachmentUrl, task)
         
         const taskToUpadet = { ...task, cover: { ...task.cover, color: attachmentUrl } }
@@ -39,7 +36,6 @@ export const AttachmentDetails = ({ group, task, getBgColorOfImg }) => {
     const onHandelChange = (ev) => {
         ev.preventDefault()
         setText(ev.target.value)
-        console.log(ev.target.value);
     }
     const onEdit = (attachmentId, ev) => {
         let currAttachment = task.attachments.find(attachment => attachment.id === attachmentId)
