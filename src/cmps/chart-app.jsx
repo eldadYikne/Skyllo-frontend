@@ -144,6 +144,19 @@ export function Chart() {
         return sum
     }
 
+    const getDoneTodosRatio = () => {
+        const todosCount = countTodos()
+        const doneTodos = countDoneTodos()
+        const res =  (doneTodos / todosCount)*100
+        return res.toFixed(0)
+    }
+
+    const getDoneTasksRatio = () => {
+        const tasksCount = countTasks()
+        const tasksDone = countDoneTasks()
+        const res = (tasksDone / tasksCount)*100
+        return res.toFixed(0)
+    }
     const countChecklists = () => {
         const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
