@@ -144,6 +144,19 @@ export function Chart() {
         return sum
     }
 
+    const getDoneTodosRatio = () => {
+        const todosCount = countTodos()
+        const doneTodos = countDoneTodos()
+        const res =  (doneTodos / todosCount)*100
+        return res.toFixed(0)
+    }
+
+    const getDoneTasksRatio = () => {
+        const tasksCount = countTasks()
+        const tasksDone = countDoneTasks()
+        const res = (tasksDone / tasksCount)*100
+        return res.toFixed(0)
+    }
     const countChecklists = () => {
         const sum = board.groups.reduce((acc, group) => {
             acc += group.tasks.reduce((accumolator, task) => {
@@ -224,10 +237,10 @@ export function Chart() {
                     <div className='data-precent-box'>
 
                         <div style={{ width: 100, height: 100, }}>
-                            <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={66} />
+                            <CircularProgressbar text={getDoneTasksRatio() + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={getDoneTasksRatio()} />
                         </div>
                         <div style={{ width: 100, height: 100 }}>
-                            <CircularProgressbar text={66 + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={66} />
+                            <CircularProgressbar text={getDoneTodosRatio() + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={getDoneTodosRatio()} />
                         </div>
                     </div>
                 </div>
