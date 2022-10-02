@@ -7,6 +7,13 @@
     background-color: #000000cd;
     color: white;
 
+    & .charts-title {
+        @include for-normal-layout {
+            margin-top: 2em;
+            padding-left: 6em;
+        }
+    }
+
     .chart-view-header {
         width: fit-content;
         margin: auto;
@@ -67,18 +74,31 @@
 
         & .data-upper-container {
             display: flex;
-            flex-direction: row;
-            gap: 4rem;
+            flex-direction: column;
+            gap: 2rem;
             margin: auto;
             align-self: flex-start;
+
+            @include for-normal-layout {
+                flex-direction: row;
+                gap: 4rem;
+
+
+
+            }
+
         }
 
         & .line-container {
-            display: flex;
+            display: none;
             justify-content: center;
             max-height: 500px;
             height: 250px;
             width: 600px;
+
+            @include for-normal-layout {
+                display: flex;
+            }
 
             & canvas {
                 margin-top: 2em;
@@ -174,14 +194,24 @@
         margin: auto;
         min-height: 600px;
 
+        place-items: flex-start;
+
+        @include for-normal-layout {
+            place-items: center;
+        }
 
         & .doughnut-container {
-            display: flex;
+            display: none;
             justify-content: center;
             max-width: 500px;
             max-height: 500px;
             height: 300px;
             width: 300px;
+
+            @include for-normal-layout {
+                display: flex;
+            }
+
         }
 
     }
@@ -199,7 +229,7 @@
     min-height: max-content;
     // border: 1px solid white;
     padding: 3em;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 3em;
@@ -209,8 +239,15 @@
 
     & .data-precent-box {
         display: flex;
-        gap: 2em;
+        gap: 6em;
         flex-direction: column;
+        text-align: center;
+
+        & span {
+            position: absolute;
+            top: -36px;
+            right: 25px;
+        }
     }
 
     @include for-normal-layout {
