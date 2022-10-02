@@ -196,7 +196,6 @@ export function Chart() {
 
     }
 
-
     return (
         <section className='chart-view'>
             <h1 className='chart-view-header'>{board.title}</h1>
