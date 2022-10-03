@@ -67,6 +67,7 @@
         gap: 1em;
         flex-direction: column;
         margin-top: 3rem;
+        padding-right: 6rem;
 
 
         & .diagram-container {
@@ -250,7 +251,6 @@
         max-height: 500px;
         height: 250px;
         width: 400px;
-        margin-right: 5rem;
 
         @include for-normal-layout {
             display: flex;
@@ -263,9 +263,9 @@
 
     & .data-precent-box {
         display: flex;
-        gap: 6em;
+        gap: 2em;
         text-align: center;
-
+        margin-top: 5rem;
         & span {
             position: absolute;
             top: -36px;
