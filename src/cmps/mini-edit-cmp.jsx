@@ -27,17 +27,17 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const dispatch = useDispatch()
     const params = useParams()
     const groupId = params.groupId
-    
+
     const user = useSelector(state => state.userModule.user)
 
-    const [mouseLocationTop,setMouseLocationTop] = useState(mouseLocation)
- 
+    const [mouseLocationTop, setMouseLocationTop] = useState(mouseLocation)
+
 
 
     const [dynamicType, setDynamicType] = useState('')
     const [title, setTitle] = useState('')
     const [taskMembers, setTaskMembers] = useState(null)
-   
+
     const [taskLabels, setTaskLabels] = useState(null)
     // const [bgColor, setBgColor] = useState(task.cover?.color ? `url(${task.cover.color})` : '')
     const [backgroundStyle, setBackgroundStyle] = useState(task.cover?.color?.length > 9 ? 'backgroundImage' : 'backgroundColor')
@@ -69,20 +69,20 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
     const getBgColorOfImg = async (url, taskToUpdate) => {
         try {
-          const currTask = structuredClone(taskToUpdate)
-          if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
-          const fac = new FastAverageColor();
-          const color = await fac.getColorAsync(url)
-          taskToUpdate.cover.backgroundColor = color.rgb;
-    
+            const currTask = structuredClone(taskToUpdate)
+            if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
+            const fac = new FastAverageColor();
+            const color = await fac.getColorAsync(url)
+            taskToUpdate.cover.backgroundColor = color.rgb;
+
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      }
-   
+    }
+
     // useEffect(()=>{
     //     console.log('mouseLocationnnnnnnnnn:', mouseLocation)
-        
+
     //     if (mouseLocation[0].y > 575) { setMouseLocationTop({y:mouseLocation[0].y-400, x:mouseLocation[0].x})}
     //     console.log('mouseLocatioxxxxxxxxxxxxx:', mouseLocation)
     // },[])
@@ -106,14 +106,14 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
         ev.stopPropagation()
         if (!title) return
         const taskToUpdate = { ...task, title: title }
-        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'update task',  user: user }))
+        dispatch(saveTask(board._id, group.id, taskToUpdate, { text: 'update task', user: user }))
         setIsMiniEditShown(false)
     }
 
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task, { text: 'deleted task',  user: user }))
+        dispatch(removeTask(board._id, group.id, task, { text: 'deleted task', user: user }))
         setIsMiniEditShown(false)
     }
 
@@ -131,7 +131,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
     const heightImg = task.cover?.color?.length > 9 ? '135px' : '32px'
 
-    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y-10, left: mouseLocation.x - 230 }} >
+    return <section className="mini-edit-task-container" style={{ top: mouseLocation.y - 10, left: mouseLocation.x - 230 }} >
         <div className='mini-edit-main-content'>
             <div className='mini-edit-cover'>
             </div>
@@ -143,20 +143,20 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
 
             <div className="mini-edit-main-card">
                 {taskLabels &&
-                        <div className="mini-edit-labels-list">
-                            {taskLabels.map(label => {
-                                return <div
-                                    onClick={onToggleLabels}
-                                    key={label.color}
-                                    className={labelsClass}
-                                    style={{ backgroundColor: label.color }}>
-                                    {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
-                                    {labelsOpen &&
-                                        <span>{label.title}</span>}
-                                </div>
-                            })}
-                        </div>
-              
+                    <div className="mini-edit-labels-list">
+                        {taskLabels.map(label => {
+                            return <div
+                                onClick={onToggleLabels}
+                                key={label.color}
+                                className={labelsClass}
+                                style={{ backgroundColor: label.color }}>
+                                {labelsOpen && <div className='labels-task-preview-mini-color' style={{ backgroundColor: utilService.lightenDarkenColor(label.color, -20) }}></div>}
+                                {labelsOpen &&
+                                    <span>{label.title}</span>}
+                            </div>
+                        })}
+                    </div>
+
                 }
 
                 <div className="mini-edit-textarea-container">
@@ -197,7 +197,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
                 Change members
             </button>
             <button className="mini-edit-actions-btn" name='cover' onClick={onClickEditAction}>
-                <CoverIcon />
+                <CoverIcon/>
                 Change cover
             </button>
             <button className="mini-edit-actions-btn" name='labels' onClick={onClickEditAction}>
