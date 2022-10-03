@@ -7,6 +7,14 @@
     background-color: #000000cd;
     color: white;
 
+    & .charts-title {
+        @include for-normal-layout {
+            margin-top: 2em;
+            padding-bottom: 1em;
+            margin: -8px;
+        }
+    }
+
     .chart-view-header {
         width: fit-content;
         margin: auto;
@@ -60,6 +68,20 @@
         flex-direction: column;
         margin-top: 3rem;
 
+
+        & .diagram-container {
+            display: flex;
+            justify-content: center;
+            max-width: 500px;
+            max-height: 500px;
+            height: 250px;
+            width: 400px;
+
+            & canvas {
+                margin-top: 6rem;
+            }
+        }
+
         @include for-normal-layout {
             flex-direction: column;
 
@@ -67,23 +89,21 @@
 
         & .data-upper-container {
             display: flex;
-            flex-direction: row;
-            gap: 4rem;
+            flex-direction: column;
+            gap: 21px;
             margin: auto;
             align-self: flex-start;
-        }
 
-        & .line-container {
-            display: flex;
-            justify-content: center;
-            max-height: 500px;
-            height: 250px;
-            width: 600px;
+            @include for-normal-layout {
+                flex-direction: row;
+                gap: 21px;
 
-            & canvas {
-                margin-top: 2em;
+
+
             }
+
         }
+
 
         .data-box {
             display: flex;
@@ -170,18 +190,35 @@
         justify-content: center;
         margin-top: 3rem;
         align-items: center;
-        max-width: 1300px;
         margin: auto;
         min-height: 600px;
 
+        max-width: 1300px;
+        height: 700px;
+        margin: auto;
+        place-items: flex-start;
+        overflow: hidden;
+
+        @include for-normal-layout {
+            place-items: center;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: #00000286;
+
+        }
 
         & .doughnut-container {
-            display: flex;
+            display: none;
             justify-content: center;
             max-width: 500px;
             max-height: 500px;
             height: 300px;
             width: 300px;
+
+            @include for-normal-layout {
+                display: flex;
+            }
+
         }
 
     }
@@ -199,7 +236,7 @@
     min-height: max-content;
     // border: 1px solid white;
     padding: 3em;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 3em;
@@ -207,10 +244,33 @@
     flex-direction: column;
     padding: 0;
 
+    & .line-container {
+        display: none;
+        justify-content: center;
+        max-height: 500px;
+        height: 250px;
+        width: 400px;
+        margin-right: 5rem;
+
+        @include for-normal-layout {
+            display: flex;
+        }
+
+        & canvas {
+            margin-top: 2em;
+        }
+    }
+
     & .data-precent-box {
         display: flex;
-        gap: 2em;
-        flex-direction: column;
+        gap: 6em;
+        text-align: center;
+
+        & span {
+            position: absolute;
+            top: -36px;
+            right: 25px;
+        }
     }
 
     @include for-normal-layout {
@@ -221,12 +281,4 @@
 
 
 
-    & .diagram-container {
-        display: flex;
-        justify-content: center;
-        max-width: 500px;
-        max-height: 500px;
-        height: 250px;
-        width: 400px;
-    }
 }
