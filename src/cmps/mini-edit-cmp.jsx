@@ -113,7 +113,7 @@ export const MiniEdit = ({ task, board, group, setIsMiniEditShown, getMemberBack
     const onRemoveTask = (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        dispatch(removeTask(board._id, group.id, task.id, { text: 'deleted task',  user: user }))
+        dispatch(removeTask(board._id, group.id, task, { text: 'deleted task',  user: user }))
         setIsMiniEditShown(false)
     }
 
