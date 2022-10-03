@@ -34,6 +34,10 @@
         margin-top: 0;
         text-overflow: ellipsis;
         margin-bottom: 4px;
+        margin-right: 166px;
+        @include for-normal-layout{
+            margin-right: 0px;
+        }
         & h3 {
             // font-size: 18px;
             // color: black;

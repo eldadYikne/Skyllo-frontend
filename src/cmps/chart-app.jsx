@@ -56,9 +56,9 @@ export function Chart() {
             })
             console.log('labelObjInBoard', labelObjInBoard)
             const labelsTitels = labelObjInBoard.map(label => label.title)
-            const labelsColors = labelObjInBoard.map(label => utilService.lightenDarkenColor(label.color,-10))
+            const labelsColors = labelObjInBoard.map(label => utilService.lightenDarkenColor(label.color, -10))
             console.log('labelsColors:', labelsColors)
-            
+
             console.log(labelsTitels);
             setlabelsBoardTitle(labelsTitels)
             setlabelsBoardColors(labelsColors)
@@ -147,14 +147,14 @@ export function Chart() {
     const getDoneTodosRatio = () => {
         const todosCount = countTodos()
         const doneTodos = countDoneTodos()
-        const res =  (doneTodos / todosCount)*100
+        const res = (doneTodos / todosCount) * 100
         return res.toFixed(0)
     }
 
     const getDoneTasksRatio = () => {
         const tasksCount = countTasks()
         const tasksDone = countDoneTasks()
-        const res = (tasksDone / tasksCount)*100
+        const res = (tasksDone / tasksCount) * 100
         return res.toFixed(0)
     }
     const countChecklists = () => {
@@ -217,8 +217,11 @@ export function Chart() {
 
     return (
         <section className='chart-view'>
-            <h1 className='chart-view-header'>{board.title}</h1>
-            <p>Created by Yaara Yehuda</p>
+            <div className='charts-title'>
+
+                <h1 className='chart-view-header'>{board.title}</h1>
+                <p>Created by Yaara Yehuda</p>
+            </div>
             {/* {board.createdBy.fullname ? <p>Created by {board.createdBy?.fullname}</p>: <p>Created by Guest</p>} */}
             <Link key={board._id} to={`/workspace/board/${board._id}`}>
                 <div className='close-chart-modal'>
@@ -231,15 +234,19 @@ export function Chart() {
             <div className='charts-all-container'>
                 <div className='charts-container'>
 
-                    <div className='diagram-container'>
-                        <Diagram labelsBoardColors={labelsBoardColors} />
+
+                    <div className='line-container'>
+                        <LineChart />
                     </div>
+
                     <div className='data-precent-box'>
 
-                        <div style={{ width: 100, height: 100, }}>
+                        <div style={{ width: 150, height: 100, position: 'relative' }}>
+                            <span>Tasks are done</span>
                             <CircularProgressbar text={getDoneTasksRatio() + '%'} styles={buildStyles({ textColor: '#f0f038', pathColor: ' #f0f038' })} value={getDoneTasksRatio()} />
                         </div>
-                        <div style={{ width: 100, height: 100 }}>
+                        <div style={{ width: 150, height: 100, position: 'relative' }}>
+                            <span>Todos are done</span>
                             <CircularProgressbar text={getDoneTodosRatio() + '%'} styles={buildStyles({ textColor: '#24eb24', pathColor: '#24eb24' })} value={getDoneTodosRatio()} />
                         </div>
                     </div>
@@ -247,16 +254,16 @@ export function Chart() {
 
                 <section className='data-main-container'>
                     <div className='data-upper-container'>
-                    <div className='data-box number-of-todos'>
-                        <div className='data-box-content'>
-                            <h1>{countTodos()}</h1>
-                            <p>Todos</p>
+                        <div className='data-box number-of-todos'>
+                            <div className='data-box-content'>
+                                <h1>{countTodos()}</h1>
+                                <p>Todos</p>
+                            </div>
+                            <div className='extra-content-box'>
+                                <p><span>{countDoneTodos()}</span> done</p>
+                                <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
+                            </div>
                         </div>
-                        <div className='extra-content-box'>
-                            <p><span>{countDoneTodos()}</span> done</p>
-                            <p><span className='checklists-count'>{countChecklists()}</span> checklists</p>
-                        </div>
-                    </div>
                         <div className='data-box number-of-tasks'>
                             <div className='data-box-content'>
                                 <h1>{countTasks()}</h1>
@@ -269,23 +276,23 @@ export function Chart() {
                         </div>
                     </div>
                     <div className='data-box number-of-members'>
-                            <div className='data-box-content'>
-                                <h1>{board.members.length}</h1>
-                                <p>Members</p>
-                            </div>
-                            <div className='image-container'>
-                                {board.members &&
-                                    board.members.map(member => {
-                                        return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
-                                            <div key={member?._id} className='avatar-img-guest-member-box'></div>
-
-                                    })}
-                            </div>
-
+                        <div className='data-box-content'>
+                            <h1>{board.members.length}</h1>
+                            <p>Members</p>
                         </div>
-                 
-                    <div className='line-container'>
-                        <LineChart />
+                        <div className='image-container'>
+                            {board.members &&
+                                board.members.map(member => {
+                                    return member?.img ? <div className='task-details-member-box' key={member?._id} style={{ background: getMemberBackground(member) }}></div> :
+                                        <div key={member?._id} className='avatar-img-guest-member-box'></div>
+
+                                })}
+                        </div>
+
+                    </div>
+
+                    <div className='diagram-container'>
+                        <Diagram labelsBoardColors={labelsBoardColors} />
                     </div>
 
                 </section>
