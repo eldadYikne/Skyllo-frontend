@@ -35,7 +35,9 @@ export const CoverCmp = ({ task, getBgColorOfImg }) => {
         }
         if(!task.cover)task.cover={}
         if(!task.cover.backgroundColor)task.cover.backgroundColor=''
-        task.cover.backgroundColor = getBgColorOfImg(color, task)
+        task.cover.backgroundColor = getBgColorOfImg(color)
+        console.log(task);
+        console.log('color',color)
         
         const taskToUpdate = { ...task, cover: { ...task.cover, color } }
         if(color.length>9){

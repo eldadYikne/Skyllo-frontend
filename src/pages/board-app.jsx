@@ -1,7 +1,7 @@
 // import React, { useEffect } from 'react'
 // import { connect } from 'react-redux'
 // import { loadBoards, addBoard, updateBoard, removeBoard } from '../store/board.actions.js'
-
+import React from 'react'
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -16,6 +16,8 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Popover } from "../cmps/popover-cmp";
 import { LoaderSkyllo } from "../cmps/loader-cmp";
 import { FastAverageColor } from "fast-average-color";
+import { AppHeader } from "../cmps/app-header";
+import { HomePageHeader } from '../cmps/header-home-page';
 // import { boardService } from '../services/board.service.js'
 
 export function BoardApp() {
@@ -23,6 +25,7 @@ export function BoardApp() {
     const params = useParams()
     const dispatch = useDispatch()
     const board = useSelector(state => state.boardModule.board)
+    const [headerColor, setHeaderColor] = useState()
 
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
@@ -74,12 +77,11 @@ export function BoardApp() {
         getBgColorOfImg(boardImg, board)
 
     }
+
     const getBgColorOfImg = async (url, board) => {
         console.log('board', board)
         if (!board) return
         try {
-
-            // if(!board.style.backgroundColor)board.style.backgroundColor = ''
             if (board.style?.bgImg.length > 9) {
                 const fac = new FastAverageColor();
                 const color = await fac.getColorAsync(url)
@@ -88,12 +90,14 @@ export function BoardApp() {
                 const color = hexToRgb(board.style?.bgImg)
                 board.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
             }
-            const newBoard = structuredClone(board)
-            // dispatch(updateBoard(newBoard))
+            setHeaderColor(board.style.backgroundColor)
+
         } catch (err) {
             console.log(err);
 
         }
+        return headerColor
+
     }
 
     onChangeHeaderColor(board)
@@ -109,38 +113,43 @@ export function BoardApp() {
 
 
     if (!board) return <LoaderSkyllo />
-    // if (!board.style.backgroundColor) return <LoaderSkyllo />
     let backgroundStyle = board?.style?.bgImg.length > 9 ? 'backgroundImage' : 'backgroundColor'
     const pageHeigth = user ? '124px' : '140px'
-    return <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
 
 
-        <div className="board-app" >
-            <BoardHeader board={board} />
-            <Popover board={board} />
-            <DragDropContext onDragEnd={onDragEnd}>
-
-                <Droppable droppableId='all-groups' direction="horizontal" type="group">
-                    {(provided) => {
-                        return <li className='list-move-group'
-                            // style={{ maxHeight: `calc(100vh - ${pageHeigth})` }}
-                            {...provided.draggableProps}
-                            ref={provided.innerRef} >
-
-                            <GroupList board={board} >
-                            </GroupList>
-                            {provided.placeholder}
-
-                        </li>
-                    }}
-                </Droppable>
-            </DragDropContext>
+    return <React.Fragment>
+        {!user && <HomePageHeader />}
+        {user && <AppHeader  headerColor={headerColor} board={board} />}
+        <div style={{ [backgroundStyle]: board?.style?.bgImg, objectFit: 'cover', backgroundSize: 'cover' }} className="main">
 
 
-            <Outlet />
+            <div className="board-app" >
+                <BoardHeader board={board} />
+                <Popover board={board} />
+                <DragDropContext onDragEnd={onDragEnd}>
 
-        </div>
-    </div >
+                    <Droppable droppableId='all-groups' direction="horizontal" type="group">
+                        {(provided) => {
+                            return <li className='list-move-group'
+                                // style={{ maxHeight: `calc(100vh - ${pageHeigth})` }}
+                                {...provided.draggableProps}
+                                ref={provided.innerRef} >
+
+                                <GroupList board={board} >
+                                </GroupList>
+                                {provided.placeholder}
+
+                            </li>
+                        }}
+                    </Droppable>
+                </DragDropContext>
+
+
+                <Outlet />
+
+            </div>
+        </div >
+    </React.Fragment>
 }
 
 

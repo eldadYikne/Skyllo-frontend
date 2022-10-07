@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Logo from '../assets/img/trello-logo-Sign-up.png'
 import { useDispatch } from 'react-redux'
 import { uploadService } from '../services/upload.service'
+import React from 'react'
 
 
 import { GoogleLogin } from '@react-oauth/google'
@@ -20,6 +21,7 @@ import { ReactComponent as GuestIcon } from '../assets/img/activity-icon.svg'
 import { ReactComponent as GoogleIcon } from '../assets/img/google-icon.svg'
 import { utilService } from '../services/util.service'
 import { LoaderSkyllo } from './loader-cmp'
+import { HomePageHeader } from './header-home-page'
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '', imgUrl: '' })
@@ -98,8 +100,6 @@ export function LoginSignup() {
 
         dispatch(onSignup(userCred))
 
-        // console.log('decodeAAAAAAA:', credentialResponse
-        // )
 
         navigate('/workspace')
 
@@ -119,7 +119,9 @@ export function LoginSignup() {
 
     if (isSignup === null) return <LoaderSkyllo/>
 
-    return (
+    return ( <React.Fragment>
+         <HomePageHeader />
+
         <div className="login-sign-up-page">
             <div className='login-page-header'>
                 <img
@@ -288,5 +290,6 @@ export function LoginSignup() {
                 <RightImageSvg/>
             </div> */}
         </div>
+    </React.Fragment>
     )
 }

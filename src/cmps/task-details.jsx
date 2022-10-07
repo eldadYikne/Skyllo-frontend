@@ -37,14 +37,39 @@ export function TaskDetails() {
   const taskId = params.taskId
   const group = board.groups.find(group => group.id === groupId)
   const task = group.tasks?.find(task => task.id === taskId)
+  const [newColor, setNewColor] = useState()
 
-  // const bgColor = task.cover?.color ? task.cover.color.length > 9 ? '#fffff' : task.cover.color : ''
-  const bgColorDetailsHedear = task.cover?.color?.length > 9 ? task?.cover?.backgroundColor : task.cover?.color
-  let bgColor = task.cover?.color ? bgColorDetailsHedear : ''
+  
+  useEffect(()=>{
+    if(task.cover?.color?.length > 9){
+  getBgColorOfImg(task.cover?.color)
+  console.log('taskk',task)
+  
+}else if(task.cover?.color?.length < 9 &&task.cover?.color?.length>0 ){
+  setNewColor(task.cover?.color)
+  
+}
+},[])
 
+  const getBgColorOfImg = async (url) => {
+    console.log('url',url)
 
-  let backgroundStyle = bgColor?.length > 9 ? 'backgroundImage' : 'backgroundColor'
+    try {
+      const fac = new FastAverageColor();
+      const color = await fac.getColorAsync(url)
+      console.log('color',color);
+      setNewColor(color.rgb)
+    } catch (err) {
+      console.log('url',url)
 
+      console.log(err);
+      return '#fffff'
+    }
+    return newColor
+    
+  }
+  console.log('newColor',newColor);
+  
   const [isDescription, setIsDescription] = useState(false)
   const [isChecklist, setIsChecklist] = useState(false)
   const [dynamicType, setDynamicType] = useState('')
@@ -163,30 +188,13 @@ export function TaskDetails() {
     else onSaveTask('Marked task as uncomplete')
   }
 
-  const getBgColorOfImg = async (url, taskToUpdate) => {
-    try {
 
-      const currTask = structuredClone(taskToUpdate)
-      if (!taskToUpdate.cover.backgroundColor) taskToUpdate.cover.backgroundColor = ''
-      const fac = new FastAverageColor();
-      const color = await fac.getColorAsync(url)
-      taskToUpdate.cover.backgroundColor = color.rgb;
-      // dispatch(saveTask(board._id, group.id, task, { text: 'change task image', user: user }))
-      bgColor = color.rgb
-      return color.rgb
-    } catch (err) {
-      return '#fffff'
-
-      console.log(err);
-    }
-  }
-
-
+  if (!board) return <LoaderSkyllo />
   if (!task) return <LoaderSkyllo />
   return (
     <section className='task-details-view'>
       <div className='task-details-modal'>
-        {task.cover?.color && <div style={{ background: bgColor }} className='details-bgColor'>
+        {task.cover?.color && <div style={{ background: newColor }} className='details-bgColor'>
           {task.cover?.color.length > 9 && <img src={task.cover?.color} />}
           <button className='side-bar-action-btn-inCover' onClick={() => setDynamicType('cover')}>
             <CoverIcon /> Cover

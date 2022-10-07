@@ -27,7 +27,7 @@ export const AttachmentDetails = ({ group, task, getBgColorOfImg }) => {
     const onMakeCover = (attachmentUrl) => {
         if (!task.cover) task.cover={}
         if (!task.cover.backgroundColor) task.cover.backgroundColor = ''
-        task.cover.backgroundColor = getBgColorOfImg(attachmentUrl, task)
+        task.cover.backgroundColor = getBgColorOfImg(attachmentUrl)
         
         const taskToUpadet = { ...task, cover: { ...task.cover, color: attachmentUrl } }
 

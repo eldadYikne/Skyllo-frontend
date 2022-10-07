@@ -4,29 +4,21 @@ import React from 'react'
 import { Routes, Route } from 'react-router'
 
 
-import { AppHeader } from './cmps/app-header'
 import { HomePage } from './pages/home-page'
 import { WorkSpace } from './pages/workspace'
 import { LoginSignup, Signup } from './cmps/user-signup'
 import { TaskDetails } from './cmps/task-details'
 import { BoardApp } from './pages/board-app'
-import { useSelector } from 'react-redux'
-import { HomePageHeader } from './cmps/header-home-page'
+
 import { Chart } from './cmps/chart-app'
 
 
 export const RootCmp = () => {
-    const user = useSelector(state => state.userModule.user)
-    const board = useSelector(state => state.boardModule.board)
 
 
     return (
         <div className='root-cmp'>
-            {!user && <HomePageHeader />}
-            {user && <AppHeader board={board} />}
-
-            {/* <div className='black-screen'></div> */}
-
+          
             <main className='main-app' >
                 <Routes>
                     <Route path='/' element={<HomePage />} />

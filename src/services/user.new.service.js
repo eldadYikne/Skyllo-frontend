@@ -71,5 +71,6 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
+    if(!sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))return
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }

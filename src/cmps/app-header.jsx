@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { Link, NavLink, useParams } from 'react-router-dom'
+import { Link,  useNavigate } from 'react-router-dom'
 import Logo from '../assets/img/logo.gif'
 import { onLogout } from '../store/user.actions'
 
 
-export function AppHeader({ board }) {
+export function AppHeader({ board, headerColor }) {
 
   const user = useSelector(state => state.userModule.user)
   const [userModalOpen, setUserModalOpen] = useState(false)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   let bgHeaderColor = board ? board.style?.backgroundColor : '#0065ff'
 
   useEffect(() => {
@@ -23,12 +23,14 @@ export function AppHeader({ board }) {
 
 
   const onClickLogout = () => {
+    navigate('/')
+    console.log('onClickLogout');
     dispatch(onLogout())
   }
 
 
   return (
-    <header style={{ backgroundColor: bgHeaderColor }} className='app-header'>
+    <header style={{ backgroundColor: headerColor }} className='app-header'>
       <section className='logo-hedear-container'>
 
         <div className='logo-container'>
@@ -66,7 +68,7 @@ export function AppHeader({ board }) {
               }
             </div>
             <div className='user-modal-details'>
-              <Link to='/login'>
+              <Link to='/workspace'>
                 <div className='user-modal-signup' onClick={onClickLogout}>
                   Logout
                 </div>

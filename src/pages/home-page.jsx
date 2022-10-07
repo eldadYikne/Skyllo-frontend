@@ -3,10 +3,18 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as TagIcon } from '../assets/img/tag.svg'
 import { ReactComponent as SolutionsIcon } from '../assets/img/solutions.svg'
 import { ReactComponent as CompassIcon } from '../assets/img/compass.svg'
+import { HomePageHeader } from '../cmps/header-home-page'
+import { useSelector } from 'react-redux'
+import { AppHeader } from '../cmps/app-header'
 
 
 export const HomePage = () => {
-  return (
+  const user = useSelector(state => state.userModule.user)
+
+  return ( 
+     <React.Fragment>
+    {!user &&  <HomePageHeader />}
+    {user && <AppHeader />}  
     <section className="home-page-main-container">
 
       <section className='home-page-container'>
@@ -69,5 +77,6 @@ export const HomePage = () => {
 
       </section>
     </section>
+    </React.Fragment>
   )
 }
