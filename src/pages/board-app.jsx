@@ -29,9 +29,12 @@ export function BoardApp() {
 
     useEffect(() => {
         dispatch(getCurrBoard(params.boardId))
+
         return () => { dispatch(updateBoard(null)) }
     }, [])
-
+useEffect(()=>{
+   if(board) onChangeHeaderColor(board)
+},[board.style])
     const user = useSelector(state => state.userModule.user)
 
 
@@ -86,6 +89,8 @@ export function BoardApp() {
                 const fac = new FastAverageColor();
                 const color = await fac.getColorAsync(url)
                 board.style.backgroundColor = color.rgb;
+                console.log(' board.style.backgroundColor ', board.style.backgroundColor )
+                
             } else if (board.style?.bgImg) {
                 const color = hexToRgb(board.style?.bgImg)
                 board.style.backgroundColor = ` rgba(${color.r},${color.g},${color.b},.45)`
@@ -100,7 +105,6 @@ export function BoardApp() {
 
     }
 
-    onChangeHeaderColor(board)
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
