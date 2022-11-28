@@ -40,7 +40,7 @@ All the functionality that you have in Trello. D&D, live-updates, editing tasks 
 <img width="959" alt="details" src="https://user-images.githubusercontent.com/109578899/195812325-3c7130c7-06a5-4052-87da-069385f281d9.png">
 
 ### Dashboard
-Special user interface, that displays a set of indicators, graphs, digital data, related to a task
+Special user interface,that displays a set of indicators, graphs, digital data, related to a task
 <img width="959" alt="DASH" src="https://user-images.githubusercontent.com/109578899/195817711-eeee2a67-a96b-4c80-ae7f-2a6e70ae68c3.png">
 
 ### Mini Edit
