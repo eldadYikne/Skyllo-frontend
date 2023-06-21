@@ -1,5 +1,5 @@
 # Skyllo - pixel perfect, E2E clone of Trello.com (React + Node.js).
-Kanban-style task management board app inspired by trello.com, [Here is my project link]([https://skyllo.herokuapp.com](https://skyllo.onrender.com/) "Skyllo link").
+Kanban-style task management board app inspired by trello.com, [Here is my project link]([https://skyllo.onrender.com] "Skyllo link").
 
 <img width="959" alt="details" src="https://user-images.githubusercontent.com/109578899/195812325-3c7130c7-06a5-4052-87da-069385f281d9.png">
 
